@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
+import 'antd/dist/antd.css';
+import './index.css';
+import { Card, Col, Row } from 'antd';
+
+ReactDOM.render(
+  <div style={{ background: '#ECECEC', padding: '30px' }}>
+    <Row gutter={16}>
+      <Col span={8}>
+        <Card title="Card title" bordered={false}>
+          Card content
+        </Card>
+      </Col>
+      <Col span={8}>
+        <Card title="Card title" bordered={false}>
+          Card sdgljk;nhgdszfjk.bhgfwesujikhlgvskj,bfssfbgks
+        </Card>
+      </Col>
+      <Col span={8}>
+        <Card title="Card title" bordered={false}>
+          Card content
+        </Card>
+      </Col>
+    </Row>
+  </div>,
+  document.getElementById('container'),
+);
+          
 
 export default App;

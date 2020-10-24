@@ -1,0 +1,19 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.component--item_card {
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+  margin: 10px 0;
+}
+.image--itemcard {
+  float: left;
+  width: 100px;
+  margin-right: 10px;
+  border-right: 1px solid #ddd;
+}
