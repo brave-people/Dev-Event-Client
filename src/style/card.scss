@@ -1,0 +1,82 @@
+@import './variable';
+
+.card {
+  height: 540px;
+  margin: 16px;
+  flex: 0 0 25%;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: $color__white;
+  box-shadow: 0 7px 26px 0px rgba(0,0,0,0.4);
+  @include border-radius;
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    @include border-radius;
+  }
+
+  &__column {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-left: 96px;
+  }
+
+  &__text {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: 16px;
+    z-index: 9;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: right;
+
+    h2 {
+      word-break: keep-all;
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+
+  &__text--date {
+    text-align: right;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  &__tag {
+    font-size: 13px;
+    padding: 0 16px;
+    position: absolute;
+    top: 16px;
+    display: flex;
+    align-items: center;
+
+    &__image {
+      width: 16px;
+      margin-right: 8px;
+    }
+
+    span {
+      padding-right: 4px;
+      border-bottom: 1px solid $color__pink;
+    }
+  }
+
+  @media (max-width: $lg) {
+    margin: 2vw;
+
+    &__column {
+      margin-left: 0;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

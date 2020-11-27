@@ -1,0 +1,13 @@
+@import './card';
+@import './navigation';
+
+#circle {
+  width: 36px;
+  height: 36px;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  transition: .4s cubic-bezier(.165,.84,.44,1),opacity .4s cubic-bezier(.165,.84,.44,1),visibility .4s cubic-bezier(.165,.84,.44,1);
+  border: 1px solid $color__sky;
+  border-radius: 100px;
+  z-index: 999;
+}

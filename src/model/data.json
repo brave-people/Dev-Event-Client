@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "title": "리얼리눅스12월 무료세미나 (Live 온라인)",
+    "description": "GitHub 오픈소스 포트폴리오",
+    "startDate": "2020.12.02",
+    "endDate": "",
+    "owner": "리얼리눅스",
+    "tags": "웨비나,온라인,오픈소스",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201200.jpg"
+  },
+  {
+    "id": 1,
+    "title": "대한민국 소프트웨어 대전 2020",
+    "description": "",
+    "startDate": "2020.12.02",
+    "endDate": "2020.12.04",
+    "owner": "소프트웨이브 조직위원",
+    "tags": "컨퍼런스,오프라인,다양한",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201201.jpg"
+  },
+  {
+    "id": 2,
+    "title": "오픈소스 현실을 알려줄게!",
+    "description": "",
+    "startDate": "2020.12.05T14:00",
+    "endDate": "2020.12.04T16:00",
+    "owner": "OSS 개발자모임",
+    "tags": "웨비나,온라인,오픈소스",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201202.jpg"
+  }
+]

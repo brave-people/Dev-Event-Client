@@ -1,0 +1,18 @@
+// responsive
+$sm: 460px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1280px;
+$xl2: 1536px;
+
+// color set
+$color__white: #fffffe;
+$color__black: #0a0a0a;
+$color__gray: #211f1f;
+$color__sky: #C7E7EB;
+$color__pink: #EFC4BA;
+
+// border
+@mixin border-radius {
+  border-radius: 20px;
+}
