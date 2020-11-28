@@ -5,3 +5,7 @@ body {
     background-color: #171515;
     margin-bottom: 60px;
 }
+
+h2, p {
+    margin: 0;
+}

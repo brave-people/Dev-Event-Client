@@ -28,5 +28,26 @@
     "owner": "OSS 개발자모임",
     "tags": "웨비나,온라인,오픈소스",
     "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201202.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Agile Korea Conference 2020",
+    "description": "",
+    "startDate": "2020.12.04T13:00",
+    "endDate": "2020.12.04T18:00",
+    "owner": "애자일코리아",
+    "tags": "온라인,컨퍼런스,애자일",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201203.png"
+  },
+  {
+    "id": 4,
+    "title": "파스-타 기반 서비스 개발 및 아이디어 공모전",
+    "description": "",
+    "startDate": "2020.12.06",
+    "endDate": "",
+    "owner": "",
+    "tags": "해커톤",
+    "link": "http://paas-ta.co.kr/info.jsp",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201204.jpg"
   }
 ]
