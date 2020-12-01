@@ -10,6 +10,8 @@
   background-position: center;
   color: $color__white;
   box-shadow: 0 7px 26px 0px rgba(0,0,0,0.4);
+  transition: 0.2s ease;
+  overflow: hidden;
   @include border-radius;
 
   &::before {
@@ -20,7 +22,16 @@
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.6);
+    transition: 0.2s ease;
     @include border-radius;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    &::before {
+      background-color: rgba(0, 0, 0, 0.55);
+    }
   }
 
   &__column {
@@ -38,6 +49,7 @@
     font-size: 14px;
     font-weight: 300;
     text-align: right;
+    pointer-events: none;
 
     h2 {
       word-break: keep-all;
@@ -74,11 +86,23 @@
     }
   }
 
+  @media (min-width: 1920px) {
+    &__column {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
   @media (max-width: $lg) {
     margin: 2vw;
 
     &__column {
-      margin-left: 0;
+      margin: 1vw;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: $md) {
+    &__column {
       grid-template-columns: repeat(2, 1fr);
     }
   }

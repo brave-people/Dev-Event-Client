@@ -6,5 +6,7 @@ export interface CardModel {
   endDate: string,
   owner: string,
   tags: string,
-  thumbnail: string
+  thumbnail: string,
+  link: string,
+  linkDetail?: string,
 }

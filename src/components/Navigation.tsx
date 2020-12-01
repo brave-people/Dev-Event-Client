@@ -6,7 +6,7 @@ type NavigationProps = {
 
 const Navigation: React.FC<NavigationProps> = () => (
   <nav className={'nav'}>
-    <div className={'nav__box'}><span>12</span></div>
+    <div className={'nav__box'}><span>{new Date().getMonth() + 1}</span></div>
     <p className={'nav__text nav__text--active'}>2020 event</p>
     <p className={'nav__text'}>education</p>
     <p className={'nav__text'}>meet</p>

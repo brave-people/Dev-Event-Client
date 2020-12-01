@@ -7,47 +7,74 @@
     "endDate": "",
     "owner": "리얼리눅스",
     "tags": "웨비나,온라인,오픈소스",
-    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201200.jpg"
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201200.jpg",
+    "link": "https://festa.io/events/1291"
   },
   {
     "id": 1,
+    "title": "2021 모바일 프런티어 콘퍼런스",
+    "description": "",
+    "startDate": "2020.12.02T09:00",
+    "endDate": "2020.12.02T16:00",
+    "owner": "과학기술정보통신",
+    "tags": "웨비나,온라인,모바일",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201202.jpg",
+    "link": "https://event.hankyung.com/seminar/mfc2021/"
+  },
+  {
+    "id": 2,
     "title": "대한민국 소프트웨어 대전 2020",
     "description": "",
     "startDate": "2020.12.02",
     "endDate": "2020.12.04",
     "owner": "소프트웨이브 조직위원",
     "tags": "컨퍼런스,오프라인,다양한",
-    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201201.jpg"
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201201.jpg",
+    "link": "http://www.k-softwave.com/main.asp"
   },
   {
-    "id": 2,
+    "id": 3,
+    "title": "쿠버네티스로 시작해보는 워드프레스",
+    "description": "",
+    "startDate": "2020.12.03T11:00",
+    "endDate": "2020.12.03T11:00",
+    "owner": "네이버클라우드 플랫폼",
+    "tags": "웨비나,온라인,클라우드",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201206.png",
+    "link": "https://register.gotowebinar.com/register/4948861565717433868"
+  },
+  {
+    "id": 4,
     "title": "오픈소스 현실을 알려줄게!",
     "description": "",
     "startDate": "2020.12.05T14:00",
     "endDate": "2020.12.04T16:00",
     "owner": "OSS 개발자모임",
     "tags": "웨비나,온라인,오픈소스",
-    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201202.jpg"
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201202.jpg",
+    "link": "https://festa.io/events/1316"
   },
   {
-    "id": 3,
+    "id": 5,
     "title": "Agile Korea Conference 2020",
     "description": "",
     "startDate": "2020.12.04T13:00",
     "endDate": "2020.12.04T18:00",
     "owner": "애자일코리아",
     "tags": "온라인,컨퍼런스,애자일",
-    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201203.png"
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201203.png",
+    "link": "https://festa.io/events/1253",
+    "linkDetail": "https://www.notion.so/Agile-Korea-Conference-2020-b503ed32e0ee492696f966d617da10ea"
   },
   {
-    "id": 4,
+    "id": 6,
     "title": "파스-타 기반 서비스 개발 및 아이디어 공모전",
     "description": "",
     "startDate": "2020.12.06",
     "endDate": "",
     "owner": "",
     "tags": "해커톤",
-    "link": "http://paas-ta.co.kr/info.jsp",
-    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201204.jpg"
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201204.jpg",
+    "link": "http://paas-ta.co.kr/info.jsp"
   }
 ]

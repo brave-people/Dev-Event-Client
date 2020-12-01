@@ -13,13 +13,17 @@ function Home() {
     circle.style.transform = `translate(${e.x}px, ${e.y}px)`
   });
 
+  const filterCardData = CardData.filter(card => {
+    return card.startDate.split('.')[1] === String(new Date().getMonth() + 1);
+  })
+
   return (
     <div>
       <div id={'circle'}></div>
       {/*<ScrollElement />*/}
       {/*<Filter filter={filter} />*/}
-      <Card cards={CardData} />
-      <Navigation />
+      <Card cards={filterCardData}/>
+      <Navigation/>
     </div>
   );
 }
