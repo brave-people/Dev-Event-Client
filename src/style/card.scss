@@ -69,15 +69,18 @@
     position: absolute;
     top: 16px;
     display: flex;
-    align-items: center;
+    align-items: baseline;
 
     &__image {
       width: 16px;
       margin-right: 8px;
+      position: relative;
+      top: 2px;
     }
 
     span {
       margin-right: 4px;
+      display: inline-flex;
       border: 1px solid $color__pink;
       border-radius: 100px;
       padding: 0 6px;
