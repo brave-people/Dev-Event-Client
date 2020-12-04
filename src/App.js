@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import {BrowserRouter, Switch, Route} from "react-router-dom";
+import SplashScreen from './components/Splash'
 import Home from './views/Home.js'
 import Education from './views/Education'
-import './App.css';
 import Navigation from "./components/Navigation";
+import './App.scss';
 
 
 function App() {
@@ -13,16 +14,19 @@ function App() {
   });
 
   return (
-    <BrowserRouter>
+    <div>
       <div id={'circle'}></div>
-      <div>
-        <Switch>
-          <Route exact path={"/"} component={Home} />
-          <Route path={"/education"} component={Education} />
-        </Switch>
-        <Navigation list={''} />
-      </div>
-    </BrowserRouter>
+      <SplashScreen/>
+      <BrowserRouter>
+        <div>
+          <Switch>
+            <Route exact path={"/"} component={Home}/>
+            <Route path={"/education"} component={Education}/>
+          </Switch>
+          <Navigation list={''}/>
+        </div>
+      </BrowserRouter>
+    </div>
   );
 }
 

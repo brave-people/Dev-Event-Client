@@ -1,0 +1,150 @@
+.splash {
+  &__wrap {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background-color: $color__gray-80;
+    z-index: 999;
+    transition: 0.2s ease;
+  }
+
+  &__hello {
+    width: 220px;
+    height: 220px;
+    position: fixed;
+    top: calc(50% - 110px);
+    left: calc(50% - 110px);
+    border: 1px solid $color__white;
+    border-radius: 100%;
+    z-index: 0;
+
+    p {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: 600;
+      color: white;
+      text-transform: uppercase;
+    }
+  }
+
+  &__circle {
+    &--00 {
+      width: 90vw;
+      height: 90vw;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 100px solid $color__white;
+      border-radius: 100%;
+      box-sizing: border-box;
+      animation: circle00 2s;
+      opacity: 0;
+    }
+
+    &--01 {
+      width: 10vw;
+      height: 10vw;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 30px solid $color__gray-80;
+      border-radius: 100%;
+      box-sizing: border-box;
+      animation: circle01 2s ease-in-out;
+      animation-delay: 2.5s;
+      opacity: 0;
+    }
+
+    &--02 {
+      width: 10vw;
+      height: 10vw;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 50px solid $color__black;
+      border-radius: 100%;
+      box-sizing: border-box;
+      animation: circle02 2s linear;
+      animation-delay: 2s;
+      opacity: 0;
+    }
+  }
+}
+
+#spinner {
+  width: 80vw;
+  height: 80vw;
+  position: fixed;
+  top: calc(50% - 40vw);
+  left: calc(50% - 40vw);
+  border-radius: 100%;
+  box-sizing: border-box;
+  transform: rotate(0deg);
+  animation: circle__spinner 2.5s linear;
+  animation-delay: 1s;
+  opacity: 0;
+
+  .cls-1 {
+    fill: none;
+  }
+}
+
+@keyframes #{"circle00"} {
+  0%, 50% {
+    width: 100vw;
+    height: 100vw;
+    border-width: 1px;
+    border-color: $color__pink;
+    transition: 0.2s ease;
+    opacity: 1;
+  }
+
+  50%, 100% {
+    width: 10vw;
+    height: 10vw;
+    transition: 0.2s ease;
+  }
+}
+
+@keyframes #{"circle01"} {
+  0%, 50% {
+    opacity: 1;
+  }
+
+  50%, 100% {
+    width: 1000vw;
+    height: 1000vw;
+    border-width: 10000px;
+    border-color: #000;
+  }
+}
+
+@keyframes #{"circle02"} {
+  0%, 50% {
+    opacity: 1;
+  }
+
+  50%, 100% {
+    border-width: 400px;
+    //opacity: 0;
+  }
+}
+
+@keyframes #{"circle__spinner"} {
+  0%, 50% {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  50%, 100% {
+    opacity: 0;
+    transform: rotate(360deg);
+  }
+}

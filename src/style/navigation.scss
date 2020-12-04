@@ -55,10 +55,11 @@
   }
 
   @media (max-width: $lg) {
-    width: 100%;
+    width: calc(100% - 4vw);
     height: 60px;
     top: inherit;
-    bottom: 0;
+    bottom: 1vw;
+    left: 2vw;
     display: flex;
 
     &__box {

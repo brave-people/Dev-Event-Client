@@ -15,6 +15,10 @@ function Home() {
     <div>
       {/*<ScrollElement />*/}
       {/*<Filter filter={filter} />*/}
+      <div className={'landing__wrap'}>
+        <h1 className={'landing__title'}>DEV EVENT</h1>
+        <p>개발자 컨퍼런스 및 해커톤 일정을 알려드립니다</p>
+      </div>
       <Card cards={filterCardData}/>
     </div>
   );

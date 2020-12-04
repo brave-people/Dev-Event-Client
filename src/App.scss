@@ -1,8 +1,10 @@
+@import './style/variable';
+
 body {
     height: 100%;
     font-family: 'Noto Sans KR', sans-serif;
     letter-spacing: -0.5px;
-    background-color: #171515;
+    background-color: $color__gray-80;
     margin-bottom: 60px;
 }
 
