@@ -44,6 +44,7 @@
       box-sizing: border-box;
       animation: circle00 2s;
       opacity: 0;
+      visibility: hidden;
     }
 
     &--01 {
@@ -59,6 +60,7 @@
       animation: circle01 2s ease-in-out;
       animation-delay: 2.5s;
       opacity: 0;
+      visibility: hidden;
     }
 
     &--02 {
@@ -74,6 +76,7 @@
       animation: circle02 2s linear;
       animation-delay: 2s;
       opacity: 0;
+      visibility: hidden;
     }
   }
 }
@@ -90,6 +93,7 @@
   animation: circle__spinner 2.5s linear;
   animation-delay: 1s;
   opacity: 0;
+  visibility: hidden;
 
   .cls-1 {
     fill: none;
@@ -104,6 +108,7 @@
     border-color: $color__pink;
     transition: 0.2s ease;
     opacity: 1;
+    visibility: visible;
   }
 
   50%, 100% {
@@ -116,6 +121,7 @@
 @keyframes #{"circle01"} {
   0%, 50% {
     opacity: 1;
+    visibility: visible;
   }
 
   50%, 100% {
@@ -129,6 +135,7 @@
 @keyframes #{"circle02"} {
   0%, 50% {
     opacity: 1;
+    visibility: visible;
   }
 
   50%, 100% {
@@ -140,6 +147,7 @@
 @keyframes #{"circle__spinner"} {
   0%, 50% {
     opacity: 1;
+    visibility: visible;
     transform: rotate(0deg);
   }
 

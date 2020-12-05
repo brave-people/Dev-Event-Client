@@ -9,10 +9,10 @@
   background-size: cover;
   background-position: center;
   color: $color__white;
-  box-shadow: 0 7px 26px 0px rgba(0,0,0,0.4);
   transition: 0.2s ease;
   overflow: hidden;
   @include border-radius;
+  @include box-shadow;
 
   &::before {
     content: '';

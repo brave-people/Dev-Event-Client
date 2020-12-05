@@ -17,3 +17,12 @@ $color__pink: #EFC4BA;
 @mixin border-radius {
   border-radius: 20px;
 }
+
+// box-shadow
+@mixin box-shadow {
+  box-shadow: 0 7px 26px 0px rgba(0, 0, 0, 0.4);
+}
+
+@mixin box-shadow--light {
+  box-shadow: 0 7px 26px 0px rgba(0, 0, 0, 0.2);
+}
