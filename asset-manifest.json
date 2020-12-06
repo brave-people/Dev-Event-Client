@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Dev-Event-Client/static/css/main.340cb501.chunk.css",
+    "main.css": "/Dev-Event-Client/static/css/main.0aa345fe.chunk.css",
     "main.js": "/Dev-Event-Client/static/js/main.06d3f3b0.chunk.js",
     "main.js.map": "/Dev-Event-Client/static/js/main.06d3f3b0.chunk.js.map",
     "runtime-main.js": "/Dev-Event-Client/static/js/runtime-main.e9c850e9.js",
@@ -8,13 +8,13 @@
     "static/js/2.e451b2ae.chunk.js": "/Dev-Event-Client/static/js/2.e451b2ae.chunk.js",
     "static/js/2.e451b2ae.chunk.js.map": "/Dev-Event-Client/static/js/2.e451b2ae.chunk.js.map",
     "index.html": "/Dev-Event-Client/index.html",
-    "static/css/main.340cb501.chunk.css.map": "/Dev-Event-Client/static/css/main.340cb501.chunk.css.map",
+    "static/css/main.0aa345fe.chunk.css.map": "/Dev-Event-Client/static/css/main.0aa345fe.chunk.css.map",
     "static/js/2.e451b2ae.chunk.js.LICENSE.txt": "/Dev-Event-Client/static/js/2.e451b2ae.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e9c850e9.js",
     "static/js/2.e451b2ae.chunk.js",
-    "static/css/main.340cb501.chunk.css",
+    "static/css/main.0aa345fe.chunk.css",
     "static/js/main.06d3f3b0.chunk.js"
   ]
 }
