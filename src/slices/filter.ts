@@ -10,12 +10,15 @@ export const filter = createSlice({
     addFilter(state, { payload }) {
       state.tags = payload;
     },
-    activeFilter(state, { payload }) {
-      // @ts-ignore
-      state.activeTags.push(payload);
-      // const text = payload.active as never;
-      // if (text) state.active.push(text)
-      // state.active.push(action.payload);
+    activeFilter(state, action: { payload: any, type: string }) {
+      const payload = action.payload as never;
+      const findFilter = state.activeTags.findIndex(el => el === payload);
+      if (findFilter > -1) {
+        state.activeTags.splice(findFilter, 1);
+      } else {
+        state.activeTags.push(payload);
+        state.activeTags.sort();
+      }
     }
   }
 });

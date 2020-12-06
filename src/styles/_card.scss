@@ -37,7 +37,7 @@
   &__column {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin-left: 96px;
+    margin-left: $margin--left;
   }
 
   &__text {

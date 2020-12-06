@@ -7,7 +7,6 @@ import { FilterModel } from "../models/filter";
 function Filter() {
   const { tags } = useSelector<ReducerType>(state => state.filter) as FilterModel;
   const { activeTags } = useSelector<ReducerType>(state => state.filter) as FilterModel;
-  console.log('activeFilterList: ', activeTags);
   const dispatch = useDispatch();
   const [showTags, setTags] = useState(false);
 
@@ -17,7 +16,6 @@ function Filter() {
 
   function setTag(tag: string) {
     dispatch(activeFilter(tag))
-    // console.log(activeFilterList);
   }
 
   return (
@@ -31,7 +29,8 @@ function Filter() {
       </button>
       <div className={ showTags ? 'filter filter--active' : 'filter' }>
         { tags.map((el: string, index: number) => {
-          return <p onClick={ () => setTag(el) } key={ index }>{ el }</p>
+          return <p onClick={ () => setTag(el) } key={ index }
+                    className={ activeTags.find(tag => tag === el) ? 'tag tag--active' : 'tag' }>{ el }</p>
         }) }
       </div>
     </div>

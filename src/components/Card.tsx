@@ -10,7 +10,8 @@ type CardProps = {
 };
 
 function Card(props: CardProps) {
-  const filterList = useSelector<ReducerType>(state => state.filter) as FilterModel;
+  const { tags } = useSelector<ReducerType>(state => state.filter) as FilterModel;
+  const { activeTags } = useSelector<ReducerType>(state => state.filter) as FilterModel;
   const dispatch = useDispatch();
 
   const list: string[] = [];
@@ -21,7 +22,7 @@ function Card(props: CardProps) {
       }
     })
   })
-  if (!filterList.tags.length) dispatch(addFilter(list))
+  if (!tags.length) dispatch(addFilter(list))
 
   function getDate(date: string) {
     const sliceDate = date.split('.');
@@ -62,25 +63,41 @@ function Card(props: CardProps) {
   return (
     <div className={ 'card__column' }>
       { props.cards.map((el) => {
+        const splitTags = el.tags.split(',');
         const startDate = getDate(el.startDate);
         const endDate = getDate(el.endDate);
 
-        return <div key={ el.id } className={ 'card' } style={ { backgroundImage: `url(${ el.thumbnail })` } }
-                    onClick={ () => moveLink(el.link) } onMouseMove={ setTransCard } onMouseLeave={ setLeaveCard }>
-          <div className={ 'card__tag' }>
-            <img className={ 'card__tag__image' }
-                 src="https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/price-tag.svg" alt="tag"/>
-            <div style={ { display: 'block' } }>
-              { el.tags.split(',').map((tag, index) => <span key={ index }>{ tag }</span>) }
+        // 필터 기능
+        if (activeTags.length === 1) {
+          // 하나만 선택했을 경우 하나라도 포함된 카드를 필터링 함
+          if (splitTags.findIndex(el => activeTags.includes(el)) === -1) {
+            return false;
+          }
+        } else if (activeTags.length) {
+          // 다중 선택했을 경우 모두 포함하는 카드를 필터링 함
+          if (!activeTags.every(v => splitTags.includes(v))) {
+            return false;
+          }
+        }
+
+        return (
+          <div key={ el.id } className={ 'card' } style={ { backgroundImage: `url(${ el.thumbnail })` } }
+               onClick={ () => moveLink(el.link) } onMouseMove={ setTransCard } onMouseLeave={ setLeaveCard }>
+            <div className={ 'card__tag' }>
+              <img className={ 'card__tag__image' }
+                   src="https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/price-tag.svg" alt="tag"/>
+              <div style={ { display: 'block' } }>
+                { splitTags.map((tag, index) => <span key={ index }>{ tag }</span>) }
+              </div>
+            </div>
+            <div className={ 'card__text' }>
+              <p className={ 'card__text--date' }>{ startDate } { el.endDate && <span> ~ { endDate }</span> }</p>
+              <h2>{ el.title }</h2>
+              <p>{ el.description }</p>
+              <p className={ 'font-medium' }>{ el.owner }</p>
             </div>
           </div>
-          <div className={ 'card__text' }>
-            <p className={ 'card__text--date' }>{ startDate } { el.endDate && <span> ~ { endDate }</span> }</p>
-            <h2>{ el.title }</h2>
-            <p>{ el.description }</p>
-            <p className={ 'font-medium' }>{ el.owner }</p>
-          </div>
-        </div>
+        )
       }) }
     </div>
   )

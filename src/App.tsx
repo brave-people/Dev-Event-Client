@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import SplashScreen from './components/Splash'
-import Home from './pages/Home.js'
+import Home from './pages/Home'
 import Education from './pages/Education'
 import Navigation from "./components/Navigation";
 import './App.scss';

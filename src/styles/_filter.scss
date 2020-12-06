@@ -22,19 +22,12 @@
     opacity: 1;
     @include border-radius;
     @include box-shadow;
-
-    p {
-      margin: 12px 0;
-      font-weight: 500;
-      opacity: 0.8;
-      cursor: pointer;
-    }
   }
 
   &__box {
     position: sticky;
     top: 36px;
-    margin-left: 96px;
+    margin-left: $margin--left;
     z-index: 99;
 
     button {
@@ -80,5 +73,20 @@
     &__box {
       margin-left: 0;
     }
+  }
+}
+
+.tag {
+  margin: 12px 0;
+  font-weight: 400;
+  opacity: 0.8;
+  cursor: pointer;
+
+  &--active {
+    font-weight: 700;
+    opacity: 1;
+    background: -webkit-linear-gradient(45deg, $color__white, $color__pink);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
