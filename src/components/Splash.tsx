@@ -11,7 +11,7 @@ function Filter() {
   return (
     <div className={'splash__wrap'}>
       <div className={'splash__hello'}>
-        <img src="/brave_logo.png" />
+        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/brave_logo.png" />
       </div>
       <div className={'splash__circle--00'}></div>
       <svg id="spinner" data-name="layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 446 446">

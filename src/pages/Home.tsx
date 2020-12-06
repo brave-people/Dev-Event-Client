@@ -11,7 +11,7 @@ function Home() {
 
   return (
     <div>
-      <img src="/brave_logo.png" id={ "logo" }/>
+      <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/brave_logo.png" id={ "logo" }/>
       {/*<ScrollElement />*/ }
       <Filter/>
       {/*<div className={'landing__wrap'}>
