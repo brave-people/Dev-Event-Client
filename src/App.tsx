@@ -18,13 +18,11 @@ function App() {
       <div id={ 'circle' }></div>
       <SplashScreen/>
       <BrowserRouter>
-        <div>
-          <Switch>
-            <Route exact path={ "/" } component={ Home }/>
-            <Route path={ "/education" } component={ Education }/>
-          </Switch>
-          <Navigation list={ [] }/>
-        </div>
+        <Switch>
+          <Route exact path={ "/Dev-Event-Client" } component={ Home }/>
+          <Route path={ "/Dev-Event-Client/education" } component={ Education }/>
+        </Switch>
+        <Navigation list={ [] }/>
       </BrowserRouter>
     </div>
   );
