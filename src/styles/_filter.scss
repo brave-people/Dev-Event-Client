@@ -14,7 +14,7 @@
   transition: 0.3s cubic-bezier(0.5, 0.4, 0, 1);
 
   &--active {
-    top: 220px;
+    top: 300px;
     color: $color__white;
     background-color: rgba(10, 10, 10, 0.9);
     z-index: 99;
