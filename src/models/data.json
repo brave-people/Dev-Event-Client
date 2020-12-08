@@ -133,6 +133,17 @@
     "link": "https://www.codelabs.kr/codelabs/130?utm_source=%EC%96%91%EC%9E%AC%EB%8F%99%20%EC%BD%94%EB%93%9C%EB%9E%A9&utm_campaign=e84a6e492e-EMAIL_CAMPAIGN_2020_12_04_02_00&utm_medium=email&utm_term=0_a40a5e7cdd-e84a6e492e-371354088"
   },
   {
+    "id": 13,
+    "title": "스타트업-ICT개발자 매칭데이",
+    "description": "",
+    "startDate": "2020.12.10",
+    "endDate": "2020.12.15",
+    "owner": "과학기술정보통신부",
+    "tags": "온라인,스타트업,채용",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201213.jpg",
+    "link": "http://ictcoc.kr/04_com_n/com02_view.asp?idx=337"
+  },
+  {
     "id": 12,
     "title": "AWS에서 완성한 교육 기업의 혁신",
     "description": "",
@@ -142,5 +153,93 @@
     "tags": "온라인,웨비나,클라우드",
     "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201212.png",
     "link": "https://register.gotowebinar.com/register/3393829967270541327"
+  },
+  {
+    "id": 14,
+    "title": "Reveal 2020 - 쿠팡 개발자 컨퍼런스",
+    "description": "",
+    "startDate": "2020.12.11",
+    "endDate": "",
+    "owner": "쿠팡",
+    "tags": "온라인,컨퍼런스",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201214.png",
+    "link": "https://event.coupangcorp.com/"
+  },
+  {
+    "id": 15,
+    "title": "CODE STATES AI 부트캠프",
+    "description": "",
+    "startDate": "2020.12.28",
+    "endDate": "2021.07.19",
+    "owner": "CODE STATES",
+    "tags": "교육,온라인,무료,인공지능,빅데이터",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201215.jpg",
+    "link": "https://event.coupangcorp.com/"
+  },
+  {
+    "id": 16,
+    "title": "NHN FORWARD",
+    "description": "",
+    "startDate": "2020.12.14",
+    "endDate": "2020.12.15",
+    "owner": "NHN",
+    "tags": "온라인,컨퍼런스",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201216.png",
+    "link": "https://event.coupangcorp.com/"
+  },
+  {
+    "id": 17,
+    "title": "리얼리눅스12월 무료세미나: 리눅스 메모리 누수 원인과 해결",
+    "description": "",
+    "startDate": "2020.12.16T20:00",
+    "endDate": "2020.12.16T21:00",
+    "owner": "리얼리눅스",
+    "tags": "온라인,무료,리눅스",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201217.jpg",
+    "link": "https://festa.io/events/1319"
+  },
+  {
+    "id": 18,
+    "title": "2020 우아콘: Woowa Tech Concert",
+    "description": "",
+    "startDate": "2020.12.16",
+    "endDate": "2020.12.18",
+    "owner": "우아한형제들",
+    "tags": "온라인,컨퍼런스",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201218.png",
+    "link": "https://www.woowacon.com/"
+  },
+  {
+    "id": 20,
+    "title": "NAVER Cloud AI SUMMIT",
+    "description": "",
+    "startDate": "2020.12.17T10:00",
+    "endDate": "2020.12.17T16:00",
+    "owner": "네이버클라우드플랫폼",
+    "tags": "온라인,컨퍼런스,인공지능",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201220.png",
+    "link": "https://www.ncloud-online.com/aisummit/"
+  },
+  {
+    "id": 19,
+    "title": "[양재동 라이브] 도커의 기초 2편",
+    "description": "",
+    "startDate": "2020.12.17T20:00",
+    "endDate": "2020.12.17T22:00",
+    "owner": "양재동코드랩",
+    "tags": "온라인,교육,무료,도커",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201219.png",
+    "link": "https://www.codelabs.kr/codelabs/130?utm_source=%EC%96%91%EC%9E%AC%EB%8F%99%20%EC%BD%94%EB%93%9C%EB%9E%A9&utm_campaign=e84a6e492e-EMAIL_CAMPAIGN_2020_12_04_02_00&utm_medium=email&utm_term=0_a40a5e7cdd-e84a6e492e-371354088"
+  },
+  {
+    "id": 21,
+    "title": "2020 ICT콤플렉스 앱개발 챌린지",
+    "description": "",
+    "startDate": "2020.12.18T10:00",
+    "endDate": "2020.12.18T12:00",
+    "owner": "과학기술정보통신부",
+    "tags": "온라인,해커톤,앱",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201221.png",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSf6G_LKIcRAIv0-Q2Ve0IRZsuuA_eXRbRwIkB2h3oaGbLSnZg/viewform"
   }
 ]

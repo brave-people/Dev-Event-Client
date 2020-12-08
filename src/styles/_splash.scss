@@ -16,6 +16,7 @@
     top: calc(50% - 110px);
     left: calc(50% - 110px);
     z-index: 0;
+    animation: hello 1s ease;
 
     img {
       width: 90px;
@@ -38,6 +39,7 @@
       border-radius: 100%;
       box-sizing: border-box;
       animation: circle00 2s;
+      animation-delay: 0.5s;
       opacity: 0;
       visibility: hidden;
     }
@@ -92,6 +94,18 @@
 
   .cls-1 {
     fill: none;
+  }
+}
+
+@keyframes #{"hello"} {
+  0%, 50% {
+    top: calc(50% - 90px);
+    opacity: 0;
+    visibility: visible;
+  }
+
+  50%, 100% {
+    opacity: 1;
   }
 }
 
