@@ -14,12 +14,27 @@
   z-index: 999;
 }
 
+.logo__wrap {
+  display: flex;
+  align-items: center;
+}
+
 #logo {
   width: 60px;
-  top: 16px;
   position: relative;
-  left: calc(100% - 16px);
+  top: 16px;
+  left: calc(100% - 76px);
   transform: translateX(-100%);
+}
+
+#logo--github {
+  width: 36px;
+  margin-right: 16px;
+  position: relative;
+  top: 16px;
+  left: calc(100% - 102px);
+  transform: translateX(-100%);
+  cursor: pointer;
 }
 
 .font-medium {
