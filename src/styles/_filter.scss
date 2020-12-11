@@ -14,7 +14,7 @@
   transition: 0.3s cubic-bezier(0.5, 0.4, 0, 1);
 
   &--active {
-    top: 300px;
+    top: 380px;
     color: $color__white;
     background-color: rgba(10, 10, 10, 0.9);
     z-index: 99;
@@ -72,6 +72,15 @@
   @media (max-width: $lg) {
     &__box {
       margin-left: 0;
+    }
+  }
+
+  @media (max-width: $md) {
+    &--active {
+      width: 80%;
+      top: 168px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 }
