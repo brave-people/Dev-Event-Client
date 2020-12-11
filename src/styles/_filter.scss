@@ -76,11 +76,13 @@
   }
 
   @media (max-width: $md) {
+    width: 80%;
+    top: 148px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
     &--active {
-      width: 80%;
       top: 168px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
     }
   }
 }
