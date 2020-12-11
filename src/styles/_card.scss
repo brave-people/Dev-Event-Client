@@ -105,8 +105,24 @@
   }
 
   @media (max-width: $md) {
+    height: 180px;
+
     &__column {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    &__text {
+      h2 {
+        font-size: 18px;
+      }
+
+      p {
+        font-size: 12px;
+      }
+
+      &-date {
+        font-size: 11px;
+      }
     }
   }
 }
