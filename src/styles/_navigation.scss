@@ -74,4 +74,11 @@
       margin: 0;
     }
   }
+
+  @media (max-width: $md) {
+    &__text {
+      flex: 0 20%;
+      padding: 0 12px;
+    }
+  }
 }

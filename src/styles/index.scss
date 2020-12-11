@@ -25,6 +25,11 @@
   top: 16px;
   left: calc(100% - 76px);
   transform: translateX(-100%);
+
+  @media (max-width: $md) {
+    width: 48px;
+    left: calc(100% - 50px);
+  }
 }
 
 #logo--github {
@@ -35,6 +40,11 @@
   left: calc(100% - 102px);
   transform: translateX(-100%);
   cursor: pointer;
+
+  @media (max-width: $md) {
+    width: 24px;
+    left: calc(100% - 72px);
+  }
 }
 
 .font-medium {
