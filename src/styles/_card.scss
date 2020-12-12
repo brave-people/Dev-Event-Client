@@ -126,3 +126,101 @@
     }
   }
 }
+
+// 슬라이더 스타일
+.tns-outer {
+  height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  margin-left: $margin--left;
+
+  @media (max-width: $md) {
+    margin-left: 0;
+  }
+}
+
+.tns-controls {
+  position: fixed;
+  top: 40vw;
+  left: 10vw;
+
+  button {
+    width: 60px;
+    height: 20px;
+    background-image: url("https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/arrow.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    border: none;
+
+    &:nth-child(2n - 1) {
+      transform: scaleX(-1);
+    }
+  }
+
+  @media (max-width: $md) {
+    top: inherit;
+    bottom: 40vw;
+    left: 8vw;
+  }
+}
+
+.text-card {
+  padding-left: 4vw;
+  padding-right: 16vw;
+  color: $color__white;
+  user-select: none;
+
+  &, h2, p {
+    cursor: grab;
+  }
+
+  h2 {
+    font-size: 68px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    color: $color__gray-80 !important;
+    background: -webkit-linear-gradient(top, $color__white, $color__white);
+    -webkit-background-clip: text;
+    -webkit-text-stroke: 2px transparent;
+  }
+
+  p {
+    margin: 16px 0 72px 0;
+    font-size: 16px;
+    text-align: right;
+    font-weight: 400;
+  }
+
+  button {
+    width: 140px;
+    height: 48px;
+    outline: none;
+    border: 1px solid $color__pink;
+    background-color: transparent;
+    color: $color__white;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  @media (max-width: $md) {
+    h2 {
+      font-size: 44px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    button {
+      width: 120px;
+      height: 40px;
+      font-size: 13px;
+    }
+  }
+}

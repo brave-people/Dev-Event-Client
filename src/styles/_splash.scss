@@ -76,6 +76,16 @@
       visibility: hidden;
     }
   }
+
+  @media (max-width: $md) {
+    &__hello {
+      width: 120px;
+      height: 120px;
+      top: calc(50% - 60px);
+      left: calc(50% - 60px);
+      animation: hello-mobile 1s ease;
+    }
+  }
 }
 
 #spinner {
@@ -100,6 +110,18 @@
 @keyframes #{"hello"} {
   0%, 50% {
     top: calc(50% - 90px);
+    opacity: 0;
+    visibility: visible;
+  }
+
+  50%, 100% {
+    opacity: 1;
+  }
+}
+
+@keyframes #{"hello-mobile"} {
+  0%, 50% {
+    top: calc(50% - 40px);
     opacity: 0;
     visibility: visible;
   }

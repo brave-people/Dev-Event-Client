@@ -17,6 +17,11 @@ function App() {
     <div>
       <div id={ 'circle' }></div>
       <SplashScreen/>
+      <div className={"logo__wrap"}>
+        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/GitHub-Mark-Light-120px-plus.png"
+             alt="github" id={ "logo--github" } onClick={() => window.open('https://github.com/brave-people/Dev-Event-Client')}/>
+        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/brave_logo.png" id={ "logo" }/>
+      </div>
       <BrowserRouter>
         <Switch>
           <Route exact path={ "/Dev-Event-Client" } component={ Home }/>

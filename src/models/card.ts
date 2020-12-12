@@ -1,4 +1,11 @@
-export interface CardModel {
+export interface CommonCardModel {
+  id: number,
+  title: string,
+  description: string,
+  link: string,
+}
+
+export interface CardModel extends CommonCardModel{
   id: number,
   title: string,
   description: string,
@@ -9,4 +16,8 @@ export interface CardModel {
   thumbnail: string,
   link: string,
   linkDetail?: string,
+}
+
+export interface TextCardModel extends CommonCardModel {
+  color: string,
 }
