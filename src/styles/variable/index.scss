@@ -8,6 +8,7 @@ $xl2: 1536px;
 // color set
 $color__white: #fffffe;
 $color__black: #0a0a0a;
+$color__gray-90: #0c0c0c;
 $color__gray-80: #232121;
 $color__gray: #211f1f;
 $color__sky: #C7E7EB;
@@ -23,6 +24,9 @@ $margin--left: 96px;
 // box-shadow
 @mixin box-shadow {
   box-shadow: 0 7px 26px 0px rgba(0, 0, 0, 0.4);
+}
+@mixin box-shadow-sm {
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.4);
 }
 
 @mixin box-shadow--light {

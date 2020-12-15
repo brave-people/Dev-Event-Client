@@ -108,6 +108,7 @@
     height: 180px;
 
     &__column {
+      margin-bottom: 72px;
       grid-template-columns: repeat(1, 1fr);
     }
 

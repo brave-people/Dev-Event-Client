@@ -166,15 +166,15 @@
     "link": "https://event.coupangcorp.com/"
   },
   {
-    "id": 15,
-    "title": "CODE STATES AI 부트캠프",
+    "id": 22,
+    "title": "[2020 플레이데이터 채용설명회] Play X Hiring",
     "description": "",
-    "startDate": "2020.12.28",
-    "endDate": "2021.07.19",
-    "owner": "CODE STATES",
-    "tags": "교육,온라인,무료,인공지능,빅데이터",
-    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201215.jpg",
-    "link": "https://event.coupangcorp.com/"
+    "startDate": "2020.12.12T10:00",
+    "endDate": "2020.12.12T12:30",
+    "owner": "플레이데이터",
+    "tags": "온라인,채용설명회",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201222.png",
+    "link": "https://festa.io/events/1342"
   },
   {
     "id": 16,
@@ -185,7 +185,29 @@
     "owner": "NHN",
     "tags": "온라인,컨퍼런스",
     "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201216.png",
-    "link": "https://event.coupangcorp.com/"
+    "link": "https://forward.nhn.com/home"
+  },
+  {
+    "id": 24,
+    "title": "2020 데이터 그랜드 컨퍼런스",
+    "description": "",
+    "startDate": "2020.12.14T10:00",
+    "endDate": "2020.12.14T16:30",
+    "owner": "과학기술정보통신부",
+    "tags": "온라인,컨퍼런스,데이터",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201224.png",
+    "link": "http://datagrand.kr/"
+  },
+  {
+    "id": 23,
+    "title": "AI의 이해 및 AI시대를 위한 소프트웨어 개발자로 성장하기",
+    "description": "",
+    "startDate": "2020.12.15T14:00",
+    "endDate": "2020.12.15T15:00",
+    "owner": "분당융합기술교육원",
+    "tags": "온라인,개발자",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201223.jpg",
+    "link": "https://festa.io/events/1342"
   },
   {
     "id": 17,
@@ -221,6 +243,17 @@
     "link": "https://www.ncloud-online.com/aisummit/"
   },
   {
+    "id": 25,
+    "title": "클라우드 보안 A-Z까지: 클라우드상 책임 공유 모델 및 IAM 이해하기",
+    "description": "",
+    "startDate": "2020.12.17T11:00",
+    "endDate": "2020.12.17T12:00",
+    "owner": "네이버클라우드플랫폼",
+    "tags": "웨비나,클라우드",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201225.jpeg",
+    "link": "https://register.gotowebinar.com/register/5326518521091200268"
+  },
+  {
     "id": 19,
     "title": "[양재동 라이브] 도커의 기초 2편",
     "description": "",
@@ -241,5 +274,27 @@
     "tags": "온라인,해커톤,앱",
     "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201221.png",
     "link": "https://docs.google.com/forms/d/e/1FAIpQLSf6G_LKIcRAIv0-Q2Ve0IRZsuuA_eXRbRwIkB2h3oaGbLSnZg/viewform"
+  },
+  {
+    "id": 26,
+    "title": "AWS 클라우드세미나",
+    "description": "",
+    "startDate": "2020.12.22T15:00",
+    "endDate": "2020.12.22T18:00",
+    "owner": "KG에듀원 아이티뱅크",
+    "tags": "온라인,무료,클라우드",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201226.jpg",
+    "link": "https://onoffmix.com/event/229862"
+  },
+  {
+    "id": 15,
+    "title": "CODE STATES AI 부트캠프",
+    "description": "",
+    "startDate": "2020.12.28",
+    "endDate": "2021.07.19",
+    "owner": "CODE STATES",
+    "tags": "교육,온라인,무료,인공지능,빅데이터",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201215.jpg",
+    "link": "https://www.codestates.com/course/ai"
   }
 ]

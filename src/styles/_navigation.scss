@@ -4,11 +4,12 @@
   position: fixed;
   left: 0;
   top: 0;
-  background-color: rgba(10, 10, 10, 0.9);
+  background-color: $color__black;
   color: $color__white;
   font-size: 14px;
   align-items: center;
   z-index: 99;
+  @include box-shadow-sm;
 
   &__box {
     height: 80px;
@@ -18,6 +19,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 
     span {
       color: $color__sky;
@@ -61,12 +63,19 @@
     bottom: 2vw;
     left: 2vw;
     display: flex;
+    border-radius: 22px;
 
     &__box {
       width: 90px;
-      height: auto;
       border-bottom: none;
-      border-right: 1px solid $color__white;
+
+      span {
+        width: 50px;
+        line-height: 40px;
+        border-radius: 50px;
+        box-shadow: 0 0 20px 0 #000;
+        background-color: $color__gray-90;
+      }
     }
 
     &__text {

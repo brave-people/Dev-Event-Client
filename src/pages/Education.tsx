@@ -39,6 +39,7 @@ function Education() {
 
   return (
     <div>
+      <h2 className={'title'}>Education</h2>
       <TextCard cards={ cardData }/>
       <div className={ 'edu--circle' } style={{ background: cardData[id - 1].color }}></div>
     </div>

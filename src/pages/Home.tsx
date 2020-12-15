@@ -11,6 +11,7 @@ function Home() {
 
   return (
     <div>
+      <h2 className={'title'}>2020 EVENT</h2>
       {/*<ScrollElement />*/ }
       <Filter/>
       {/*<div className={'landing__wrap'}>

@@ -3,6 +3,8 @@
   height: auto;
   margin: 0 auto;
   padding: 8px 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   font-size: 13px;
   text-align: center;
   position: absolute;
@@ -14,7 +16,7 @@
   transition: 0.3s cubic-bezier(0.5, 0.4, 0, 1);
 
   &--active {
-    top: 380px;
+    top: 270px;
     color: $color__white;
     background-color: rgba(10, 10, 10, 0.9);
     z-index: 99;
@@ -88,7 +90,7 @@
 }
 
 .tag {
-  margin: 12px 0;
+  margin: 12px 4px;
   font-weight: 400;
   opacity: 0.8;
   cursor: pointer;
@@ -99,5 +101,9 @@
     background: -webkit-linear-gradient(45deg, $color__white, $color__pink);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  @media (max-width: $md) {
+    margin: 12px 0;
   }
 }
