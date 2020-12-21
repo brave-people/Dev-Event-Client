@@ -56,6 +56,73 @@
     }
   }
 
+  // 날짜 표시
+  &--month {
+    width: 100%;
+    padding: 16px;
+
+    &__title {
+      width: 100%;
+      margin: 8px 0 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h3 {
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      p {
+        font-size: 15px;
+        font-weight: 500;
+      }
+    }
+
+    &__text {
+      width: 25%;
+      text-align: center;
+
+      &__box {
+        display: flex;
+
+        &--active {
+          background-color: $color__white;
+        }
+
+        p {
+          font-weight: 100;
+
+          &:last-child {
+            font-size: 18px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    &__box {
+      width: 100%;
+      padding-bottom: 60px;
+      display: flex;
+      position: fixed;
+      bottom: -100%;
+      opacity: 0;
+      left: 0;
+      z-index: -999;
+      background-color: $color__gray-90;
+      border-radius: 22px;
+      transition: 0.3s cubic-bezier(0.5, 0.4, 0, 1);
+
+      &--active {
+        bottom: 2vw;
+        opacity: 1;
+        z-index: -1;
+        transition: 0.3s cubic-bezier(0.5, 0.4, 0, 1);
+      }
+    }
+  }
+
   @media (max-width: $lg) {
     width: calc(100% - 4vw);
     height: 60px;

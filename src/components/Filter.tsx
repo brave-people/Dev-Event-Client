@@ -3,12 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReducerType } from "../rootReducer";
 import { activeFilter } from "../slices/filter";
 import { FilterModel } from "../models/filter";
+import { MonthModel } from "../models/month";
 
 function Filter() {
   const { tags } = useSelector<ReducerType>(state => state.filter) as FilterModel;
   const { activeTags } = useSelector<ReducerType>(state => state.filter) as FilterModel;
+  const { month } = useSelector<ReducerType>(state => state.month) as MonthModel;
   const dispatch = useDispatch();
-  const [showTags, setTags] = useState(false);
+  let [showTags, setTags] = useState(false);
+
+  // month 클릭 한 경우 필터 닫기
+  if (month && showTags) {
+    setTags(false)
+  }
 
   function setShowTags() {
     setTags(!showTags)
