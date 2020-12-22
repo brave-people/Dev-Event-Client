@@ -82,6 +82,13 @@
     &__text {
       width: 25%;
       text-align: center;
+      padding: 10px 0;
+
+      &--active {
+        background-color: $color__white;
+        border-radius: 16px;
+        color: $color__black;
+      }
 
       &__box {
         display: flex;

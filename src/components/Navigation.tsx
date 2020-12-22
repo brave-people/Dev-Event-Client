@@ -11,7 +11,7 @@ type NavigationProps = {
 };
 
 function Navigation(props: NavigationProps) {
-  const { month } = useSelector<ReducerType>(state => state.month) as MonthModel;
+  const {month} = useSelector<ReducerType>(state => state.month) as MonthModel;
   const dispatch = useDispatch();
   const [showMonth, setMonth] = useState(false);
   const startDate = new Date('2020-09-01');
@@ -21,11 +21,16 @@ function Navigation(props: NavigationProps) {
   }
   monthArr.push('2021-01');
   monthArr.push('2021-02');
-  const currentDate = `${new Date().getFullYear()}-${Number(new Date().getMonth() + 1)}`
+  let currentDate = `${new Date().getFullYear()}-${Number(new Date().getMonth() + 1)}`
 
   function setShowMonth() {
     setMonth(!showMonth);
     dispatch(activeMonth(!month));
+  }
+
+  function setCurrentMonth(date) {
+    console.log(date);
+    // currentDate =`${new Date().getFullYear()}-${Number(new Date().getMonth() + 1)}`;
   }
 
   document.addEventListener('click', e => {
@@ -37,33 +42,36 @@ function Navigation(props: NavigationProps) {
   })
 
   return (
-    <nav className={ 'nav' }>
-      <div id={ 'nav' } className={ 'nav__box' } onClick={ () => setShowMonth() }>
-        <span>{ new Date().getMonth() + 1 }월</span></div>
-      <NavLink to="/Dev-Event-Client" exact={ true } activeClassName={ 'nav__text--active' } className={ 'nav__text' }>
+    <nav className={'nav'}>
+      <div id={'nav'} className={'nav__box'} onClick={() => setShowMonth()}>
+        <span>{new Date().getMonth() + 1}월</span></div>
+      <NavLink to="/Dev-Event-Client" exact={true} activeClassName={'nav__text--active'} className={'nav__text'}>
         EVENT
       </NavLink>
-      <NavLink to='/Dev-Event-Client/education' exact={ true } activeClassName={ 'nav__text--active' }
-               className={ 'nav__text' }>
+      <NavLink to='/Dev-Event-Client/education' exact={true} activeClassName={'nav__text--active'}
+               className={'nav__text'}>
         Edu
       </NavLink>
-      <p className={ 'nav__text' }>Meet</p>
-      <p className={ 'nav__text' }>Circles</p>
-      <div className={ showMonth ? 'nav--month__box nav--month__box--active' : 'nav--month__box' } id={ 'nav--month' }>
-        <div className={ 'nav--month' }>
+      <p className={'nav__text'}>Meet</p>
+      <p className={'nav__text'}>Circles</p>
+      <div className={showMonth ? 'nav--month__box nav--month__box--active' : 'nav--month__box'} id={'nav--month'}>
+        <div className={'nav--month'}>
           <div className={'nav--month__title'}>
             <h3>Calendar</h3>
             <p>12 2020</p>
           </div>
           <div className={'nav--month__text__box'}>
-            { monthArr.map((el, index) => {
+            {monthArr.map((el, index) => {
               return (
-                <div key={ index } className={currentDate === el ? 'nav--month__text nav--month__text--active' : 'nav--month__text'}>
-                  <p>{ el.split('-')[0] }</p>
-                  <p>{ el.split('-')[1] }</p>
+                <div key={index}
+                     className={currentDate === el ? 'nav--month__text nav--month__text--active' : 'nav--month__text'}
+                     onClick={() => setCurrentMonth(el)}
+                >
+                  <p>{el.split('-')[0]}</p>
+                  <p>{el.split('-')[1]}</p>
                 </div>
               )
-            }) }
+            })}
           </div>
         </div>
       </div>
