@@ -3,14 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const month = createSlice({
   name: 'month',
   initialState: {
-    month: false,
+    date: '',
+    showMonth: false
   },
   reducers: {
+    setShowMonth(state, { payload }) {
+      state.showMonth = payload;
+    },
     activeMonth(state, { payload }) {
-      state.month = payload;
+      state.date = payload;
     },
   }
 });
 
-export const { activeMonth } = month.actions;
+export const { setShowMonth, activeMonth } = month.actions;
 export default month.reducer;

@@ -33,9 +33,9 @@
     display: block;
     text-align: center;
     color: $color__white;
-    cursor: pointer;
     font-size: 12px;
     text-decoration: none;
+    cursor: pointer;
 
     &--active {
       font-weight: 700;
@@ -83,6 +83,7 @@
       width: 25%;
       text-align: center;
       padding: 10px 0;
+      cursor: pointer;
 
       &--active {
         background-color: $color__white;

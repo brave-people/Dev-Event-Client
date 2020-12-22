@@ -1,3 +1,4 @@
 export interface MonthModel {
-  month: boolean
+  date: string;
+  showMonth: boolean;
 }
