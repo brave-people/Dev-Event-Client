@@ -296,5 +296,82 @@
     "tags": "교육,온라인,무료,인공지능,빅데이터",
     "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201215.jpg",
     "link": "https://www.codestates.com/course/ai"
+  },
+  {
+    "id": 27,
+    "title": "코드스테이츠 부트캠프 사전 설명회",
+    "description": "코드스테이츠는 유료 부트캠프입니다.",
+    "startDate": "2021.01.04T19:30",
+    "endDate": "",
+    "owner": "CODE STATES",
+    "tags": "교육,온라인",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20210100.png",
+    "link": "https://www.notion.so/21-1-4-7-30-Expectation-Meeting-dced1b98e34c45018d69207f94191464"
+  },
+  {
+    "id": 28,
+    "title": "데이터 분석/클라우드/쿠버네티스에 필요한 리눅스 내공 쌓기",
+    "description": "",
+    "startDate": "2021.01.06T20:00",
+    "endDate": "2021.01.06T21:00",
+    "owner": "리얼리눅스",
+    "tags": "교육,리눅스",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20210101.jpg",
+    "link": "https://event-us.kr/hcmY8AAlnJac/event/27555"
+  },
+  {
+    "id": 29,
+    "title": "2021년도 42 SEOUL",
+    "description": "",
+    "startDate": "2021.01.07",
+    "endDate": "",
+    "owner": "42 SEOUL",
+    "tags": "교육",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20210102.png",
+    "link": "https://innovationacademy.kr/notice?board=4&label=10&post=104"
+  },
+  {
+    "id": 30,
+    "title": "KT DS 자바&파이썬 웹애플리케이션 전문가 양성과정",
+    "description": "",
+    "startDate": "2021.01.11",
+    "endDate": "",
+    "owner": "KT DS",
+    "tags": "교육",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20210102.png",
+    "link": "http://www.jobkorea.co.kr/Recruit/GI_Read/33437131?OEM_Code=C1"
+  },
+  {
+    "id": 31,
+    "title": "AWS re:Invent",
+    "description": "",
+    "startDate": "2021.01.12",
+    "endDate": "2021.01.14",
+    "owner": "AWS",
+    "tags": "세미나,온라인,무료",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20210104.jpg",
+    "link": "https://reinvent.awsevents.com/"
+  },
+  {
+    "id": 32,
+    "title": ".NET Conf 2021 x Seoul",
+    "description": "",
+    "startDate": "2021.01.15T10:00",
+    "endDate": "",
+    "owner": "닷넷데브",
+    "tags": "온라인,컨퍼런스,.NET",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20210105.svg",
+    "link": "https://www.notion.so/NET-Conf-2021-x-Seoul-228462238add4fc5a885fb81e2687528"
+  },
+  {
+    "id": 33,
+    "title": "MZ 인공지능 해커톤 대회",
+    "description": "",
+    "startDate": "2020.12.21",
+    "endDate": "2020.01.08",
+    "owner": "한국정보화진흥원",
+    "tags": "온라인,해커톤,인공지능",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20210106.png",
+    "link": "https://www.mzhackathon.co.kr/mz/"
   }
 ]

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReducerType } from "../rootReducer";
 import { setShowMonth, activeMonth } from "../slices/month";
 import { MonthModel } from "../models/month";
+import { current } from "@reduxjs/toolkit";
+const classNames = require('classnames');
 
 type NavigationProps = {
   list: string[];
@@ -13,17 +15,18 @@ function Navigation(props: NavigationProps) {
   const { date } = useSelector<ReducerType>(state => state.month) as MonthModel;
   const dispatch = useDispatch();
   let [show, showMonth] = useState(false);
-  const startDate = new Date('2020-09-01');
+  const startDate = new Date('2020.09.01');
   const monthArr: string[] = []
+  const disableDate = ['2020.09', '2020.10', '2020.11', '2021.02'];
   for (let i = startDate.getMonth() + 1; i <= 12; i++) {
-    monthArr.push(`${ startDate.getFullYear() }-${ i < 10 ? '0' + i : i }`)
+    monthArr.push(`${ startDate.getFullYear() }.${ i < 10 ? '0' + i : i }`)
   }
-  monthArr.push('2021-01');
-  monthArr.push('2021-02');
+  monthArr.push('2021.01');
+  monthArr.push('2021.02');
 
   // 최초 날짜 설정
   if (!date) {
-    const currentDate = `${ new Date().getFullYear() }-${ Number(new Date().getMonth() + 1) }`
+    const currentDate = `${ new Date().getFullYear() }.${ Number(new Date().getMonth() + 1) }`
     setCurrentMonth(currentDate);
   }
 
@@ -35,21 +38,30 @@ function Navigation(props: NavigationProps) {
   function setCurrentMonth(date) {
     // currentDate =`${new Date().getFullYear()}-${Number(new Date().getMonth() + 1)}`;
     // setActiveMonth(date);
-    dispatch(activeMonth(date))
+    if (!disableDate.includes(date)) {
+      dispatch(activeMonth(date))
+    }
   }
 
-  document.addEventListener('click', e => {
+  /*document.addEventListener('click', e => {
     const target = e.target as HTMLTextAreaElement;
     if (!target.parentElement!.id.includes('nav') && showMonth) {
-      // showMonth(false);
-      // dispatch(setShowMonth(false));
+      showMonth(false);
+      dispatch(setShowMonth(false));
     }
+  })*/
+
+  // style
+  const monthClasses = (el) => classNames({
+    'nav--month__text': true,
+    'nav--month__text--active' : date === el && !disableDate.includes(el),
+    'nav--month__text--disable': disableDate.includes(el)
   })
 
   return (
     <nav className={ 'nav' }>
       <div id={ 'nav' } className={ 'nav__box' } onClick={ () => clickShowMonth() }>
-        <span>{ new Date().getMonth() + 1 }월</span>
+        <span>{ date.split('.')[1] }월</span>
       </div>
       <NavLink to="/Dev-Event-Client" exact={ true } activeClassName={ 'nav__text--active' } className={ 'nav__text' }>
         EVENT
@@ -70,11 +82,11 @@ function Navigation(props: NavigationProps) {
             { monthArr.map((el, index) => {
               return (
                 <div key={ index }
-                     className={ date === el ? 'nav--month__text nav--month__text--active' : 'nav--month__text' }
+                     className={ monthClasses(el) }
                      onClick={ () => setCurrentMonth(el) }
                 >
-                  <p>{ el.split('-')[0] }</p>
-                  <p>{ el.split('-')[1] }</p>
+                  <p>{ el.split('.')[0] }</p>
+                  <p>{ el.split('.')[1] }</p>
                 </div>
               )
             }) }

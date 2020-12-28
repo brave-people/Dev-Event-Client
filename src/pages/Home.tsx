@@ -2,11 +2,18 @@ import React from "react";
 import Card from '../components/Card'
 import Filter from "../components/Filter";
 import ScrollElement from "../components/ScrollElement";
+import { useSelector } from "react-redux";
+import { ReducerType } from "../rootReducer";
+import { MonthModel } from "../models/month";
 import CardData from '../models/data.json';
 
 function Home() {
+  const { date } = useSelector<ReducerType>(state => state.month) as MonthModel;
+
   const filterCardData = CardData.filter(card => {
-    return card.startDate.split('.')[1] === String(new Date().getMonth() + 1);
+    if (card.startDate.indexOf(date) !== -1) {
+      return card.startDate.split('.')[1];
+    }
   })
 
   return (
