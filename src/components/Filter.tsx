@@ -8,12 +8,12 @@ import { MonthModel } from "../models/month";
 function Filter() {
   const { tags } = useSelector<ReducerType>(state => state.filter) as FilterModel;
   const { activeTags } = useSelector<ReducerType>(state => state.filter) as FilterModel;
-  const { date } = useSelector<ReducerType>(state => state.month) as MonthModel;
+  const { showMonth } = useSelector<ReducerType>(state => state.month) as MonthModel;
   const dispatch = useDispatch();
   let [showTags, setTags] = useState(false);
 
   // month 클릭 한 경우 필터 닫기
-  if (date && showTags) {
+  if (showMonth && showTags) {
     setTags(false)
   }
 
