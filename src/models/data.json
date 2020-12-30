@@ -373,5 +373,49 @@
     "tags": "온라인,해커톤,인공지능",
     "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20210106.png",
     "link": "https://www.mzhackathon.co.kr/mz/"
+  },
+  {
+    "id": 34,
+    "title": "CODING MASTERS",
+    "description": "",
+    "startDate": "2021.01.04",
+    "endDate": "2020.01.11",
+    "owner": "멀티캠퍼스",
+    "tags": "채용",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/103348463-6ce35e00-4add-11eb-995a-89edc8f6d6c2.png",
+    "link": "https://el.multicampus.com/de_common/b2c/event/2020/12/1224_1/1224_1.html"
+  },
+  {
+    "id": 35,
+    "title": "2020 DACON CUP",
+    "description": "",
+    "startDate": "2020.12.18",
+    "endDate": "2021.01.22",
+    "owner": "DACON",
+    "tags": "온라인,해커톤,데이터",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/103348605-dc594d80-4add-11eb-97d3-2fbf2962e9e4.png",
+    "link": "https://dacon.io/competitions/official/235683/overview/"
+  },
+  {
+    "id": 36,
+    "title": "태양광 발전량 예측 AI 경진대회",
+    "description": "",
+    "startDate": "2020.12.09",
+    "endDate": "2020.01.26",
+    "owner": "한국정보화진흥원",
+    "tags": "온라인,해커톤,인공지능",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/103348605-dc594d80-4add-11eb-97d3-2fbf2962e9e4.png",
+    "link": "https://dacon.io/competitions/official/235680/overview/"
+  },
+  {
+    "id": 37,
+    "title": "Photon 게임서버 엔진 Webinar 토크콘서트",
+    "description": "",
+    "startDate": "2021.01.12",
+    "endDate": "2021.01.14",
+    "owner": "엔클라우드24",
+    "tags": "온라인,해커톤,인공지능",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/103348664-0b6fbf00-4ade-11eb-9418-03079c2f6581.png",
+    "link": "https://onoffmix.com/event/229560"
   }
 ]
