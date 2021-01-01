@@ -4,8 +4,8 @@ function Filter() {
   setTimeout(() => {
     const splash = document.querySelector('.splash__wrap') as HTMLElement;
     const splashHello = document.querySelector('.splash__hello') as HTMLElement;
-    splash.style.top = '-100%';
-    splashHello.style.top = '-100%';
+    splash.style.top = '-200%';
+    splashHello.style.top = '-200%';
   }, 3000)
 
   return (
