@@ -11,9 +11,9 @@
 
 ![main](./public/main.png)
 
-<center>
-Dev Event를 웹으로 만나요!!
-</center>
+<div align=center>
+🌐 Dev Event를 웹으로 만나요!!
+</div>
 
 ------
 
@@ -39,6 +39,10 @@ Dev Event를 웹으로 만나요!!
 
 <br />
 
-## Developer
+------
+
+# Developer
 
 [@Woohwahwa](https://github.com/Woohwahwa)
+
+[@Covenant](https://github.com/KoEonYack)
