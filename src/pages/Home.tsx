@@ -15,6 +15,7 @@ function Home() {
       return card.startDate.split('.')[1];
     }
   })
+  console.log(filterCardData);
 
   return (
     <div>

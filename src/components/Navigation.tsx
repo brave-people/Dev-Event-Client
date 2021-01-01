@@ -26,7 +26,8 @@ function Navigation(props: NavigationProps) {
 
   // 최초 날짜 설정
   if (!date) {
-    const currentDate = `${ new Date().getFullYear() }.${ Number(new Date().getMonth() + 1) }`
+    const addZero = Number(new Date().getMonth() + 1) < 10 ? '0' : '';
+    const currentDate = `${ new Date().getFullYear() }.${addZero}${ Number(new Date().getMonth() + 1) }`
     setCurrentMonth(currentDate);
   }
 
