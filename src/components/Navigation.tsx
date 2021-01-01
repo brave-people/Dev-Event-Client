@@ -5,6 +5,7 @@ import { ReducerType } from "../rootReducer";
 import { setShowMonth, activeMonth } from "../slices/month";
 import { MonthModel } from "../models/month";
 import { current } from "@reduxjs/toolkit";
+
 const classNames = require('classnames');
 
 type NavigationProps = {
@@ -25,9 +26,9 @@ function Navigation(props: NavigationProps) {
   monthArr.push('2021.02');
 
   // 최초 날짜 설정
+  const addZero = Number(new Date().getMonth() + 1) < 10 ? '0' : '';
   if (!date) {
-    const addZero = Number(new Date().getMonth() + 1) < 10 ? '0' : '';
-    const currentDate = `${ new Date().getFullYear() }.${addZero}${ Number(new Date().getMonth() + 1) }`
+    const currentDate = `${ new Date().getFullYear() }.${ addZero }${ Number(new Date().getMonth() + 1) }`
     setCurrentMonth(currentDate);
   }
 
@@ -55,7 +56,7 @@ function Navigation(props: NavigationProps) {
   // style
   const monthClasses = (el) => classNames({
     'nav--month__text': true,
-    'nav--month__text--active' : date === el && !disableDate.includes(el),
+    'nav--month__text--active': date === el && !disableDate.includes(el),
     'nav--month__text--disable': disableDate.includes(el)
   })
 
@@ -77,7 +78,7 @@ function Navigation(props: NavigationProps) {
         <div className={ 'nav--month' }>
           <div className={ 'nav--month__title' }>
             <h3>Calendar</h3>
-            <p>12 2020</p>
+            <p>{ `${ addZero }${new Date().getMonth() + 1} ${ new Date().getFullYear() }` }</p>
           </div>
           <div className={ 'nav--month__text__box' }>
             { monthArr.map((el, index) => {
