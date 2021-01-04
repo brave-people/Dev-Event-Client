@@ -417,5 +417,49 @@
     "tags": "온라인,해커톤,인공지능",
     "thumbnail": "https://user-images.githubusercontent.com/28642484/103348664-0b6fbf00-4ade-11eb-9418-03079c2f6581.png",
     "link": "https://onoffmix.com/event/229560"
+  },
+  {
+    "id": 38,
+    "title": "AWS Builders Online Series",
+    "description": "",
+    "startDate": "2021.01.21",
+    "endDate": "",
+    "owner": "AWS",
+    "tags": "온라인,컨퍼런스,클라우드",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/103542086-bff35180-4edf-11eb-993e-ec6d367f1385.png",
+    "link": "https://aws.amazon.com/ko/events/builders-online-series/"
+  },
+  {
+    "id": 39,
+    "title": "EFK로 쿠버네티스 로그 수집 및 분석하기",
+    "description": "",
+    "startDate": "2021.01.07T11:00,
+    "endDate": "2021.01.07T12:00",
+    "owner": "네이버 클라우드 플랫폼",
+    "tags": "온라인,해커톤,클라우드",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/103542060-b669e980-4edf-11eb-9216-23ba544558b7.png",
+    "link": "https://innovationacademy.kr/notice?board=4&label=10&post=104"
+  },
+  {
+    "id": 40,
+    "title": "Hyperledger Meetup Korea #28 - HTS, DeFi 스왑 및 유동성 프로토콜",
+    "description": "",
+    "startDate": "2021.01.13T19:00",
+    "endDate": "2021.01.13T21:00",
+    "owner": "Hyperledger Korea User Group",
+    "tags": "온라인,네트워크",
+    "thumbnail": "",
+    "link": ""
+  },
+  {
+    "id": 41,
+    "title": "GraphQL Korea 1월 온라인 밋업",
+    "description": "",
+    "startDate": "2021.01.12",
+    "endDate": "2021.01.14",
+    "owner": "GraphQL Korea",
+    "tags": "온라인,GraphQL",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/103542312-195b8080-4ee0-11eb-821e-8923d4964d9c.png",
+    "link": "https://festa.io/events/1367"
   }
 ]
