@@ -494,5 +494,61 @@
     "tags": "온라인,애자일,유료",
     "thumbnail": "https://user-images.githubusercontent.com/28642484/104314742-32d27d00-551d-11eb-8bda-097cc6ba804e.png",
     "link": "https://festa.io/events/1372"
+  },
+  {
+    "id": 45,
+    "title": "Microsoft Azure Virtual Training Day: 서버 인프라 마이그레이션",
+    "description": "",
+    "startDate": "2021.01.20T14:00",
+    "endDate": "2021.01.20T17:00",
+    "owner": "Microsoft Azure",
+    "tags": "온라인,클라우드",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/104571589-9d5af880-5696-11eb-9217-69a7a531b741.png",
+    "link": "https://festa.io/events/1372"
+  },
+  {
+    "id": 46,
+    "title": "MZ 인공지능 해커톤 대회",
+    "description": "",
+    "startDate": "2021.01.11",
+    "endDate": "2021.01.24",
+    "owner": "NIA(한국지능정보사회진흥원)",
+    "tags": "온라인,해커톤,인공지능",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/104571850-f75bbe00-5696-11eb-9699-9d7ccce42834.png",
+    "link": "https://dacon.io/competitions/official/235683/overview/"
+  },
+  {
+    "id": 47,
+    "title": "성공사례를 통한 오라클 클라우드 기반 DB 마이그레이션과 DR 서비스 활용방안",
+    "description": "",
+    "startDate": "2021.01.11",
+    "endDate": "2021.01.24",
+    "owner": "오라클,메가존클라우드 ",
+    "tags": "온라인,해커톤,클라우드",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/104572689-56b9ce00-5697-11eb-86ae-f896f79c9240.png",
+    "link": "https://www.allshowtv.com/detail.html?idx=486"
+  },
+  {
+    "id": 48,
+    "title": "DATA 누구에게나 처음은 있었다.",
+    "description": "",
+    "startDate": "2021.01.28T19:30",
+    "endDate": "2021.01.28T21:05",
+    "owner": "원티드",
+    "tags": "웨비나,데이터",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/104572866-8f59a780-5697-11eb-959f-862fac76cf9b.png",
+    "link": "https://www.wanted.co.kr/events/careertalk08"
+  },
+  {
+    "id": 49,
+    "title": "성장하는 iOS개발자 되기",
+    "description": "",
+    "startDate": "2021.01.29T19:30",
+    "endDate": "2021.01.29T21:05",
+    "owner": "원티드",
+    "tags": "웨비나,데이터",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/104572969-b4e6b100-5697-11eb-8a39-d040faed78d8.png",
+    "link": "https://www.wanted.co.kr/events/livetalk16"
   }
 ]
+
