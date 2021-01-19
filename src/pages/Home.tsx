@@ -18,8 +18,10 @@ function Home() {
 
   return (
     <div>
-      <h2 className={'title'}>2021 EVENT</h2>
       {/*<ScrollElement />*/ }
+      <div className={'search'}>
+        <input type="text" placeholder={'Search'}/>
+      </div>
       <Filter/>
       {/*<div className={'landing__wrap'}>
         <h1 className={'landing__title'}>DEV EVENT</h1>
