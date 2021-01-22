@@ -7,14 +7,14 @@
     padding: 0 4px;
     border: none;
     background: inherit;
-    font-size: 48px;
+    font-size: 40px;
     letter-spacing: -1.5px;
     color: $color__white;
     font-family: 'Barlow', sans-serif;
     border-left: 2px solid $color__white;
 
     &::placeholder {
-      color: rgba(0, 0, 0, 0.3);
+      color: rgba(255, 255, 255, 0.3);
     }
 
     &:focus {

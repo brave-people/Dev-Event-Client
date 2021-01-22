@@ -26,21 +26,27 @@ function Filter() {
   }
 
   return (
-    <div className={ 'filter__box' }>
-      <button onClick={ () => setShowTags() }>
-        <img className={ 'card__tag__image' }
-             style={ { top: 0 } }
-             src="https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/price-tag-fill.svg" alt="tag"/>
-        Tag
-        <div className={ 'filter--arrow' }></div>
-      </button>
-      <div className={ showTags ? 'filter filter--active' : 'filter' }>
-        { tags.map((el: string, index: number) => {
-          return <p onClick={ () => setTag(el) } key={ index }
-                    className={ activeTags.find(tag => tag === el) ? 'tag tag--active' : 'tag' }>{ el }</p>
-        }) }
-      </div>
-    </div>
+    <section className={ 'filter__box' }>
+      <article className={ 'filter__button__wrap' }>
+        <button className={ 'filter__button' } onClick={ () => setTag('온라인') }>온라인</button>
+        <button className={ 'filter__button' } onClick={ () => setTag('컨퍼런스') }>컨퍼런스</button>
+        <button className={ 'filter__button' } onClick={ () => setTag('세미나') }>세미나</button>
+        <button className={ 'filter__button--icon' } onClick={ () => setShowTags() }>
+          <img
+            src="https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/filter.svg" alt="filter"/>
+        </button>
+      </article>
+      <article className={ showTags ? 'filter filter--active' : 'filter' }>
+        <button className={ 'filter__button--close' } onClick={ () => setShowTags() }>X</button>
+        <div className={ 'filter--grid' }>
+          { tags.map((el: string, index: number) => {
+            return <p onClick={ () => setTag(el) } key={ index }
+                      className={ activeTags.find(tag => tag === el) ? 'tag tag--active' : 'tag' }>{ el }</p>
+          }) }
+        </div>
+        <div className={ 'filter--pointer' }></div>
+      </article>
+    </section>
   )
 }
 
