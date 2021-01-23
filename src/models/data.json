@@ -549,6 +549,50 @@
     "tags": "웨비나,데이터",
     "thumbnail": "https://user-images.githubusercontent.com/28642484/104572969-b4e6b100-5697-11eb-8a39-d040faed78d8.png",
     "link": "https://www.wanted.co.kr/events/livetalk16"
+  },
+  {
+    "id": 50,
+    "title": "한국인공지능연구소 오픈랩 8기 모집",
+    "description": "",
+    "startDate": "2021.01.08T22 :00",
+    "endDate": "",
+    "owner": "한국인공지능연구소",
+    "tags": "인공지능",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/104906435-0a3bfe80-59c7-11eb-9ad4-bf6dd1b5846f.png",
+    "link": "https://www.ai-lab.kr/news/5fed54f001ade691cad53921?fbclid=IwAR3yfaPHMsdY_VmRhYNc-k0f_hwkIUDJbZi02kf79zRPPn39TX2bRR81_v0"
+  },
+  {
+    "id": 51,
+    "title": "27th SOPT APPJAM Demo Day",
+    "description": "",
+    "startDate": "2021.01.04",
+    "endDate": "2021.01.11",
+    "owner": "SOPT",
+    "tags": "해커톤,온라인",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/104906555-35bee900-59c7-11eb-9c67-d02df820fdf7.png",
+    "link": "https://event-us.kr/onsopt/event/27939"
+  },
+  {
+    "id": 52,
+    "title": "DevGround 2021 - 개발자, 나의 성장을 도왔던 것들",
+    "description": "",
+    "startDate": "2021.01.27",
+    "endDate": "2021.01.29",
+    "owner": "한빛미디어",
+    "tags": "웨비나",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/104906687-6010a680-59c7-11eb-9904-91db8f15a194.png",
+    "link": "https://devground.hanbit.co.kr/"
+  },
+  {
+    "id": 53,
+    "title": "SW 마에스트로 12기 모집",
+    "description": "",
+    "startDate": "2021.01.18T10:00",
+    "endDate": "2021.02.18T17:00",
+    "owner": "SW마에스트로",
+    "tags": "교육",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/104907379-589dcd00-59c8-11eb-8bb5-86a59ca4b454.png",
+    "link": "https://www.swmaestro.org/sw/main/contents.do?menuNo=200033"
   }
 ]
 
