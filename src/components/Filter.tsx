@@ -36,8 +36,9 @@ function Filter() {
             src="https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/filter.svg" alt="filter"/>
         </button>
       </article>
+      <div className={ showTags ? 'filter--background' : '' } onClick={ () => setShowTags() }></div>
       <article className={ showTags ? 'filter filter--active' : 'filter' }>
-        <button className={ 'filter__button--close' } onClick={ () => setShowTags() }>X</button>
+        <p className={ 'filter__title' }>태그</p>
         <div className={ 'filter--grid' }>
           { tags.map((el: string, index: number) => {
             return <p onClick={ () => setTag(el) } key={ index }

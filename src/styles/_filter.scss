@@ -22,8 +22,8 @@
     padding: 16px 16px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    color: $color__black;
-    background-color: $color__white;
+    color: $color__white;
+    background-color: $color__black;
   }
 
   &__box {
@@ -88,9 +88,28 @@
     left: 0;
     bottom: 0;
     position: fixed;
-    background-color: $color__pink;
+    background-color: $color__gray-90;
     transition: 0.4s cubic-bezier(0.6, 0.3, 0, 1);
     z-index: -1;
+  }
+
+  &--background {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+  }
+
+  &__title {
+    margin-left: 36px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    color: $color__white;
   }
 
   @media (max-width: $lg) {

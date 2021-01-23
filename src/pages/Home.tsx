@@ -1,7 +1,6 @@
 import React from "react";
 import Card from '../components/Card'
 import Filter from "../components/Filter";
-import ScrollElement from "../components/ScrollElement";
 import { useSelector } from "react-redux";
 import { ReducerType } from "../rootReducer";
 import { MonthModel } from "../models/month";

@@ -6,14 +6,27 @@ import Education from './pages/Education'
 import Navigation from "./components/Navigation";
 import './App.scss';
 import './styles/index.scss'
+import { useDispatch, useSelector } from "react-redux";
+import { ReducerType } from "./rootReducer";
+import { MonthModel } from "./models/month";
+import { activeMonth } from "./slices/month";
 
 function App() {
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  const { date } = useSelector<ReducerType>(state => state.month) as MonthModel;
 
   document.addEventListener('mousemove', (e) => {
     let circle = document.getElementById('circle');
     if (circle) circle.style.transform = `translate(${ e.x }px, ${ e.y }px)`
   });
+
+  // 최초 날짜 설정
+  const addZero = Number(new Date().getMonth() + 1) < 10 ? '0' : '';
+  if (!date) {
+    const currentDate = `${ new Date().getFullYear() }.${ addZero }${ Number(new Date().getMonth() + 1) }`
+    dispatch(activeMonth(currentDate))
+  }
 
   return (
     <div>
