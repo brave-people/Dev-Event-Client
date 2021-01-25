@@ -11,7 +11,7 @@ function Home() {
   const { date } = useSelector<ReducerType>(state => state.month) as MonthModel;
 
   const filterCardData = CardData.filter(card => {
-    if (card.startDate.indexOf(date) !== -1) {
+    if (card.startDate.indexOf(date) !== -1 || card.endDate.indexOf(date) !== -1) {
       return card.startDate.split('.')[1];
     }
   })
