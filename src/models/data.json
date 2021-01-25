@@ -593,6 +593,127 @@
     "tags": "교육",
     "thumbnail": "https://user-images.githubusercontent.com/28642484/104907379-589dcd00-59c8-11eb-8bb5-86a59ca4b454.png",
     "link": "https://www.swmaestro.org/sw/main/contents.do?menuNo=200033"
+  },
+  {
+    "id": 54,
+    "title": "제 13회 BOAZ 빅데이터 컨퍼런스",
+    "description": "",
+    "startDate": "2021.01.23",
+    "endDate": "2021.01.23",
+    "owner": "BOZA",
+    "tags": "컨퍼런스,빅데이터",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/105708409-c8c3ca00-5f57-11eb-8092-5f66bc103f2e.png",
+    "link": "https://www.onoffmix.com/event/231649?fbclid=IwAR1MFZmRWpLsSITOuxaW7OEo3cOGLPmOMWIKAy5933yAW5VXGVF8AzLkP_M"
+  },
+  {
+    "id": 55,
+    "title": "DDD 연합 동아리 모집",
+    "description": "",
+    "startDate": "2021.01.12",
+    "endDate": "2021.01.25",
+    "owner": "DDD",
+    "tags": "동아리",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/105708570-00327680-5f58-11eb-81b6-73bc2e5984fa.png",
+    "link": "https://www.notion.so/5-15692a933b21428d8593a62e4361c367"
+  },
+  {
+    "id": 56,
+    "title": "하루만에 끝내는 [원데이 A/B 테스트 클래스] 참가기업 모집",
+    "description": "",
+    "startDate": "2021.01.12",
+    "endDate": "2021.01.25",
+    "owner": "HACKLE",
+    "tags": "교육,테스트",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/105708746-34a63280-5f58-11eb-8504-b13f4085c1ff.png",
+    "link": "https://festa.io/events/1377"
+  },
+  {
+    "id": 57,
+    "title": "세계 톱클래스 게임 앱이 실시하는 품질 관리 노하우",
+    "description": "",
+    "startDate": "2021.01.26",
+    "endDate": "2021.02.01",
+    "owner": "FROSK",
+    "tags": "교육,앱",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/105709195-bdbd6980-5f58-11eb-898b-3bfe69ebe047.png",
+    "link": "https://festa.io/events/1377"
+  },
+  {
+    "id": 58,
+    "title": "기초부터 시작하는 데이터 시각화 전문가 과정",
+    "description": "",
+    "startDate": "2021.01.20",
+    "endDate": "2021.02.10",
+    "owner": "로켓펀치, 탈잉",
+    "tags": "교육,데이터",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/105709562-39b7b180-5f59-11eb-8c46-40e86cddb2b9.png",
+    "link": "https://www.rocketpunch.com/bigdataclass2021?utm_source=rocketpunch&utm_medium=edm&utm_campaign=bigdataclass2021"
+  },
+  {
+    "id": 59,
+    "title": "Sleep AI Challenge",
+    "description": "",
+    "startDate": "2021.01.25",
+    "endDate": "2021.01.28",
+    "owner": "MAIC",
+    "tags": "대회,인공지능",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/105709802-8dc29600-5f59-11eb-93f1-0fa64241f69d.png",
+    "link": "https://maic.or.kr/competitions/3/infomation/"
+  },
+  {
+    "id": 60,
+    "title": "DevGround 2021 - 개발자, 나의 성장을 도왔던 것들",
+    "description": "",
+    "startDate": "2021.01.25",
+    "endDate": "2021.01.28",
+    "owner": "한빛미디어",
+    "tags": "웨비나",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/105710087-f9a4fe80-5f59-11eb-9bbb-ed681757ba92.png",
+    "link": "https://devground.hanbit.co.kr/"
+  },
+  {
+    "id": 61,
+    "title": "클라우드 보안 A-Z까지: 보안 감사 및 안전한 아키텍처 구성하기",
+    "description": "",
+    "startDate": "2021.01.28T11:00",
+    "endDate": "2021.01.28T12:00",
+    "owner": "네이버 클라우드 플랫폼",
+    "tags": "웨비나,클라우드",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/105710564-a54e4e80-5f5a-11eb-9fb2-88ada32cadcc.png",
+    "link": "https://register.gotowebinar.com/register/3224508475533066000"
+  },
+  {
+    "id": 62,
+    "title": "스타트업이 알아야 할 AWS의 모든 것!",
+    "description": "",
+    "startDate": "2021.01.28T14:00",
+    "endDate": "2021.01.28T17:00",
+    "owner": "메가존",
+    "tags": "웨비나,클라우드",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/105710818-f9f1c980-5f5a-11eb-9e09-fdcb93659075.png",
+    "link": "https://www.megazone.com/smb-apply-210121/?utm_source=festa&amp;utm_medium=webinar&amp;utm_campaign=21-aws-startup-101"
+  },
+  {
+    "id": 63,
+    "title": "AWSKRUG 데이터사이언스 소모임",
+    "description": "",
+    "startDate": "2021.01.28T14:00",
+    "endDate": "2021.01.28T17:00",
+    "owner": "AWSKRUG",
+    "tags": "모임,데이터사이언스",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/105711012-489f6380-5f5b-11eb-9d06-35b42f042e2e.png",
+    "link": "https://www.meetup.com/ko-KR/awskrug/events/275959628/?fbclid=IwAR3qiNgrYEkj6NjC813SvL9089rg-C08WTifda03E27P3Tj0yS7VR9BmRd0"
+  },
+  {
+    "id": 64,
+    "title": "K-Shield 주니어 보안사고 분석대응과정 6기 모집",
+    "description": "",
+    "startDate": "2021.01.18T14:00",
+    "endDate": "2021.02.28T17:00",
+    "owner": "과학기술정보통신부, KISA",
+    "tags": "교육",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/105711515-00347580-5f5c-11eb-9e81-9bd5f099cac6.png",
+    "link": "http://www.kshieldjr.org/hr/home?custom=&year=2021&lastLoginTime=&isCmpt=false"
   }
 ]
 
