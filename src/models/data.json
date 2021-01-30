@@ -593,6 +593,105 @@
     "tags": "교육",
     "thumbnail": "https://user-images.githubusercontent.com/28642484/104907379-589dcd00-59c8-11eb-8bb5-86a59ca4b454.png",
     "link": "https://www.swmaestro.org/sw/main/contents.do?menuNo=200033"
+  },
+  {
+    "id": 54,
+    "title": "세계 톱클래스 게임 앱이 실시하는 품질 관리 노하우",
+    "description": "",
+    "startDate": "2021.01.26",
+    "endDate": "2021.02.01",
+    "owner": "FROSK",
+    "tags": "교육,앱",
+    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/54.jpg",
+    "link": "https://onoffmix.com/event/231094"
+  },
+  {
+    "id": 55,
+    "title": "AWSKRUG 데이터사이언스 소모임",
+    "description": "",
+    "startDate": "2021.02.04T19:00",
+    "endDate": "",
+    "owner": "AWSKRUG",
+    "tags": "모임,데이터사이언스",
+    "thumbnail": "https://secure.meetupstatic.com/photos/event/a/5/2/highres_482402642.jpeg",
+    "link": "https://www.meetup.com/ko-KR/awskrug/events/275959628/?fbclid=IwAR3qiNgrYEkj6NjC813SvL9089rg-C08WTifda03E27P3Tj0yS7VR9BmRd0"
+  },
+  {
+    "id": 56,
+    "title": "루니버스 파트너스데이",
+    "description": "",
+    "startDate": "2021.02.04T14:00",
+    "endDate": "2021.02.05T14:00",
+    "owner": "루니버스",
+    "tags": "웨비나,블록체인",
+    "thumbnail": "https://i0.wp.com/luniverse.io/wp-content/uploads/2021/01/popup.png?fit=650%2C820&ssl=1",
+    "link": "https://luniverse.io/?lang=ko&utm_source=festa&utm_medium=banner&utm_campaign=2021partnersday"
+  },
+  {
+    "id": 57,
+    "title": "IT사이드프로젝트 팀매칭을 위한 기획자, 디자이너, 개발자 및 온라인 네트워킹",
+    "description": "",
+    "startDate": "2021.02.11T21:00",
+    "endDate": "2021.02.11T23:30",
+    "owner": "HACKLE",
+    "tags": "네트워킹",
+    "thumbnail": "https://cf.festa.io/img/2021-1-29/608b93c6-89d2-46a2-a62a-f93ab700b943.png",
+    "link": "https://festa.io/events/1391"
+  },
+  {
+    "id": 58,
+    "title": "K-Shield 주니어 보안사고 분석대응과정 6기 모집",
+    "description": "",
+    "startDate": "2021.01.18",
+    "endDate": "2021.02.15T18:00",
+    "owner": "과학기술정보통신부, KISA",
+    "tags": "교육",
+    "thumbnail": "http://www.kshieldjr.org/images/samples/main-slide.jpg",
+    "link": "http://www.kshieldjr.org/hr/home?custom=&year=2021&lastLoginTime=&isCmpt=false"
+  },
+  {
+    "id": 59,
+    "title": "하루만에 끝내는 [원데이 A/B 테스트 클래스] 참가기업 모집",
+    "description": "",
+    "startDate": "2021.02.16T14:00",
+    "endDate": "2021.02.15T16:00",
+    "owner": "HACKLE",
+    "tags": "교육,테스트",
+    "thumbnail": "https://cf.festa.io/img/2021-1-21/a825c59d-f9f5-4be4-a3a0-27e751433339.png",
+    "link": "https://festa.io/events/1377"
+  },
+  {
+    "id": 60,
+    "title": "SW 마에스트로 12기 모집",
+    "description": "",
+    "startDate": "2021.01.18",
+    "endDate": "2021.02.18T17:00",
+    "owner": "SW마에스트로",
+    "tags": "교육",
+    "thumbnail": "https://www.swmaestro.org/contents/commoneditor/2020020508394522c0ff1c-e5f4-4c5a-bd19-6179590e4910.jpg",
+    "link": "https://www.swmaestro.org/sw/main/contents.do?menuNo=200033"
+  },
+  {
+    "id": 61,
+    "title": "구글 클라우드 기초 교육 - GCP Fundamentals",
+    "description": "",
+    "startDate": "2021.02.25T10:30",
+    "endDate": "2021.02.25T17:30",
+    "owner": "메가존클라우드, 구글클라우드",
+    "tags": "웨비나,클라우드",
+    "thumbnail": "https://gsuite-img.hosting.kr/wp-content/uploads/2021/01/26111656/MSP-logo-%EC%84%B8%EB%A1%9C%ED%98%95-sss.png",
+    "link": "https://gc.hosting.kr/february_gcp_webinar_2021/"
+  },
+  {
+    "id": 62,
+    "title": "All-in-one GAME Webinar",
+    "description": "",
+    "startDate": "2021.02.25T10:00",
+    "endDate": "2021.02.25T12:00",
+    "owner": "네이버 클라우드",
+    "tags": "웨비나,클라우드",
+    "thumbnail": "https://images.gotowebinar.com/b6a5881aa2bb05dd308f3852f0de514f",
+    "link": "https://gc.hosting.kr/february_gcp_webinar_2021/"
   }
 ]
 
