@@ -84,7 +84,7 @@
     "startDate": "2020.12.08",
     "endDate": "2020.12.10",
     "owner": "Github",
-    "tags": "온라인,컨퍼런",
+    "tags": "온라인,컨퍼런스",
     "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/20201211.png",
     "link": "https://githubuniverse.com/?utm_source=github.com&utm_medium=referral&utm_campaign=universe_banner_dashboard_phase1"
   },
@@ -435,7 +435,7 @@
     "description": "",
     "startDate": "2021.01.07T11:00",
     "endDate": "2021.01.07T12:00",
-    "owner": "네이버 클라우드 플랫폼",
+    "owner": "네이버클라우드플랫폼",
     "tags": "온라인,해커톤,클라우드",
     "thumbnail": "https://user-images.githubusercontent.com/28642484/103542060-b669e980-4edf-11eb-9216-23ba544558b7.png",
     "link": "https://innovationacademy.kr/notice?board=4&label=10&post=104"
@@ -479,7 +479,7 @@
     "description": "",
     "startDate": "2021.01.14T11:00",
     "endDate": "2021.01.14T12:00",
-    "owner": "네이버 클라우드 플랫폼",
+    "owner": "네이버클라우드플랫폼",
     "tags": "교육,인공지능,무료",
     "thumbnail": "https://user-images.githubusercontent.com/28642484/104314363-a922af80-551c-11eb-801f-1aec1fccf964.png",
     "link": "https://register.gotowebinar.com/register/6677054151586882832"
@@ -523,7 +523,7 @@
     "description": "",
     "startDate": "2021.01.11",
     "endDate": "2021.01.24",
-    "owner": "오라클,메가존클라우드 ",
+    "owner": "오라클, 메가존클라우드",
     "tags": "온라인,해커톤,클라우드",
     "thumbnail": "https://user-images.githubusercontent.com/28642484/104572689-56b9ce00-5697-11eb-86ae-f896f79c9240.png",
     "link": "https://www.allshowtv.com/detail.html?idx=486"
@@ -554,7 +554,7 @@
     "id": 50,
     "title": "한국인공지능연구소 오픈랩 8기 모집",
     "description": "",
-    "startDate": "2021.01.08T22 :00",
+    "startDate": "2021.01.08T22:00",
     "endDate": "",
     "owner": "한국인공지능연구소",
     "tags": "인공지능",
