@@ -18,7 +18,7 @@ function Navigation(props: NavigationProps) {
   let [show, showMonth] = useState(false);
   const startDate = new Date('2020-09-01');
   const monthArr: string[] = []
-  const disableDate = ['2020.09', '2020.10', '2020.11', '2021.02'];
+  const disableDate = ['2020.09', '2020.10', '2020.11'];
   for (let i = startDate.getMonth() + 1; i <= 12; i++) {
     monthArr.push(`${ startDate.getFullYear() }.${ i < 10 ? '0' + i : i }`)
   }
