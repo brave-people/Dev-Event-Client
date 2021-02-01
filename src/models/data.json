@@ -714,6 +714,87 @@
     "tags": "교육",
     "thumbnail": "https://user-images.githubusercontent.com/28642484/105711515-00347580-5f5c-11eb-9e81-9bd5f099cac6.png",
     "link": "http://www.kshieldjr.org/hr/home?custom=&year=2021&lastLoginTime=&isCmpt=false"
+  },
+  {
+    "id": 65,
+    "title": "구글 클라우드 기초 교육 - GCP Fundamentals",
+    "description": "",
+    "startDate": "2021.02.25T10:30",
+    "endDate": "2021.02.25T17:00",
+    "owner": "메가존클라우드, 구글클라우드",
+    "tags": "웨비나,클라우드",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/106442883-31162c80-64bf-11eb-91e7-ff4c887d9570.png",
+    "link": "https://gc.hosting.kr/february_gcp_webinar_2021/"
+  },
+  {
+    "id": 66,
+    "title": "All-in-one GAME Webinar",
+    "description": "",
+    "startDate": "2021.02.25T10:00",
+    "endDate": "2021.02.25T12:00",
+    "owner": "네이버 클라우드",
+    "tags": "웨비나,클라우드",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/106443192-8e11e280-64bf-11eb-8d59-2c0611dfcd19.png",
+    "link": "https://register.gotowebinar.com/register/5855025174790246671"
+  },
+  {
+    "id": 67,
+    "title": "루니버스 파트너스데이",
+    "description": "",
+    "startDate": "2021.02.04T14:00",
+    "endDate": "2021.02.05T14:00",
+    "owner": "루니버스",
+    "tags": "웨비나,블록체인",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/106443445-d6310500-64bf-11eb-826e-c1b606cbabc0.png",
+    "link": "https://luniverse.io/?lang=ko&utm_source=festa&utm_medium=banner&utm_campaign=2021partnersday"
+  },
+  {
+    "id": 68,
+    "title": "IT사이드프로젝트 팀매칭을 위한 기획자, 디자이너, 개발자 및 온라인 네트워킹",
+    "description": "",
+    "startDate": "2021.02.11T21:00",
+    "endDate": "2021.02.11T23:30",
+    "owner": "HACKLE",
+    "tags": "네트워킹",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/106443604-02e51c80-64c0-11eb-8b21-3e74777ddfe4.png",
+    "link": "https://festa.io/events/1391"
+  },
+  {
+    "id": 69,
+    "title": "클라우드 상에서 효율적인 CI/CD 사용 방법",
+    "description": "",
+    "startDate": "2021.02.04T11:00",
+    "endDate": "2021.02.04T12:00",
+    "owner": "네이버 클라우드",
+    "tags": "웨비나,클라우드,데브옵스",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/106443803-4b9cd580-64c0-11eb-8c03-80be32032575.png",
+    "link": "https://register.gotowebinar.com/register/782167695371096592"
+  },
+  {
+    "id": 70,
+    "title": "제3회 스포카콘: Always Evolving!",
+    "description": "",
+    "startDate": "2021.02.17T18:00",
+    "endDate": "2021.02.18T22:00",
+    "owner": "스포카",
+    "tags": "웨비나",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/106443935-7555fc80-64c0-11eb-96ff-4a7771104d4e.png",
+    "link": "https://festa.io/events/1397"
+  },
+  {
+    "id": 71,
+    "title": "리얼리눅스 무료세미나: 라즈베리파이로 코딩하기",
+    "description": "",
+    "startDate": "2021.02.25T20:00",
+    "endDate": "2021.02.25T21:00",
+    "owner": "스포카",
+    "tags": "무료교육,리얼리눅스",
+    "thumbnail": "https://user-images.githubusercontent.com/28642484/106444129-adf5d600-64c0-11eb-97cc-c2f1bf40b550.png",
+    "link": "https://festa.io/events/1394"
   }
+
+
+
+  
 ]
 
