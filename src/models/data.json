@@ -791,10 +791,28 @@
     "tags": "무료교육,리얼리눅스",
     "thumbnail": "https://user-images.githubusercontent.com/28642484/106444129-adf5d600-64c0-11eb-97cc-c2f1bf40b550.png",
     "link": "https://festa.io/events/1394"
+  },
+  {
+    "id": 72,
+    "title": "현업 개발자와 함께 리액트 모각코 해요",
+    "description": "",
+    "startDate": "2021.02.06T10:00",
+    "endDate": "2021.02.06T13:00",
+    "owner": "카우치코딩",
+    "tags": "모각코",
+    "thumbnail": "https://cf.festa.io/img/2021-2-3/4af4a4c2-761f-45a9-af0c-a4f2d67b1f73.png",
+    "link": "https://festa.io/events/1399"
+  },
+  {
+    "id": 73,
+    "title": "당근마켓 프론트엔드 개발자 채용 오픈 세션",
+    "description": "",
+    "startDate": "2021.02.08T19:30",
+    "endDate": "2021.02.08T21:30",
+    "owner": "당근마켓",
+    "tags": "채용",
+    "thumbnail": "https://cf.festa.io/img/2021-2-2/142e30bc-ab12-444f-ae71-d60865f59944.png",
+    "link": "https://festa.io/events/1398"
   }
-
-
-
-  
 ]
 
