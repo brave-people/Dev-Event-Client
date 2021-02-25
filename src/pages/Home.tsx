@@ -5,7 +5,7 @@ import ScrollElement from "../components/ScrollElement";
 import { useSelector } from "react-redux";
 import { ReducerType } from "../rootReducer";
 import { MonthModel } from "../models/month";
-import CardData from '../models/data.json';
+import CardData from '../data/data.json';
 
 function Home() {
   const { date } = useSelector<ReducerType>(state => state.month) as MonthModel;
