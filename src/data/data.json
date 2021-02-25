@@ -824,18 +824,7 @@
     "tags": "아이디어톤,AI",
     "thumbnail": "http://hackerthon.zum.com/images/img_main.png",
     "link": "http://hackerthon.zum.com/"
-  },
-  {
-    "id": 75,
-    "title": "영상 공개 데이터 기반 인공지능 아이디어 해커톤",
-    "description": "",
-    "startDate": "2021.01.28",
-    "endDate": "2021.02.10T13:00",
-    "owner": "줌인터넷",
-    "tags": "아이디어톤,AI",
-    "thumbnail": "http://hackerthon.zum.com/images/img_main.png",
-    "link": "http://hackerthon.zum.com/"
-  },
+  },개
   {
     "id": 76,
     "title": "농업 영상 AI 데이터 활용 아이디어 해커톤 대회",
@@ -914,15 +903,15 @@
     "link": "https://discover-ai-with-microsoft.agorize.com/en/challenges/msazurevirtualhack-2021?t=yMvcu7wEVjPgLsBRnDpZEw&utm_source=gaerae&utm_medium=network&utm_campaign=kr_cont_dev&lang=ko&fbclid=IwAR3QhA8RPfi3kaUQtO8tFUc0W4Ti1p5Jf1kegOHOx81cMLrnweieCfluN2g"
   },
   {
-    "id": 83,
+    "id": 100,
     "title": "AWS INNOVATE 온라인 컨퍼런스 - AI 및 기계 학습 특집",
     "description": "",
     "startDate": "2021.02.24T09:00",
     "endDate": "2021.02.24T16:30",
-    "owner": "Microsoft",
-    "tags": "해커톤",
-    "thumbnail": "https://cdn.fs.agorize.com/GGw3YEqjTmCV7fZj1Dmw",
-    "link": "https://discover-ai-with-microsoft.agorize.com/en/challenges/msazurevirtualhack-2021?t=yMvcu7wEVjPgLsBRnDpZEw&utm_source=gaerae&utm_medium=network&utm_campaign=kr_cont_dev&lang=ko&fbclid=IwAR3QhA8RPfi3kaUQtO8tFUc0W4Ti1p5Jf1kegOHOx81cMLrnweieCfluN2g"
+    "owner": "AWS",
+    "tags": "웨비나,AI",
+    "thumbnail": "https://d1.awsstatic.com/apac/events/2021/aws-innovate-2021/AIML21_Sphere%20GIF_cam%20move.1fd65ae21bbd83e99fee03a5fa1c57dfd28a5e77.gif",
+    "link": "https://aws.amazon.com/ko/events/aws-innovate/machine-learning/"
   },
   {
     "id": 83,
