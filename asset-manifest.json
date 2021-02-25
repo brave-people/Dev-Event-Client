@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/Dev-Event-Client/static/css/main.e177f400.chunk.css",
-    "main.js": "/Dev-Event-Client/static/js/main.107a7db9.chunk.js",
-    "main.js.map": "/Dev-Event-Client/static/js/main.107a7db9.chunk.js.map",
+    "main.css": "/Dev-Event-Client/static/css/main.13dc21e9.chunk.css",
+    "main.js": "/Dev-Event-Client/static/js/main.f238871d.chunk.js",
+    "main.js.map": "/Dev-Event-Client/static/js/main.f238871d.chunk.js.map",
     "runtime-main.js": "/Dev-Event-Client/static/js/runtime-main.e9c850e9.js",
     "runtime-main.js.map": "/Dev-Event-Client/static/js/runtime-main.e9c850e9.js.map",
     "static/css/2.494ee3e6.chunk.css": "/Dev-Event-Client/static/css/2.494ee3e6.chunk.css",
@@ -10,14 +10,14 @@
     "static/js/2.5b9a4d84.chunk.js.map": "/Dev-Event-Client/static/js/2.5b9a4d84.chunk.js.map",
     "index.html": "/Dev-Event-Client/index.html",
     "static/css/2.494ee3e6.chunk.css.map": "/Dev-Event-Client/static/css/2.494ee3e6.chunk.css.map",
-    "static/css/main.e177f400.chunk.css.map": "/Dev-Event-Client/static/css/main.e177f400.chunk.css.map",
+    "static/css/main.13dc21e9.chunk.css.map": "/Dev-Event-Client/static/css/main.13dc21e9.chunk.css.map",
     "static/js/2.5b9a4d84.chunk.js.LICENSE.txt": "/Dev-Event-Client/static/js/2.5b9a4d84.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e9c850e9.js",
     "static/css/2.494ee3e6.chunk.css",
     "static/js/2.5b9a4d84.chunk.js",
-    "static/css/main.e177f400.chunk.css",
-    "static/js/main.107a7db9.chunk.js"
+    "static/css/main.13dc21e9.chunk.css",
+    "static/js/main.f238871d.chunk.js"
   ]
 }
