@@ -2,6 +2,16 @@
   width: calc(100% - 6vw);
   margin: 48px 3vw;
 
+  &--no {
+    display: none;
+
+    &--result {
+      display: block;
+      color: $color__white;
+      text-align: center;
+    }
+  }
+
   input {
     width: 100%;
     padding: 0 4px;
