@@ -54,6 +54,13 @@ function App() {
       <BrowserRouter>
         <div className={show ? "nav nav--show" : "nav nav--hide"}>
           <div className={"nav__item"} onClick={() => setShow(false)}>
+            <img
+              src="https://s3.ap-northeast-2.amazonaws.com/cdn.cindy.com/dev-event/GitHub-Mark-120px-plus.png"
+              alt="github"
+              onClick={() =>
+                window.open("https://github.com/brave-people/Dev-Event-Client")
+              }
+            />
             <div className={"nav__item__wrap"}>
               <Link to="/Dev-Event-Client" className={"nav__text"}>
                 EVENT

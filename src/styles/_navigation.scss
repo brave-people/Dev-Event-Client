@@ -32,6 +32,12 @@
       background-color: $color__sky;
       transition: 0.4s cubic-bezier(0.6, 0.3, 0, 1);
     }
+
+    img {
+      width: 36px;
+      margin-top: 64px;
+      cursor: pointer;
+    }
   }
 
   &--show {
