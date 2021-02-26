@@ -34,7 +34,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div id={"app"}>
       <div id={"circle"}></div>
       <SplashScreen />
       <div className={"header"}>

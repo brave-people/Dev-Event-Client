@@ -37,7 +37,6 @@
   &__column {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin-left: $margin--left;
   }
 
   &__text {
@@ -91,6 +90,8 @@
 
   @media (min-width: 1920px) {
     &__column {
+      width: calc(100% - 32px);
+      margin: 0 auto;
       grid-template-columns: repeat(6, 1fr);
     }
   }

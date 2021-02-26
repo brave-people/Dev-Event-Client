@@ -1,9 +1,9 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import filter from './slices/filter';
-import textCard from './slices/textCard';
-import month from './slices/month';
+import { combineReducers } from "@reduxjs/toolkit";
+import filter from "./slices/filter";
+import list from "./slices/list";
+import month from "./slices/month";
 
-const rootReducer = combineReducers({ filter, textCard, month });
+const rootReducer = combineReducers({ filter, list, month });
 
 export type ReducerType = ReturnType<typeof rootReducer>;
 

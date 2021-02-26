@@ -27,8 +27,6 @@
   }
 
   &__box {
-    margin-left: $margin--left;
-
     button {
       cursor: pointer;
       outline: none;
@@ -43,7 +41,7 @@
     text-align: center;
     font-size: 14px;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 500;
     color: $color__white;
     position: relative;
     background-color: inherit;
@@ -63,6 +61,10 @@
     &__wrap {
       margin: 0 3vw;
       position: relative;
+    }
+
+    &--active {
+      color: $color__sky;
     }
   }
 
@@ -110,12 +112,6 @@
     font-weight: bold;
     text-align: left;
     color: $color__white;
-  }
-
-  @media (max-width: $lg) {
-    &__box {
-      margin-left: 0;
-    }
   }
 
   @media (max-width: $md) {

@@ -82,6 +82,9 @@
   align-items: center;
   cursor: pointer;
   z-index: 1001;
+  position: fixed;
+  top: 32px;
+  right: 0;
 
   &__icon {
     position: relative;

@@ -25,13 +25,34 @@ function Filter() {
   return (
     <section className={"filter__box"}>
       <article className={"filter__button__wrap"}>
-        <button className={"filter__button"} onClick={() => setTag("온라인")}>
+        <button
+          className={
+            activeTags.includes("온라인")
+              ? "filter__button filter__button--active"
+              : "filter__button"
+          }
+          onClick={() => setTag("온라인")}
+        >
           온라인
         </button>
-        <button className={"filter__button"} onClick={() => setTag("컨퍼런스")}>
+        <button
+          className={
+            activeTags.includes("컨퍼런스")
+              ? "filter__button filter__button--active"
+              : "filter__button"
+          }
+          onClick={() => setTag("컨퍼런스")}
+        >
           컨퍼런스
         </button>
-        <button className={"filter__button"} onClick={() => setTag("세미나")}>
+        <button
+          className={
+            activeTags.includes("세미나")
+              ? "filter__button filter__button--active"
+              : "filter__button"
+          }
+          onClick={() => setTag("세미나")}
+        >
           세미나
         </button>
         <button
@@ -47,7 +68,7 @@ function Filter() {
       <div
         className={showTags ? "filter--background" : ""}
         onClick={() => setShowTags()}
-      ></div>
+      />
       <article className={showTags ? "filter filter--active" : "filter"}>
         <p className={"filter__title"}>태그</p>
         <div className={"filter--grid"}>
@@ -67,7 +88,7 @@ function Filter() {
             );
           })}
         </div>
-        <div className={"filter--pointer"}></div>
+        <div className={"filter--pointer"} />
       </article>
     </section>
   );
