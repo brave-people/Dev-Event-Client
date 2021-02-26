@@ -1,8 +1,15 @@
 @import 'card';
 @import 'filter';
+@import 'list';
 @import 'navigation';
+@import 'search';
 @import 'splash';
 @import 'custom';
+
+#app {
+  max-width: 1920px;
+  margin: 0 auto;
+}
 
 #circle {
   width: 36px;
@@ -15,36 +22,33 @@
   z-index: 999;
 }
 
-.logo__wrap {
+.header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-top: 48px;
 }
 
 #logo {
-  width: 60px;
+  width: 48px;
   position: relative;
-  top: 16px;
-  left: calc(100% - 76px);
-  transform: translateX(-100%);
+  left: 16px;
 
   @media (max-width: $md) {
-    width: 48px;
-    left: calc(100% - 50px);
+    width: 36px;
   }
 }
 
 #logo--github {
   width: 36px;
   margin-right: 16px;
-  position: relative;
+  position: fixed;
   top: 16px;
-  left: calc(100% - 102px);
-  transform: translateX(-100%);
+  left: 24px;
   cursor: pointer;
 
   @media (max-width: $md) {
     width: 24px;
-    left: calc(100% - 72px);
   }
 }
 
