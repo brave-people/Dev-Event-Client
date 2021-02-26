@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReducerType } from "./rootReducer";
 import { MonthModel } from "./models/month";
 import { activeMonth } from "./slices/month";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function App() {
           </div>
           <div className={"nav__item--point"}></div>
         </div>
+        <ScrollToTop />
         <Switch>
           <Route exact path={"/Dev-Event-Client"} component={Home} />
           <Route
