@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import SplashScreen from "./components/Splash";
-import Home from "./pages/Home";
-import ProductPast from "./pages/ProductPast";
+import Home from "./pages/Event";
+import PastEvent from "./pages/PastEvent";
 
 import "./App.scss";
 import "./styles/index.scss";
@@ -78,7 +78,7 @@ function App() {
           <Route
             exact
             path={"/Dev-Event-Client/productPast"}
-            component={ProductPast}
+            component={PastEvent}
           />
         </Switch>
       </BrowserRouter>

@@ -6,7 +6,7 @@ import { updateYears } from "../slices/list";
 import CardListData from "../data/dataPast.json";
 import { ListModel } from "../models/card";
 
-function ProductPast() {
+function PastEvent() {
   const { years } = useSelector<ReducerType>((state) => state.list) as {
     years: string[];
   };
@@ -60,4 +60,4 @@ function ProductPast() {
   );
 }
 
-export default ProductPast;
+export default PastEvent;

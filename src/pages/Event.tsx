@@ -7,7 +7,7 @@ import { MonthModel } from "../models/month";
 import { CardModel } from "../models/card";
 import CardData from "../data/data.json";
 
-function Home() {
+function Event() {
   const { date } = useSelector<ReducerType>(
     (state) => state.month
   ) as MonthModel;
@@ -102,4 +102,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Event;
