@@ -1,6 +1,6 @@
 import React from "react";
 
-function Filter() {
+function Splash() {
   setTimeout(() => {
     const splash = document.querySelector('.splash__wrap') as HTMLElement;
     const splashHello = document.querySelector('.splash__hello') as HTMLElement;
@@ -26,4 +26,4 @@ function Filter() {
   )
 }
 
-export default Filter;
+export default Splash;
