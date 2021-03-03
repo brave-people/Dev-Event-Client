@@ -12,7 +12,7 @@
   &__hello {
     width: 220px;
     height: 220px;
-    position: fixed;
+    position: absolute;
     top: calc(50% - 110px);
     left: calc(50% - 110px);
     z-index: 0;
@@ -31,7 +31,7 @@
     &--00 {
       width: 90vw;
       height: 90vw;
-      position: fixed;
+      position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -46,7 +46,7 @@
     &--01 {
       width: 10vw;
       height: 10vw;
-      position: fixed;
+      position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -61,7 +61,7 @@
     &--02 {
       width: 10vw;
       height: 10vw;
-      position: fixed;
+      position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -97,7 +97,6 @@
   animation: circle__spinner 2.5s linear;
   animation-delay: 1s;
   opacity: 0;
-  visibility: hidden;
 
   .cls-1 {
     fill: none;
@@ -163,14 +162,12 @@
 
   50%, 100% {
     border-width: 400px;
-    //opacity: 0;
   }
 }
 
 @keyframes #{"circle__spinner"} {
   0%, 50% {
     opacity: 1;
-    visibility: visible;
     transform: rotate(0deg);
   }
 

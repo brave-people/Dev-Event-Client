@@ -3,9 +3,9 @@ import React from "react";
 function Splash() {
   setTimeout(() => {
     const splash = document.querySelector('.splash__wrap') as HTMLElement;
-    const splashHello = document.querySelector('.splash__hello') as HTMLElement;
+    const splashSpinner = document.querySelector('#spinner') as HTMLElement;
     splash.style.top = '-200%';
-    splashHello.style.top = '-200%';
+    splashSpinner.style.top = '-200%';
   }, 3000)
 
   return (
