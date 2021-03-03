@@ -51,6 +51,13 @@
 
 <br />
 
+-----
+
+# 앞으로 할일
+1. useMemo
+2. useCallback
+3. memo
+
 ------
 
 # Developer
