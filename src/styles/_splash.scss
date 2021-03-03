@@ -97,6 +97,7 @@
   animation: circle__spinner 2.5s linear;
   animation-delay: 1s;
   opacity: 0;
+  visibility: hidden;
 
   .cls-1 {
     fill: none;
@@ -169,6 +170,7 @@
 @keyframes #{"circle__spinner"} {
   0%, 50% {
     opacity: 1;
+    visibility: visible;
     transform: rotate(0deg);
   }
 
