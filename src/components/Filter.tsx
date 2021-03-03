@@ -47,13 +47,13 @@ function Filter() {
         </button>
         <button
           className={
-            activeTags.includes("웨비나")
+            activeTags.includes("프론트엔드")
               ? "filter__button filter__button--active"
               : "filter__button"
           }
-          onClick={() => setTag("웨비나")}
+          onClick={() => setTag("프론트엔드")}
         >
-          웨비나
+          프론트엔드
         </button>
         <button
           className={"filter__button--icon"}

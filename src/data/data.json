@@ -1099,5 +1099,82 @@
     "tags": "온라인,프론트엔드",
     "thumbnail": "https://static.wanted.co.kr/images/events/1182/0f276fb7.jpg",
     "link": "https://www.wanted.co.kr/events/livetalk20"
+  },
+  {
+    "id": 100,
+    "title": "AWSKRUG 데이터사이언스 온라인 모임",
+    "description": "",
+    "startDate": "2021.03.04T19:00",
+    "endDate": "",
+    "owner": "AWSKRUG",
+    "tags": "온라인,데이터사이언스",
+    "thumbnail": "https://secure.meetupstatic.com/photos/event/a/5/2/highres_482402642.jpeg",
+    "link": "https://www.meetup.com/ko-KR/awskrug/events/276456654/?recEventId=276456654&recNumber=1&mu_notif_category=suggested_events"
+  },
+  {
+    "id": 101,
+    "title": "보안 감사 및 안전한 아키텍처 구성하기",
+    "description": "",
+    "startDate": "2021.03.04T11:00",
+    "endDate": "2021.03.04T12:00",
+    "owner": "네이버클라우드플랫폼",
+    "tags": "온라인,웨비나,교육",
+    "thumbnail": "https://ssl.pstatic.net/static/ncp/img/news/webinar_securityAZ/210304.png",
+    "link": "https://www.ncloud.com/support/edu/311"
+  },
+  {
+    "id": 102,
+    "title": "취업&이직을 위한 개발 포트폴리오 만들기 과정",
+    "description": "",
+    "startDate": "2021.03.11T20:00",
+    "endDate": "2021.03.11T15:00",
+    "owner": "카우치코딩",
+    "tags": "온라인,포트폴리오,무료",
+    "thumbnail": "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc28b674b-e0c9-4273-bde4-4de58cc46456%2Ffree_lecture_porfolio.png?table=block&id=4504aaa5-b744-4e4f-8517-eb5c5c27c0af&width=3600&userId=&cache=v2",
+    "link": "https://www.notion.so/02810cafc1b84e55945ac6d691936bad"
+  },
+  {
+    "id": 102,
+    "title": "멋쟁이 사자처럼 9기 리쿠르팅",
+    "description": "",
+    "startDate": "2021.02.22",
+    "endDate": "2021.03.12",
+    "owner": "멋쟁이사자처럼",
+    "tags": "개발자",
+    "thumbnail": "https://cdn-apply.likelion.org/static/imgs/main_company_bg.png",
+    "link": "https://apply.likelion.org/"
+  },
+  {
+    "id": 103,
+    "title": "AWSKRUG 자격증 취득 모임",
+    "description": "",
+    "startDate": "2021.03.15",
+    "endDate": "",
+    "owner": "AWS한국사용자모임",
+    "tags": "온라인,클라우드",
+    "thumbnail": "https://secure.meetupstatic.com/photos/event/8/7/7/e/highres_479134686.jpeg",
+    "link": "https://www.meetup.com/ko-KR/awskrug/events/276358190/"
+  },
+  {
+    "id": 104,
+    "title": "안전한 SW 개발계약을 위한 모든 것",
+    "description": "",
+    "startDate": "2021.03.17T17:00",
+    "endDate": "",
+    "owner": "법무법인비트",
+    "tags": "온라인,SW계약",
+    "thumbnail": "https://eventusstorage.blob.core.windows.net/evs/Image/veatlawfirm/29272/ProjectInfo/Cover/b954856cf4a249f6b47a4b85d527667c.jpg",
+    "link": "https://event-us.kr/veatlawfirm/event/29272"
+  },
+  {
+    "id": 105,
+    "title": "Flutter Engage Extended Korea",
+    "description": "",
+    "startDate": "2021.03.27T15:00",
+    "endDate": "",
+    "owner": "Flutter Korea",
+    "tags": "온라인,Flutter",
+    "thumbnail": "https://cf.festa.io/img/2021-2-26/bcae3844-6743-4098-a7e3-55b77e5d7843.png",
+    "link": "https://festa.io/events/1433"
   }
 ]
