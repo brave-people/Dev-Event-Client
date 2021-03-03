@@ -26,10 +26,7 @@ function PastEvent() {
         return card;
       }
     });
-  }).sort(
-    // 날짜와 시 순으로 정렬
-    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
-  );
+  });
 
   return (
     <section className={"filter__box list__filter__box"}>

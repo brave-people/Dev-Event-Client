@@ -44,7 +44,23 @@ function Event() {
     }
   }).sort(
     // 날짜와 시 순으로 정렬
-    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+    (a, b) => {
+      let aResult: Date;
+      let bResult: Date;
+
+      if (a.startDate.includes("T")) {
+        aResult = getDataTime(a.startDate.split("T"));
+      } else {
+        aResult = new Date(a.startDate);
+      }
+      if (b.startDate.includes("T")) {
+        bResult = getDataTime(b.startDate.split("T"));
+      } else {
+        bResult = new Date(b.startDate);
+      }
+
+      return aResult > bResult ? 1 : -1;
+    }
   );
 
   let consonantList = filterCardData.map((v) => {
@@ -53,6 +69,17 @@ function Event() {
       value: changeWordToConsonant(v.title.replace(/ /g, "")),
     };
   });
+
+  function getDataTime(date: string[]) {
+    // year, month, day, hours, minutes, seconds
+    return new Date(
+      Number(date[0].split(".")[0]),
+      Number(date[0].split(".")[1]) - 1,
+      Number(date[0].split(".")[2]),
+      Number(date[1].split(":")[0]),
+      Number(date[1].split(":")[1])
+    );
+  }
 
   function onChangeHandler(keyword: string) {
     const result = consonantList
