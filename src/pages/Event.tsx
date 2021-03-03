@@ -42,7 +42,10 @@ function Event() {
     ) {
       return card.startDate.split(".")[1];
     }
-  });
+  }).sort(
+    // 날짜와 시 순으로 정렬
+    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+  );
 
   let consonantList = filterCardData.map((v) => {
     return {
