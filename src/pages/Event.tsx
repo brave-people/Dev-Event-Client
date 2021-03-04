@@ -92,8 +92,10 @@ function Event() {
         })[0];
       });
 
+    const basicResult = filterCardData.filter((v) => v.title.includes(keyword));
+
     setSearch(keyword);
-    setSearchList(result);
+    setSearchList(result.length ? result : basicResult);
   }
 
   function changeWordToConsonant(str) {
