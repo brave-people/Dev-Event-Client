@@ -1176,5 +1176,126 @@
     "tags": "온라인,Flutter",
     "thumbnail": "https://cf.festa.io/img/2021-2-26/bcae3844-6743-4098-a7e3-55b77e5d7843.png",
     "link": "https://festa.io/events/1433"
+  },
+  {
+    "id": 106,
+    "title": "AWSKRUG Security 온라인 밋업",
+    "description": "",
+    "startDate": "2021.04.01T19:00",
+    "endDate": "2021.04.01T21:00",
+    "owner": "AWSKRUG - AWS한국사용자모임",
+    "tags": "온라인,클라우드",
+    "thumbnail": "https://secure.meetupstatic.com/photos/event/a/5/2/e/highres_481962286.jpeg",
+    "link": "https://www.meetup.com/ko-KR/awskrug/events/277000884/"
+  },
+  {
+    "id": 107,
+    "title": "Flutter Engage Extended Korea",
+    "description": "",
+    "startDate": "2021.04.01T20:00",
+    "endDate": "2021.04.01T22:00",
+    "owner": "GDG Seoul",
+    "tags": "온라인,Flutter",
+    "thumbnail": "https://cf.festa.io/img/2021-3-18/5dfd1fe0-bdfd-48e0-90e9-64aa7d25d993.png",
+    "link": "https://festa.io/events/1475"
+  },
+  {
+    "id": 108,
+    "title": "Cyber Security Conference 2021",
+    "description": "",
+    "startDate": "2021.04.06T14:00",
+    "endDate": "2021.04.06T16:30",
+    "owner": "삼성SDS",
+    "tags": "컨퍼런스,보안",
+    "thumbnail": "https://securityconference.samsungsds.com/securityconference2021/img/video.mp4",
+    "link": "https://securityconference.samsungsds.com/securityconference2021/"
+  },
+  {
+    "id": 109,
+    "title": "안전한 CI/CD와 멀티클라우드 구축하기(네이버 클라우드 플랫폼 X 하시코프)",
+    "description": "",
+    "startDate": "2021.04.07T11:00",
+    "endDate": "2021.04.07T12:00",
+    "owner": "네이버클라우드플랫폼",
+    "tags": "온라인,교육,클라우드",
+    "thumbnail": "",
+    "link": "https://register.gotowebinar.com/register/1979372032443149069"
+  },
+  {
+    "id": 110,
+    "title": "리얼리눅스 무료세미나: 도커/쿠버네티스/클라우드 네트워크 이해가 안되는 이유?!",
+    "description": "",
+    "startDate": "2021.04.07T20:00",
+    "endDate": "2021.04.07T21:00",
+    "owner": "리얼리눅스",
+    "tags": "온라인,교육,네트워크",
+    "thumbnail": "https://cf.festa.io/img/2021-3-24/c97eb73a-e3ba-4a5c-8e65-662e681050c2.jpg",
+    "link": "https://festa.io/events/1494"
+  },
+  {
+    "id": 111,
+    "title": "Monthly Data Science Meetup",
+    "description": "",
+    "startDate": "2021.04.07T19:15",
+    "endDate": "2021.04.07T20:45",
+    "owner": "Data Scientist Meetup in Seoul",
+    "tags": "오프라인,데이터사이언스",
+    "thumbnail": "https://www.meetup.com/mu_static/ko-KR/group_fallback_large_1.c704554b.png",
+    "link": "https://www.meetup.com/ko-KR/Data-Scientist-Meetup-in-Seoul/events/fwprmryccgbkb"
+  },
+  {
+    "id": 112,
+    "title": "Google Summer of Code",
+    "description": "",
+    "startDate": "2021.03.30",
+    "endDate": "2021.04.14",
+    "owner": "Google",
+    "tags": "오픈소스",
+    "thumbnail": "",
+    "link": "https://summerofcode.withgoogle.com/"
+  },
+  {
+    "id": 113,
+    "title": "Wanted Live Talk #23. 오늘의 개발자 | 김양귀",
+    "description": "",
+    "startDate": "2021.04.15T12:00",
+    "endDate": "2021.04.15T13:00",
+    "owner": "wanted",
+    "tags": "Talk,커리어",
+    "thumbnail": "https://static.wanted.co.kr/images/events/1199/71bc7e7d.jpg",
+    "link": "https://www.wanted.co.kr/events/livetalk23"
+  },
+  {
+    "id": 114,
+    "title": "Plus 2021 정보보안 컨퍼런스",
+    "description": "",
+    "startDate": "2021.04.16T09:30",
+    "endDate": "2021.04.16T17:00",
+    "owner": "시큐리티플러스",
+    "tags": "컨퍼런스,보안",
+    "thumbnail": "http://www.securityplus.or.kr/files/resized/571234/1170;266;487e37bfefd4f6b4bdba903c32ee6e238ff53142.png",
+    "link": "http://www.securityplus.or.kr/plus2021?fbclid=IwAR2ug8MAdXoXKpR-VeOTBo7mbhRoG45WxVL5STbmMruKwW2I8TsHpYmTlSs"
+  },
+  {
+    "id": 115,
+    "title": "제3회 오픈인프라 개발 경진대회",
+    "description": "",
+    "startDate": "2021.04.19",
+    "endDate": "2021.05.13",
+    "owner": "맨텍",
+    "tags": "해커톤",
+    "thumbnail": "http://oidc.co.kr/img/bg_vis.png",
+    "link": "http://oidc.co.kr/home"
+  },
+  {
+    "id": 116,
+    "title": "Wanted Live Talk #23. 오늘의 개발자 | 강병진",
+    "description": "",
+    "startDate": "2021.04.22T12:00",
+    "endDate": "2021.04.22T13:00",
+    "owner": "wanted",
+    "tags": "Talk,커리어",
+    "thumbnail": "https://static.wanted.co.kr/images/events/1199/71bc7e7d.jpg",
+    "link": "https://www.wanted.co.kr/events/livetalk23"
   }
 ]
