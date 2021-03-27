@@ -1297,5 +1297,38 @@
     "tags": "Talk,커리어",
     "thumbnail": "https://static.wanted.co.kr/images/events/1199/71bc7e7d.jpg",
     "link": "https://www.wanted.co.kr/events/livetalk23"
+  },
+  {
+    "id": 117,
+    "title": "요즘 데이터팀은 어떻게 일할까?",
+    "description": "",
+    "startDate": "2021.04.23T15:00",
+    "endDate": "",
+    "owner": "wanted",
+    "tags": "Talk,데이터,유료",
+    "thumbnail": "https://static.wanted.co.kr/images/events/1217/9b7a4997.jpg",
+    "link": "https://www.wanted.co.kr/events/wantedcon18"
+  },
+  {
+    "id": 118,
+    "title": "Wanted Live Talk #23. 오늘의 개발자 | 류성두",
+    "description": "",
+    "startDate": "2021.04.29T12:00",
+    "endDate": "2021.04.29T13:00",
+    "owner": "wanted",
+    "tags": "Talk,ios",
+    "thumbnail": "https://static.wanted.co.kr/images/events/1199/71bc7e7d.jpg",
+    "link": "https://www.wanted.co.kr/events/livetalk23"
+  },
+  {
+    "id": 119,
+    "title": "SSAFY 6기",
+    "description": "",
+    "startDate": "2021.04.01",
+    "endDate": "2021.04.30",
+    "owner": "삼성SDS",
+    "tags": "교육",
+    "thumbnail": "https://www.ssafy.com/gate/service/swpcommboard/20210322100851124_7XOABY36.png",
+    "link": "https://www.ssafy.com/ksp/servlet/swp.board.controller.SwpBoardServlet?p_process=select-board-view&p_tabseq=226504&p_seq=43"
   }
 ]
