@@ -17,6 +17,7 @@ const SignIn = () => {
     e.preventDefault();
 
     if (id && password) {
+      // TODO:: CORS error
       loginApi({ username: id, password }).then((res) => {
         console.log(res);
       });
