@@ -1,22 +1,22 @@
-import { useState } from "react";
-import type { FormEvent } from "react";
-import { registerUserApi } from "../api/auth/register";
-import { registerEmailApi } from "../api/auth/email";
-import { registerIdApi } from "../api/auth/id";
-import { useRouter } from "next/router";
+import { useState } from 'react';
+import type { FormEvent } from 'react';
+import { registerUserApi } from '../api/auth/register';
+import { registerEmailApi } from '../api/auth/email';
+import { registerIdApi } from '../api/auth/id';
+import { useRouter } from 'next/router';
 
 const SignUp = () => {
   const router = useRouter();
 
   /** form */
-  const [name, setName] = useState("");
-  const [id, setId] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   /** message */
-  const [message, setMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const changeName = (e: { target: { value: string } }) => {
     setName(e.target.value);
@@ -25,12 +25,14 @@ const SignUp = () => {
   const changeId = (e: { target: { value: string } }) => {
     setId(e.target.value);
 
-    registerIdApi({ user_id: e.target.value }).then((res) => {
+    registerIdApi({
+      user_id: e.target.value,
+    }).then((res) => {
       if (res.status_code !== 20003) {
         return setMessage(res.message);
       }
 
-      return setMessage("");
+      return setMessage('');
     });
   };
 
@@ -44,10 +46,10 @@ const SignUp = () => {
           return setMessage(res.message);
         }
 
-        return setMessage("");
+        return setMessage('');
       });
     } else {
-      setMessage("이메일 형식이 아닙니다.");
+      setMessage('이메일 형식이 아닙니다.');
     }
   };
 
@@ -58,13 +60,18 @@ const SignUp = () => {
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    registerUserApi({ name, user_id: id, email, password }).then((res) => {
+    registerUserApi({
+      name,
+      user_id: id,
+      email,
+      password,
+    }).then((res) => {
       if (res.status_code !== 201) {
         setErrorMessage(res.message);
         return;
       }
 
-      return router.push("/admin");
+      return router.push('/admin');
     });
   };
 

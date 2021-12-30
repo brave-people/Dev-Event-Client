@@ -1,4 +1,4 @@
-import urls from "../../../config/urls";
+import urls from '../../../config/urls';
 
 export const registerUserApi = async (req: {
   name: string;
@@ -7,9 +7,9 @@ export const registerUserApi = async (req: {
   password: string;
 }) => {
   return await fetch(`${urls.auth}/admin/v1/register/user`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(req),
   }).then((res) => res.json());
