@@ -1,28 +1,70 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { registerUserApi } from "../api/auth/register";
+import { registerEmailApi } from "../api/auth/email";
+import { registerIdApi } from "../api/auth/id";
+import { useRouter } from "next/router";
 
 const SignUp = () => {
+  const router = useRouter();
+
+  /** form */
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+
+  /** message */
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const changeName = (e: { target: { value: string } }) => {
+    setName(e.target.value);
+  };
+
+  const changeId = (e: { target: { value: string } }) => {
+    setId(e.target.value);
+
+    registerIdApi({ user_id: e.target.value }).then((res) => {
+      if (res.status_code !== 20003) {
+        return setMessage(res.message);
+      }
+
+      return setMessage("");
+    });
+  };
 
   const changeEmail = (e: { target: { value: string } }) => {
-    setEmail(e.target.value);
+    const email = e.target.value;
+    setEmail(email);
+
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      registerEmailApi({ email }).then((res) => {
+        if (res.status_code !== 20003) {
+          return setMessage(res.message);
+        }
+
+        return setMessage("");
+      });
+    } else {
+      setMessage("이메일 형식이 아닙니다.");
+    }
   };
 
   const changePassword = (e: { target: { value: string } }) => {
     setPassword(e.target.value);
   };
 
-  const changeName = (e: { target: { value: string } }) => {
-    setName(e.target.value);
-  };
-
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    registerUserApi({ email, password, name }).then((res) => {
-      console.log(res);
+
+    registerUserApi({ name, user_id: id, email, password }).then((res) => {
+      if (res.status_code !== 201) {
+        setErrorMessage(res.message);
+        return;
+      }
+
+      return router.push("/admin");
     });
   };
 
@@ -30,32 +72,46 @@ const SignUp = () => {
     <section>
       <h2>용감한 관리자 회원가입</h2>
       <form onSubmit={submit}>
-        <label htmlFor="name">이름</label>
         <input
           id="name"
           type="text"
           name="name"
+          placeholder="이름"
           value={name}
           onChange={changeName}
+          required
         />
-        <label htmlFor="email">아이디</label>
+        <input
+          id="id"
+          type="id"
+          name="id"
+          placeholder="아이디"
+          value={id}
+          onChange={changeId}
+          required
+        />
         <input
           id="email"
           type="email"
           name="email"
+          placeholder="이메일"
           value={email}
           onChange={changeEmail}
+          required
         />
-        <label htmlFor="password">패스워드</label>
         <input
           id="password"
           type="password"
           name="password"
+          placeholder="패스워드"
           value={password}
           onChange={changePassword}
+          required
         />
         <button type="submit">가입</button>
       </form>
+      {errorMessage && <p>{errorMessage}</p>}
+      {message && <p>{message}</p>}
     </section>
   );
 };
