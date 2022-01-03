@@ -4,6 +4,7 @@ import { registerUserApi } from '../api/auth/register';
 import { registerEmailApi } from '../api/auth/email';
 import { registerIdApi } from '../api/auth/id';
 import { useRouter } from 'next/router';
+import { STATUS_201, STATUS_203 } from '../../config/constants';
 
 const SignUp = () => {
   const router = useRouter();
@@ -24,29 +25,27 @@ const SignUp = () => {
 
   const changeId = (e: { target: { value: string } }) => {
     setId(e.target.value);
+    setMessage('');
 
     registerIdApi({
       user_id: e.target.value,
     }).then((res) => {
-      if (res.status_code !== 20003) {
+      if (res.status_code !== STATUS_203) {
         return setMessage(res.message);
       }
-
-      return setMessage('');
     });
   };
 
   const changeEmail = (e: { target: { value: string } }) => {
     const email = e.target.value;
     setEmail(email);
+    setMessage('');
 
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       registerEmailApi({ email }).then((res) => {
-        if (res.status_code !== 20003) {
+        if (res.status_code !== STATUS_203) {
           return setMessage(res.message);
         }
-
-        return setMessage('');
       });
     } else {
       setMessage('이메일 형식이 아닙니다.');
@@ -66,7 +65,7 @@ const SignUp = () => {
       email,
       password,
     }).then((res) => {
-      if (res.status_code !== 201) {
+      if (res.status_code !== STATUS_201) {
         setErrorMessage(res.message);
         return;
       }

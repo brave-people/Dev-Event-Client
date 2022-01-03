@@ -1,9 +1,11 @@
 import { FormEvent, useState } from 'react';
 import { loginApi } from '../api/login';
+import { STATUS_200 } from '../../config/constants';
 
 const SignIn = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const changeId = (e: { target: { value: string } }) => {
     setId(e.target.value);
@@ -15,11 +17,13 @@ const SignIn = () => {
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setMessage('');
 
     if (id && password) {
-      // TODO:: CORS error
-      loginApi({ username: id, password }).then((res) => {
-        console.log(res);
+      loginApi({ user_id: id, password }).then((res) => {
+        if (res.status_code !== STATUS_200) {
+          setMessage(res.message);
+        }
       });
     }
   };
@@ -44,6 +48,7 @@ const SignIn = () => {
         />
         <button type="submit">로그인</button>
       </form>
+      {message && <p>{message}</p>}
     </section>
   );
 };
