@@ -1,3 +1,15 @@
 * {
   font-family: 'Noto Sans KR', sans-serif;
 }
+
+.form {
+  max-width: 320px;
+  margin: 0 auto;
+
+  input {
+    width: 100%;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #dedede;
+  }
+}
