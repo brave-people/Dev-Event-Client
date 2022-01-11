@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
+import { useRouter } from 'next/router';
 import { registerUserApi } from '../api/auth/register';
 import { registerEmailApi } from '../api/auth/email';
 import { registerIdApi } from '../api/auth/id';
-import { useRouter } from 'next/router';
 import { STATUS_201, STATUS_203 } from '../../config/constants';
 
 const SignUp = () => {
