@@ -1,8 +1,14 @@
+import React from 'react';
 import type { AppProps } from 'next/app';
+import { RecoilRoot } from 'recoil';
 import '../style/index.scss';
 
 function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <RecoilRoot>
+      <Component {...pageProps} />
+    </RecoilRoot>
+  );
 }
 
 export default App;

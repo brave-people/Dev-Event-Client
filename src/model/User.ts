@@ -1,3 +1,4 @@
+/** auth 관련 모델*/
 export interface UserIdModel {
   user_id: string;
 }

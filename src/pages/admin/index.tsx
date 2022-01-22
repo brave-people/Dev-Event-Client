@@ -1,7 +1,18 @@
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import jwt from 'jsonwebtoken';
 import type { GetServerSidePropsContext } from 'next/types';
+import type { TokenModel } from '../../model/User';
 import getToken from '../../server/api/auth/getToken';
+import stores from '../../store';
 
-function Admin() {
+function Admin({ data }: { data: TokenModel }) {
+  const [user, setUser] = useRecoilState(stores.user);
+
+  useEffect(() => {
+    setUser(jwt.decode(data['access_token']));
+  }, []);
+
   return <div>admin home</div>;
 }
 
@@ -20,7 +31,7 @@ export const getServerSideProps = async (
     };
   }
 
-  return { props: {} };
+  return { props: token };
 };
 
 export default Admin;

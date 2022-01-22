@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import type { ResponseTokenModel } from '../../model/user';
+import type { ResponseTokenModel } from '../../model/User';
 import { useRouter } from 'next/router';
 import { registerUserApi } from '../api/auth/register';
 import { registerEmailApi } from '../api/auth/email';

@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 import urls from '../../../config/urls';
-import type { UserRegisterModel } from '../../../model/user';
+import type { UserRegisterModel } from '../../../model/User';
 
 export const registerUserApi = async (req: UserRegisterModel) => {
   return await fetch(`${urls.auth}/admin/v1/register/user`, {

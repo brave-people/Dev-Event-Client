@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import type { GetServerSidePropsContext } from 'next/types';
-import type { ResponseTokenModel } from '../../model/user';
+import type { ResponseTokenModel } from '../../model/User';
 import { loginApi } from '../api/login';
 import { useRouter } from 'next/router';
 import UpdateTokenInCookie from '../../util/update-token-in-cookie';

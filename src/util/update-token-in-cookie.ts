@@ -1,4 +1,4 @@
-import type { TokenModel } from '../model/user';
+import type { TokenModel } from '../model/User';
 
 const UpdateTokenInCookie = (document: Document, data: TokenModel) => {
   return (

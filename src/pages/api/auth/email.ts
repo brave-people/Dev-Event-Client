@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 import urls from '../../../config/urls';
-import type { UserEmailModel } from '../../../model/user';
+import type { UserEmailModel } from '../../../model/User';
 
 /** 중복 이메일 체크 */
 export const registerEmailApi = async (req: UserEmailModel) => {
