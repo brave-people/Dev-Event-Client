@@ -1,8 +1,8 @@
 import { atom } from 'recoil';
-import type { JwtPayload } from 'jsonwebtoken';
+import type { UserInfoType } from '../model/User';
 
 const userKey = 'userKey';
-export const userState = atom<string | JwtPayload | null>({
+export const userState = atom<UserInfoType>({
   key: userKey,
   default: {
     sub: 'admin',

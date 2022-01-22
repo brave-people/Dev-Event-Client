@@ -5,6 +5,7 @@ import type { GetServerSidePropsContext } from 'next/types';
 import type { TokenModel } from '../../model/User';
 import getToken from '../../server/api/auth/getToken';
 import stores from '../../store';
+import Header from '../../components/Header';
 
 function Admin({ data }: { data: TokenModel }) {
   const [user, setUser] = useRecoilState(stores.user);
@@ -13,7 +14,11 @@ function Admin({ data }: { data: TokenModel }) {
     setUser(jwt.decode(data['access_token']));
   }, []);
 
-  return <div>admin home</div>;
+  return (
+    <div>
+      <Header user={user} />
+    </div>
+  );
 }
 
 export const getServerSideProps = async (
