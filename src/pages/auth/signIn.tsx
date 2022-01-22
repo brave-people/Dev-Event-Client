@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
+import type { GetServerSidePropsContext } from 'next/types';
+import type { ResponseTokenModel } from '../../model/user';
 import { loginApi } from '../api/login';
 import { useRouter } from 'next/router';
+import UpdateTokenInCookie from '../../util/update-token-in-cookie';
+import getToken from '../../server/api/auth/getToken';
 
-const SignIn = () => {
+const SignIn = ({ data }: ResponseTokenModel) => {
   const router = useRouter();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -25,19 +29,23 @@ const SignIn = () => {
     if (id && password) {
       setLoading(true);
 
-      await loginApi({ user_id: id, password }).then((res) => {
-        if (res.message) {
-          return setMessage(res.message);
-        }
+      await loginApi({ user_id: id, password }).then(
+        (res: ResponseTokenModel) => {
+          if (res.message) {
+            return setMessage(res.message);
+          }
 
-        return Object.entries(res).forEach(
-          (token) => (document.cookie = `${token[0]}=${token[1]}; path=/;`)
-        );
-      });
+          return UpdateTokenInCookie(document, res.data);
+        }
+      );
 
       await router.push('/admin');
     }
   };
+
+  useEffect(() => {
+    if (data.access_token) UpdateTokenInCookie(document, data);
+  }, []);
 
   return (
     <section>
@@ -60,9 +68,25 @@ const SignIn = () => {
         <button type="submit">로그인</button>
       </form>
       {message && <p>{message}</p>}
-      {loading && <p>로그인중입니다 :) 잠시만 기다려주세요</p>}
+      {!message && loading && <p>로그인중입니다 :) 잠시만 기다려주세요</p>}
     </section>
   );
+};
+
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const cookies = context.req.headers.cookie;
+  const token = await getToken(cookies);
+  if (!token || token?.error) {
+    return {
+      redirect: {
+        destination: '/auth/signIn',
+      },
+    };
+  }
+
+  return { props: token };
 };
 
 export default SignIn;

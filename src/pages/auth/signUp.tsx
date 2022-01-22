@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
+import type { ResponseTokenModel } from '../../model/user';
 import { useRouter } from 'next/router';
 import { registerUserApi } from '../api/auth/register';
 import { registerEmailApi } from '../api/auth/email';
 import { registerIdApi } from '../api/auth/id';
 import { STATUS_201, STATUS_203 } from '../../config/constants';
+import { GetServerSidePropsContext } from 'next/types';
+import getToken from '../../server/api/auth/getToken';
+import UpdateTokenInCookie from '../../util/update-token-in-cookie';
 
-const SignUp = () => {
+const SignUp = ({ data }: ResponseTokenModel) => {
   const router = useRouter();
 
   /** form */
@@ -70,9 +74,14 @@ const SignUp = () => {
         return;
       }
 
-      return router.push('/admin');
+      setMessage('축하해요! 가입에 성공하였어요 😎');
+      return setTimeout(() => router.push('/admin'), 2000);
     });
   };
+
+  useEffect(() => {
+    if (data.access_token) UpdateTokenInCookie(document, data);
+  }, []);
 
   return (
     <section>
@@ -120,6 +129,22 @@ const SignUp = () => {
       {message && <p>{message}</p>}
     </section>
   );
+};
+
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const cookies = context.req.headers.cookie;
+  const token = await getToken(cookies);
+  if (!token || token?.error) {
+    return {
+      redirect: {
+        destination: '/auth/signIn',
+      },
+    };
+  }
+
+  return { props: token };
 };
 
 export default SignUp;

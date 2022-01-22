@@ -1,5 +1,9 @@
-import getToken from '../../server/api/auth/getToken';
 import type { GetServerSidePropsContext } from 'next/types';
+import getToken from '../../server/api/auth/getToken';
+
+function Admin() {
+  return <div>admin home</div>;
+}
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
@@ -15,10 +19,8 @@ export const getServerSideProps = async (
       },
     };
   }
-};
 
-function Admin() {
-  return <div>admin home</div>;
-}
+  return { props: {} };
+};
 
 export default Admin;

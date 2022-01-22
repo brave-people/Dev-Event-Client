@@ -7,9 +7,13 @@ export const getRefreshTokenApi = async (cookies: string | undefined) => {
     return await fetch(`${urls.auth}/admin/v1/token/refresh`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${cookie.parse(cookies)['refresh-token']}`,
+        Authorization: cookie.parse(cookies)['refresh-token'],
       },
-    }).then((res) => res.json());
+    })
+      .then((res) => res.json())
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   return { error: { message: 'refresh-token을 넣어주세요' } };
