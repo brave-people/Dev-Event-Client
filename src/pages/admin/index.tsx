@@ -6,6 +6,7 @@ import type { TokenModel } from '../../model/User';
 import getToken from '../../server/api/auth/getToken';
 import stores from '../../store';
 import Header from '../../components/Header';
+import Calendar from '../../components/Calendar';
 
 function Admin({ data }: { data: TokenModel }) {
   const [user, setUser] = useRecoilState(stores.user);
@@ -17,6 +18,7 @@ function Admin({ data }: { data: TokenModel }) {
   return (
     <div>
       <Header user={user} />
+      <Calendar />
     </div>
   );
 }
