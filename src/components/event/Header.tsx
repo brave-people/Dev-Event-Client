@@ -1,5 +1,5 @@
-import type { UserInfoType } from '../model/User';
-import getUserRoleIsAdmin from '../util/get-user-role';
+import type { UserInfoType } from '../../model/User';
+import getUserRoleIsAdmin from '../../util/get-user-role';
 
 const Header = ({ user }: { user: UserInfoType }) => {
   const isAdmin = typeof user !== 'string' && getUserRoleIsAdmin(user?.roles);
