@@ -4,7 +4,7 @@ import cookie from 'cookie';
 /** refresh token 발급 */
 export const getRefreshTokenApi = async (cookies: string | undefined) => {
   if (cookies) {
-    return await fetch(`${urls.auth}/admin/v1/token/refresh`, {
+    return await fetch(`${urls.baseUrl}/token/refresh`, {
       method: 'GET',
       headers: {
         Authorization: cookie.parse(cookies)['refresh-token'],

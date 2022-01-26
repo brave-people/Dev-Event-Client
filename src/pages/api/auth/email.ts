@@ -4,7 +4,7 @@ import type { UserEmailModel } from '../../../model/User';
 
 /** 중복 이메일 체크 */
 export const registerEmailApi = async (req: UserEmailModel) => {
-  return await fetch(`${urls.auth}/admin/v1/register/email`, {
+  return await fetch(`${urls.baseUrl}/register/email`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
