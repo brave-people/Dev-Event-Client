@@ -1,18 +1,25 @@
 import { useEffect, useState } from 'react';
-
-interface createCalendarProps {
-  year: number;
-  month: number;
-}
+import { useQuery } from 'react-query';
+import type { CalendarProps } from '../../model/Calendar';
+import { getEventsApi } from '../../pages/api/events';
 
 const Calendar = () => {
-  const [currentDate, setCurrentDate] = useState<Date>();
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [calendarHtml, setCalendarHtml] = useState('');
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+
+  const { status, isError, data, refetch } = useQuery(
+    ['fetchEvents', { year, month }],
+    async () => await getEventsApi({ year, month: month + 1 }),
+    { refetchOnWindowFocus: false }
+  );
+
   const convertNumberAddTen = (number: number) => {
     return number < 10 ? '0' + number : number;
   };
 
-  const createCalendar = ({ year, month }: createCalendarProps) => {
+  const createCalendar = ({ year, month }: CalendarProps) => {
     let returnHtml = '';
 
     const getFirstDate = new Date(year, month, 1);
@@ -22,13 +29,13 @@ const Calendar = () => {
     let firstDateCount = 1;
     let lastDateCount = 1;
 
-    for (let i = 0; i < 6; i++) {
-      for (let j = 0; j < 7; j++) {
-        if (i === 0 && j < getFirstDate.getDay()) {
+    for (let weekIndex = 0; weekIndex < 6; weekIndex++) {
+      for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
+        if (weekIndex === 0 && dayIndex < getFirstDate.getDay()) {
           returnHtml += `<div class='admin__calendar--day'><span>${
-            getPrevLastDate.getDate() - (getFirstDate.getDay() - 1) + j
+            getPrevLastDate.getDate() - (getFirstDate.getDay() - 1) + dayIndex
           }</span><span></span></div>`;
-        } else if (i > 0 && firstDateCount <= getLastDate.getDate()) {
+        } else if (weekIndex > 0 && firstDateCount <= getLastDate.getDate()) {
           returnHtml += `<div class='admin__calendar--day'><span>${convertNumberAddTen(
             firstDateCount++
           )}</span></div>`;
@@ -49,6 +56,7 @@ const Calendar = () => {
         currentDate.setMonth(currentDate.getMonth() - 1)
       );
       setCurrentDate(newDate);
+      refetch();
     }
   };
 
@@ -58,8 +66,11 @@ const Calendar = () => {
         currentDate.setMonth(currentDate.getMonth() + 1)
       );
       setCurrentDate(newDate);
+      refetch();
     }
   };
+
+  console.log('result: ', status, isError, data);
 
   useEffect(() => {
     const today = new Date();
@@ -70,8 +81,8 @@ const Calendar = () => {
     if (currentDate) {
       setCalendarHtml(
         createCalendar({
-          year: currentDate.getFullYear(),
-          month: currentDate.getMonth(),
+          year,
+          month,
         })
       );
     }
@@ -85,8 +96,13 @@ const Calendar = () => {
           <span>{convertNumberAddTen(currentDate.getMonth() + 1)}</span>
         </div>
       )}
-      <button onClick={changePrevMonth}>prev</button>
-      <button onClick={changeNextMonth}>next</button>
+      <button type="button" onClick={changePrevMonth}>
+        prev
+      </button>
+      <button type="button" onClick={changeNextMonth}>
+        next
+      </button>
+      <button type="button">TODAY</button>
       <div
         className="admin__calendar"
         dangerouslySetInnerHTML={{ __html: calendarHtml }}
