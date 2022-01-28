@@ -80,7 +80,7 @@ const SignUp = ({ data }: ResponseTokenModel) => {
   };
 
   useEffect(() => {
-    if (data.access_token) UpdateTokenInCookie(document, data);
+    if (data?.access_token) UpdateTokenInCookie(document, data);
   }, []);
 
   return (
@@ -136,7 +136,7 @@ export const getServerSideProps = async (
 ) => {
   const cookies = context.req.headers.cookie;
   const token = await getToken(cookies);
-  if (!token || token?.error) {
+  if (cookies && (!token || token?.error)) {
     return {
       redirect: {
         destination: '/auth/signIn',
