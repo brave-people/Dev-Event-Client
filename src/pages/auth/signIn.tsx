@@ -39,7 +39,7 @@ const SignIn = ({ data }: ResponseTokenModel) => {
         }
       );
 
-      await router.push('/admin');
+      await router.push('/admin/event');
     }
   };
 
