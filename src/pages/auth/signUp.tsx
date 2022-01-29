@@ -45,7 +45,11 @@ const SignUp = ({ data }: ResponseTokenModel) => {
     setEmail(email);
     setMessage('');
 
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    if (
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        email
+      )
+    ) {
       registerEmailApi({ email }).then((res) => {
         if (res.status_code !== STATUS_203) {
           return setMessage(res.message);
