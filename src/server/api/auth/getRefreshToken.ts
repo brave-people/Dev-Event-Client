@@ -5,7 +5,7 @@ import cookie from 'cookie';
 export const getRefreshTokenApi = async (cookies: string | undefined) => {
   if (cookies) {
     return await fetch(`${urls.baseUrl}/token/refresh`, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         Authorization: cookie.parse(cookies)['refresh-token'],
       },
