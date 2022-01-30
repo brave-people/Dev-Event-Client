@@ -1,8 +1,7 @@
-import urls from '../../config/urls';
 import type { ResponseTokenModel, UserModel } from '../../model/User';
 
 export const loginApi = async (req: UserModel): Promise<ResponseTokenModel> => {
-  const response = await fetch(`${urls.baseUrl}/login`, {
+  const response = await fetch(`${process.env.ADMIN_URL}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

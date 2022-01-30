@@ -1,10 +1,9 @@
-import urls from '../../../config/urls';
 import cookie from 'cookie';
 
 /** refresh token 발급 */
 export const getRefreshTokenApi = async (cookies: string | undefined) => {
   if (cookies) {
-    return await fetch(`${urls.baseUrl}/token/refresh`, {
+    return await fetch(`${process.env.ADMIN_URL}/token/refresh`, {
       method: 'POST',
       headers: {
         Authorization: cookie.parse(cookies)['refresh-token'],

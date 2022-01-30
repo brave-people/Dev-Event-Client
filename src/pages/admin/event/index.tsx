@@ -17,7 +17,7 @@ function Admin({ data }: { data: TokenModel }) {
   const setUser = useSetRecoilState(stores.user);
 
   useEffect(() => {
-    setUser(jwt.decode(data['access_token']));
+    if (data) setUser(jwt.decode(data['access_token']));
   }, []);
 
   return (

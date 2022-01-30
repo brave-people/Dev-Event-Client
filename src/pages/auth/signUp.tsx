@@ -9,8 +9,10 @@ import { STATUS_201, STATUS_203 } from '../../config/constants';
 import { GetServerSidePropsContext } from 'next/types';
 import getToken from '../../server/api/auth/getToken';
 import UpdateTokenInCookie from '../../util/update-token-in-cookie';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import getUserRoleIsAdmin from '../../util/get-user-role';
 
-const SignUp = ({ data }: ResponseTokenModel) => {
+const SignUp = ({ data, error }: ResponseTokenModel) => {
   const router = useRouter();
 
   /** form */
@@ -84,6 +86,10 @@ const SignUp = ({ data }: ResponseTokenModel) => {
   };
 
   useEffect(() => {
+    if (error) {
+      alert(error);
+      router.push('/auth/signIn');
+    }
     if (data?.access_token) UpdateTokenInCookie(document, data);
   }, []);
 
@@ -140,10 +146,20 @@ export const getServerSideProps = async (
 ) => {
   const cookies = context.req.headers.cookie;
   const token = await getToken(cookies);
+
   if (cookies && (!token || token?.error)) {
     return {
       redirect: {
         destination: '/auth/signIn',
+      },
+    };
+  }
+
+  const accessToken = jwt.decode(token?.data['access_token']) as JwtPayload;
+  if (!getUserRoleIsAdmin(accessToken?.roles)) {
+    return {
+      props: {
+        error: '관리자만 계정을 생성할 수 있어요!',
       },
     };
   }

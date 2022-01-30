@@ -33,4 +33,5 @@ export interface TokenModel {
 export interface ResponseTokenModel {
   data: TokenModel;
   message: string;
+  error?: string;
 }

@@ -1,9 +1,8 @@
 import cookie from 'cookie';
-import urls from '../../../config/urls';
 import type { UserRegisterModel } from '../../../model/User';
 
 export const registerUserApi = async (req: UserRegisterModel) => {
-  return await fetch(`${urls.baseUrl}/register/user`, {
+  return await fetch(`${process.env.ADMIN_URL}/register/user`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
