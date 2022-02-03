@@ -1,5 +1,6 @@
 import cookie from 'cookie';
 import type { UserIdModel } from '../../../model/User';
+import Headers from '../../../config/headers';
 
 /** 중복 아이디 체크 */
 export const registerIdApi = async (req: UserIdModel) => {
@@ -8,6 +9,7 @@ export const registerIdApi = async (req: UserIdModel) => {
     headers: {
       'Content-Type': 'application/json',
       Authorization: cookie.parse(document.cookie)['access_token'],
+      ...Headers,
     },
     body: JSON.stringify(req),
   }).then((res) => res.json());
