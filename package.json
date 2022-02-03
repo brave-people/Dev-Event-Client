@@ -1,5 +1,5 @@
 {
-  "name": "Dev-Event-Client",
+  "name": "dev-event-client",
   "version": "0.2.0",
   "main": "index.js",
   "repository": "https://github.com/brave-people/Dev-Event-Client.git",
@@ -32,5 +32,5 @@
     "prettier": "2.5.1",
     "typescript": "^4.5.4"
   },
-  "proxy": "http://localhost:3000"
+  "homepage": "https://brave-people.github.io/Dev-Event-Client/"
 }
