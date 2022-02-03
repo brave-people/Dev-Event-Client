@@ -6,6 +6,7 @@ import type { ResponseTokenModel } from '../../model/User';
 import { loginApi } from '../api/login';
 import UpdateTokenInCookie from '../../util/update-token-in-cookie';
 import getToken from '../../server/api/auth/getToken';
+import { baseRouter } from '../../config/constants';
 
 const SignIn = ({ data }: ResponseTokenModel) => {
   const router = useRouter();
@@ -39,7 +40,7 @@ const SignIn = ({ data }: ResponseTokenModel) => {
         }
       );
 
-      await router.push('/admin/event');
+      await router.push(baseRouter() + '/admin/event');
     }
   };
 

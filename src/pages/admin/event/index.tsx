@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import jwt from 'jsonwebtoken';
 import { useRouter } from 'next/router';
-import type { GetServerSidePropsContext } from 'next/types';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import getToken from '../../../server/api/auth/getToken';
 import stores from '../../../store';
 import EventComponent from '../../../components/Event';
 import Calendar from '../../../components/event/Calendar';
+import { baseRouter } from '../../../config/constants';
 
 const queryClient = new QueryClient();
 
@@ -27,7 +28,7 @@ function Admin({ data }: { data: TokenModel }) {
           <Calendar />
           <button
             type="button"
-            onClick={() => router.push('/admin/event/create')}
+            onClick={() => router.push(baseRouter() + '/admin/event/create')}
           >
             이벤트 생성
           </button>
@@ -37,10 +38,8 @@ function Admin({ data }: { data: TokenModel }) {
   );
 }
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const cookies = context.req.headers.cookie;
+export const getInitialProps = async (context: NextPageContext) => {
+  const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
 
   // token이 없거나 에러나면 로그인 페이지로 이동

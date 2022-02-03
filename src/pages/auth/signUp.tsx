@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { registerUserApi } from '../api/auth/register';
 import { registerEmailApi } from '../api/auth/email';
 import { registerIdApi } from '../api/auth/id';
-import { STATUS_201, STATUS_203 } from '../../config/constants';
+import { baseRouter, STATUS_201, STATUS_203 } from '../../config/constants';
 import { NextPageContext } from 'next/types';
 import getToken from '../../server/api/auth/getToken';
 import UpdateTokenInCookie from '../../util/update-token-in-cookie';
@@ -81,14 +81,14 @@ const SignUp = ({ data, error }: ResponseTokenModel) => {
       }
 
       setMessage('축하해요! 가입에 성공하였어요 😎');
-      return setTimeout(() => router.push('/admin'), 2000);
+      return setTimeout(() => router.push(baseRouter() + '/admin'), 2000);
     });
   };
 
   useEffect(() => {
     if (error) {
       alert(error);
-      router.push('/auth/signIn');
+      router.push(baseRouter() + '/auth/signIn');
     }
     if (data?.access_token) UpdateTokenInCookie(document, data);
   }, []);
