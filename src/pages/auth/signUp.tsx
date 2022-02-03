@@ -6,7 +6,7 @@ import { registerUserApi } from '../api/auth/register';
 import { registerEmailApi } from '../api/auth/email';
 import { registerIdApi } from '../api/auth/id';
 import { STATUS_201, STATUS_203 } from '../../config/constants';
-import { GetServerSidePropsContext } from 'next/types';
+import { NextPageContext } from 'next/types';
 import getToken from '../../server/api/auth/getToken';
 import UpdateTokenInCookie from '../../util/update-token-in-cookie';
 import jwt, { JwtPayload } from 'jsonwebtoken';
@@ -141,10 +141,8 @@ const SignUp = ({ data, error }: ResponseTokenModel) => {
   );
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const cookies = context.req.headers.cookie;
+export const getInitialProps = async (context: NextPageContext) => {
+  const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
 
   if (cookies && (!token || token?.error)) {

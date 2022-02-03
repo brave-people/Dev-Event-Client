@@ -1,6 +1,7 @@
 import cookie from 'cookie';
 import type { CalendarProps } from '../../../model/Calendar';
-import Headers from '../../../config/headers';
+import type { RequestHeaders } from '../../../model/Request';
+import { Headers } from '../../../config/headers';
 
 export const getEventsApi = async ({ year, month }: CalendarProps) => {
   return await fetch(
@@ -10,8 +11,8 @@ export const getEventsApi = async ({ year, month }: CalendarProps) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: cookie.parse(document.cookie)['access_token'],
-        ...Headers,
-      },
+        ...Headers(),
+      } as RequestHeaders,
     }
   ).then((res) => res.json());
 };

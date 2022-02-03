@@ -1,6 +1,7 @@
 import cookie from 'cookie';
 import type { UserRegisterModel } from '../../../model/User';
-import Headers from '../../../config/headers';
+import type { RequestHeaders } from '../../../model/Request';
+import { Headers } from '../../../config/headers';
 
 export const registerUserApi = async (req: UserRegisterModel) => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/register/user`, {
@@ -8,8 +9,8 @@ export const registerUserApi = async (req: UserRegisterModel) => {
     headers: {
       'Content-Type': 'application/json',
       Authorization: cookie.parse(document.cookie)['access_token'],
-      ...Headers,
-    },
+      ...Headers(),
+    } as RequestHeaders,
     body: JSON.stringify(req),
   }).then((res) => res.json());
 };

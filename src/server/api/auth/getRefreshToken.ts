@@ -1,5 +1,6 @@
 import cookie from 'cookie';
-import Headers from '../../../config/headers';
+import type { RequestHeaders } from '../../../model/Request';
+import { Headers } from '../../../config/headers';
 
 /** refresh token 발급 */
 export const getRefreshTokenApi = async (cookies: string | undefined) => {
@@ -8,8 +9,8 @@ export const getRefreshTokenApi = async (cookies: string | undefined) => {
       method: 'POST',
       headers: {
         Authorization: cookie.parse(cookies)['refresh-token'],
-        ...Headers,
-      },
+        ...Headers(),
+      } as RequestHeaders,
     })
       .then((res) => res.json())
       .catch((err) => {

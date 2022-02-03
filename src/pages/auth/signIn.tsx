@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import type { GetServerSidePropsContext } from 'next/types';
+import type { NextPageContext } from 'next/types';
+import { useRouter } from 'next/router';
 import type { ResponseTokenModel } from '../../model/User';
 import { loginApi } from '../api/login';
-import { useRouter } from 'next/router';
 import UpdateTokenInCookie from '../../util/update-token-in-cookie';
 import getToken from '../../server/api/auth/getToken';
 
@@ -73,10 +73,8 @@ const SignIn = ({ data }: ResponseTokenModel) => {
   );
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const cookies = context.req.headers.cookie;
+export const getInitialProps = async (context: NextPageContext) => {
+  const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
   if (cookies && (!token || token?.error)) {
     return {
