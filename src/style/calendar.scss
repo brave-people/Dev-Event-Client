@@ -1,0 +1,21 @@
+.calendar {
+  height: 500px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  box-sizing: border-box;
+
+  &__wrap {
+    height: 500px;
+    display: grid;
+    overflow: hidden;
+    align-content: center;
+  }
+
+  &__box {
+    border-bottom: 1px solid #efefef;
+  }
+
+  &--prev {
+    background-color: green;
+  }
+}
