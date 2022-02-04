@@ -16,3 +16,21 @@
     border-bottom: 1px solid #dedede;
   }
 }
+
+.form--large {
+  div {
+    margin: 8px 0;
+  }
+
+  label {
+    width: 160px;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  input {
+    width: calc(100% - 320px);
+    height: 32px;
+  }
+}
