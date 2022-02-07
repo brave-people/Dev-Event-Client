@@ -18,3 +18,9 @@
     border-bottom: 1px solid #efefef;
   }
 }
+
+.admin--create__image {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+}

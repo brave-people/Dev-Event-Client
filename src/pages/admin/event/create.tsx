@@ -1,7 +1,8 @@
-import { useState, useRef } from 'react';
-import type { KeyboardEvent } from 'react';
+import React, { useState, useRef } from 'react';
+import type { KeyboardEvent, BaseSyntheticEvent } from 'react';
 import { useRouter } from 'next/router';
 import moment from 'moment';
+import Cropper from 'cropperjs';
 import EventComponent from '../../../components/Event';
 import { baseRouter } from '../../../config/constants';
 
@@ -10,6 +11,7 @@ const EventCreate = () => {
   const tagRef = useRef<HTMLInputElement>(null);
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -21,6 +23,15 @@ const EventCreate = () => {
     moment().format('yyyy-MM-DDThh:mm')
   );
   const [endDate, setEndDate] = useState(moment().format('yyyy-MM-DDThh:mm'));
+  const [imageUrl, setImageUrl] = useState<{
+    url: string | undefined;
+    name: string;
+  }>({ url: '', name: '' });
+  const [cropImageUrl, setCropImageUrl] = useState<{
+    url: string | undefined;
+    name: string;
+  }>({ url: '', name: '' });
+  const [cropper, setCropper] = useState<Cropper | null>(null);
 
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
@@ -54,6 +65,25 @@ const EventCreate = () => {
   };
   const changeEndDate = (e: { target: { value: string } }) => {
     setEndDate(e.target.value);
+  };
+
+  const changeImageUpload = ({ file }: { file: File }) => {
+    setImageUrl({ url: undefined, name: '' });
+    setCropImageUrl({ url: undefined, name: '' });
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageUrl({ url: reader.result?.toString(), name: file.name });
+      if (imageRef.current) {
+        setCropper(new Cropper(imageRef.current, { aspectRatio: 1 }));
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+  const clickCropImageUpload = (e: BaseSyntheticEvent) => {
+    e.preventDefault();
+    const imgSrc = cropper?.getCroppedCanvas().toDataURL();
+    setCropImageUrl({ url: imgSrc, name: imageUrl.name });
   };
 
   return (
@@ -149,6 +179,34 @@ const EventCreate = () => {
             onChange={changeEndDate}
           />
         </div>
+        <form method="post" encType="multipart/form-data">
+          <label htmlFor="image-upload">이미지 올리기</label>
+          <input
+            name="image-upload"
+            type="file"
+            accept="image/*"
+            onChange={({ target: { files } }) => {
+              if (files) {
+                changeImageUpload({
+                  file: files[0],
+                });
+              }
+            }}
+          />
+          <div className="admin--create__image">
+            {imageUrl.url && (
+              <div style={{ maxWidth: '50%' }}>
+                <img ref={imageRef} src={imageUrl.url} alt={imageUrl.name} />
+              </div>
+            )}
+            {cropImageUrl.url && (
+              <img src={cropImageUrl.url} alt={cropImageUrl.name} />
+            )}
+          </div>
+          {imageUrl.url && (
+            <button onClick={clickCropImageUpload}>자르기</button>
+          )}
+        </form>
         <button onClick={() => router.push(baseRouter() + '/admin/event')}>
           확인
         </button>
