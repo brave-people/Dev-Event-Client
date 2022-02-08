@@ -1,16 +1,18 @@
 import React, { useState, useRef } from 'react';
 import type { KeyboardEvent, BaseSyntheticEvent } from 'react';
 import { useRouter } from 'next/router';
-import moment from 'moment';
 import Cropper from 'cropperjs';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 import EventComponent from '../../../components/Event';
 import { baseRouter } from '../../../config/constants';
 
 const EventCreate = () => {
   const router = useRouter();
   const tagRef = useRef<HTMLInputElement>(null);
-  const startDateRef = useRef<HTMLInputElement>(null);
-  const endDateRef = useRef<HTMLInputElement>(null);
+  const startTimeRef = useRef<HTMLInputElement>(null);
+  const endTimeRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
   const [title, setTitle] = useState('');
@@ -19,10 +21,10 @@ const EventCreate = () => {
   const [eventLink, setEventLink] = useState('');
   const [tag, setTag] = useState('');
   const [tags, setTags] = useState<string[]>([]);
-  const [startDate, setStartDate] = useState(
-    moment().format('yyyy-MM-DDThh:mm')
-  );
-  const [endDate, setEndDate] = useState(moment().format('yyyy-MM-DDThh:mm'));
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
   const [imageUrl, setImageUrl] = useState<{
     url: string | undefined;
     name: string;
@@ -60,12 +62,8 @@ const EventCreate = () => {
     setTags((prevTags) => prevTags.filter((tag) => tag !== currentTag));
     tagRef.current?.focus();
   };
-  const changeStartDate = (e: { target: { value: string } }) => {
-    setStartDate(e.target.value);
-  };
-  const changeEndDate = (e: { target: { value: string } }) => {
-    setEndDate(e.target.value);
-  };
+
+  console.log(startTime, endTime);
 
   const changeImageUpload = ({ file }: { file: File }) => {
     setImageUrl({ url: undefined, name: '' });
@@ -154,30 +152,42 @@ const EventCreate = () => {
           </div>
         )}
         <div>
-          <label htmlFor="start">시작 날짜</label>
-          <input
-            ref={startDateRef}
-            type="datetime-local"
-            id="datetime-start"
-            name="datetime-start"
-            value={startDate}
-            min="2018-01-01T00:00"
-            max="2099-12-31T00:00"
-            onChange={changeStartDate}
+          <span>시작 날짜</span>
+          <DatePicker
+            dateFormat="yyyy/MM/dd"
+            selected={startDate}
+            onChange={(date) => date && setStartDate(date)}
+          />
+          <span>종료 날짜</span>
+          <DatePicker
+            dateFormat="yyyy/MM/dd"
+            selected={endDate}
+            minDate={startDate}
+            onChange={(date) => date && setEndDate(date)}
           />
         </div>
         <div>
-          <label htmlFor="datetime-end">종료 날짜</label>
           <input
-            ref={endDateRef}
-            type="datetime-local"
-            id="datetime-end"
-            name="datetime-end"
-            value={endDate}
-            min="2018-01-01T00:00"
-            max="2099-12-31T00:00"
-            onChange={changeEndDate}
+            ref={startTimeRef}
+            type="number"
+            max={12}
+            placeholder="00"
+            onChange={(event) => setStartTime(event.target.value)}
           />
+          <span>:</span>
+          <input
+            ref={endTimeRef}
+            type="number"
+            max={59}
+            placeholder="00"
+            onChange={(event) => setEndTime(event.target.value)}
+          />
+          <div>
+            <label htmlFor="am">AM</label>
+            <input type="radio" id="am" name="hour" value="am" checked />
+            <label htmlFor="am">PM</label>
+            <input type="radio" id="pm" name="hour" value="pm" />
+          </div>
         </div>
         <form method="post" encType="multipart/form-data">
           <label htmlFor="image-upload">이미지 올리기</label>
