@@ -3,7 +3,7 @@ import type { FormEvent } from 'react';
 import type { NextPageContext } from 'next/types';
 import { useRouter } from 'next/router';
 import type { ResponseTokenModel } from '../../model/User';
-import { loginApi } from '../api/login';
+import { loginApi } from '../api/auth/login';
 import UpdateTokenInCookie from '../../util/update-token-in-cookie';
 import getToken from '../../server/api/auth/getToken';
 import { baseRouter } from '../../config/constants';
