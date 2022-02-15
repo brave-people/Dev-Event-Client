@@ -1,17 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import type { KeyboardEvent } from 'react';
-import { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../../model/User';
+import { useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import jwt from 'jsonwebtoken';
+import type { NextPageContext } from 'next/types';
+import type { TokenModel } from '../../../model/User';
 import EventComponent from '../../../components/Event';
 import ImageUploadComponent from '../../../components/event/ImageUpload';
 import { baseRouter } from '../../../config/constants';
 import getToken from '../../../server/api/auth/getToken';
-import { useSetRecoilState } from 'recoil';
 import stores from '../../../store';
+import Button from '@mui/material/Button';
 
 const EventCreate = ({ data }: { data: TokenModel }) => {
   const router = useRouter();
@@ -193,9 +194,12 @@ const EventCreate = ({ data }: { data: TokenModel }) => {
           <ImageUploadComponent />
         </section>
         <section>
-          <button onClick={() => router.push(baseRouter() + '/admin/event')}>
+          <Button
+            variant="contained"
+            onClick={() => router.push(baseRouter() + '/admin/event')}
+          >
             확인
-          </button>
+          </Button>
         </section>
       </>
     </EventComponent>

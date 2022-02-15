@@ -13,6 +13,11 @@
     "deploy": "rm -rf node_modules/.cache && next build && next export && touch out/.nojekyll && git add -f out/ && git checkout -b deploy-gh-pages && git commit -m \"Deploy Next.js to gh-pages\" && git subtree split --prefix out -b gh-pages && git push -f origin gh-pages:gh-pages && git branch -D gh-pages && git checkout main && git branch -D deploy-gh-pages"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.4.1",
+    "@mui/material": "^5.4.1",
+    "@mui/styled-engine-sc": "^5.4.1",
     "cropperjs": "^1.5.12",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
@@ -22,7 +27,8 @@
     "react-dom": "^17.0.2",
     "react-query": "^3.34.12",
     "recoil": "^0.5.2",
-    "sass": "^1.45.2"
+    "sass": "^1.45.2",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@types/cookie": "0.4.1",
