@@ -5,13 +5,13 @@ import type { TokenModel } from '../../../model/User';
 import { useRouter } from 'next/router';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import jwt from 'jsonwebtoken';
 import EventComponent from '../../../components/Event';
 import ImageUploadComponent from '../../../components/event/ImageUpload';
 import { baseRouter } from '../../../config/constants';
 import getToken from '../../../server/api/auth/getToken';
 import { useSetRecoilState } from 'recoil';
 import stores from '../../../store';
-import jwt from 'jsonwebtoken';
 
 const EventCreate = ({ data }: { data: TokenModel }) => {
   const router = useRouter();
@@ -35,8 +35,9 @@ const EventCreate = ({ data }: { data: TokenModel }) => {
   const [endDate, setEndDate] = useState(new Date());
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
+  const [hour, setHour] = useState('am');
 
-  console.log(startTime, endTime);
+  console.log(startTime, endTime, hour);
 
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
@@ -167,9 +168,24 @@ const EventCreate = ({ data }: { data: TokenModel }) => {
             />
             <div>
               <label htmlFor="am">AM</label>
-              <input type="radio" id="am" name="hour" value="am" checked />
+              <input
+                type="radio"
+                id="am"
+                name="hour"
+                value="am"
+                checked={true}
+                onChange={(event) => setHour(event.target.value)}
+              />
+            </div>
+            <div>
               <label htmlFor="pm">PM</label>
-              <input type="radio" id="pm" name="hour" value="pm" />
+              <input
+                type="radio"
+                id="pm"
+                name="hour"
+                value="pm"
+                onChange={(event) => setHour(event.target.value)}
+              />
             </div>
           </div>
         </section>

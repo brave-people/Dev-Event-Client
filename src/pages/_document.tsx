@@ -6,10 +6,17 @@ export default function Document() {
       <Head>
         <title>Dev Event Client</title>
         <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
+        <link
           href="https://fengyuanchen.github.io/cropper/css/cropper.css"
           rel="stylesheet"
         />
-        <script src="https://fengyuanchen.github.io/cropper/js/cropper.js" />
       </Head>
       <body>
         <Main />
