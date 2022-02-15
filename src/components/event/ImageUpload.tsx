@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { BaseSyntheticEvent } from 'react';
 import Cropper from 'cropperjs';
+import { fetchUploadImage } from '../../pages/api/image';
 
 const ImageUpload = () => {
   const htmlFor = 'image-upload';
@@ -8,18 +9,17 @@ const ImageUpload = () => {
   const dragRef = useRef<HTMLLabelElement | null>(null);
 
   const [imageUrl, setImageUrl] = useState<{
-    url: string | undefined;
+    url?: string;
     name: string;
   }>({ url: '', name: '' });
   const [cropImageUrl, setCropImageUrl] = useState<{
-    url: string | undefined;
+    url?: string;
     name: string;
   }>({ url: '', name: '' });
   const [cropper, setCropper] = useState<Cropper | null>(null);
 
-  const changeImageUpload = ({ file }: { file: File }) => {
-    setImageUrl({ url: undefined, name: '' });
-    setCropImageUrl({ url: undefined, name: '' });
+  const changeImageUpload = async ({ file }: { file: File }) => {
+    deleteImage();
 
     const reader = new FileReader();
     reader.onload = () => {
@@ -34,6 +34,22 @@ const ImageUpload = () => {
     e.preventDefault();
     const imgSrc = cropper?.getCroppedCanvas().toDataURL();
     setCropImageUrl({ url: imgSrc, name: imageUrl.name });
+
+    cropper?.getCroppedCanvas().toBlob(async (blob) => {
+      const formData = new FormData();
+      if (blob) {
+        formData.append('file', blob);
+        const data = await fetchUploadImage({
+          fileType: 'DEV_EVENT',
+          data: formData,
+        });
+        console.log(data);
+      }
+    });
+  };
+  const deleteImage = () => {
+    setImageUrl({ url: '', name: '' });
+    setCropImageUrl({ url: '', name: '' });
   };
   const dragAndDropHandler = (e: DragEvent) => {
     e.preventDefault();
@@ -60,39 +76,49 @@ const ImageUpload = () => {
 
   return (
     <form method="post" encType="multipart/form-data">
-      <div>
-        <input
-          id={htmlFor}
-          name="image-upload"
-          type="file"
-          accept="image/*"
-          style={{ display: 'none' }}
-          onChange={({ target: { files } }) =>
-            files &&
-            changeImageUpload({
-              file: files[0],
-            })
-          }
-        />
-        <label htmlFor={htmlFor} ref={dragRef}>
-          <div
-            style={{ width: '400px', height: '300px', backgroundColor: 'gray' }}
-          >
-            이미지 올리기
+      <input
+        id={htmlFor}
+        name="image-upload"
+        type="file"
+        accept="image/*"
+        style={{ display: 'none' }}
+        onChange={({ target: { files } }) =>
+          files &&
+          changeImageUpload({
+            file: files[0],
+          })
+        }
+      />
+      <label htmlFor={htmlFor} ref={dragRef}>
+        {!imageUrl.url && (
+          <div className="drag__box">
+            <p className="drag__box__text--large">
+              드래그 혹은 클릭으로 파일을 업로드 할 수 있습니다.
+            </p>
+            <p className="drag__box__text--small">
+              (jpg, png, gif less than 3MB)
+            </p>
           </div>
-        </label>
-        <div className="admin--create__image">
-          {imageUrl.url && (
-            <div style={{ maxWidth: '50%' }}>
-              <img ref={imageRef} src={imageUrl.url} alt={imageUrl.name} />
-            </div>
-          )}
-          {cropImageUrl.url && (
+        )}
+      </label>
+      <section className="drag__section">
+        {imageUrl.url && (
+          <div className="drag__section--image">
+            <img ref={imageRef} src={imageUrl.url} alt={imageUrl.name} />
+          </div>
+        )}
+        {cropImageUrl.url && (
+          <div className="drag__section--image">
             <img src={cropImageUrl.url} alt={cropImageUrl.name} />
-          )}
-        </div>
-        {imageUrl.url && <button onClick={clickCropImageUpload}>자르기</button>}
-      </div>
+          </div>
+        )}
+      </section>
+      {imageUrl.url && (
+        <>
+          <button onClick={deleteImage}>이미지 삭제</button>
+          <button onClick={clickCropImageUpload}>자르기</button>
+        </>
+      )}
     </form>
   );
 };
