@@ -1,8 +1,9 @@
 @import './color';
 
 .drag__box {
-  width: 50%;
+  width: 480px;
   padding: 100px 0;
+  display: block;
   background-color: $color_gray-100;
   color: $color_secondary;
   border: 1px dashed $color_secondary;

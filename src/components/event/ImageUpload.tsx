@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import type { BaseSyntheticEvent } from 'react';
 import Cropper from 'cropperjs';
+import type { BaseSyntheticEvent } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { fetchUploadImage } from '../../pages/api/image';
 
-const ImageUpload = () => {
+const ImageUpload = ({
+  setCoverImageUrl,
+}: {
+  setCoverImageUrl: Dispatch<SetStateAction<string>>;
+}) => {
   const htmlFor = 'image-upload';
   const imageRef = useRef<HTMLImageElement>(null);
   const dragRef = useRef<HTMLLabelElement | null>(null);
@@ -22,7 +27,7 @@ const ImageUpload = () => {
     deleteImage();
 
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.onload = async () => {
       setImageUrl({ url: reader.result?.toString(), name: file.name });
       if (imageRef.current) {
         setCropper(new Cropper(imageRef.current, { aspectRatio: 1 }));
@@ -32,18 +37,21 @@ const ImageUpload = () => {
   };
   const clickCropImageUpload = (e: BaseSyntheticEvent) => {
     e.preventDefault();
-    const imgSrc = cropper?.getCroppedCanvas().toDataURL();
+    const imgSrc = cropper?.getCroppedCanvas().toDataURL() || '';
     setCropImageUrl({ url: imgSrc, name: imageUrl.name });
 
     cropper?.getCroppedCanvas().toBlob(async (blob) => {
       const formData = new FormData();
       if (blob) {
-        formData.append('file', blob);
+        formData.append('images', blob, imageUrl.name);
+        for (const [key, value] of Array.from(formData)) {
+          formData.set(key, value);
+        }
         const data = await fetchUploadImage({
           fileType: 'DEV_EVENT',
-          data: formData,
+          body: formData,
         });
-        console.log(data);
+        if (data.file_url) setCoverImageUrl(data.file_url);
       }
     });
   };
@@ -75,7 +83,7 @@ const ImageUpload = () => {
   }, [dragRef]);
 
   return (
-    <form method="post" encType="multipart/form-data">
+    <>
       <input
         id={htmlFor}
         name="image-upload"
@@ -89,16 +97,16 @@ const ImageUpload = () => {
           })
         }
       />
-      <label htmlFor={htmlFor} ref={dragRef}>
+      <label htmlFor={htmlFor} ref={dragRef} className="drag__box">
         {!imageUrl.url && (
-          <div className="drag__box">
+          <>
             <p className="drag__box__text--large">
               드래그 혹은 클릭으로 파일을 업로드 할 수 있습니다.
             </p>
             <p className="drag__box__text--small">
               (jpg, png, gif less than 3MB)
             </p>
-          </div>
+          </>
         )}
       </label>
       <section className="drag__section">
@@ -119,7 +127,7 @@ const ImageUpload = () => {
           <button onClick={clickCropImageUpload}>자르기</button>
         </>
       )}
-    </form>
+    </>
   );
 };
 
