@@ -18,20 +18,26 @@
   }
 }
 
-.form--large {
-  div {
+.form__content {
+  &__input {
     margin: 8px 0;
+
+    label {
+      width: 160px;
+      display: inline-block;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    input {
+      width: calc(100% - 320px);
+      height: 32px;
+    }
   }
 
-  label {
-    width: 160px;
-    display: inline-block;
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  input {
-    width: calc(100% - 320px);
-    height: 32px;
+  &--date {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 10px;
   }
 }
