@@ -16,6 +16,7 @@ import TimeComponent from '../../../components/event/Form/Time';
 import ImageUploadComponent from '../../../components/event/ImageUpload';
 import { createEventsApi } from '../../api/events/create';
 import ErrorContext from '../../../components/event/Form/ErrorContext';
+import classNames from 'classnames';
 
 const EventCreate = ({ data }: { data: TokenModel }) => {
   // const router = useRouter();
@@ -136,7 +137,10 @@ const EventCreate = ({ data }: { data: TokenModel }) => {
                 value={title}
                 onChange={changeTitle}
                 required
-                className="appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className={classNames(
+                  'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
+                  { 'border-red-400': error.title }
+                )}
               />
               {error.title && <ErrorContext />}
             </div>
@@ -169,7 +173,10 @@ const EventCreate = ({ data }: { data: TokenModel }) => {
                 value={organizer}
                 onChange={changeOrganizer}
                 required
-                className="appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className={classNames(
+                  'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
+                  { 'border-red-400': error.title }
+                )}
               />
               {error.organizer && <ErrorContext />}
             </div>
@@ -187,7 +194,10 @@ const EventCreate = ({ data }: { data: TokenModel }) => {
                 value={eventLink}
                 onChange={changeEventLink}
                 required
-                className="appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className={classNames(
+                  'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
+                  { 'border-red-400': error.title }
+                )}
               />
               {error.eventLink && <ErrorContext />}
             </div>
