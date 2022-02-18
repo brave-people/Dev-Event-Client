@@ -18,6 +18,14 @@ yarn
 yarn dev
 ```
 
+css 수정 필요할 때
+
+```shell
+yarn tailwind
+```
+
+---
+
 <h3>gh-pages update</h3>
 
 ```shell
