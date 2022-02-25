@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import type { NextPageContext } from 'next/types';
 import { useRouter } from 'next/router';
 import type { ResponseTokenModel } from '../../model/User';
 import { loginApi } from '../api/auth/login';
 import UpdateTokenInCookie from '../../util/update-token-in-cookie';
-import getToken from '../../server/api/auth/getToken';
 import { baseRouter } from '../../config/constants';
 
 const SignIn = ({ data }: ResponseTokenModel) => {
@@ -32,15 +30,14 @@ const SignIn = ({ data }: ResponseTokenModel) => {
 
       await loginApi({ user_id: id, password }).then(
         (res: ResponseTokenModel) => {
-          if (res.message) {
-            return setMessage(res.message);
-          }
+          if (res.message) return setMessage(res.message);
 
+          setLoading(false);
           return UpdateTokenInCookie(document, res.data);
         }
       );
 
-      await router.push(baseRouter() + '/admin/event');
+      router.push(baseRouter() + '/admin/event', undefined, { shallow: true });
     }
   };
 
@@ -72,20 +69,6 @@ const SignIn = ({ data }: ResponseTokenModel) => {
       {!message && loading && <p>로그인중입니다 :) 잠시만 기다려주세요</p>}
     </section>
   );
-};
-
-export const getInitialProps = async (context: NextPageContext) => {
-  const cookies = context.req?.headers.cookie;
-  const token = await getToken(cookies);
-  if (cookies && (!token || token?.error)) {
-    return {
-      redirect: {
-        destination: '/auth/signIn',
-      },
-    };
-  }
-
-  return { props: token };
 };
 
 export default SignIn;

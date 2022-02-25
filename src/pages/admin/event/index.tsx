@@ -38,12 +38,12 @@ function Admin({ data }: { data: TokenModel }) {
   );
 }
 
-export const getInitialProps = async (context: NextPageContext) => {
+export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
 
   // token이 없거나 에러나면 로그인 페이지로 이동
-  if (!token || token?.error) {
+  if (!token?.data || token?.error) {
     return {
       redirect: {
         destination: '/auth/signIn',
