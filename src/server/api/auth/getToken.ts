@@ -27,7 +27,7 @@ const getToken = async (cookies: string | undefined) => {
       if (refreshToken.exp * 1000 > new Date().getTime()) {
         const data = await getRefreshTokenApi(cookies);
 
-        if (data.error) {
+        if (data?.error) {
           console.error(data.error.message);
           return null;
         }

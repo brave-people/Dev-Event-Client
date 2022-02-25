@@ -2,24 +2,28 @@ import moment from 'moment';
 import { useState, useRef, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 // import { useRouter } from 'next/router';
+import classNames from 'classnames';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import jwt from 'jsonwebtoken';
 import type { KeyboardEvent } from 'react';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
+import type { TagModel } from '../../../model/Tag';
 import stores from '../../../store';
 import { baseRouter } from '../../../config/constants';
 import getToken from '../../../server/api/auth/getToken';
+import getTags from '../../../server/api/events/getTags';
 import EventComponent from '../../../components/Event';
 import TimeComponent from '../../../components/event/Form/Time';
 import ImageUploadComponent from '../../../components/event/ImageUpload';
 import { createEventsApi } from '../../api/events/create';
+import { createTagApi } from '../../api/events/tag';
 import ErrorContext from '../../../components/event/Form/ErrorContext';
-import classNames from 'classnames';
 
-const EventCreate = ({ data }: { data: TokenModel }) => {
+const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   // const router = useRouter();
+  const { token, allTags } = data || {};
   const setUser = useSetRecoilState(stores.user);
   const tagRef = useRef<HTMLInputElement>(null);
 
@@ -93,6 +97,15 @@ const EventCreate = ({ data }: { data: TokenModel }) => {
     if (!title || !organizer || !eventLink || !tags.length)
       return validateForm();
 
+    for (const tag of tags) {
+      if (!allTags) {
+        await createTagApi({ tag_name: tag });
+      }
+      if (allTags?.filter((prevTag) => prevTag.tag_name !== tag)) {
+        await createTagApi({ tag_name: tag });
+      }
+    }
+
     const body = {
       title,
       description,
@@ -110,11 +123,11 @@ const EventCreate = ({ data }: { data: TokenModel }) => {
     };
 
     const data = await createEventsApi({ data: body });
-    console.log(data);
+    console.log('이벤트 생성 완료', data);
   };
 
   useEffect(() => {
-    if (data) setUser(jwt.decode(data['access_token']));
+    if (token?.access_token) setUser(jwt.decode(token.access_token));
   }, []);
 
   return (
@@ -285,12 +298,12 @@ const EventCreate = ({ data }: { data: TokenModel }) => {
   );
 };
 
-export const getInitialProps = async (context: NextPageContext) => {
+export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
 
   // token이 없거나 에러나면 로그인 페이지로 이동
-  if (!token || token?.error) {
+  if (!token?.data || token?.error) {
     return {
       redirect: {
         destination: '/auth/signIn',
@@ -298,7 +311,8 @@ export const getInitialProps = async (context: NextPageContext) => {
     };
   }
 
-  return { props: token };
+  const tags = await getTags(token.data['access_token']);
+  return { props: { token: token.data, tags } };
 };
 
 export default EventCreate;
