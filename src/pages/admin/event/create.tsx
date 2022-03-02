@@ -1,16 +1,13 @@
 import moment from 'moment';
-import { useState, useRef, useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useState, useEffect } from 'react';
 // import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import jwt from 'jsonwebtoken';
-import type { KeyboardEvent } from 'react';
+// import type { KeyboardEvent, ChangeEvent } from 'react';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import type { TagModel } from '../../../model/Tag';
-import stores from '../../../store';
 import { baseRouter } from '../../../config/constants';
 import getToken from '../../../server/api/auth/getToken';
 import getTags from '../../../server/api/events/getTags';
@@ -20,18 +17,17 @@ import ImageUploadComponent from '../../../components/event/ImageUpload';
 import { createEventsApi } from '../../api/events/create';
 import { createTagApi } from '../../api/events/tag';
 import ErrorContext from '../../../components/event/Form/ErrorContext';
+import Tag from '../../../components/event/Form/Tag';
+import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
 
 const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   // const router = useRouter();
   const { token, allTags } = data || {};
-  const setUser = useSetRecoilState(stores.user);
-  const tagRef = useRef<HTMLInputElement>(null);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [organizer, setOrganizer] = useState('');
   const [eventLink, setEventLink] = useState('');
-  const [tag, setTag] = useState('');
   const [tags, setTags] = useState<string[]>([]);
 
   // date
@@ -62,25 +58,6 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   };
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
-  };
-  const changeTag = (e: { target: { value: string } }) => {
-    setTag(e.target.value);
-  };
-  const updateTags = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Enter') {
-      e.preventDefault();
-      e.stopPropagation();
-      const target = e.target as HTMLInputElement;
-      setTags((prevTags: string[]) =>
-        Array.from(new Set([...prevTags, target.value]))
-      );
-      tagRef.current?.focus();
-      setTag('');
-    }
-  };
-  const deleteTag = (currentTag: string) => {
-    setTags((prevTags) => prevTags.filter((tag) => tag !== currentTag));
-    tagRef.current?.focus();
   };
 
   const validateForm = () => {
@@ -127,7 +104,7 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   };
 
   useEffect(() => {
-    if (token?.access_token) setUser(jwt.decode(token.access_token));
+    if (token?.access_token) UpdateTokenInCookie(document, token);
   }, []);
 
   return (
@@ -214,35 +191,9 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
               />
               {error.eventLink && <ErrorContext />}
             </div>
-            <div className="form__content__input">
-              <label
-                htmlFor="tag"
-                className="form__content__title inline-block text-base font-medium text-gray-600"
-              >
-                태그
-                <span className="text-red-500">*</span>
-              </label>
-              <input
-                ref={tagRef}
-                id="tag"
-                type="text"
-                value={tag}
-                onChange={changeTag}
-                onKeyPress={updateTags}
-                className="appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              />
+            <div className="form__content__input relative">
+              <Tag tags={tags} setTags={setTags} allTags={allTags} />
             </div>
-            {tags.length > 0 && (
-              <div>
-                {tags.map((tag, index) => {
-                  return (
-                    <button key={index} onClick={() => deleteTag(tag)}>
-                      {tag}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
             <div className="form__content--date">
               <span className="form__content__title inline-block text-base font-medium text-gray-600">
                 시작 날짜
@@ -312,7 +263,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
   }
 
   const tags = await getTags(token.data['access_token']);
-  return { props: { token: token.data, tags } };
+  return { props: { token: token.data, allTags: tags } };
 };
 
 export default EventCreate;

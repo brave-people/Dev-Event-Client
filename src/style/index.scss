@@ -1,6 +1,7 @@
 @import './admin';
 @import './calendar';
 @import './imageUpload';
+@import './variables';
 
 * {
   font-family: 'Noto Sans KR', sans-serif;
@@ -56,7 +57,7 @@
   }
 
   &__title {
-    min-width: 120px;
+    min-width: $common_width;
   }
 
   &--error {
@@ -65,6 +66,14 @@
     right: 0;
     font-size: 12px;
     color: $color_red-100;
+  }
+
+  &--all-Tags {
+    position: absolute;
+    padding: 8px 0;
+    bottom: 0;
+    left: $common_width;
+    transform: translateY(100%);
   }
 
   .react-datepicker-wrapper {
