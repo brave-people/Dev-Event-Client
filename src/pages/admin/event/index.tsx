@@ -1,24 +1,21 @@
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
-import jwt from 'jsonwebtoken';
 import { useRouter } from 'next/router';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import getToken from '../../../server/api/auth/getToken';
-import stores from '../../../store';
 import EventComponent from '../../../components/Event';
 import Calendar from '../../../components/event/Calendar';
 import { baseRouter } from '../../../config/constants';
+import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
 
 const queryClient = new QueryClient();
 
 function Admin({ data }: { data: TokenModel }) {
   const router = useRouter();
-  const setUser = useSetRecoilState(stores.user);
 
   useEffect(() => {
-    if (data) setUser(jwt.decode(data['access_token']));
+    if (data) UpdateTokenInCookie(document, data);
   }, []);
 
   return (
