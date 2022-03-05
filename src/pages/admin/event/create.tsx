@@ -1,14 +1,14 @@
 import moment from 'moment';
 import { useState, useEffect } from 'react';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-// import type { KeyboardEvent, ChangeEvent } from 'react';
+import type { MouseEvent } from 'react';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import type { TagModel } from '../../../model/Tag';
-import { baseRouter } from '../../../config/constants';
+import { baseRouter, STATUS_201 } from '../../../config/constants';
 import getToken from '../../../server/api/auth/getToken';
 import getTags from '../../../server/api/events/getTags';
 import EventComponent from '../../../components/Event';
@@ -21,7 +21,7 @@ import Tag from '../../../components/event/Form/Tag';
 import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
 
 const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
-  // const router = useRouter();
+  const router = useRouter();
   const { token, allTags } = data || {};
 
   const [title, setTitle] = useState('');
@@ -67,7 +67,7 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
     setError((prevState) => ({ ...prevState, tags: !tags.length }));
   };
 
-  const createEvent = async (e) => {
+  const createEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -75,10 +75,9 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
       return validateForm();
 
     for (const tag of tags) {
-      if (!allTags) {
+      if (!allTags.length) {
         await createTagApi({ tag_name: tag });
-      }
-      if (allTags?.filter((prevTag) => prevTag.tag_name !== tag)) {
+      } else if (allTags.every((prevTag) => prevTag.tag_name !== tag)) {
         await createTagApi({ tag_name: tag });
       }
     }
@@ -100,7 +99,8 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
     };
 
     const data = await createEventsApi({ data: body });
-    console.log('이벤트 생성 완료', data);
+    if (data.status_code === STATUS_201) return router.reload();
+    return alert(data.message);
   };
 
   useEffect(() => {
@@ -232,7 +232,7 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
             <button
               type="submit"
               onClick={createEvent}
-              className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-gray-400 text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             >
               확인
             </button>
