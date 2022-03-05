@@ -68,7 +68,8 @@
     color: $color_red-100;
   }
 
-  &--all-Tags {
+  &--all-tags {
+    display: flex;
     position: absolute;
     padding: 8px 0;
     bottom: 0;

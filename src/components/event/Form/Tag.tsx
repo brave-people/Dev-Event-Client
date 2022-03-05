@@ -76,7 +76,7 @@ const Tags = ({
       />
       {showPrevTags && allTags?.length > 0 && (
         <select
-          className="form__content--all-Tags z-10"
+          className="form__content--all-tags z-10"
           value={selectTag}
           onChange={changeSelectTag}
         >
@@ -89,7 +89,7 @@ const Tags = ({
         </select>
       )}
       {tags?.length > 0 && (
-        <div className="form__content--all-Tags">
+        <div className="form__content--all-tags">
           {tags.map((tag, index) => {
             return (
               <button
