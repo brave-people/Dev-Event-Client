@@ -51,7 +51,9 @@ const ImageUpload = ({
           fileType: 'DEV_EVENT',
           body: formData,
         });
-        if (data.file_url) setCoverImageUrl(data.file_url);
+
+        if (data.message) return alert(data.message);
+        if (data.file_url) return setCoverImageUrl(data.file_url);
       }
     });
   };
