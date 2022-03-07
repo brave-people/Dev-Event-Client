@@ -5,7 +5,7 @@ import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import getToken from '../../../server/api/auth/getToken';
 import EventComponent from '../../../components/Event';
-import Calendar from '../../../components/event/Calendar';
+import List from '../../../components/event/List';
 import { baseRouter } from '../../../config/constants';
 import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
 
@@ -22,7 +22,8 @@ function Admin({ data }: { data: TokenModel }) {
     <QueryClientProvider client={queryClient}>
       <EventComponent>
         <>
-          <Calendar />
+          <h2>개발자 행사 목록</h2>
+          <List />
           <button
             type="button"
             onClick={() => router.push(baseRouter() + '/admin/event/create')}

@@ -1,0 +1,24 @@
+@import './color';
+@import './variables';
+
+.event-list__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    padding: 4px 8px;
+    font-size: 26px;
+    font-weight: 700;
+    border-radius: $border__radius;
+    background: $color_gray-100;
+  }
+
+  input {
+    width: 360px;
+    height: 40px;
+    border: 1px solid $color_border;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+}
