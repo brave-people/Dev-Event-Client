@@ -1,8 +1,9 @@
 import cookie from 'cookie';
 import { Headers } from '../../../config/headers';
-import { RequestHeaders } from '../../../model/Request';
+import type { RequestHeaders } from '../../../model/Request';
+import type { EventModel } from '../../../model/Event';
 
-export const createEventsApi = async ({ data }) => {
+export const createEventsApi = async ({ data }: { data: EventModel }) => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events`, {
     method: 'POST',
     headers: {

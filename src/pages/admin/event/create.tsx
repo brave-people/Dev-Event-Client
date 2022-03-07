@@ -12,13 +12,14 @@ import { baseRouter, STATUS_201 } from '../../../config/constants';
 import getToken from '../../../server/api/auth/getToken';
 import getTags from '../../../server/api/events/getTags';
 import EventComponent from '../../../components/Event';
-import TimeComponent from '../../../components/event/Form/Time';
+import TimeComponent from '../../../components/event/Date/Time';
 import ImageUploadComponent from '../../../components/event/ImageUpload';
 import { createEventsApi } from '../../api/events/create';
 import { createTagApi } from '../../api/events/tag';
 import ErrorContext from '../../../components/event/Form/ErrorContext';
 import Tag from '../../../components/event/Form/Tag';
 import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
+import { EventModel } from '../../../model/Event';
 
 const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   const router = useRouter();
@@ -82,7 +83,7 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
       }
     }
 
-    const body = {
+    const body: EventModel = {
       title,
       description,
       organizer,
