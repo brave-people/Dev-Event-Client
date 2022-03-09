@@ -1,25 +1,20 @@
 import moment from 'moment';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import classNames from 'classnames';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import type { MouseEvent } from 'react';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import type { TagModel } from '../../../model/Tag';
-import { baseRouter, STATUS_201 } from '../../../config/constants';
+import type { EventErrorFormModel, EventModel } from '../../../model/Event';
+import { STATUS_201 } from '../../../config/constants';
 import getToken from '../../../server/api/auth/getToken';
 import getTags from '../../../server/api/events/getTags';
 import EventComponent from '../../../components/Event';
-import TimeComponent from '../../../components/event/Date/Time';
-import ImageUploadComponent from '../../../components/event/ImageUpload';
 import { createEventsApi } from '../../api/events/create';
 import { createTagApi } from '../../api/events/tag';
-import ErrorContext from '../../../components/event/Form/ErrorContext';
-import Tag from '../../../components/event/Form/Tag';
 import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
-import { EventModel } from '../../../model/Event';
+import FormContent from '../../../components/event/Form/Content';
 
 const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   const router = useRouter();
@@ -41,7 +36,7 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   const [coverImageUrl, setCoverImageUrl] = useState('');
 
   // error
-  const [error, setError] = useState({
+  const [error, setError] = useState<EventErrorFormModel>({
     title: false,
     organizer: false,
     eventLink: false,
@@ -112,139 +107,30 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
     <EventComponent>
       <>
         <h1 className="text-3xl font-bold">개발자 행사 등록</h1>
-        <form className="form--large">
-          <div className="form__content">
-            <div className="form__content__input">
-              <label
-                htmlFor="title"
-                className="form__content__title inline-block text-base font-medium text-gray-600"
-              >
-                제목
-                <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="title"
-                type="text"
-                value={title}
-                onChange={changeTitle}
-                required
-                className={classNames(
-                  'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
-                  { 'border-red-400': error.title }
-                )}
-              />
-              {error.title && <ErrorContext />}
-            </div>
-            <div className="form__content__input">
-              <label
-                htmlFor="description"
-                className="form__content__title inline-block text-base font-medium text-gray-600"
-              >
-                행사 설명
-              </label>
-              <input
-                id="description"
-                type="text"
-                value={description}
-                onChange={changeDescription}
-                className="appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              />
-            </div>
-            <div className="form__content__input">
-              <label
-                htmlFor="organizer"
-                className="form__content__title inline-block text-base font-medium text-gray-600"
-              >
-                주최
-                <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="organizer"
-                type="text"
-                value={organizer}
-                onChange={changeOrganizer}
-                required
-                className={classNames(
-                  'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
-                  { 'border-red-400': error.title }
-                )}
-              />
-              {error.organizer && <ErrorContext />}
-            </div>
-            <div className="form__content__input">
-              <label
-                htmlFor="event_link"
-                className="form__content__title inline-block text-base font-medium text-gray-600"
-              >
-                행사 링크
-                <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="event_link"
-                type="text"
-                value={eventLink}
-                onChange={changeEventLink}
-                required
-                className={classNames(
-                  'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
-                  { 'border-red-400': error.title }
-                )}
-              />
-              {error.eventLink && <ErrorContext />}
-            </div>
-            <div className="form__content__input relative">
-              <Tag tags={tags} setTags={setTags} allTags={allTags} />
-            </div>
-            <div className="form__content--date">
-              <span className="form__content__title inline-block text-base font-medium text-gray-600">
-                시작 날짜
-              </span>
-              <DatePicker
-                dateFormat="yyyy/MM/dd"
-                selected={startDate}
-                onChange={(date) => date && setStartDate(date)}
-                className="appearance-none w-80 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              />
-              <span className="w-40 inline-block text-base font-medium text-gray-600">
-                시작 시간
-              </span>
-              <TimeComponent time={startTime} setTime={setStartTime} />
-            </div>
-            <div className="form__content--date">
-              <span className="form__content__title inline-block text-base font-medium text-gray-600">
-                종료 날짜
-              </span>
-              <DatePicker
-                dateFormat="yyyy/MM/dd"
-                selected={endDate}
-                minDate={startDate}
-                onChange={(date) => date && setEndDate(date)}
-                className="appearance-none w-80 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              />
-              <span className="w-40 inline-block text-base font-medium text-gray-600">
-                종료 시간
-              </span>
-              <TimeComponent time={endTime} setTime={setEndTime} />
-            </div>
-            <div className="my-8" />
-            <ImageUploadComponent setCoverImageUrl={setCoverImageUrl} />
-          </div>
-          <div className="relative">
-            <button
-              type="submit"
-              onClick={createEvent}
-              className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-            >
-              확인
-            </button>
-            <a
-              href={baseRouter() + '/admin/event'}
-              className="form__button form__button--right w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-gray-400 text-white bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-            >
-              취소
-            </a>
-          </div>
-        </form>
+        <FormContent
+          title={title}
+          changeTitle={changeTitle}
+          error={error}
+          description={description}
+          changeDescription={changeDescription}
+          organizer={organizer}
+          changeOrganizer={changeOrganizer}
+          eventLink={eventLink}
+          changeEventLink={changeEventLink}
+          tags={tags}
+          setTags={setTags}
+          allTags={allTags}
+          startDate={startDate}
+          setStartDate={setStartDate}
+          startTime={startTime}
+          setStartTime={setStartTime}
+          endDate={endDate}
+          setEndDate={setEndDate}
+          endTime={endTime}
+          setEndTime={setEndTime}
+          setCoverImageUrl={setCoverImageUrl}
+          saveForm={(e: MouseEvent<HTMLButtonElement>) => createEvent(e)}
+        />
       </>
     </EventComponent>
   );

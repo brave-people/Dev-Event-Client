@@ -5,10 +5,19 @@ module.exports = {
     node: true,
     es2020: true,
   },
-  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  plugins: ['@typescript-eslint/eslint-plugin'],
+  extends: [
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
   parserOptions: {
     ecmaVersion: 9,
     sourceType: 'module',
   },
   parser: '@typescript-eslint/parser',
+  rules: {
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
+  },
 };
