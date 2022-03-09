@@ -11,7 +11,7 @@ import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
 
 const queryClient = new QueryClient();
 
-function Admin({ data }: { data: TokenModel }) {
+const EventList = ({ data }: { data: TokenModel }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function Admin({ data }: { data: TokenModel }) {
       </EventComponent>
     </QueryClientProvider>
   );
-}
+};
 
 export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
@@ -52,4 +52,4 @@ export const getServerSideProps = async (context: NextPageContext) => {
   return { props: token };
 };
 
-export default Admin;
+export default EventList;
