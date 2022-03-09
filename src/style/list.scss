@@ -1,7 +1,7 @@
 @import './color';
 @import './variables';
 
-.event-list__header {
+.list__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,5 +20,40 @@
     border: 1px solid $color_border;
     border-radius: 20px;
     font-size: 14px;
+  }
+}
+
+.list--group {
+  position: relative;
+  cursor: pointer;
+
+  &__button {
+    display: none;
+    position: absolute;
+    width: 72px;
+    background: $color_white;
+    box-shadow: $box__shadow;
+    border-radius: $border__radius / 2;
+    padding: 16px 0;
+    z-index: 9;
+
+    button {
+      display: inherit;
+      margin: 0 auto;
+      padding: 8px 16px;
+      border-radius: $border__radius / 2;
+
+      &:first-child:hover {
+        background: $color_red-50;
+      }
+
+      &:last-child:hover {
+        background: $color_blue-50;
+      }
+    }
+  }
+
+  &:hover > &__button {
+    display: block;
   }
 }

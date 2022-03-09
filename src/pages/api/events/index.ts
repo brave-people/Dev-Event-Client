@@ -20,3 +20,14 @@ export const getEventsApi = async ({
     }
   ).then((res) => res.json());
 };
+
+export const getDeleteEventApi = async ({ id }: { id: number }) => {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: cookie.parse(document.cookie)['access_token'],
+      ...Headers(),
+    } as RequestHeaders,
+  }).then((res) => res.json());
+};
