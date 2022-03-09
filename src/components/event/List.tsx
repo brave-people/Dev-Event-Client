@@ -10,7 +10,7 @@ const List = () => {
   const [list, setList] = useState<EventResponseModel[]>([]);
   const [keyword, setKeyword] = useState('');
   const [year, setYear] = useState(currentDate.getFullYear());
-  const month = currentDate.getMonth();
+  const [month, setMonth] = useState(currentDate.getMonth());
 
   const { status, isError, data, refetch } = useQuery(
     ['fetchEvents', { year, month }],
@@ -49,7 +49,7 @@ const List = () => {
           onChange={(e) => setKeyword(e.target.value)}
         />
       </article>
-      <YearAndMonthPicker year={year} setYear={setYear} />
+      <YearAndMonthPicker year={year} setYear={setYear} setMonth={setMonth} />
       <table>
         <thead>
           <tr>

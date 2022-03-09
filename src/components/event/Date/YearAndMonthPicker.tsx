@@ -3,10 +3,17 @@ import type { Dispatch, SetStateAction } from 'react';
 const YearAndMonthPicker = ({
   year,
   setYear,
+  setMonth,
 }: {
   year: number;
   setYear: Dispatch<SetStateAction<number>>;
+  setMonth: Dispatch<SetStateAction<number>>;
 }) => {
+  const months = Array.from({ length: 12 }, (_, index) => ({
+    value: index,
+    text: `${index + 1}월`,
+  }));
+
   return (
     <div>
       <div>
@@ -39,6 +46,18 @@ const YearAndMonthPicker = ({
             />
           </svg>
         </button>
+      </div>
+      <div className="table-fixed">
+        {months.map((month) => (
+          <button
+            key={month.value}
+            type="button"
+            value={month.value}
+            onClick={() => setMonth(month.value)}
+          >
+            {month.text}
+          </button>
+        ))}
       </div>
     </div>
   );
