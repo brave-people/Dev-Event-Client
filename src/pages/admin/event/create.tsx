@@ -6,15 +6,16 @@ import type { MouseEvent } from 'react';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import type { TagModel } from '../../../model/Tag';
-import type { EventErrorFormModel, EventModel } from '../../../model/Event';
+import type { EventModel } from '../../../model/Event';
 import { STATUS_201 } from '../../../config/constants';
+import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
 import getToken from '../../../server/api/auth/getToken';
 import getTags from '../../../server/api/events/getTags';
-import EventComponent from '../../../components/Event';
 import { createEventsApi } from '../../api/events/create';
 import { createTagApi } from '../../api/events/tag';
-import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
+import EventComponent from '../../../components/Event';
 import FormContent from '../../../components/event/Form/Content';
+import { useErrorContext } from '../../../components/event/Form/ErrorContext';
 
 const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   const router = useRouter();
@@ -26,6 +27,13 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   const [eventLink, setEventLink] = useState('');
   const [tags, setTags] = useState<string[]>([]);
 
+  const { error, validateForm } = useErrorContext({
+    title,
+    organizer,
+    eventLink,
+    tags,
+  });
+
   // date
   const [startDate, setStartDate] = useState(new Date());
   const [startTime, setStartTime] = useState(new Date());
@@ -34,14 +42,6 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
 
   // image
   const [coverImageUrl, setCoverImageUrl] = useState('');
-
-  // error
-  const [error, setError] = useState<EventErrorFormModel>({
-    title: false,
-    organizer: false,
-    eventLink: false,
-    tags: false,
-  });
 
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
@@ -54,13 +54,6 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   };
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
-  };
-
-  const validateForm = () => {
-    setError((prevState) => ({ ...prevState, title: !title }));
-    setError((prevState) => ({ ...prevState, organizer: !organizer }));
-    setError((prevState) => ({ ...prevState, eventLink: !eventLink }));
-    setError((prevState) => ({ ...prevState, tags: !tags.length }));
   };
 
   const createEvent = async (e: MouseEvent<HTMLButtonElement>) => {

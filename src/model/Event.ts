@@ -23,6 +23,13 @@ export interface EventResponseModel extends Event {
   tags: TagModel[];
 }
 
+export interface EventErrorFormProps {
+  title: string;
+  organizer: string;
+  eventLink: string;
+  tags: string[];
+}
+
 export interface EventErrorFormModel {
   title: boolean;
   organizer: boolean;
@@ -51,6 +58,7 @@ export interface EventFormModel {
   setEndDate: Dispatch<SetStateAction<Date>>;
   endTime: Date;
   setEndTime: Dispatch<SetStateAction<Date>>;
+  coverImageUrl?: string;
   setCoverImageUrl: Dispatch<SetStateAction<string>>;
   saveForm: (e: MouseEvent<HTMLButtonElement>) => Promise<void>;
 }
