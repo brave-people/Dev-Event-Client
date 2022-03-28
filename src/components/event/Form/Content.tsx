@@ -29,6 +29,7 @@ const FormContent = ({
   setEndDate,
   endTime,
   setEndTime,
+  coverImageUrl,
   setCoverImageUrl,
   saveForm,
 }: EventFormModel) => {
@@ -136,7 +137,10 @@ const FormContent = ({
           <TimeComponent time={endTime} setTime={setEndTime} />
         </div>
         <div className="my-8" />
-        <ImageUploadComponent setCoverImageUrl={setCoverImageUrl} />
+        <ImageUploadComponent
+          coverImageUrl={coverImageUrl}
+          setCoverImageUrl={setCoverImageUrl}
+        />
       </div>
       <div className="relative">
         <button

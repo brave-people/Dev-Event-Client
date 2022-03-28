@@ -5,8 +5,10 @@ import type { Dispatch, SetStateAction } from 'react';
 import { fetchUploadImage } from '../../pages/api/image';
 
 const ImageUpload = ({
+  coverImageUrl,
   setCoverImageUrl,
 }: {
+  coverImageUrl?: string;
   setCoverImageUrl: Dispatch<SetStateAction<string>>;
 }) => {
   const htmlFor = 'image-upload';
@@ -86,6 +88,12 @@ const ImageUpload = ({
 
   return (
     <>
+      {coverImageUrl && (
+        <section className="mb-4">
+          <p>기존 이미지</p>
+          <img src={coverImageUrl} alt="기존이미지" />
+        </section>
+      )}
       <input
         id={htmlFor}
         name="image-upload"
