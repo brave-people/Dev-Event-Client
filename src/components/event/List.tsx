@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { getDeleteEventApi, getEventsApi } from '../../pages/api/events';
+import { getEventsApi } from '../../pages/api/events';
+import { deleteEventApi } from '../../pages/api/events/delete';
 import type { EventResponseModel } from '../../model/Event';
 import YearAndMonthPicker from './Date/YearAndMonthPicker';
 import getConvertNumberAddTen from '../../util/get-convert-number-add-ten';
@@ -23,7 +24,7 @@ const List = () => {
   console.log('result: ', status, isError, data);
 
   const deleteEvent = async () => {
-    const data = currentId && (await getDeleteEventApi({ id: currentId }));
+    const data = currentId && (await deleteEventApi({ id: currentId }));
     console.log(data?.message);
     setShowAlert(false);
     await refetch();
