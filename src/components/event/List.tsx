@@ -6,8 +6,11 @@ import type { EventResponseModel } from '../../model/Event';
 import YearAndMonthPicker from './Date/YearAndMonthPicker';
 import getConvertNumberAddTen from '../../util/get-convert-number-add-ten';
 import CenterAlert from '../alert/CenterAlert';
+import { useRouter } from 'next/router';
 
 const List = () => {
+  const router = useRouter();
+
   const [currentDate] = useState<Date>(new Date());
   const [list, setList] = useState<EventResponseModel[]>([]);
   const [keyword, setKeyword] = useState('');
@@ -21,7 +24,6 @@ const List = () => {
     async () => await getEventsApi({ year, month: month + 1 }),
     { refetchOnWindowFocus: false }
   );
-  console.log('result: ', status, isError, data);
 
   const deleteEvent = async () => {
     const data = currentId && (await deleteEventApi({ id: currentId }));
@@ -106,7 +108,12 @@ const List = () => {
                           />
                         </svg>
                         <div className="list--group__button">
-                          <button className="text-red-500 font-bold">
+                          <button
+                            className="text-red-500 font-bold"
+                            onClick={() =>
+                              router.push(`/admin/event/modify?id=${value.id}`)
+                            }
+                          >
                             수정
                           </button>
                           <button

@@ -3,6 +3,7 @@ import { Headers } from '../../../config/headers';
 import type { CalendarProps } from '../../../model/Calendar';
 import type { RequestHeaders } from '../../../model/Request';
 import type { EventResponseModel } from '../../../model/Event';
+import { TokenModel } from '../../../model/User';
 
 export const getEventsApi = async ({
   year,
@@ -21,12 +22,18 @@ export const getEventsApi = async ({
   ).then((res) => res.json());
 };
 
-export const getDeleteEventApi = async ({ id }: { id: number }) => {
+export const getEventApi = async ({
+  token,
+  id,
+}: {
+  token: TokenModel;
+  id: string;
+}): Promise<EventResponseModel> => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events/${id}`, {
-    method: 'DELETE',
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: cookie.parse(document.cookie)['access_token'],
+      Authorization: token.access_token,
       ...Headers(),
     } as RequestHeaders,
   }).then((res) => res.json());

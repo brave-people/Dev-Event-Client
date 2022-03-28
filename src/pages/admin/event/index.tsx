@@ -11,11 +11,11 @@ import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
 
 const queryClient = new QueryClient();
 
-const EventList = ({ data }: { data: TokenModel }) => {
+const EventList = ({ token }: { token: TokenModel }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (data) UpdateTokenInCookie(document, data);
+    if (token) UpdateTokenInCookie(document, token);
   }, []);
 
   return (
@@ -49,7 +49,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  return { props: token };
+  return { props: { token: token.data } };
 };
 
 export default EventList;
