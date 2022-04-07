@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import type { FormEvent } from 'react';
 import type { ResponseTokenModel } from '../../model/User';
-import { useRouter } from 'next/router';
+import type { NextPageContext } from 'next/types';
 import { registerUserApi } from '../api/auth/register';
 import { registerEmailApi } from '../api/auth/email';
 import { registerIdApi } from '../api/auth/id';
 import { baseRouter, STATUS_201, STATUS_203 } from '../../config/constants';
-import { NextPageContext } from 'next/types';
 import getToken from '../../server/api/auth/getToken';
-import UpdateTokenInCookie from '../../util/update-token-in-cookie';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import { useUpdateCookie } from '../../util/use-cookie';
 import getUserRoleIsAdmin from '../../util/get-user-role';
 
 const SignUp = ({ data, error }: ResponseTokenModel) => {
@@ -80,8 +80,8 @@ const SignUp = ({ data, error }: ResponseTokenModel) => {
         return;
       }
 
-      setMessage('축하해요! 가입에 성공하였어요 😎');
-      return setTimeout(() => router.push(baseRouter() + '/admin'), 2000);
+      setMessage('축하해요! 가입에 성공하였어요 😎 2초 후 홈으로 이동합니다.');
+      return setTimeout(() => router.push(baseRouter() + '/admin/event'), 2000);
     });
   };
 
@@ -90,7 +90,7 @@ const SignUp = ({ data, error }: ResponseTokenModel) => {
       alert(error);
       router.push(baseRouter() + '/auth/signIn');
     }
-    if (data?.access_token) UpdateTokenInCookie(document, data);
+    if (data?.access_token) useUpdateCookie(document, data);
   }, []);
 
   return (
@@ -153,8 +153,8 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  const accessToken = jwt.decode(token?.data['access_token']) as JwtPayload;
-  if (!getUserRoleIsAdmin(accessToken?.roles)) {
+  const accessToken = jwt.decode(token?.data?.access_token) as JwtPayload;
+  if (!token && !getUserRoleIsAdmin(accessToken?.roles)) {
     return {
       props: {
         error: '관리자만 계정을 생성할 수 있어요!',
