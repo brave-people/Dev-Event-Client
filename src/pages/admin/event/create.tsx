@@ -8,7 +8,7 @@ import type { TokenModel } from '../../../model/User';
 import type { TagModel } from '../../../model/Tag';
 import type { EventModel } from '../../../model/Event';
 import { STATUS_201 } from '../../../config/constants';
-import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
+import { useUpdateCookie } from '../../../util/use-cookie';
 import getToken from '../../../server/api/auth/getToken';
 import getTags from '../../../server/api/events/getTags';
 import { createEventsApi } from '../../api/events/create';
@@ -93,7 +93,7 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   };
 
   useEffect(() => {
-    if (token?.access_token) UpdateTokenInCookie(document, token);
+    if (token?.access_token) useUpdateCookie(document, token);
   }, []);
 
   return (

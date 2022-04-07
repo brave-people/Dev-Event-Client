@@ -12,7 +12,7 @@ const getToken = async (cookies: string | undefined) => {
     : {};
 
   // accessToken이 없는 경우 error를 return
-  if (!accessToken.exp) return { error: true };
+  if (!accessToken?.exp) return { error: true };
 
   // accessToken이 있는 경우
   if (accessToken.exp) {

@@ -3,7 +3,7 @@ import type { FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import type { ResponseTokenModel } from '../../model/User';
 import { loginApi } from '../api/auth/login';
-import UpdateTokenInCookie from '../../util/update-token-in-cookie';
+import { useUpdateCookie } from '../../util/use-cookie';
 import { baseRouter } from '../../config/constants';
 
 const SignIn = ({ data }: ResponseTokenModel) => {
@@ -33,7 +33,7 @@ const SignIn = ({ data }: ResponseTokenModel) => {
           if (res.message) return setMessage(res.message);
 
           setLoading(false);
-          return UpdateTokenInCookie(document, res.data);
+          return useUpdateCookie(document, res.data);
         }
       );
 
@@ -42,7 +42,7 @@ const SignIn = ({ data }: ResponseTokenModel) => {
   };
 
   useEffect(() => {
-    if (data?.access_token) UpdateTokenInCookie(document, data);
+    if (data?.access_token) useUpdateCookie(document, data);
   }, []);
 
   return (

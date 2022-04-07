@@ -3,7 +3,7 @@ import { MouseEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import getToken from '../../../server/api/auth/getToken';
 import { STATUS_200 } from '../../../config/constants';
-import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
+import { useUpdateCookie } from '../../../util/use-cookie';
 import { getEventApi } from '../../api/events';
 import { modifyEventsApi } from '../../api/events/modify';
 import { createTagApi } from '../../api/events/tag';
@@ -100,7 +100,7 @@ const EventModify = ({
   };
 
   useEffect(() => {
-    if (token) UpdateTokenInCookie(document, token);
+    if (token) useUpdateCookie(document, token);
   }, []);
 
   return (

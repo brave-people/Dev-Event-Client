@@ -7,7 +7,7 @@ import getToken from '../../../server/api/auth/getToken';
 import EventComponent from '../../../components/Event';
 import List from '../../../components/event/List';
 import { baseRouter } from '../../../config/constants';
-import UpdateTokenInCookie from '../../../util/update-token-in-cookie';
+import { useUpdateCookie } from '../../../util/use-cookie';
 
 const queryClient = new QueryClient();
 
@@ -15,7 +15,7 @@ const EventList = ({ token }: { token: TokenModel }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (token) UpdateTokenInCookie(document, token);
+    if (token) useUpdateCookie(document, token);
   }, []);
 
   return (
