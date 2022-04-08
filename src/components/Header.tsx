@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import type { UserInfoType } from '../../model/User';
-import getUserRoleIsAdmin from '../../util/get-user-role';
-import { baseRouter } from '../../config/constants';
+import type { UserInfoType } from '../model/User';
+import { getUserRoleIsAdmin } from '../util/get-user-role';
+import { baseRouter } from '../config/constants';
 
 const Header = ({ user }: { user: UserInfoType }) => {
   const isAdmin = typeof user !== 'string' && getUserRoleIsAdmin(user?.roles);
