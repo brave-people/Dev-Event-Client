@@ -10,7 +10,7 @@ import { registerIdApi } from '../api/auth/id';
 import { baseRouter, STATUS_201, STATUS_203 } from '../../config/constants';
 import getToken from '../../server/api/auth/getToken';
 import { useUpdateCookie } from '../../util/use-cookie';
-import getUserRoleIsAdmin from '../../util/get-user-role';
+import { getUserRoleIsAdmin } from '../../util/get-user-role';
 
 const SignUp = ({ data, error }: ResponseTokenModel) => {
   const router = useRouter();

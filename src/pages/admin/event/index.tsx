@@ -22,7 +22,6 @@ const EventList = ({ token }: { token: TokenModel }) => {
     <QueryClientProvider client={queryClient}>
       <EventComponent>
         <>
-          <h2>개발자 행사 목록</h2>
           <List />
           <button
             type="button"
