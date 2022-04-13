@@ -1,8 +1,7 @@
 import { Suspense } from 'react';
 import type { ReactElement } from 'react';
 import Header from './Header';
-import { useRecoilValue } from 'recoil';
-import stores from '../store';
+import { useUserProfile } from './auth/Info';
 
 const User = ({
   title,
@@ -11,10 +10,10 @@ const User = ({
   title: string;
   children: ReactElement;
 }) => {
-  const user = useRecoilValue(stores.user);
+  const { data } = useUserProfile();
   return (
     <Suspense fallback={<div>로딩중...</div>}>
-      <Header user={user} />
+      <Header user={data} />
       <h2>{title}</h2>
       {children}
     </Suspense>
