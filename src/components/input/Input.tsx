@@ -8,13 +8,13 @@ const Input = ({
   onChange,
   type = 'text',
   isRequired = false,
-  readonly,
+  readonly = false,
   customClass,
   children,
 }: {
   text: string;
   value: string;
-  onChange: () => void;
+  onChange: (e: { target: { value: string } }) => void;
   type?: InputHTMLAttributes<HTMLInputElement>['type'];
   isRequired?: boolean;
   readonly?: boolean;
@@ -38,7 +38,7 @@ const Input = ({
         value={value}
         onChange={onChange}
         required
-        {...(readonly && readonly)}
+        readOnly={readonly}
         className={classNames(
           'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
           { ...customClass }

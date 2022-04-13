@@ -1,13 +1,13 @@
 import { atom } from 'recoil';
-import type { UserInfoType } from '../model/User';
+import type { UserProfileModel } from '../model/User';
 
 const userKey = 'USER_KEY';
-export const userState = atom<UserInfoType>({
+export const userState = atom<UserProfileModel>({
   key: userKey,
   default: {
-    sub: 'admin',
-    roles: ['ROLE_ADMIN'],
-    iss: '',
-    exp: 0,
+    user_id: '',
+    roles: [],
+    name: '',
+    email: '',
   },
 });

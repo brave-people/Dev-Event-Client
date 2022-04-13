@@ -14,13 +14,30 @@ export interface UserEmailModel {
   email: string;
 }
 
-export interface UserModel extends UserIdModel {
+export interface UserModel {
+  user_id: string;
   password: string;
 }
 
-export interface UserRegisterModel extends UserModel {
+export interface UserRegisterModel {
+  user_id: string;
+  password: string;
   name: string;
   email: string;
+}
+
+export interface UserRole {
+  code: UserRoleType;
+  name: string;
+  description: string;
+}
+
+export interface UserProfileModel {
+  id?: string;
+  user_id?: string;
+  name: string;
+  email: string;
+  roles: UserRole[];
 }
 
 export interface TokenModel {
