@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import type { UserInfoType } from '../model/User';
 import { getUserRoleIsAdmin } from '../util/get-user-role';
 import { baseRouter } from '../config/constants';
+import type { UserProfileModel } from '../model/User';
 
-const Header = ({ user }: { user: UserInfoType }) => {
-  const isAdmin = typeof user !== 'string' && getUserRoleIsAdmin(user?.roles);
+const Header = ({ user }: { user: UserProfileModel | undefined }) => {
+  const isAdmin = getUserRoleIsAdmin(user?.roles);
 
   return (
     <header className="admin__header">
@@ -41,7 +41,7 @@ const Header = ({ user }: { user: UserInfoType }) => {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  href={baseRouter() + '/auth/modify'}
                   className={classNames(
                     active ? 'bg-gray-100' : '',
                     'block px-4 py-2 text-sm text-gray-700'
