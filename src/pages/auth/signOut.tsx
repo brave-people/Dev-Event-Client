@@ -5,7 +5,7 @@ import getToken from '../../server/api/auth/getToken';
 import { useDeleteCookie } from '../../util/use-cookie';
 import { baseRouter } from '../../config/constants';
 
-const signOut = () => {
+const SignOut = () => {
   const router = useRouter();
   useEffect(() => {
     useDeleteCookie(document, 'access_token');
@@ -33,4 +33,4 @@ export const getServerSideProps = async (context: NextPageContext) => {
   return { props: { token: token.data } };
 };
 
-export default signOut;
+export default SignOut;

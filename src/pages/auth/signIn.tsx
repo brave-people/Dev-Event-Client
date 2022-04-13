@@ -25,20 +25,19 @@ const SignIn = ({ data }: ResponseTokenModel) => {
     e.preventDefault();
     setMessage('');
 
-    if (id && password) {
-      setLoading(true);
+    if (!id || !password) return;
 
-      await loginApi({ user_id: id, password }).then(
-        (res: ResponseTokenModel) => {
-          if (res.message) return setMessage(res.message);
+    setLoading(true);
+    await loginApi({ user_id: id, password }).then(
+      (res: ResponseTokenModel) => {
+        if (res.message) return setMessage(res.message);
 
-          setLoading(false);
-          return useUpdateCookie(document, res.data);
-        }
-      );
+        setLoading(false);
+        return useUpdateCookie(document, res.data);
+      }
+    );
 
-      router.push(baseRouter() + '/admin/event', undefined, { shallow: true });
-    }
+    router.push(baseRouter() + '/admin/event', undefined, { shallow: true });
   };
 
   useEffect(() => {
