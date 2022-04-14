@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 import { Headers } from '../../../config/headers';
-import type { RequestHeaders } from '../../../model/Request';
+import type { RequestHeaders } from '../../../model/Api';
 import type { TagNameModel } from '../../../model/Tag';
 
 const createTagApi = async (data: TagNameModel) => {

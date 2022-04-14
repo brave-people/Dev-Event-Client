@@ -1,5 +1,5 @@
 import { Headers } from '../../../config/headers';
-import { RequestHeaders } from '../../../model/Request';
+import { RequestHeaders } from '../../../model/Api';
 
 const getTagsApi = async (token: string | undefined) => {
   if (!token) return;

@@ -1,5 +1,5 @@
 import cookie from 'cookie';
-import type { RequestHeaders } from '../../../model/Request';
+import type { RequestHeaders } from '../../../model/Api';
 import type {
   UploadImageProps,
   ResponseUploadImage,

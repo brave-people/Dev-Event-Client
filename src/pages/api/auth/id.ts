@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 import type { UserIdModel } from '../../../model/User';
-import type { RequestHeaders } from '../../../model/Request';
+import type { RequestHeaders } from '../../../model/Api';
 import { Headers } from '../../../config/headers';
 
 /** 중복 아이디 체크 */

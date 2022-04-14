@@ -1,7 +1,7 @@
 import cookie from 'cookie';
 import { Headers } from '../../../config/headers';
 import type { CalendarProps } from '../../../model/Calendar';
-import type { RequestHeaders } from '../../../model/Request';
+import type { RequestHeaders } from '../../../model/Api';
 import type { EventResponseModel } from '../../../model/Event';
 import { TokenModel } from '../../../model/User';
 

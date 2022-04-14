@@ -1,5 +1,5 @@
 import type { ResponseTokenModel, UserModel } from '../../../model/User';
-import type { RequestHeaders } from '../../../model/Request';
+import type { RequestHeaders } from '../../../model/Api';
 import { Headers } from '../../../config/headers';
 
 export const loginApi = async (req: UserModel): Promise<ResponseTokenModel> => {
