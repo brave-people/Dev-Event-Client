@@ -2,19 +2,25 @@ import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import stores from '../../store';
-import { getUsersProfileApi } from '../../pages/api/auth/profile';
+import { getUsersProfileApi } from '../../pages/api/auth/users/profile';
 import FormContent from './Form/Content';
 import User from '../User';
 
 const Info = () => {
-  const { data } = useUserProfile();
+  const { data, refetch } = useUserProfile();
 
   if (!data) return null;
   const { user_id: id, name, email, roles } = data;
 
   return (
     <User title="회원정보수정">
-      <FormContent id={id} name={name} email={email} roles={roles} />
+      <FormContent
+        id={id}
+        name={name}
+        email={email}
+        roles={roles}
+        refetch={refetch}
+      />
     </User>
   );
 };

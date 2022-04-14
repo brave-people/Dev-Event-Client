@@ -4,15 +4,17 @@ import stores from '../../../store';
 import { getUserRole } from '../../../util/get-user-role';
 import Input from '../../input/Input';
 import { UserProfileModel } from '../../../model/User';
+import { modifyUsersApi } from '../../../pages/api/auth/users';
+import { STATUS_200 } from '../../../config/constants';
 
 const FormContent = ({
   id = '',
   name = '',
   email = '',
   roles = [],
+  refetch,
 }: UserProfileModel) => {
   const user = useRecoilValue(stores.user);
-  const [newId, setNewId] = useState(id);
   const [newName, setNewUserName] = useState(name);
   const [newEmail, setNewEmail] = useState(email);
   const [hasModify, setHasModify] = useState(false);
@@ -20,27 +22,31 @@ const FormContent = ({
 
   if (!user) return null;
 
-  const changeId = (e: { target: { value: string } }) => {
-    console.log(e.target.value);
-    setNewId(e.target.value);
-  };
-
   const changeUserName = (e: { target: { value: string } }) =>
     setNewUserName(e.target.value);
 
   const changeEmail = (e: { target: { value: string } }) =>
     setNewEmail(e.target.value);
 
+  const saveEvent = async () => {
+    const body = {
+      email: newEmail,
+      name: newName,
+    };
+
+    const data = await modifyUsersApi({ data: body });
+    if (data.status_code === STATUS_200) {
+      setHasModify(false);
+      return refetch();
+    }
+
+    return alert(data.message);
+  };
+
   return (
     <div className="form--large">
       <div className="form__content">
-        <Input
-          text="아이디"
-          value={newId}
-          onChange={changeId}
-          isRequired={true}
-          readonly={!hasModify}
-        />
+        <Input text="아이디" value={id} readonly={true} disable={true} />
         <Input
           text="이름"
           value={newName}
@@ -67,7 +73,11 @@ const FormContent = ({
           </>
         )}
       </div>
-      <button onClick={() => setHasModify(true)}>
+      <button
+        onClick={() => {
+          hasModify ? saveEvent() : setHasModify(true);
+        }}
+      >
         {hasModify ? '저장' : '수정'}
       </button>
     </div>

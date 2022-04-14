@@ -14,6 +14,10 @@ export interface UserEmailModel {
   email: string;
 }
 
+export interface UserNameModel {
+  name: string;
+}
+
 export interface UserModel {
   user_id: string;
   password: string;
@@ -38,6 +42,7 @@ export interface UserProfileModel {
   name: string;
   email: string;
   roles: UserRole[];
+  refetch: () => void;
 }
 
 export interface TokenModel {

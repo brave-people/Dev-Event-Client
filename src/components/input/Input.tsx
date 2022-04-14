@@ -9,15 +9,17 @@ const Input = ({
   type = 'text',
   isRequired = false,
   readonly = false,
+  disable = false,
   customClass,
   children,
 }: {
   text: string;
   value: string;
-  onChange: (e: { target: { value: string } }) => void;
+  onChange?: (e: { target: { value: string } }) => void;
   type?: InputHTMLAttributes<HTMLInputElement>['type'];
   isRequired?: boolean;
   readonly?: boolean;
+  disable?: boolean;
   customClass?: Record<string, boolean>;
   children?: ReactNode;
 }) => {
@@ -39,6 +41,7 @@ const Input = ({
         onChange={onChange}
         required
         readOnly={readonly}
+        disabled={disable}
         className={classNames(
           'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
           { ...customClass }
