@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import stores from '../../../store';
 import { getUserRole } from '../../../util/get-user-role';
-import Input from '../../input/Input';
-import { UserProfileModel } from '../../../model/User';
 import { modifyUsersApi } from '../../../pages/api/auth/users';
 import { STATUS_200 } from '../../../config/constants';
+import Input from '../../input/Input';
+import type { UserProfileModel } from '../../../model/User';
 
 const FormContent = ({
   id = '',
@@ -28,7 +28,7 @@ const FormContent = ({
   const changeEmail = (e: { target: { value: string } }) =>
     setNewEmail(e.target.value);
 
-  const saveEvent = async () => {
+  const save = async () => {
     const body = {
       email: newEmail,
       name: newName,
@@ -75,7 +75,7 @@ const FormContent = ({
       </div>
       <button
         onClick={() => {
-          hasModify ? saveEvent() : setHasModify(true);
+          hasModify ? save() : setHasModify(true);
         }}
       >
         {hasModify ? '저장' : '수정'}

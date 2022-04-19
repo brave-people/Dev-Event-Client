@@ -54,7 +54,7 @@ const Header = ({ user }: { user: UserProfileModel | undefined }) => {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  href={baseRouter() + '/auth/password'}
                   className={classNames(
                     active ? 'bg-gray-100' : '',
                     'block px-4 py-2 text-sm text-gray-700'

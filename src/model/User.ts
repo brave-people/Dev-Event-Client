@@ -57,3 +57,8 @@ export interface ResponseTokenModel {
   message: string;
   error?: string;
 }
+
+export interface PasswordModel {
+  current_password: string;
+  new_password: string;
+}
