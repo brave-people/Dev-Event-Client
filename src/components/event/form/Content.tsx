@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import ErrorContext from './ErrorContext';
 import Tag from './Tag';
 import DatePicker from 'react-datepicker';
-import TimeComponent from '../Date/Time';
+import TimeComponent from '../date/Time';
 import ImageUploadComponent from '../ImageUpload';
 import { baseRouter } from '../../../config/constants';
 import Input from '../../input/Input';

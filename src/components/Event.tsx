@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import type { ReactElement } from 'react';
 import Header from './Header';
-import { useUserProfile } from './auth/Info';
+import { useUserProfile } from './auth/Modify';
 
 const Event = ({ children }: { children: ReactElement }) => {
   const { data: user } = useUserProfile();

@@ -14,8 +14,8 @@ import getTags from '../../../server/api/events/getTags';
 import { createEventsApi } from '../../api/events/create';
 import { createTagApi } from '../../api/events/tag';
 import EventComponent from '../../../components/Event';
-import FormContent from '../../../components/event/Form/Content';
-import { useErrorContext } from '../../../components/event/Form/ErrorContext';
+import FormContent from '../../../components/event/form/Content';
+import { useErrorContext } from '../../../components/event/form/ErrorContext';
 
 const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   const router = useRouter();

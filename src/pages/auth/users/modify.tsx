@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import getToken from '../../server/api/auth/getToken';
-import { useUpdateCookie } from '../../util/use-cookie';
-import Component from '../../components/auth/Password';
 import type { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../model/User';
+import type { TokenModel } from '../../../model/User';
+import { useUpdateCookie } from '../../../util/use-cookie';
+import getToken from '../../../server/api/auth/getToken';
+import Component from '../../../components/auth/users/UsersModify';
 
 const queryClient = new QueryClient();
 
-const Password = ({ token }: { token: TokenModel }) => {
+const UsersModify = ({ token }: { token: TokenModel }) => {
   useEffect(() => {
     if (token) useUpdateCookie(document, token);
   }, []);
@@ -36,4 +36,4 @@ export const getServerSideProps = async (context: NextPageContext) => {
   return { props: { token: token.data } };
 };
 
-export default Password;
+export default UsersModify;

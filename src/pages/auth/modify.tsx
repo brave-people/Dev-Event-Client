@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../server/api/auth/getToken';
 import { useUpdateCookie } from '../../util/use-cookie';
-import Info from '../../components/auth/Info';
+import Component from '../../components/auth/Modify';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../model/User';
 
@@ -15,7 +15,7 @@ const Modify = ({ token }: { token: TokenModel }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Info />
+      <Component />
     </QueryClientProvider>
   );
 };

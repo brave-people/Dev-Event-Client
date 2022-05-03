@@ -1,5 +1,5 @@
 import User from '../User';
-import FormPassword from './Form/Password';
+import FormPassword from './form/Password';
 
 const Password = () => {
   return (

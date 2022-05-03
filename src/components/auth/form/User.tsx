@@ -1,18 +1,13 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import { useState } from 'react';
 import type { FormEvent } from 'react';
-import type { ResponseTokenModel } from '../../model/User';
-import type { NextPageContext } from 'next/types';
-import { registerUserApi } from '../api/auth/register';
-import { registerEmailApi } from '../api/auth/email';
-import { registerIdApi } from '../api/auth/id';
-import { baseRouter, STATUS_201, STATUS_203 } from '../../config/constants';
-import getToken from '../../server/api/auth/getToken';
-import { useUpdateCookie } from '../../util/use-cookie';
-import { getUserRoleIsAdmin } from '../../util/get-user-role';
+import { registerIdApi } from '../../../pages/api/auth/id';
+import { baseRouter, STATUS_201, STATUS_203 } from '../../../config/constants';
+import { registerEmailApi } from '../../../pages/api/auth/email';
+import { registerUserApi } from '../../../pages/api/auth/register';
+import Input from '../../input/Input';
 
-const SignUp = ({ data, error }: ResponseTokenModel) => {
+const User = () => {
   const router = useRouter();
 
   /** form */
@@ -85,84 +80,50 @@ const SignUp = ({ data, error }: ResponseTokenModel) => {
     });
   };
 
-  useEffect(() => {
-    if (error) {
-      alert(error);
-      router.push(baseRouter() + '/auth/signIn');
-    }
-    if (data?.access_token) useUpdateCookie(document, data);
-  }, []);
-
   return (
-    <section>
-      <h2>용감한 관리자 회원가입</h2>
+    <>
       <form onSubmit={submit}>
-        <input
-          id="name"
+        <Input
           type="text"
-          name="name"
-          placeholder="이름"
+          text="이름"
           value={name}
           onChange={changeName}
-          required
+          isRequired={true}
         />
-        <input
-          id="id"
-          type="id"
-          name="id"
-          placeholder="아이디"
+        <Input
+          type="text"
+          text="아이디"
           value={id}
           onChange={changeId}
-          required
+          isRequired={true}
         />
-        <input
-          id="email"
+        <Input
           type="email"
-          name="email"
-          placeholder="이메일"
+          text="이메일"
           value={email}
           onChange={changeEmail}
-          required
+          isRequired={true}
         />
-        <input
-          id="password"
+        <Input
           type="password"
-          name="password"
-          placeholder="패스워드"
+          text="패스워드"
           value={password}
           onChange={changePassword}
-          required
+          isRequired={true}
         />
-        <button type="submit">가입</button>
+        <div className="relative">
+          <button
+            type="submit"
+            className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+          >
+            가입
+          </button>
+        </div>
       </form>
       {errorMessage && <p>{errorMessage}</p>}
       {message && <p>{message}</p>}
-    </section>
+    </>
   );
 };
 
-export const getServerSideProps = async (context: NextPageContext) => {
-  const cookies = context.req?.headers.cookie;
-  const token = await getToken(cookies);
-
-  if (cookies && (!token || token?.error)) {
-    return {
-      redirect: {
-        destination: '/auth/signIn',
-      },
-    };
-  }
-
-  const accessToken = jwt.decode(token?.data?.access_token) as JwtPayload;
-  if (!token && !getUserRoleIsAdmin(accessToken?.roles)) {
-    return {
-      props: {
-        error: '관리자만 계정을 생성할 수 있어요!',
-      },
-    };
-  }
-
-  return { props: token };
-};
-
-export default SignUp;
+export default User;

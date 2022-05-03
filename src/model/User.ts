@@ -4,6 +4,13 @@ import type { JwtPayload } from 'jsonwebtoken';
 export type UserRoleType = 'ROLE_ADMIN' | 'ROLE_USER';
 export type UserSubType = 'admin' | 'user';
 export type UserInfoType = string | JwtPayload | null;
+export type UserAuthType =
+  | 'NONE'
+  | 'ADMIN'
+  | 'KAKAO'
+  | 'NAVER'
+  | 'GOOGLE'
+  | 'GITHUB';
 
 /** auth 관련 모델*/
 export interface UserIdModel {
@@ -61,4 +68,14 @@ export interface ResponseTokenModel {
 export interface PasswordModel {
   current_password: string;
   new_password: string;
+}
+
+export interface UsersModel {
+  auth_type: UserAuthType;
+  create_dt: string;
+  update_dt: string;
+  email: string;
+  name: string;
+  roles: UserRole[];
+  user_id: string;
 }

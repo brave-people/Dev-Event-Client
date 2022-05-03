@@ -1,7 +1,21 @@
 import cookie from 'cookie';
 import { Headers } from '../../../../config/headers';
 import type { RequestHeaders, ResponseModel } from '../../../../model/Api';
-import type { UserEmailModel, UserNameModel } from '../../../../model/User';
+import type {
+  UserEmailModel,
+  UserNameModel,
+  UsersModel,
+} from '../../../../model/User';
+
+export const getUsersApi = async (): Promise<UsersModel[]> => {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/users`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: cookie.parse(document.cookie)['access_token'],
+      ...Headers(),
+    } as RequestHeaders,
+  }).then((res) => res.json());
+};
 
 export const modifyUsersApi = async ({
   data,

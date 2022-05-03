@@ -10,6 +10,7 @@ const Input = ({
   isRequired = false,
   readonly = false,
   disable = false,
+  placeholder,
   customClass,
   children,
 }: {
@@ -20,6 +21,7 @@ const Input = ({
   isRequired?: boolean;
   readonly?: boolean;
   disable?: boolean;
+  placeholder?: string;
   customClass?: Record<string, boolean>;
   children?: ReactNode;
 }) => {
@@ -39,9 +41,10 @@ const Input = ({
         type={type}
         value={value}
         onChange={onChange}
-        required
+        required={isRequired}
         readOnly={readonly}
         disabled={disable}
+        {...(placeholder && { placeholder })}
         className={classNames(
           'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
           { ...customClass }

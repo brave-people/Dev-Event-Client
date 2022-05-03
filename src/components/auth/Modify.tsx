@@ -3,10 +3,10 @@ import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import stores from '../../store';
 import { getUsersProfileApi } from '../../pages/api/auth/users/profile';
-import FormContent from './Form/Content';
+import FormContent from './form/Content';
 import User from '../User';
 
-const Info = () => {
+const Modify = () => {
   const { data, refetch } = useUserProfile();
 
   if (!data) return null;
@@ -44,4 +44,4 @@ export const useUserProfile = () => {
   return { data, refetch };
 };
 
-export default Info;
+export default Modify;

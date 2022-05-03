@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { getEventsApi } from '../../pages/api/events';
 import { deleteEventApi } from '../../pages/api/events/delete';
 import type { EventResponseModel } from '../../model/Event';
-import YearAndMonthPicker from './Date/YearAndMonthPicker';
+import YearAndMonthPicker from './date/YearAndMonthPicker';
 import getConvertNumberAddTen from '../../util/get-convert-number-add-ten';
 import CenterAlert from '../alert/CenterAlert';
 import { useRouter } from 'next/router';
