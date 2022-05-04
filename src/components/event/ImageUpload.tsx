@@ -12,7 +12,7 @@ const ImageUpload = ({
   setCoverImageUrl: Dispatch<SetStateAction<string>>;
 }) => {
   const htmlFor = 'image-upload';
-  const imageRef = useRef<HTMLImageElement>(null);
+  const imageRef = useRef(null);
   const dragRef = useRef<HTMLLabelElement | null>(null);
 
   const [imageUrl, setImageUrl] = useState<{
@@ -25,24 +25,27 @@ const ImageUpload = ({
   }>({ url: '', name: '' });
   const [cropper, setCropper] = useState<Cropper | null>(null);
 
+  useEffect(() => {
+    if (!imageRef.current) return;
+    setCropper(new Cropper(imageRef.current, { aspectRatio: 1 }));
+  }, [imageUrl]);
+
   const changeImageUpload = async ({ file }: { file: File }) => {
     deleteImage();
 
     const reader = new FileReader();
     reader.onload = async () => {
       setImageUrl({ url: reader.result?.toString(), name: file.name });
-      if (imageRef.current) {
-        setCropper(new Cropper(imageRef.current, { aspectRatio: 1 }));
-      }
     };
     reader.readAsDataURL(file);
   };
   const clickCropImageUpload = (e: BaseSyntheticEvent) => {
     e.preventDefault();
-    const imgSrc = cropper?.getCroppedCanvas().toDataURL() || '';
+    console.log(cropper);
+    const imgSrc = cropper?.getCroppedCanvas()?.toDataURL() || '';
     setCropImageUrl({ url: imgSrc, name: imageUrl.name });
 
-    cropper?.getCroppedCanvas().toBlob(async (blob) => {
+    cropper?.getCroppedCanvas()?.toBlob(async (blob) => {
       const formData = new FormData();
       if (blob) {
         formData.append('images', blob, imageUrl.name);

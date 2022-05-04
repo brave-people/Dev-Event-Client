@@ -39,7 +39,7 @@ const FormContent = ({
         <Input
           text="제목"
           value={title}
-          onChange={() => changeTitle}
+          onChange={changeTitle}
           isRequired={true}
           customClass={{ 'border-red-400': error.title }}
         >

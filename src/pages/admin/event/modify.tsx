@@ -1,5 +1,6 @@
 import moment from 'moment';
-import { MouseEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { useRouter } from 'next/router';
 import getToken from '../../../server/api/auth/getToken';
 import { STATUS_200 } from '../../../config/constants';
@@ -10,9 +11,12 @@ import { createTagApi } from '../../api/events/tag';
 import EventComponent from '../../../components/Event';
 import FormContent from '../../../components/event/form/Content';
 import { useErrorContext } from '../../../components/event/form/ErrorContext';
+import type { MouseEvent } from 'react';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import type { EventModel, EventResponseModel } from '../../../model/Event';
+
+const queryClient = new QueryClient();
 
 const EventModify = ({
   token,
@@ -104,34 +108,36 @@ const EventModify = ({
   }, []);
 
   return (
-    <EventComponent>
-      <>
-        <h2>개발자 행사 수정</h2>
-        <FormContent
-          {...event}
-          eventLink={eventLink}
-          tags={tags}
-          setTags={setTags}
-          allTags={event.tags}
-          changeTitle={changeTitle}
-          changeDescription={changeDescription}
-          changeOrganizer={changeOrganizer}
-          changeEventLink={changeEventLink}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          startTime={startTime}
-          setStartTime={setStartTime}
-          endDate={endDate}
-          setEndDate={setEndDate}
-          endTime={endTime}
-          setEndTime={setEndTime}
-          error={error}
-          coverImageUrl={coverImageUrl}
-          setCoverImageUrl={setCoverImageUrl}
-          saveForm={saveEvent}
-        />
-      </>
-    </EventComponent>
+    <QueryClientProvider client={queryClient}>
+      <EventComponent>
+        <>
+          <h2>개발자 행사 수정</h2>
+          <FormContent
+            {...event}
+            eventLink={eventLink}
+            tags={tags}
+            setTags={setTags}
+            allTags={event.tags}
+            changeTitle={changeTitle}
+            changeDescription={changeDescription}
+            changeOrganizer={changeOrganizer}
+            changeEventLink={changeEventLink}
+            startDate={startDate}
+            setStartDate={setStartDate}
+            startTime={startTime}
+            setStartTime={setStartTime}
+            endDate={endDate}
+            setEndDate={setEndDate}
+            endTime={endTime}
+            setEndTime={setEndTime}
+            error={error}
+            coverImageUrl={coverImageUrl}
+            setCoverImageUrl={setCoverImageUrl}
+            saveForm={saveEvent}
+          />
+        </>
+      </EventComponent>
+    </QueryClientProvider>
   );
 };
 

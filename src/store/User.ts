@@ -1,15 +1,16 @@
 import { atom } from 'recoil';
-import type { UsersModel } from '../model/User';
+import type { UserProfileModel, UsersModel } from '../model/User';
 
 // 접속한 유저 정보
 const userKey = 'USER_KEY';
-export const userState = atom({
+export const userState = atom<UserProfileModel>({
   key: userKey,
   default: {
     user_id: '',
     roles: [],
     name: '',
     email: '',
+    refetch: () => null,
   },
 });
 

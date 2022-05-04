@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { useState, useEffect } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { useRouter } from 'next/router';
 import 'react-datepicker/dist/react-datepicker.css';
 import type { MouseEvent } from 'react';
@@ -16,6 +17,8 @@ import { createTagApi } from '../../api/events/tag';
 import EventComponent from '../../../components/Event';
 import FormContent from '../../../components/event/form/Content';
 import { useErrorContext } from '../../../components/event/form/ErrorContext';
+
+const queryClient = new QueryClient();
 
 const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   const router = useRouter();
@@ -97,35 +100,37 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   }, []);
 
   return (
-    <EventComponent>
-      <>
-        <h1 className="text-3xl font-bold">개발자 행사 등록</h1>
-        <FormContent
-          title={title}
-          changeTitle={changeTitle}
-          error={error}
-          description={description}
-          changeDescription={changeDescription}
-          organizer={organizer}
-          changeOrganizer={changeOrganizer}
-          eventLink={eventLink}
-          changeEventLink={changeEventLink}
-          tags={tags}
-          setTags={setTags}
-          allTags={allTags}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          startTime={startTime}
-          setStartTime={setStartTime}
-          endDate={endDate}
-          setEndDate={setEndDate}
-          endTime={endTime}
-          setEndTime={setEndTime}
-          setCoverImageUrl={setCoverImageUrl}
-          saveForm={(e: MouseEvent<HTMLButtonElement>) => createEvent(e)}
-        />
-      </>
-    </EventComponent>
+    <QueryClientProvider client={queryClient}>
+      <EventComponent>
+        <>
+          <h1 className="text-3xl font-bold">개발자 행사 등록</h1>
+          <FormContent
+            title={title}
+            changeTitle={changeTitle}
+            error={error}
+            description={description}
+            changeDescription={changeDescription}
+            organizer={organizer}
+            changeOrganizer={changeOrganizer}
+            eventLink={eventLink}
+            changeEventLink={changeEventLink}
+            tags={tags}
+            setTags={setTags}
+            allTags={allTags}
+            startDate={startDate}
+            setStartDate={setStartDate}
+            startTime={startTime}
+            setStartTime={setStartTime}
+            endDate={endDate}
+            setEndDate={setEndDate}
+            endTime={endTime}
+            setEndTime={setEndTime}
+            setCoverImageUrl={setCoverImageUrl}
+            saveForm={(e: MouseEvent<HTMLButtonElement>) => createEvent(e)}
+          />
+        </>
+      </EventComponent>
+    </QueryClientProvider>
   );
 };
 
