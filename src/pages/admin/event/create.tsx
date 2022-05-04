@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useState, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useRouter } from 'next/router';
@@ -80,10 +80,10 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      start_date_time: moment(startDate).format('YYYY-MM-DD HH:MM'),
-      start_time: moment(startTime).format('HH:MM'),
-      end_date_time: moment(endDate).format('YYYY-MM-DD HH:MM'),
-      end_time: moment(endTime).format('HH:MM'),
+      start_date_time: dayjs(startDate).format('YYYY-MM-DD HH:MM'),
+      start_time: dayjs(startTime).format('HH:MM'),
+      end_date_time: dayjs(endDate).format('YYYY-MM-DD HH:MM'),
+      end_time: dayjs(endTime).format('HH:MM'),
       tags: tags.map((tag) => ({
         tag_name: tag,
       })),

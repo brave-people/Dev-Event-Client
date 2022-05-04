@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useQuery } from 'react-query';
 import { useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
@@ -44,7 +44,7 @@ const Users = () => {
                 <td>{user.email}</td>
                 <td>{getConvertAuthType(user.auth_type)}</td>
                 <td>{getUserRole(user.roles)}</td>
-                <td>{moment(user.create_dt).format('YYYY-MM-DD HH:MM')}</td>
+                <td>{dayjs(user.create_dt).format('YYYY-MM-DD HH:MM')}</td>
                 <td>
                   <button onClick={() => onClick(user)}>수정</button>
                   <button>삭제</button>
