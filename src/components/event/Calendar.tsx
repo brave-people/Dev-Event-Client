@@ -12,7 +12,7 @@ const Calendar = () => {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
-  const { status, isError, data, refetch } = useQuery(
+  const { refetch } = useQuery(
     ['fetchEvents', { year, month }],
     async () => await getEventsApi({ year, month: month + 1 }),
     { refetchOnWindowFocus: false }
@@ -90,8 +90,6 @@ const Calendar = () => {
       refetch();
     }
   };
-
-  console.log('result: ', status, isError, data);
 
   useEffect(() => {
     if (!currentDate) initMonth();

@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import ErrorContext from './ErrorContext';
-import Tag from './Tag';
 import DatePicker from 'react-datepicker';
+import Input from '../../input/Input';
 import TimeComponent from '../date/Time';
 import ImageUploadComponent from '../ImageUpload';
+import ErrorContext from './ErrorContext';
+import Tag from './Tag';
 import { baseRouter } from '../../../config/constants';
-import Input from '../../input/Input';
 import type { EventFormModel } from '../../../model/Event';
 
 const FormContent = ({

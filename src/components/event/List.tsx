@@ -19,7 +19,7 @@ const List = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [currentId, setCurrentId] = useState<number | null>(null);
 
-  const { status, isError, data, refetch } = useQuery(
+  const { data, refetch } = useQuery(
     ['fetchEvents', { year, month }],
     async () => await getEventsApi({ year, month: month + 1 }),
     { refetchOnWindowFocus: false }
