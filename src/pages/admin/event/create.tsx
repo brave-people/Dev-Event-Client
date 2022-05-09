@@ -134,7 +134,7 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   );
 };
 
-export const getServerSideProps = async (context: NextPageContext) => {
+export const getInitialProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
 

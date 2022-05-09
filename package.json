@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "next lint",
     "tailwind": "npx tailwindcss -i ./src/style/input.css -o ./dist/output.css --watch",
-    "deploy": "rm -rf node_modules/.cache && next build && touch out/.nojekyll && git add -f out/ && git checkout -b deploy-gh-pages && git commit -m \"Deploy Next.js to gh-pages\" && git subtree split --prefix out -b gh-pages && git push -f origin gh-pages:gh-pages && git branch -D gh-pages && git checkout main && git branch -D deploy-gh-pages"
+    "deploy": "rm -rf node_modules/.cache && next build && next export && touch out/.nojekyll && git add -f out/ && git checkout -b deploy-gh-pages && git commit -m \"Deploy Next.js to gh-pages\" && git subtree split --prefix out -b gh-pages && git push -f origin gh-pages:gh-pages && git branch -D gh-pages && git checkout main && git branch -D deploy-gh-pages"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",

@@ -29,12 +29,12 @@ const EventModify = ({
   const {
     query: { id = '' },
   } = router;
-  const [title, setTitle] = useState(event.title);
-  const [description, setDescription] = useState(event.description);
-  const [organizer, setOrganizer] = useState(event.organizer);
-  const [eventLink, setEventLink] = useState(event.event_link);
+  const [title, setTitle] = useState(event?.title);
+  const [description, setDescription] = useState(event?.description);
+  const [organizer, setOrganizer] = useState(event?.organizer);
+  const [eventLink, setEventLink] = useState(event?.event_link);
   const [tags, setTags] = useState<string[]>(
-    event.tags.map((tag) => tag.tag_name)
+    event?.tags.map((tag) => tag.tag_name)
   );
 
   const { error, validateForm } = useErrorContext({
@@ -45,13 +45,13 @@ const EventModify = ({
   });
 
   // date
-  const [startDate, setStartDate] = useState(new Date(event.start_date_time));
-  const [startTime, setStartTime] = useState(new Date(event.start_date_time));
-  const [endDate, setEndDate] = useState(new Date(event.end_date_time));
-  const [endTime, setEndTime] = useState(new Date(event.end_date_time));
+  const [startDate, setStartDate] = useState(new Date(event?.start_date_time));
+  const [startTime, setStartTime] = useState(new Date(event?.start_date_time));
+  const [endDate, setEndDate] = useState(new Date(event?.end_date_time));
+  const [endTime, setEndTime] = useState(new Date(event?.end_date_time));
 
   // image
-  const [coverImageUrl, setCoverImageUrl] = useState(event.cover_image_link);
+  const [coverImageUrl, setCoverImageUrl] = useState(event?.cover_image_link);
 
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
@@ -74,7 +74,7 @@ const EventModify = ({
       return validateForm();
 
     for (const tag of tags) {
-      const allTags = event.tags;
+      const allTags = event?.tags;
       if (!allTags.length) {
         await createTagApi({ tag_name: tag });
       } else if (allTags.every((prevTag) => prevTag.tag_name !== tag)) {
@@ -92,7 +92,7 @@ const EventModify = ({
       start_time: dayjs(startTime).format('HH:MM'),
       end_date_time: dayjs(endDate).format('YYYY-MM-DD HH:MM'),
       end_time: dayjs(endTime).format('HH:MM'),
-      tags: tags.map((tag) => ({
+      tags: tags?.map((tag) => ({
         tag_name: tag,
       })),
       cover_image_link: coverImageUrl,
@@ -117,7 +117,7 @@ const EventModify = ({
             eventLink={eventLink}
             tags={tags}
             setTags={setTags}
-            allTags={event.tags}
+            allTags={event?.tags}
             changeTitle={changeTitle}
             changeDescription={changeDescription}
             changeOrganizer={changeOrganizer}
@@ -141,7 +141,7 @@ const EventModify = ({
   );
 };
 
-export const getServerSideProps = async (context: NextPageContext) => {
+export const getInitialProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
   const { id = '' } = context.query;

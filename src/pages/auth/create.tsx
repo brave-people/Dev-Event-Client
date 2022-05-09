@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import type { NextPageContext } from 'next/types';
 import type { ResponseTokenModel } from '../../model/User';
 import { baseRouter } from '../../config/constants';
@@ -9,6 +10,8 @@ import { useUpdateCookie } from '../../util/use-cookie';
 import { getUserRoleIsAdmin } from '../../util/get-user-role';
 import User from '../../components/User';
 import Component from '../../components/auth/form/User';
+
+const queryClient = new QueryClient();
 
 const Create = ({ data, error }: ResponseTokenModel) => {
   const router = useRouter();
@@ -22,13 +25,15 @@ const Create = ({ data, error }: ResponseTokenModel) => {
   }, []);
 
   return (
-    <User title="계정 생성">
-      <Component />
-    </User>
+    <QueryClientProvider client={queryClient}>
+      <User title="계정 생성">
+        <Component />
+      </User>
+    </QueryClientProvider>
   );
 };
 
-export const getServerSideProps = async (context: NextPageContext) => {
+export const getInitialProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
 
