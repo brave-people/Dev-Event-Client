@@ -20,7 +20,7 @@ const Users = ({ token }: { token: TokenModel }) => {
   );
 };
 
-export const getInitialProps = async (context: NextPageContext) => {
+export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
 

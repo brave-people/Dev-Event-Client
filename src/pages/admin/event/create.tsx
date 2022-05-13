@@ -67,7 +67,7 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
       return validateForm();
 
     for (const tag of tags) {
-      if (!allTags.length) {
+      if (!allTags?.length) {
         await createTagApi({ tag_name: tag });
       } else if (allTags.every((prevTag) => prevTag.tag_name !== tag)) {
         await createTagApi({ tag_name: tag });
@@ -134,7 +134,7 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   );
 };
 
-export const getInitialProps = async (context: NextPageContext) => {
+export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
 

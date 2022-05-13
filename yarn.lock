@@ -1806,7 +1806,7 @@ next-babel-conditional-ssg-ssr@^1.0.0:
   resolved "https://registry.yarnpkg.com/next-babel-conditional-ssg-ssr/-/next-babel-conditional-ssg-ssr-1.0.0.tgz#c106a0505fdd2103f534258f392de3cd5ee53173"
   integrity sha512-oq4sahPHotivae9ZsoUd6Fl9tSKetDHMZcaglTGN4mVlzmUpQbZ8lBgM072Alg8rqvDlHzfgOZEcUqlq628XaA==
 
-next@^12.1.5:
+next@^12.1.6:
   version "12.1.6"
   resolved "https://registry.yarnpkg.com/next/-/next-12.1.6.tgz#eb205e64af1998651f96f9df44556d47d8bbc533"
   integrity sha512-cebwKxL3/DhNKfg9tPZDQmbRKjueqykHHbgaoG4VBRH3AHQJ2HO0dbKFiS1hPhe1/qgc2d/hFeadsbPicmLD+A==
@@ -2131,7 +2131,7 @@ react-transition-group@^4.4.2:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^18.0.0:
+react@^18.1.0:
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.1.0.tgz#6f8620382decb17fdc5cc223a115e2adbf104890"
   integrity sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ==

@@ -141,7 +141,7 @@ const EventModify = ({
   );
 };
 
-export const getInitialProps = async (context: NextPageContext) => {
+export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
   const { id = '' } = context.query;
