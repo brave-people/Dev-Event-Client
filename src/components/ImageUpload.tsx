@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Cropper from 'cropperjs';
 import type { BaseSyntheticEvent } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
-import { fetchUploadImage } from '../../pages/api/image';
+import { fetchUploadImage } from '../pages/api/image';
 
 const ImageUpload = ({
   coverImageUrl,
