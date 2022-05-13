@@ -1,12 +1,29 @@
 import Head from 'next/head';
+import type { NextPageContext } from 'next/types';
+import getToken from '../server/api/auth/getToken';
 
-// TODO:: favicon 추가
 const Home = () => {
   return (
     <Head>
       <title>Dev Event Client</title>
     </Head>
   );
+};
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  const cookies = context.req?.headers.cookie;
+  const token = await getToken(cookies);
+
+  // token이 없거나 에러나면 로그인 페이지로 이동
+  if (!token?.data || token?.error) {
+    return {
+      redirect: {
+        destination: '/auth/signIn',
+      },
+    };
+  }
+
+  return { props: { token: token.data } };
 };
 
 export default Home;

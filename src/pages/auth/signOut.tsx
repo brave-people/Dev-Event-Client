@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import type { NextPageContext } from 'next/types';
 import getToken from '../../server/api/auth/getToken';
 import { useDeleteCookie } from '../../util/use-cookie';
-import { baseRouter } from '../../config/constants';
 
 const SignOut = () => {
   const router = useRouter();
@@ -13,7 +12,7 @@ const SignOut = () => {
     useDeleteCookie(document, 'refresh_token');
     useDeleteCookie(document, 'refresh_token_expired_at');
 
-    router.push(baseRouter() + '/auth/signIn');
+    router.push('/auth/signIn');
   }, []);
 };
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { passwordApi } from '../../../pages/api/auth/users/password';
 import Input from '../../input/Input';
-import { baseRouter, STATUS_200 } from '../../../config/constants';
+import { STATUS_200 } from '../../../config/constants';
 
 const FormPassword = () => {
   const router = useRouter();
@@ -39,7 +39,7 @@ const FormPassword = () => {
 
     const data = await passwordApi({ data: body });
     if (data.status_code === STATUS_200)
-      return await router.push(`${baseRouter()}/admin/event`);
+      return await router.push('/admin/event');
 
     return alert(data.message);
   };

@@ -5,7 +5,6 @@ import TimeComponent from '../date/Time';
 import ImageUploadComponent from '../ImageUpload';
 import ErrorContext from './ErrorContext';
 import Tag from './Tag';
-import { baseRouter } from '../../../config/constants';
 import type { EventFormModel } from '../../../model/Event';
 
 const FormContent = ({
@@ -151,7 +150,7 @@ const FormContent = ({
           확인
         </button>
         <a
-          href={baseRouter() + '/admin/event'}
+          href={'/admin/event'}
           className="form__button form__button--right w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-gray-400 text-white bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
         >
           취소

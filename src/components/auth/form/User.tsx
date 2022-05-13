@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { registerIdApi } from '../../../pages/api/auth/id';
-import { baseRouter, STATUS_201, STATUS_203 } from '../../../config/constants';
+import { STATUS_201, STATUS_203 } from '../../../config/constants';
 import { registerEmailApi } from '../../../pages/api/auth/email';
 import { registerUserApi } from '../../../pages/api/auth/register';
 import Input from '../../input/Input';
@@ -76,7 +76,7 @@ const User = () => {
       }
 
       setMessage('축하해요! 가입에 성공하였어요 😎 2초 후 홈으로 이동합니다.');
-      return setTimeout(() => router.push(baseRouter() + '/admin/event'), 2000);
+      return setTimeout(() => router.push('/admin/event'), 2000);
     });
   };
 

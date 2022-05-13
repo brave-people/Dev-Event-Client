@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import type { ResponseTokenModel } from '../../model/User';
 import { loginApi } from '../api/auth/login';
 import { useUpdateCookie } from '../../util/use-cookie';
-import { baseRouter } from '../../config/constants';
 
 const SignIn = ({ data }: ResponseTokenModel) => {
   const router = useRouter();
@@ -37,7 +36,7 @@ const SignIn = ({ data }: ResponseTokenModel) => {
       }
     );
 
-    router.push(baseRouter() + '/admin/event', undefined, { shallow: true });
+    router.push('/admin/event', undefined, { shallow: true });
   };
 
   useEffect(() => {

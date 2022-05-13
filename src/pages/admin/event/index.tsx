@@ -6,7 +6,6 @@ import type { TokenModel } from '../../../model/User';
 import getToken from '../../../server/api/auth/getToken';
 import EventComponent from '../../../components/Event';
 import List from '../../../components/event/List';
-import { baseRouter } from '../../../config/constants';
 import { useUpdateCookie } from '../../../util/use-cookie';
 
 const queryClient = new QueryClient();
@@ -25,7 +24,7 @@ const EventList = ({ token }: { token: TokenModel }) => {
           <List />
           <button
             type="button"
-            onClick={() => router.push(baseRouter() + '/admin/event/create')}
+            onClick={() => router.push('/admin/event/create')}
           >
             이벤트 생성
           </button>

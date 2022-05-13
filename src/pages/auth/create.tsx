@@ -4,7 +4,6 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import type { NextPageContext } from 'next/types';
 import type { ResponseTokenModel } from '../../model/User';
-import { baseRouter } from '../../config/constants';
 import getToken from '../../server/api/auth/getToken';
 import { useUpdateCookie } from '../../util/use-cookie';
 import { getUserRoleIsAdmin } from '../../util/get-user-role';
@@ -19,7 +18,7 @@ const Create = ({ data, error }: ResponseTokenModel) => {
   useEffect(() => {
     if (error) {
       alert(error);
-      router.push(baseRouter() + '/auth/signIn');
+      router.push('/auth/signIn');
     }
     if (data?.access_token) useUpdateCookie(document, data);
   }, []);

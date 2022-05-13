@@ -7,7 +7,6 @@ import { getUsersApi } from '../../../pages/api/auth/users';
 import { selectedUserState } from '../../../store/User';
 import { getUserRole } from '../../../util/get-user-role';
 import { getConvertAuthType } from '../../../util/get-convert-auth-type';
-import { baseRouter } from '../../../config/constants';
 import User from '../../User';
 
 const Users = () => {
@@ -21,7 +20,7 @@ const Users = () => {
 
   const onClick = (user: UsersModel) => {
     setSelectedUser(user);
-    router.push(baseRouter() + '/auth/users/modify', undefined, {
+    router.push('/auth/users/modify', undefined, {
       shallow: true,
     });
   };
