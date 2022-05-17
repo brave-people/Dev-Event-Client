@@ -5,6 +5,7 @@ export default function Document() {
     <Html lang="ko">
       <Head>
         <title>Dev Event Client</title>
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
