@@ -1,34 +1,23 @@
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import getToken from '../../../server/api/auth/getToken';
 import EventComponent from '../../../components/Event';
-import List from '../../../components/event/List';
+import EventList from '../../../components/event/List';
 import { useUpdateCookie } from '../../../util/use-cookie';
 
 const queryClient = new QueryClient();
 
-const EventList = ({ token }: { token: TokenModel }) => {
-  const router = useRouter();
-
+const Event = ({ token }: { token: TokenModel }) => {
   useEffect(() => {
     if (token) useUpdateCookie(document, token);
   }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <EventComponent>
-        <>
-          <List />
-          <button
-            type="button"
-            onClick={() => router.push('/admin/event/create')}
-          >
-            이벤트 생성
-          </button>
-        </>
+      <EventComponent title="이벤트 조회">
+        <EventList />
       </EventComponent>
     </QueryClientProvider>
   );
@@ -50,4 +39,4 @@ export const getServerSideProps = async (context: NextPageContext) => {
   return { props: { token: token.data } };
 };
 
-export default EventList;
+export default Event;

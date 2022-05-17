@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import Header from './Header';
-import { useUserProfile } from './auth/Modify';
+import { useUserProfile } from './auth/Profile';
 import type { ReactElement } from 'react';
 
 const Event = ({

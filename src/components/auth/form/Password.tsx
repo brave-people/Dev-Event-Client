@@ -4,7 +4,7 @@ import { passwordApi } from '../../../pages/api/auth/users/password';
 import Input from '../../input/Input';
 import { STATUS_200 } from '../../../config/constants';
 
-const FormPassword = () => {
+const Password = () => {
   const router = useRouter();
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -72,4 +72,4 @@ const FormPassword = () => {
   );
 };
 
-export default FormPassword;
+export default Password;

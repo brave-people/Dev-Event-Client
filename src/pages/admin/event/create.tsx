@@ -5,7 +5,7 @@ import getToken from '../../../server/api/auth/getToken';
 import getTags from '../../../server/api/events/getTags';
 import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/Event';
-import EventCreateForm from '../../../components/event/CreateForm';
+import EventCreateForm from '../../../components/event/Create';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import type { TagModel } from '../../../model/Tag';

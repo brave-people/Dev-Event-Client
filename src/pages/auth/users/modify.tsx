@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import getToken from '../../../server/api/auth/getToken';
+import { useUpdateCookie } from '../../../util/use-cookie';
+import UserComponent from '../../../components/User';
+import UserModifyForm from '../../../components/auth/form/Modify';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
-import { useUpdateCookie } from '../../../util/use-cookie';
-import getToken from '../../../server/api/auth/getToken';
-import Component from '../../../components/auth/users/UsersModify';
 
 const queryClient = new QueryClient();
 
@@ -15,7 +16,9 @@ const UsersModify = ({ token }: { token: TokenModel }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Component />
+      <UserComponent title="title뭐지??">
+        <UserModifyForm />
+      </UserComponent>
     </QueryClientProvider>
   );
 };

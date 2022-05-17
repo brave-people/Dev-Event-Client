@@ -7,7 +7,7 @@ import { registerEmailApi } from '../../../pages/api/auth/email';
 import { registerUserApi } from '../../../pages/api/auth/register';
 import Input from '../../input/Input';
 
-const User = () => {
+const Create = () => {
   const router = useRouter();
 
   /** form */
@@ -126,4 +126,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Create;

@@ -2,25 +2,22 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import { createTagApi } from '../../pages/api/events/tag';
-import { modifyEventsApi } from '../../pages/api/events/modify';
-import { STATUS_200 } from '../../config/constants';
+import { createEventsApi } from '../../pages/api/events/create';
+import { STATUS_201 } from '../../config/constants';
 import FormContent from './form/Content';
 import { useErrorContext } from './form/ErrorContext';
 import type { MouseEvent } from 'react';
-import type { EventModel, EventResponseModel } from '../../model/Event';
+import type { TagModel } from '../../model/Tag';
+import type { EventModel } from '../../model/Event';
 
-const ModifyForm = ({ event }: { event: EventResponseModel }) => {
+export const Create = ({ allTags }: { allTags: TagModel[] }) => {
   const router = useRouter();
-  const {
-    query: { id = '' },
-  } = router;
-  const [title, setTitle] = useState(event?.title);
-  const [description, setDescription] = useState(event?.description);
-  const [organizer, setOrganizer] = useState(event?.organizer);
-  const [eventLink, setEventLink] = useState(event?.event_link);
-  const [tags, setTags] = useState<string[]>(
-    event?.tags.map((tag) => tag.tag_name)
-  );
+
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [organizer, setOrganizer] = useState('');
+  const [eventLink, setEventLink] = useState('');
+  const [tags, setTags] = useState<string[]>([]);
 
   const { error, validateForm } = useErrorContext({
     title,
@@ -30,13 +27,13 @@ const ModifyForm = ({ event }: { event: EventResponseModel }) => {
   });
 
   // date
-  const [startDate, setStartDate] = useState(new Date(event?.start_date_time));
-  const [startTime, setStartTime] = useState(new Date(event?.start_date_time));
-  const [endDate, setEndDate] = useState(new Date(event?.end_date_time));
-  const [endTime, setEndTime] = useState(new Date(event?.end_date_time));
+  const [startDate, setStartDate] = useState(new Date());
+  const [startTime, setStartTime] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
 
   // image
-  const [coverImageUrl, setCoverImageUrl] = useState(event?.cover_image_link);
+  const [coverImageUrl, setCoverImageUrl] = useState('');
 
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
@@ -51,7 +48,7 @@ const ModifyForm = ({ event }: { event: EventResponseModel }) => {
     setEventLink(e.target.value);
   };
 
-  const saveEvent = async (e: MouseEvent<HTMLButtonElement>) => {
+  const createEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -59,8 +56,7 @@ const ModifyForm = ({ event }: { event: EventResponseModel }) => {
       return validateForm();
 
     for (const tag of tags) {
-      const allTags = event?.tags;
-      if (!allTags.length) {
+      if (!allTags?.length) {
         await createTagApi({ tag_name: tag });
       } else if (allTags.every((prevTag) => prevTag.tag_name !== tag)) {
         await createTagApi({ tag_name: tag });
@@ -77,28 +73,31 @@ const ModifyForm = ({ event }: { event: EventResponseModel }) => {
       start_time: dayjs(startTime).format('HH:MM'),
       end_date_time: dayjs(endDate).format('YYYY-MM-DD HH:MM'),
       end_time: dayjs(endTime).format('HH:MM'),
-      tags: tags?.map((tag) => ({
+      tags: tags.map((tag) => ({
         tag_name: tag,
       })),
       cover_image_link: coverImageUrl,
     };
 
-    const data = await modifyEventsApi({ data: body, id: id.toString() });
-    if (data.status_code === STATUS_200) return router.reload();
+    const data = await createEventsApi({ data: body });
+    if (data.status_code === STATUS_201) return router.reload();
     return alert(data.message);
   };
 
   return (
     <FormContent
-      {...event}
+      title={title}
+      changeTitle={changeTitle}
+      error={error}
+      description={description}
+      changeDescription={changeDescription}
+      organizer={organizer}
+      changeOrganizer={changeOrganizer}
       eventLink={eventLink}
+      changeEventLink={changeEventLink}
       tags={tags}
       setTags={setTags}
-      allTags={event?.tags}
-      changeTitle={changeTitle}
-      changeDescription={changeDescription}
-      changeOrganizer={changeOrganizer}
-      changeEventLink={changeEventLink}
+      allTags={allTags}
       startDate={startDate}
       setStartDate={setStartDate}
       startTime={startTime}
@@ -107,12 +106,10 @@ const ModifyForm = ({ event }: { event: EventResponseModel }) => {
       setEndDate={setEndDate}
       endTime={endTime}
       setEndTime={setEndTime}
-      error={error}
-      coverImageUrl={coverImageUrl}
       setCoverImageUrl={setCoverImageUrl}
-      saveForm={saveEvent}
+      saveForm={(e: MouseEvent<HTMLButtonElement>) => createEvent(e)}
     />
   );
 };
 
-export default ModifyForm;
+export default Create;

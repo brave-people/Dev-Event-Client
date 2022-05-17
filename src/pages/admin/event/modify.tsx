@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
-import { useUpdateCookie } from '../../../util/use-cookie';
 import { getEventApi } from '../../api/events';
+import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/Event';
-import EventModifyForm from '../../../components/event/ModifyForm';
+import EventModifyForm from '../../../components/event/Modify';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import type { EventResponseModel } from '../../../model/Event';

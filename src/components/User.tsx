@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import type { ReactElement } from 'react';
 import Header from './Header';
-import { useUserProfile } from './auth/Modify';
+import { useUserProfile } from './auth/Profile';
 
 const User = ({
   title,
