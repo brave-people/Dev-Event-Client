@@ -16,7 +16,7 @@ const UsersModify = ({ token }: { token: TokenModel }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <UserComponent title="title뭐지??">
+      <UserComponent title="계정 수정">
         <UserModifyForm />
       </UserComponent>
     </QueryClientProvider>

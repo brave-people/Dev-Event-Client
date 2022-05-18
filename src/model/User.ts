@@ -1,7 +1,7 @@
 import type { JwtPayload } from 'jsonwebtoken';
 
 /** user info 관련 타입 */
-export type UserRoleType = 'ROLE_ADMIN' | 'ROLE_USER';
+export type UserRoleType = 'ROLE_ADMIN' | 'ROLE_MANAGER' | 'ROLE_USER';
 export type UserSubType = 'admin' | 'user';
 export type UserInfoType = string | JwtPayload | null;
 export type UserAuthType =
