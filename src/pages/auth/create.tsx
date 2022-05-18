@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import type { NextPageContext } from 'next/types';
-import type { ResponseTokenModel } from '../../model/User';
 import getToken from '../../server/api/auth/getToken';
 import { useUpdateCookie } from '../../util/use-cookie';
 import { getUserRoleIsAdmin } from '../../util/get-user-role';
-import User from '../../components/User';
-import Component from '../../components/auth/form/User';
+import UserComponent from '../../components/User';
+import UserForm from '../../components/auth/form/Create';
+import type { NextPageContext } from 'next/types';
+import type { ResponseTokenModel } from '../../model/User';
 
 const queryClient = new QueryClient();
 
@@ -25,9 +25,9 @@ const Create = ({ data, error }: ResponseTokenModel) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <User title="계정 생성">
-        <Component />
-      </User>
+      <UserComponent title="계정 생성">
+        <UserForm />
+      </UserComponent>
     </QueryClientProvider>
   );
 };

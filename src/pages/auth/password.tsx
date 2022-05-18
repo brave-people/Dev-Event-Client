@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../server/api/auth/getToken';
 import { useUpdateCookie } from '../../util/use-cookie';
-import Component from '../../components/auth/Password';
+import UserComponent from '../../components/User';
+import PasswordForm from '../../components/auth/form/Password';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../model/User';
 
@@ -15,7 +16,9 @@ const Password = ({ token }: { token: TokenModel }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Component />
+      <UserComponent title="비밀번호 변경">
+        <PasswordForm />
+      </UserComponent>
     </QueryClientProvider>
   );
 };

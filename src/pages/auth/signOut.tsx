@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import type { NextPageContext } from 'next/types';
 import getToken from '../../server/api/auth/getToken';
 import { useDeleteCookie } from '../../util/use-cookie';
+import type { NextPageContext } from 'next/types';
 
 const SignOut = () => {
   const router = useRouter();

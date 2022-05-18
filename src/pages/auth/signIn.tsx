@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import type { FormEvent } from 'react';
 import { useRouter } from 'next/router';
-import type { ResponseTokenModel } from '../../model/User';
 import { loginApi } from '../api/auth/login';
 import { useUpdateCookie } from '../../util/use-cookie';
+import type { FormEvent } from 'react';
+import type { ResponseTokenModel } from '../../model/User';
 
 const SignIn = ({ data }: ResponseTokenModel) => {
   const router = useRouter();

@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../server/api/auth/getToken';
 import { useUpdateCookie } from '../../util/use-cookie';
-import Component from '../../components/auth/Modify';
+import UserComponent from '../../components/User';
+import UserModifyForm from '../../components/auth/form/Modify';
+
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../model/User';
 
@@ -15,7 +17,9 @@ const Modify = ({ token }: { token: TokenModel }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Component />
+      <UserComponent title="회원정보수정">
+        <UserModifyForm />
+      </UserComponent>
     </QueryClientProvider>
   );
 };

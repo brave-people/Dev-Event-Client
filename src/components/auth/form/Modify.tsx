@@ -4,7 +4,7 @@ import type { FormEvent } from 'react';
 import { selectedUserState } from '../../../store/User';
 import Input from '../../input/Input';
 
-const UsersModify = () => {
+const Modify = () => {
   const data = useRecoilValue(selectedUserState);
   console.log(data);
   const [password, setPassword] = useState('');
@@ -64,4 +64,4 @@ const UsersModify = () => {
   );
 };
 
-export default UsersModify;
+export default Modify;
