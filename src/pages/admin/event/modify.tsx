@@ -46,7 +46,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
   }
 
   // id가 없다면 이벤트 조회 페이지로 이동
-  if (!id) return { redirect: { destination: 'admin/event' } };
+  if (!id) return { redirect: { destination: '/admin/event' } };
 
   const data = await getEventApi({ token: token.data, id: id.toString() });
   return { props: { token: token.data, event: data } };

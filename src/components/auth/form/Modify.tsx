@@ -6,7 +6,6 @@ import Input from '../../input/Input';
 
 const Modify = () => {
   const data = useRecoilValue(selectedUserState);
-  console.log(data);
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
