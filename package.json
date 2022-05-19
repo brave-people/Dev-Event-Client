@@ -34,6 +34,7 @@
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^4.7.0",
     "@types/cookie": "0.4.1",
     "@types/jsonwebtoken": "^8.5.6",
     "@types/react": "^18.0.8",
