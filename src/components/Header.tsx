@@ -5,9 +5,13 @@ import classNames from 'classnames';
 import { useSetRecoilState } from 'recoil';
 import { selectedUserState } from '../store/User';
 import { getUserRoleIsAdmin } from '../util/get-user-role';
-import type { UsersModel } from '../model/User';
+import type { UsersModel, UserProfileModel } from '../model/User';
 
-const Header = ({ user }: { user: UsersModel }) => {
+const Header = ({
+  user,
+}: {
+  user: UsersModel | UserProfileModel | undefined;
+}) => {
   const router = useRouter();
   const setSelectedUser = useSetRecoilState(selectedUserState);
   const isAdmin = getUserRoleIsAdmin(user?.roles);

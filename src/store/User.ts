@@ -16,7 +16,7 @@ export const userState = atom<UserProfileModel>({
 
 // 다른 유저 정보
 const selectedUserKey = 'SELECTED_USER_KEY';
-export const selectedUserState = atom<UsersModel>({
+export const selectedUserState = atom<UsersModel | UserProfileModel>({
   key: selectedUserKey,
   default: {
     auth_type: 'NONE',
