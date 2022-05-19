@@ -1,11 +1,21 @@
 import { Fragment } from 'react';
+import { useRouter } from 'next/router';
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
+import { useSetRecoilState } from 'recoil';
+import { selectedUserState } from '../store/User';
 import { getUserRoleIsAdmin } from '../util/get-user-role';
-import type { UserProfileModel } from '../model/User';
+import type { UsersModel } from '../model/User';
 
-const Header = ({ user }: { user: UserProfileModel | undefined }) => {
+const Header = ({ user }: { user: UsersModel }) => {
+  const router = useRouter();
+  const setSelectedUser = useSetRecoilState(selectedUserState);
   const isAdmin = getUserRoleIsAdmin(user?.roles);
+
+  const onClickModifyUser = () => {
+    if (user) setSelectedUser(user);
+    router.push('/auth/modify');
+  };
 
   return (
     <header className="admin__header">
@@ -39,15 +49,15 @@ const Header = ({ user }: { user: UserProfileModel | undefined }) => {
           <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/auth/modify"
+                <button
+                  onClick={onClickModifyUser}
                   className={classNames(
                     active ? 'bg-gray-100' : '',
                     'block px-4 py-2 text-sm text-gray-700'
                   )}
                 >
                   회원 정보 수정
-                </a>
+                </button>
               )}
             </Menu.Item>
             <Menu.Item>

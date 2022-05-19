@@ -2,11 +2,11 @@ import dayjs from 'dayjs';
 import { useQuery } from 'react-query';
 import { useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
-import type { UsersModel } from '../../model/User';
 import { getUsersApi } from '../../pages/api/auth/users';
 import { selectedUserState } from '../../store/User';
 import { getUserRole } from '../../util/get-user-role';
 import { getConvertAuthType } from '../../util/get-convert-auth-type';
+import type { UsersModel } from '../../model/User';
 
 const Users = () => {
   const router = useRouter();
