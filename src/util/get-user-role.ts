@@ -3,6 +3,7 @@ import type { UserRole } from '../model/User';
 export const getUserRole = (roles: UserRole[]) => {
   return roles.reduce((result: string[], role) => {
     if (role.code === 'ROLE_ADMIN') return [...result, '관리자'];
+    if (role.code === 'ROLE_MANAGER') return [...result, '매니저'];
     if (role.code === 'ROLE_USER') return [...result, '사용자'];
     return [...result];
   }, []);

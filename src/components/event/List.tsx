@@ -26,8 +26,8 @@ const List = () => {
   );
 
   const deleteEvent = async () => {
-    const data = currentId && (await deleteEventApi({ id: currentId }));
-    console.log(data?.message);
+    if (!currentId) return;
+    await deleteEventApi({ id: currentId });
     setShowAlert(false);
     await refetch();
   };
@@ -113,7 +113,9 @@ const List = () => {
                               className="text-red-500 font-bold"
                               onClick={() =>
                                 router.push(
-                                  `/admin/event/modify?id=${value.id}`
+                                  `/admin/event/modify?id=${value.id}`,
+                                  undefined,
+                                  { shallow: true }
                                 )
                               }
                             >
