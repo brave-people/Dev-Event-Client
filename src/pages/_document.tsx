@@ -5,6 +5,10 @@ export default function Document() {
     <Html lang="ko">
       <Head>
         <title>Dev Event Client</title>
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
         <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
         <link
           rel="stylesheet"
