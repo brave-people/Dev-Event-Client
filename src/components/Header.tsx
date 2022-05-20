@@ -17,7 +17,7 @@ const Header = ({
   const isAdmin = getUserRoleIsAdmin(user?.roles);
 
   const onClickModifyUser = () => {
-    if (user) setSelectedUser(user);
+    if (typeof user !== 'undefined') setSelectedUser(user);
     router.push('/auth/modify');
   };
 

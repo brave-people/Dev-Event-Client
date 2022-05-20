@@ -38,14 +38,14 @@ const Modify = () => {
     const removeRolesData = removeRoles.map(
       async (role) =>
         await deleteRoleUsersApi({
-          data: { role_code: role, user_id: data.user_id },
+          data: { role_code: role, user_id: data.user_id || '' },
         })
     );
 
     const addRolesData = addRoles.map(
       async (role) =>
         await addRoleUsersApi({
-          data: { role_code: role, user_id: data.user_id },
+          data: { role_code: role, user_id: data.user_id || '' },
         })
     );
 
@@ -68,12 +68,19 @@ const Modify = () => {
   return (
     <form onSubmit={submit}>
       <Input type="text" text="이름" value={data.name} readonly={true} />
-      <Input type="text" text="아이디" value={data.user_id} readonly={true} />
+      <Input
+        type="text"
+        text="아이디"
+        value={data.user_id || ''}
+        readonly={true}
+      />
       <Input type="email" text="이메일" value={data.email} readonly={true} />
       <Input
         type="text"
         text="회원유형"
-        value={getConvertAuthType(data.auth_type)}
+        value={getConvertAuthType(
+          'auth_type' in data ? data.auth_type : 'NONE'
+        )}
         readonly={true}
       />
       <input
