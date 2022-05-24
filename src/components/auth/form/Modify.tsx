@@ -112,7 +112,7 @@ const Modify = () => {
           type="submit"
           className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
         >
-          가입
+          계정 수정
         </button>
       </div>
     </form>
