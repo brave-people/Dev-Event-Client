@@ -1,0 +1,87 @@
+@import './color';
+@import './variables';
+
+.form {
+  max-width: 320px;
+  margin: 0 auto;
+
+  &__button {
+    position: absolute;
+
+    &--center {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &--right {
+      right: 0;
+    }
+  }
+
+  input:not([type='checkbox']) {
+    width: 100%;
+    display: block;
+    padding: 0 8px;
+    border-bottom: 1px solid $color_gray-300;
+
+    &::placeholder {
+      color: $color_border;
+      font-size: 16px;
+    }
+  }
+}
+
+.form--large {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 80px;
+
+  @media screen and (max-width: 1200px) {
+    max-width: inherit;
+    padding: 16px;
+  }
+}
+
+.form__content {
+  &__input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 8px 0 24px;
+  }
+
+  &--date {
+    display: inline-block;
+    margin-top: 16px;
+  }
+
+  &__title {
+    min-width: $common_width;
+  }
+
+  &--error {
+    position: absolute;
+    bottom: -22px;
+    right: 0;
+    font-size: 12px;
+    color: $color_red-600;
+  }
+
+  &--all-tags {
+    display: flex;
+    position: absolute;
+    padding: 8px 0;
+    bottom: 0;
+    left: $common_width;
+    transform: translateY(100%);
+  }
+
+  .react-datepicker-wrapper {
+    max-width: fit-content;
+  }
+
+  .react-datepicker__tab-loop {
+    position: absolute;
+    top: 0;
+  }
+}

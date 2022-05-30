@@ -1,0 +1,18 @@
+.wrap--vertical {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrap__box--lg {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 56px 54px;
+
+  @media only screen and (max-width: 740px) {
+    box-shadow: none;
+    padding: 56px 16px;
+  }
+}
