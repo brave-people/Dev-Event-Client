@@ -14,7 +14,7 @@ const Input = ({
   customClass,
   children,
 }: {
-  text: string;
+  text?: string;
   value: string;
   onChange?: (e: { target: { value: string } }) => void;
   type?: InputHTMLAttributes<HTMLInputElement>['type'];
@@ -29,13 +29,15 @@ const Input = ({
 
   return (
     <div className="form__content__input">
-      <label
-        htmlFor={id}
-        className="form__content__title inline-block text-base font-medium text-gray-600"
-      >
-        {text}
-        {isRequired && <span className="text-red-500">*</span>}
-      </label>
+      {text && (
+        <label
+          htmlFor={id}
+          className="form__content__title inline-block text-base font-medium text-gray-600"
+        >
+          {text}
+          {isRequired && <span className="text-red-500">*</span>}
+        </label>
+      )}
       <input
         id={id}
         type={type}
