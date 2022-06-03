@@ -76,7 +76,7 @@ const SignIn = ({ data }: { data: string | null }) => {
           />
           {!message && loading && (
             <p className="mb-4 p-2 bg-yellow-50 font-bold text-yellow-600 text-sm">
-              😆 로그인중입니다 잠시만 기다려주세요
+              😆 로그인 처리중입니다.
             </p>
           )}
           {message && (
