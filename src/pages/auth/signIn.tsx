@@ -45,11 +45,10 @@ const SignIn = ({ data }: { data: string | null }) => {
         if (res.message) return setMessage(res.message);
 
         setLoading(false);
-        return useUpdateCookie(document, res.data);
+        useUpdateCookie(document, res.data);
+        router.push('/admin/event', undefined, { shallow: true });
       }
     );
-
-    router.push('/admin/event', undefined, { shallow: true });
   };
 
   return (
@@ -65,6 +64,7 @@ const SignIn = ({ data }: { data: string | null }) => {
             onChange={changeId}
             placeholder="아이디"
             isRequired={true}
+            customClass={{ 'mb-4': true }}
           />
           <Input
             type="password"
@@ -72,7 +72,32 @@ const SignIn = ({ data }: { data: string | null }) => {
             onChange={changePassword}
             placeholder="비밀번호"
             isRequired={true}
+            customClass={{ 'mb-4': true }}
           />
+          {!message && loading && (
+            <p className="mb-4 p-2 bg-yellow-50 font-bold text-yellow-600 text-sm">
+              😆 로그인중입니다 잠시만 기다려주세요
+            </p>
+          )}
+          {message && (
+            <p className="mb-4 p-2 bg-red-50 rounded font-bold text-red-600 text-sm">
+              <svg
+                className="w-4 h-4 mr-1 inline"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
+              </svg>
+              {message}
+            </p>
+          )}
           <div className="checkbox--blue mb-4">
             <Checkbox
               value={saveId}
@@ -87,8 +112,6 @@ const SignIn = ({ data }: { data: string | null }) => {
             로그인
           </button>
         </form>
-        {message && <p>{message}</p>}
-        {!message && loading && <p>로그인중입니다 :) 잠시만 기다려주세요</p>}
       </article>
     </section>
   );
