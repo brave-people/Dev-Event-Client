@@ -90,7 +90,9 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
 
   return (
     <FormContent
-      {...event}
+      title={title}
+      description={description}
+      organizer={organizer}
       eventLink={eventLink}
       tags={tags}
       setTags={setTags}
