@@ -29,3 +29,18 @@
     border-bottom: 1px solid #efefef;
   }
 }
+
+.month--picker {
+  width: 280px;
+  background-color: $color_white;
+  position: absolute;
+  top: 24px;
+  left: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
+
+  &__title {
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+}

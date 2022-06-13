@@ -1,16 +1,86 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/router';
 import { getEventsApi } from '../../pages/api/events';
 import { deleteEventApi } from '../../pages/api/events/delete';
-import getConvertNumberAddTen from '../../util/get-convert-number-add-ten';
 import YearAndMonthPicker from './date/YearAndMonthPicker';
 import CenterAlert from '../alert/CenterAlert';
+import type {
+  MouseEvent,
+  Dispatch,
+  SetStateAction,
+  MutableRefObject,
+} from 'react';
 import type { EventResponseModel } from '../../model/Event';
+
+interface Picker {
+  showPicker: boolean;
+  closePicker: () => void;
+  pickerRef: MutableRefObject<HTMLDivElement | null>;
+  year: number;
+  month: number;
+  setYear: Dispatch<SetStateAction<number>>;
+  setMonth: Dispatch<SetStateAction<number>>;
+}
+
+const PickerLayer = ({
+  showPicker,
+  closePicker,
+  pickerRef,
+  year,
+  month,
+  setYear,
+  setMonth,
+}: Picker) => {
+  const divRef = useRef<HTMLDivElement | null>(null);
+
+  const removePicker = () => {
+    if (pickerRef.current?.parentNode && divRef.current?.parentNode) {
+      pickerRef.current?.removeChild(divRef.current);
+      closePicker();
+    }
+  };
+
+  useEffect(() => {
+    divRef.current = document.createElement('div');
+
+    document.addEventListener('click', (e) => {
+      const path = e.composedPath();
+      const target = e.target as Element;
+      const clickPicker = [...path].find((node) => node === pickerRef.current);
+      const clickPickerMonth =
+        target.getAttribute('data-label') === 'picker-month';
+      (clickPickerMonth && removePicker()) || (!clickPicker && removePicker());
+    });
+  }, []);
+
+  if (!divRef.current) return null;
+
+  if (showPicker) {
+    pickerRef.current?.appendChild(divRef.current);
+
+    return createPortal(
+      <YearAndMonthPicker
+        currentYear={year}
+        currentMonth={month}
+        setYear={setYear}
+        setMonth={setMonth}
+      />,
+      divRef.current
+    );
+  }
+
+  if (pickerRef.current?.children?.length) closePicker();
+
+  return null;
+};
 
 const List = () => {
   const router = useRouter();
 
+  const pickerRef = useRef<HTMLDivElement>(null);
+  const [showPicker, setShowPicker] = useState(false);
   const [currentDate] = useState<Date>(new Date());
   const [list, setList] = useState<EventResponseModel[]>([]);
   const [keyword, setKeyword] = useState('');
@@ -32,6 +102,12 @@ const List = () => {
     await refetch();
   };
 
+  const changeShowPicker = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    setShowPicker(!showPicker);
+  };
+  const closePicker = () => setShowPicker(false);
+
   useEffect(() => {
     if (!data) return setList([]);
     if (!keyword) return setList(data);
@@ -51,15 +127,25 @@ const List = () => {
               <span>{year}년&nbsp;</span>
               <span>{month + 1}월</span>
             </button>
-          )}
+            <div ref={pickerRef}>
+              <PickerLayer
+                showPicker={showPicker}
+                closePicker={closePicker}
+                pickerRef={pickerRef}
+                year={year}
+                month={month}
+                setYear={setYear}
+                setMonth={setMonth}
+              />
+            </div>
+          </div>
           <input
             type="text"
             placeholder="모임명으로 검색"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
           />
-        </article>
-        <YearAndMonthPicker year={year} setYear={setYear} setMonth={setMonth} />
+        </div>
         {!list.length ? (
           <div>
             <p>이달의 이벤트가 없어요! 이벤트를 만들어주세요</p>
