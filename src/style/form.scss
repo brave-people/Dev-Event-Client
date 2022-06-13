@@ -44,6 +44,7 @@
 
 .form__content {
   &__input {
+    margin-bottom: 16px;
     position: relative;
     display: flex;
     align-items: center;
@@ -51,7 +52,6 @@
 
   &--date {
     display: inline-block;
-    margin-top: 16px;
   }
 
   &__title {
