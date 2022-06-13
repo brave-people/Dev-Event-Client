@@ -20,5 +20,6 @@
 }
 
 .wrap__box--bg {
+  min-height: calc(100vh - 90px);
   background-color: $color_bg;
 }

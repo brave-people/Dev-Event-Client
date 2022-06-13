@@ -139,91 +139,111 @@ const List = () => {
               />
             </div>
           </div>
-          <input
-            type="text"
-            placeholder="모임명으로 검색"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-          />
+          <div className="list__search">
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="#6E6E6E"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+            <input
+              type="text"
+              placeholder="모임명으로 검색"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+            />
+          </div>
         </div>
         {!list.length ? (
           <div>
             <p>이달의 이벤트가 없어요! 이벤트를 만들어주세요</p>
           </div>
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <td>No</td>
-                <td>제목</td>
-                <td>링크</td>
-                <td>등록일시</td>
-                <td>수정일시</td>
-              </tr>
-            </thead>
-            <tbody>
-              {list.length > 0 &&
-                list.map((value: EventResponseModel, index: number) => (
-                  <Fragment key={value.id}>
-                    <tr>
-                      <td>{index + 1}</td>
-                      <td>{value.title}</td>
-                      <td>
-                        <a href={value.event_link}>홈페이지</a>
-                      </td>
-                      <td>
-                        {value.tags.slice(0, 2).map((tag) => (
-                          <span key={tag.id}>{tag.tag_name}</span>
-                        ))}
-                      </td>
-                      <td>{value.start_date_time}</td>
-                      <td>{value.end_date_time}</td>
-                      <td>
-                        <div className="list--group">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-5 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={1.5}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                            />
-                          </svg>
-                          <div className="list--group__button">
-                            <button
-                              className="text-red-500 font-bold"
-                              onClick={() =>
-                                router.push(
-                                  `/admin/event/modify?id=${value.id}`,
-                                  undefined,
-                                  { shallow: true }
-                                )
-                              }
+          <div className="list__table relative mt-8 border rounded">
+            <table className="w-full p-4">
+              <thead className="list__table--thead">
+                <tr>
+                  <td className="list__table--title">No</td>
+                  <td className="list__table--title">제목</td>
+                  <td className="list__table--title">링크</td>
+                  <td className="list__table--title">등록일시</td>
+                  <td className="list__table--title">수정일시</td>
+                </tr>
+              </thead>
+              <tbody>
+                {list.length > 0 &&
+                  list.map((value: EventResponseModel, index: number) => (
+                    <Fragment key={value.id}>
+                      <tr>
+                        <td className="list__table--sub-title">{index + 1}</td>
+                        <td>{value.title}</td>
+                        <td className="list__table--link">
+                          <a href={value.event_link}>홈페이지</a>
+                        </td>
+                        <td>{value.start_date_time}</td>
+                        <td>{value.end_date_time}</td>
+                        <td>
+                          <div className="list--group">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="w-5 h-6"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={1.5}
                             >
-                              수정
-                            </button>
-                            <button
-                              className="text-blue-500 font-bold"
-                              onClick={() => {
-                                setCurrentId(value.id);
-                                setShowAlert(true);
-                              }}
-                            >
-                              삭제
-                            </button>
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                              />
+                            </svg>
+                            <div className="list--group__button">
+                              <button
+                                className="text-blue-500 font-bold"
+                                onClick={() =>
+                                  router.push(
+                                    `/admin/event/modify?id=${value.id}`,
+                                    undefined,
+                                    { shallow: true }
+                                  )
+                                }
+                              >
+                                수정
+                              </button>
+                              <button
+                                className="text-red-500 font-bold"
+                                onClick={() => {
+                                  setCurrentId(value.id);
+                                  setShowAlert(true);
+                                }}
+                              >
+                                삭제
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </Fragment>
-                ))}
-            </tbody>
-          </table>
+                        </td>
+                      </tr>
+                    </Fragment>
+                  ))}
+              </tbody>
+            </table>
+            <button
+              type="button"
+              className="list__button--create"
+              onClick={() => router.push('/admin/event/create')}
+            >
+              이벤트 생성
+            </button>
+          </div>
         )}
         {showAlert && (
           <CenterAlert
@@ -234,9 +254,6 @@ const List = () => {
           />
         )}
       </div>
-      <button type="button" onClick={() => router.push('/admin/event/create')}>
-        이벤트 생성
-      </button>
     </>
   );
 };
