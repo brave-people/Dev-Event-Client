@@ -47,7 +47,7 @@ const FormContent = ({
         <div className="form__content__input">
           <label
             htmlFor="description"
-            className="form__content__title inline-block text-base font-medium text-gray-600"
+            className="form__content__title inline-block text-base text-gray-600"
           >
             행사 설명
           </label>
@@ -62,7 +62,7 @@ const FormContent = ({
         <div className="form__content__input">
           <label
             htmlFor="organizer"
-            className="form__content__title inline-block text-base font-medium text-gray-600"
+            className="form__content__title inline-block text-base text-gray-600"
           >
             주최
             <span className="text-red-500">*</span>
@@ -83,7 +83,7 @@ const FormContent = ({
         <div className="form__content__input">
           <label
             htmlFor="event_link"
-            className="form__content__title inline-block text-base font-medium text-gray-600"
+            className="form__content__title inline-block text-base text-gray-600"
           >
             행사 링크
             <span className="text-red-500">*</span>
@@ -104,8 +104,8 @@ const FormContent = ({
         <div className="form__content__input relative">
           <Tag tags={tags} setTags={setTags} allTags={allTags} />
         </div>
-        <div className="form__content--date">
-          <span className="form__content__title inline-block text-base font-medium text-gray-600">
+        <div className="form__content--date mb-4">
+          <span className="form__content__title inline-block text-base text-gray-600">
             시작 날짜
           </span>
           <DatePicker
@@ -114,13 +114,13 @@ const FormContent = ({
             onChange={(date) => date && setStartDate(date)}
             className="appearance-none w-80 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           />
-          <span className="w-40 inline-block text-base font-medium text-gray-600">
+          <span className="w-40 inline-block text-base text-gray-600 ml-4">
             시작 시간
           </span>
           <TimeComponent time={startTime} setTime={setStartTime} />
         </div>
         <div className="form__content--date">
-          <span className="form__content__title inline-block text-base font-medium text-gray-600">
+          <span className="form__content__title inline-block text-base text-gray-600">
             종료 날짜
           </span>
           <DatePicker
@@ -130,18 +130,23 @@ const FormContent = ({
             onChange={(date) => date && setEndDate(date)}
             className="appearance-none w-80 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           />
-          <span className="w-40 inline-block text-base font-medium text-gray-600">
+          <span className="w-40 inline-block text-base text-gray-600 ml-4">
             종료 시간
           </span>
           <TimeComponent time={endTime} setTime={setEndTime} />
         </div>
         <div className="my-8" />
-        <ImageUploadComponent
-          coverImageUrl={coverImageUrl}
-          setCoverImageUrl={setCoverImageUrl}
-        />
+        <div className="flex">
+          <span className="form__content__title inline-block text-base text-gray-600">
+            대표 이미지
+          </span>
+          <ImageUploadComponent
+            coverImageUrl={coverImageUrl}
+            setCoverImageUrl={setCoverImageUrl}
+          />
+        </div>
       </div>
-      <div className="relative">
+      <div className="relative pt-8 pb-6">
         <button
           type="submit"
           onClick={saveForm}

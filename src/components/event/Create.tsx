@@ -85,30 +85,32 @@ export const Create = ({ allTags }: { allTags: TagModel[] }) => {
   };
 
   return (
-    <FormContent
-      title={title}
-      changeTitle={changeTitle}
-      error={error}
-      description={description}
-      changeDescription={changeDescription}
-      organizer={organizer}
-      changeOrganizer={changeOrganizer}
-      eventLink={eventLink}
-      changeEventLink={changeEventLink}
-      tags={tags}
-      setTags={setTags}
-      allTags={allTags}
-      startDate={startDate}
-      setStartDate={setStartDate}
-      startTime={startTime}
-      setStartTime={setStartTime}
-      endDate={endDate}
-      setEndDate={setEndDate}
-      endTime={endTime}
-      setEndTime={setEndTime}
-      setCoverImageUrl={setCoverImageUrl}
-      saveForm={(e: MouseEvent<HTMLButtonElement>) => createEvent(e)}
-    />
+    <div className="list">
+      <FormContent
+        title={title}
+        changeTitle={changeTitle}
+        error={error}
+        description={description}
+        changeDescription={changeDescription}
+        organizer={organizer}
+        changeOrganizer={changeOrganizer}
+        eventLink={eventLink}
+        changeEventLink={changeEventLink}
+        tags={tags}
+        setTags={setTags}
+        allTags={allTags}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        startTime={startTime}
+        setStartTime={setStartTime}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        endTime={endTime}
+        setEndTime={setEndTime}
+        setCoverImageUrl={setCoverImageUrl}
+        saveForm={(e: MouseEvent<HTMLButtonElement>) => createEvent(e)}
+      />
+    </div>
   );
 };
 

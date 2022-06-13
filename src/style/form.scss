@@ -44,15 +44,14 @@
 
 .form__content {
   &__input {
+    margin-bottom: 16px;
     position: relative;
     display: flex;
     align-items: center;
-    margin: 8px 0 24px;
   }
 
   &--date {
     display: inline-block;
-    margin-top: 16px;
   }
 
   &__title {

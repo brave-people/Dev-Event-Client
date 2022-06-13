@@ -1,7 +1,18 @@
+@import './color';
+
 .admin__header {
+  height: 90px;
+  padding: 0 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid $color_gray-300;
+  letter-spacing: -1.25px;
+
+  h1 {
+    font-size: 40px;
+    font-weight: bold;
+  }
 
   select {
     height: 40px;
@@ -16,5 +27,20 @@
 
   &--day {
     border-bottom: 1px solid #efefef;
+  }
+}
+
+.month--picker {
+  width: 280px;
+  background-color: $color_white;
+  position: absolute;
+  top: 24px;
+  left: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
+
+  &__title {
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 600;
   }
 }
