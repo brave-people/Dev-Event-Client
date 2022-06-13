@@ -1,3 +1,5 @@
+@import "./color";
+
 .wrap--vertical {
   height: 100vh;
   display: flex;
@@ -15,4 +17,8 @@
     box-shadow: none;
     padding: 56px 16px;
   }
+}
+
+.wrap__box--bg {
+  background-color: $color_bg;
 }

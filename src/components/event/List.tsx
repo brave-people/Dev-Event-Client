@@ -44,12 +44,12 @@ const List = () => {
 
   return (
     <>
-      <div>
-        <article className="list__header">
-          {currentDate && (
-            <button>
-              <span>{currentDate.getFullYear()}.</span>
-              <span>{getConvertNumberAddTen(currentDate.getMonth() + 1)}</span>
+      <div className="list">
+        <div className="list__header">
+          <div className="relative">
+            <button className="list__header__button" onClick={changeShowPicker}>
+              <span>{year}년&nbsp;</span>
+              <span>{month + 1}월</span>
             </button>
           )}
           <input

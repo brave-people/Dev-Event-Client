@@ -1,17 +1,28 @@
 @import './color';
 @import './variables';
 
+.list {
+  padding: 36px 48px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.125);
+  background-color: $color_white;
+  border-radius: 4px;
+}
+
 .list__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  button {
-    padding: 4px 8px;
+  &__button {
+    padding: 6px 12px;
     font-size: 26px;
     font-weight: 700;
     border-radius: $border__radius;
-    background: $color_gray-100;
+    background-color: $color_gray-100;
+
+    &:hover {
+      background-color: $color_gray-200;
+    }
   }
 
   input {

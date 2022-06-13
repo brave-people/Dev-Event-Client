@@ -16,7 +16,7 @@ const Event = ({ token }: { token: TokenModel }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <EventComponent title="이벤트 조회">
+      <EventComponent title="개발자 행사 목록">
         <EventList />
       </EventComponent>
     </QueryClientProvider>
