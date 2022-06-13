@@ -106,7 +106,7 @@ const FormContent = ({
         </div>
         <div className="form__content--date mb-4">
           <span className="form__content__title inline-block text-base text-gray-600">
-            시작 날짜
+            시작 일시
           </span>
           <DatePicker
             dateFormat="yyyy/MM/dd"
@@ -121,7 +121,7 @@ const FormContent = ({
         </div>
         <div className="form__content--date">
           <span className="form__content__title inline-block text-base text-gray-600">
-            종료 날짜
+            종료 일시
           </span>
           <DatePicker
             dateFormat="yyyy/MM/dd"

@@ -174,8 +174,8 @@ const List = () => {
                   <td className="list__table--title">No</td>
                   <td className="list__table--title">제목</td>
                   <td className="list__table--title">링크</td>
-                  <td className="list__table--title">등록일시</td>
-                  <td className="list__table--title">수정일시</td>
+                  <td className="list__table--title">시작 일시</td>
+                  <td className="list__table--title">종료 일시</td>
                 </tr>
               </thead>
               <tbody>
