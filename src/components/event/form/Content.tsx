@@ -105,7 +105,7 @@ const FormContent = ({
           <Tag tags={tags} setTags={setTags} allTags={allTags} />
         </div>
         <div
-          className={classNames('form__content--date mb-4', {
+          className={classNames('form__content--date mb-6', {
             'mt-8': tags.length,
           })}
         >

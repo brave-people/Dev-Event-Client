@@ -44,7 +44,7 @@
 
 .form__content {
   &__input {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     position: relative;
     display: flex;
     align-items: center;
@@ -60,8 +60,10 @@
 
   &--error {
     position: absolute;
+    left: 120px;
     bottom: -20px;
-    right: 0;
+    display: flex;
+    align-items: center;
     font-size: 12px;
     color: $color_red-600;
   }
