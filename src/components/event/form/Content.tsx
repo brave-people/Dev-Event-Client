@@ -140,7 +140,7 @@ const FormContent = ({
           <TimeComponent time={endTime} setTime={setEndTime} />
         </div>
         <div className="my-8" />
-        <div className="flex">
+        <div>
           <span className="form__content__title inline-block text-base text-gray-600">
             대표 이미지
           </span>

@@ -41,7 +41,6 @@ const ImageUpload = ({
   };
   const clickCropImageUpload = (e: BaseSyntheticEvent) => {
     e.preventDefault();
-    console.log(cropper);
     const imgSrc = cropper?.getCroppedCanvas()?.toDataURL() || '';
     setCropImageUrl({ url: imgSrc, name: imageUrl.name });
 
@@ -97,31 +96,31 @@ const ImageUpload = ({
           <img src={coverImageUrl} alt="기존이미지" />
         </section>
       )}
-      <input
-        id={htmlFor}
-        name="image-upload"
-        type="file"
-        accept="image/*"
-        style={{ display: 'none' }}
-        onChange={({ target: { files } }) =>
-          files &&
-          changeImageUpload({
-            file: files[0],
-          })
-        }
-      />
-      <label htmlFor={htmlFor} ref={dragRef} className="drag__box">
-        {!imageUrl.url && (
-          <>
+      {!imageUrl.url && (
+        <>
+          <input
+            id={htmlFor}
+            name="image-upload"
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={({ target: { files } }) =>
+              files &&
+              changeImageUpload({
+                file: files[0],
+              })
+            }
+          />
+          <label htmlFor={htmlFor} ref={dragRef} className="drag__box">
             <p className="drag__box__text--large">
               드래그 혹은 클릭으로 파일을 업로드 할 수 있습니다.
             </p>
             <p className="drag__box__text--small">
               (jpg, png, gif less than 3MB)
             </p>
-          </>
-        )}
-      </label>
+          </label>
+        </>
+      )}
       <section className="drag__section">
         {imageUrl.url && (
           <div className="drag__section--image">
@@ -135,10 +134,20 @@ const ImageUpload = ({
         )}
       </section>
       {imageUrl.url && (
-        <>
-          <button onClick={deleteImage}>이미지 삭제</button>
-          <button onClick={clickCropImageUpload}>자르기</button>
-        </>
+        <div className="mt-4">
+          <button
+            onClick={deleteImage}
+            className="mr-4 p-2 text-red-500 font-bold bg-gray-50 rounded"
+          >
+            이미지 삭제
+          </button>
+          <button
+            onClick={clickCropImageUpload}
+            className="p-2 text-blue-500 font-bold bg-gray-50 rounded"
+          >
+            자르기
+          </button>
+        </div>
       )}
     </>
   );
