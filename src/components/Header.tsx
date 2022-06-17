@@ -23,7 +23,9 @@ const Header = ({
 
   return (
     <header className="admin__header">
-      <h1>용감한 관리자</h1>
+      <a href="/admin/event" className="text-4xl font-bold">
+        용감한 관리자
+      </a>
       <Menu as="div" className="ml-3 relative">
         <div>
           <Menu.Button className="flex p-2 items-center bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2">

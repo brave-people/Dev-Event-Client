@@ -44,7 +44,7 @@
 
 .form__content {
   &__input {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     position: relative;
     display: flex;
     align-items: center;
@@ -60,8 +60,10 @@
 
   &--error {
     position: absolute;
-    bottom: -22px;
-    right: 0;
+    left: 120px;
+    bottom: -20px;
+    display: flex;
+    align-items: center;
     font-size: 12px;
     color: $color_red-600;
   }
@@ -69,10 +71,37 @@
   &--all-tags {
     display: flex;
     position: absolute;
-    padding: 8px 0;
-    bottom: 0;
-    left: $common_width;
+    bottom: -8px;
+    left: 120px;
     transform: translateY(100%);
+
+    .form__content--modify & {
+      bottom: 50%;
+      transform: translateY(50%);
+      margin-left: 8px;
+    }
+  }
+
+  &--all-tags--popup {
+    width: 140px;
+    height: 200px;
+    padding: 8px;
+    position: absolute;
+    left: $common_width;
+    bottom: 12px;
+    transform: translateY(100%);
+    font-size: 14px;
+    color: $color_secondary;
+    font-weight: 700;
+    background: $color_white;
+    box-shadow: $box__shadow;
+    border-radius: $border__radius;
+    overflow-y: auto;
+
+    button {
+      display: block;
+      padding: 8px 0;
+    }
   }
 
   .react-datepicker-wrapper {
