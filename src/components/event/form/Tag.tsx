@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import type {
-  ChangeEvent,
+  MouseEvent,
   Dispatch,
   KeyboardEvent,
   SetStateAction,
@@ -19,19 +19,18 @@ const Tags = ({
   const tagRef = useRef<HTMLInputElement>(null);
   const [tag, setTag] = useState('');
   const [showPrevTags, setShowPrevTags] = useState<boolean>(false);
-  const [selectTag] = useState();
 
   const changeTag = (e: { target: { value: string } }) => {
     setTag(e.target.value);
   };
-  const changeSelectTag = (e: ChangeEvent<HTMLSelectElement>) => {
-    const options = Array.from(e.target.children) as HTMLOptionElement[];
-    const currentTag = options.find(
-      (selectList) => selectList.value === e.target.value
-    );
-    if (currentTag?.label) {
+  const changeSelectTag = (e: MouseEvent<HTMLButtonElement>) => {
+    const { value } = e.target as HTMLButtonElement;
+    const currentTag = allTags.find((tag) => tag.tag_name === value);
+    if (currentTag) {
+      if (tags.length > 4) return alert('태그는 5개까지만 등록 가능해요!');
+
       setTags((prevTags: string[]) =>
-        Array.from(new Set([...prevTags, currentTag.label]))
+        Array.from(new Set([...prevTags, currentTag.tag_name]))
       );
     }
     setShowPrevTags(false);
@@ -42,11 +41,14 @@ const Tags = ({
       e.stopPropagation();
       const target = e.target as HTMLInputElement;
       const replaceValue = target.value.replaceAll(/\s/g, '');
+      if (tags.length > 4) return alert('태그는 5개까지만 등록 가능해요!');
+
       setTags((prevTags: string[]) =>
         Array.from(new Set([...prevTags, replaceValue]))
       );
       tagRef.current?.focus();
       setTag('');
+      setShowPrevTags(false);
     }
   };
   const deleteTag = (currentTag: string) => {
@@ -75,18 +77,13 @@ const Tags = ({
         autoComplete="off"
       />
       {showPrevTags && allTags?.length > 0 && (
-        <select
-          className="form__content--all-tags z-10"
-          value={selectTag}
-          onChange={changeSelectTag}
-        >
-          <option value="">--추천 태그--</option>
+        <div className="form__content--all-tags--popup z-10">
           {allTags.map((tag) => (
-            <option key={tag.id} value={tag.id} label={tag.tag_name}>
+            <button key={tag.id} value={tag.tag_name} onClick={changeSelectTag}>
               {tag.tag_name}
-            </option>
+            </button>
           ))}
-        </select>
+        </div>
       )}
       {tags?.length > 0 && (
         <div className="form__content--all-tags">
@@ -95,7 +92,7 @@ const Tags = ({
               <button
                 key={index}
                 onClick={() => deleteTag(tag)}
-                className="rounded py-1 px-3 text-white bg-blue-400 text-sm flex items-center"
+                className="rounded py-1 px-3 mr-3 text-white bg-blue-400 text-sm flex items-center"
               >
                 {tag}
                 <svg

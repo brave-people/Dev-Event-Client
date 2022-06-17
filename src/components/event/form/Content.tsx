@@ -104,7 +104,11 @@ const FormContent = ({
         <div className="form__content__input relative">
           <Tag tags={tags} setTags={setTags} allTags={allTags} />
         </div>
-        <div className="form__content--date mb-4">
+        <div
+          className={classNames('form__content--date mb-4', {
+            'mt-8': tags.length,
+          })}
+        >
           <span className="form__content__title inline-block text-base text-gray-600">
             시작 일시
           </span>
