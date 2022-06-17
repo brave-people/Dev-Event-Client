@@ -74,6 +74,12 @@
     bottom: -8px;
     left: 120px;
     transform: translateY(100%);
+
+    .form__content--modify & {
+      bottom: 50%;
+      transform: translateY(50%);
+      margin-left: 8px;
+    }
   }
 
   &--all-tags--popup {

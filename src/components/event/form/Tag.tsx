@@ -92,7 +92,7 @@ const Tags = ({
               <button
                 key={index}
                 onClick={() => deleteTag(tag)}
-                className="rounded py-1 px-3 mr-3 text-white bg-blue-400 text-sm flex items-center"
+                className="rounded py-1 px-3 mr-3 text-blue-600 bg-white-400 border border-blue-600 font-bold text-sm flex items-center"
               >
                 {tag}
                 <svg

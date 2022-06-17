@@ -89,31 +89,34 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   };
 
   return (
-    <FormContent
-      title={title}
-      description={description}
-      organizer={organizer}
-      eventLink={eventLink}
-      tags={tags}
-      setTags={setTags}
-      allTags={event?.tags}
-      changeTitle={changeTitle}
-      changeDescription={changeDescription}
-      changeOrganizer={changeOrganizer}
-      changeEventLink={changeEventLink}
-      startDate={startDate}
-      setStartDate={setStartDate}
-      startTime={startTime}
-      setStartTime={setStartTime}
-      endDate={endDate}
-      setEndDate={setEndDate}
-      endTime={endTime}
-      setEndTime={setEndTime}
-      error={error}
-      coverImageUrl={coverImageUrl}
-      setCoverImageUrl={setCoverImageUrl}
-      saveForm={saveEvent}
-    />
+    <div className="list">
+      <FormContent
+        title={title}
+        description={description}
+        organizer={organizer}
+        eventLink={eventLink}
+        tags={tags}
+        setTags={setTags}
+        allTags={event?.tags}
+        changeTitle={changeTitle}
+        changeDescription={changeDescription}
+        changeOrganizer={changeOrganizer}
+        changeEventLink={changeEventLink}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        startTime={startTime}
+        setStartTime={setStartTime}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        endTime={endTime}
+        setEndTime={setEndTime}
+        error={error}
+        coverImageUrl={coverImageUrl}
+        setCoverImageUrl={setCoverImageUrl}
+        saveForm={saveEvent}
+        isModify={true}
+      />
+    </div>
   );
 };
 

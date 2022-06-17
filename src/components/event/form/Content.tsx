@@ -31,6 +31,7 @@ const FormContent = ({
   coverImageUrl,
   setCoverImageUrl,
   saveForm,
+  isModify = false,
 }: EventFormModel) => {
   return (
     <form className="form--large">
@@ -101,12 +102,16 @@ const FormContent = ({
           />
           {error.eventLink && <ErrorContext />}
         </div>
-        <div className="form__content__input relative">
+        <div
+          className={classNames('form__content__input relative', {
+            'form__content--modify': isModify,
+          })}
+        >
           <Tag tags={tags} setTags={setTags} allTags={allTags} />
         </div>
         <div
           className={classNames('form__content--date mb-6', {
-            'mt-8': tags.length,
+            'mt-8': tags.length && !isModify,
           })}
         >
           <span className="form__content__title inline-block text-base text-gray-600">
