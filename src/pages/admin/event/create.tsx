@@ -1,6 +1,6 @@
+import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import 'react-datepicker/dist/react-datepicker.css';
 import getToken from '../../../server/api/auth/getToken';
 import getTags from '../../../server/api/events/getTags';
 import { useUpdateCookie } from '../../../util/use-cookie';
