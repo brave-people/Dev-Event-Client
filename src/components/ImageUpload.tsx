@@ -13,6 +13,7 @@ const ImageUpload = ({
 }) => {
   const htmlFor = 'image-upload';
   const imageRef = useRef(null);
+  const prevImageRef = useRef(coverImageUrl);
   const dragRef = useRef<HTMLLabelElement | null>(null);
 
   const [imageUrl, setImageUrl] = useState<{
@@ -27,7 +28,7 @@ const ImageUpload = ({
 
   useEffect(() => {
     if (!imageRef.current) return;
-    setCropper(new Cropper(imageRef.current, { aspectRatio: 1 }));
+    setCropper(new Cropper(imageRef.current, { aspectRatio: 16 / 9 }));
   }, [imageUrl]);
 
   const changeImageUpload = async ({ file }: { file: File }) => {
@@ -90,10 +91,10 @@ const ImageUpload = ({
 
   return (
     <>
-      {coverImageUrl && (
+      {prevImageRef.current && (
         <section className="mb-4">
           <p>기존 이미지</p>
-          <img src={coverImageUrl} alt="기존이미지" />
+          <img src={prevImageRef.current} alt="기존이미지" />
         </section>
       )}
       {!imageUrl.url && (
