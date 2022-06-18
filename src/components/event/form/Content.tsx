@@ -31,6 +31,7 @@ const FormContent = ({
   coverImageUrl,
   setCoverImageUrl,
   saveForm,
+  isModify = false,
 }: EventFormModel) => {
   return (
     <form className="form--large">
@@ -101,12 +102,20 @@ const FormContent = ({
           />
           {error.eventLink && <ErrorContext />}
         </div>
-        <div className="form__content__input relative">
+        <div
+          className={classNames('form__content__input relative', {
+            'form__content--modify': isModify,
+          })}
+        >
           <Tag tags={tags} setTags={setTags} allTags={allTags} />
         </div>
-        <div className="form__content--date mb-4">
+        <div
+          className={classNames('form__content--date mb-6', {
+            'mt-8': tags.length && !isModify,
+          })}
+        >
           <span className="form__content__title inline-block text-base text-gray-600">
-            시작 날짜
+            시작 일시
           </span>
           <DatePicker
             dateFormat="yyyy/MM/dd"
@@ -121,7 +130,7 @@ const FormContent = ({
         </div>
         <div className="form__content--date">
           <span className="form__content__title inline-block text-base text-gray-600">
-            종료 날짜
+            종료 일시
           </span>
           <DatePicker
             dateFormat="yyyy/MM/dd"
@@ -136,7 +145,7 @@ const FormContent = ({
           <TimeComponent time={endTime} setTime={setEndTime} />
         </div>
         <div className="my-8" />
-        <div className="flex">
+        <div>
           <span className="form__content__title inline-block text-base text-gray-600">
             대표 이미지
           </span>

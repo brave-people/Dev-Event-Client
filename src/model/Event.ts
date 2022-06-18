@@ -61,4 +61,5 @@ export interface EventFormModel {
   coverImageUrl?: string;
   setCoverImageUrl: Dispatch<SetStateAction<string>>;
   saveForm: (e: MouseEvent<HTMLButtonElement>) => Promise<void>;
+  isModify?: boolean;
 }
