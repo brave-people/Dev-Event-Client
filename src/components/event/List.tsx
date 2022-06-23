@@ -185,7 +185,7 @@ const List = () => {
                       <tr>
                         <td className="list__table--sub-title">{index + 1}</td>
                         <td>{value.title}</td>
-                        <td className="list__table--link">
+                        <td className="list__table__tag list__table--link">
                           <a href={value.event_link}>홈페이지</a>
                         </td>
                         <td>{value.start_date_time}</td>
