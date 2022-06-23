@@ -64,7 +64,6 @@ const SignIn = ({ data }: { data: string | null }) => {
             onChange={changeId}
             placeholder="아이디"
             isRequired={true}
-            customClass={{ 'mb-4': true }}
           />
           <Input
             type="password"
@@ -72,7 +71,6 @@ const SignIn = ({ data }: { data: string | null }) => {
             onChange={changePassword}
             placeholder="비밀번호"
             isRequired={true}
-            customClass={{ 'mb-4': true }}
           />
           {!message && loading && (
             <p className="mb-4 p-2 bg-yellow-50 font-bold text-yellow-600 text-sm">
