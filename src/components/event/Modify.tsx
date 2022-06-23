@@ -73,9 +73,9 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      start_date_time: dayjs(startDate).format('YYYY-MM-DD HH:MM'),
+      start_date_time: dayjs(startDate).format('YYYY-MM-DD'),
       start_time: dayjs(startTime).format('HH:MM'),
-      end_date_time: dayjs(endDate).format('YYYY-MM-DD HH:MM'),
+      end_date_time: dayjs(endDate).format('YYYY-MM-DD'),
       end_time: dayjs(endTime).format('HH:MM'),
       tags: tags?.map((tag) => ({
         tag_name: tag,

@@ -14,8 +14,10 @@ const User = ({
   return (
     <Suspense fallback={<div>로딩중...</div>}>
       <Header user={data} />
-      <h2>{title}</h2>
-      {children}
+      <section className="p-8 wrap__box--bg">
+        <h1 className="mb-4 text-3xl font-bold">{title}</h1>
+        {children}
+      </section>
     </Suspense>
   );
 };
