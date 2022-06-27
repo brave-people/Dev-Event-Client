@@ -185,8 +185,13 @@ const List = () => {
                       <tr>
                         <td className="list__table--sub-title">{index + 1}</td>
                         <td>{value.title}</td>
-                        <td className="list__table__tag list__table--link">
-                          <a href={value.event_link}>홈페이지</a>
+                        <td>
+                          <a
+                            href={value.event_link}
+                            className="list__table__tag list__table--link"
+                          >
+                            홈페이지
+                          </a>
                         </td>
                         <td>{value.start_date_time}</td>
                         <td>{value.end_date_time}</td>
@@ -238,7 +243,7 @@ const List = () => {
             </table>
             <button
               type="button"
-              className="list__button--create"
+              className="list__button--pop"
               onClick={() => router.push('/admin/event/create')}
             >
               이벤트 생성

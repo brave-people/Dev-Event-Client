@@ -128,7 +128,7 @@ $create_button_height: 48px;
   }
 }
 
-.list__button--create {
+.list__button--pop {
   width: 220px;
   height: $create_button_height;
   position: absolute;
@@ -141,4 +141,25 @@ $create_button_height: 48px;
   font-weight: 700;
   border-radius: $border__radius;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.125);
+}
+
+.list__button--pop--right {
+  min-width: 220px;
+  padding: 12px 16px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-content: space-around;
+  align-items: center;
+  font-size: 14px;
+  text-align: left;
+  font-weight: 600;
+  color: $color_white;
+  border-radius: $border__radius;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.125);
+
+  button {
+    margin-right: 8px;
+  }
 }

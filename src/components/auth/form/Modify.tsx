@@ -1,14 +1,13 @@
 import { useRecoilValue } from 'recoil';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { selectedUserState } from '../../../store/User';
 import {
   addRoleUsersApi,
   deleteRoleUsersApi,
 } from '../../../pages/api/auth/users/role';
-import { selectedUserState } from '../../../store/User';
-import { getConvertAuthType } from '../../../util/get-convert-auth-type';
-import Input from '../../input/Input';
-import type { FormEvent, ChangeEvent } from 'react';
+import FormContent from './Content';
+import type { ChangeEvent } from 'react';
 import type { UserRoleType } from '../../../model/User';
 
 const Modify = () => {
@@ -18,6 +17,8 @@ const Modify = () => {
   const [roles, setRoles] = useState<Set<UserRoleType>>(
     new Set(convertPrevRoles)
   );
+  const [newName, setNewName] = useState(data.name);
+  const [newEmail, setNewEmail] = useState(data.email);
 
   useEffect(() => {
     if (data.name) return;
@@ -26,8 +27,13 @@ const Modify = () => {
     router.push('/auth/users', undefined, { shallow: true });
   }, [data]);
 
-  const submit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const changeName = (e: { target: { value: string } }) =>
+    setNewName(e.target.value);
+
+  const changeEmail = (e: { target: { value: string } }) =>
+    setNewEmail(e.target.value);
+
+  const submit = () => {
     const removeRoles = convertPrevRoles.filter(
       (prevRole) => !roles.has(prevRole)
     );
@@ -66,56 +72,45 @@ const Modify = () => {
   };
 
   return (
-    <form onSubmit={submit}>
-      <Input type="text" text="이름" value={data.name} readonly={true} />
-      <Input
-        type="text"
-        text="아이디"
-        value={data.user_id || ''}
-        readonly={true}
-      />
-      <Input type="email" text="이메일" value={data.email} readonly={true} />
-      <Input
-        type="text"
-        text="회원유형"
-        value={getConvertAuthType(
-          'auth_type' in data ? data.auth_type : 'NONE'
-        )}
-        readonly={true}
-      />
-      <input
-        id="checkbox_admin"
-        type="checkbox"
-        value="ROLE_ADMIN"
-        onChange={changeRole}
-        checked={roles.has('ROLE_ADMIN')}
-      />
-      <label htmlFor="checkbox_admin">관리자</label>
-      <input
-        id="checkbox_admin"
-        type="checkbox"
-        value="ROLE_MANAGER"
-        onChange={changeRole}
-        checked={roles.has('ROLE_MANAGER')}
-      />
-      <label htmlFor="checkbox_admin">매니저</label>
-      <input
-        id="checkbox_admin"
-        type="checkbox"
-        value="ROLE_USER"
-        onChange={changeRole}
-        checked={roles.has('ROLE_USER')}
-      />
-      <label htmlFor="checkbox_admin">사용자</label>
-      <div className="relative">
-        <button
-          type="submit"
-          className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-        >
-          계정 수정
-        </button>
-      </div>
-    </form>
+    <div className="list">
+      <FormContent
+        user_id={data.user_id || ''}
+        name={newName}
+        changeName={changeName}
+        email={newEmail}
+        changeEmail={changeEmail}
+        buttonLabel="수정"
+        submit={submit}
+        readonlyList={['id']}
+      >
+        <>
+          <input
+            id="checkbox_admin"
+            type="checkbox"
+            value="ROLE_ADMIN"
+            onChange={changeRole}
+            checked={roles.has('ROLE_ADMIN')}
+          />
+          <label htmlFor="checkbox_admin">관리자</label>
+          <input
+            id="checkbox_admin"
+            type="checkbox"
+            value="ROLE_MANAGER"
+            onChange={changeRole}
+            checked={roles.has('ROLE_MANAGER')}
+          />
+          <label htmlFor="checkbox_admin">매니저</label>
+          <input
+            id="checkbox_admin"
+            type="checkbox"
+            value="ROLE_USER"
+            onChange={changeRole}
+            checked={roles.has('ROLE_USER')}
+          />
+          <label htmlFor="checkbox_admin">사용자</label>
+        </>
+      </FormContent>
+    </div>
   );
 };
 

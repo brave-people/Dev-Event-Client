@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import Input from '../../input/Input';
 import TimeComponent from '../date/Time';
 import ImageUploadComponent from '../../ImageUpload';
-import ErrorContext from './ErrorContext';
+import ErrorContext from '../../ErrorContext';
 import Tag from './Tag';
 import type { EventFormModel } from '../../../model/Event';
 
