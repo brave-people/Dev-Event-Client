@@ -5,7 +5,7 @@ import { createTagApi } from '../../pages/api/events/tag';
 import { modifyEventsApi } from '../../pages/api/events/modify';
 import { STATUS_200 } from '../../config/constants';
 import FormContent from './form/Content';
-import { useErrorContext } from './form/ErrorContext';
+import { useErrorContext } from '../ErrorContext';
 import type { MouseEvent } from 'react';
 import type { EventModel, EventResponseModel } from '../../model/Event';
 
