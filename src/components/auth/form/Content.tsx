@@ -1,67 +1,71 @@
-import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import stores from '../../../store';
 import { getUserRole } from '../../../util/get-user-role';
-import { modifyUsersApi } from '../../../pages/api/auth/users';
-import { STATUS_200 } from '../../../config/constants';
 import Input from '../../input/Input';
-import type { UserProfileModel } from '../../../model/User';
+import ErrorContext from '../../ErrorContext';
+import type { UserContent } from '../../../model/User';
 
 const FormContent = ({
-  id = '',
-  name = '',
-  email = '',
+  user_id,
+  name,
+  email,
+  password,
+  changeUserId,
+  changeName,
+  changeEmail,
+  changePassword,
+  errorEmailMessage,
   roles = [],
-  refetch,
-}: UserProfileModel) => {
+  buttonLabel,
+  submit,
+  readonlyList,
+  children,
+}: UserContent) => {
   const user = useRecoilValue(stores.user);
-  const [newName, setNewUserName] = useState(name);
-  const [newEmail, setNewEmail] = useState(email);
-  const [hasModify, setHasModify] = useState(false);
   const convertRoles = getUserRole(roles);
 
   if (!user) return null;
 
-  const changeUserName = (e: { target: { value: string } }) =>
-    setNewUserName(e.target.value);
-
-  const changeEmail = (e: { target: { value: string } }) =>
-    setNewEmail(e.target.value);
-
-  const save = async () => {
-    const body = {
-      email: newEmail,
-      name: newName,
-    };
-
-    const data = await modifyUsersApi({ data: body });
-    if (data.status_code === STATUS_200) {
-      setHasModify(false);
-      return refetch();
-    }
-
-    return alert(data.message);
-  };
+  const readonlyInput = (value: string) =>
+    !!readonlyList?.find((item) => item === value);
 
   return (
     <div className="form--large">
       <div className="form__content">
-        <Input text="아이디" value={id} readonly={true} disable={true} />
+        <Input
+          text="아이디"
+          value={user_id}
+          onChange={changeUserId}
+          isRequired={!readonlyInput('user_id')}
+          readonly={readonlyInput('user_id')}
+          disable={readonlyInput('user_id')}
+        />
         <Input
           text="이름"
-          value={newName}
-          onChange={changeUserName}
+          value={name}
+          onChange={changeName}
           isRequired={true}
-          readonly={!hasModify}
+          readonly={readonlyInput('name')}
         />
         <Input
           text="이메일"
-          value={newEmail}
+          value={email}
+          type="email"
           onChange={changeEmail}
           isRequired={true}
-          readonly={!hasModify}
-          type="email"
-        />
+          readonly={readonlyInput('email')}
+        >
+          {errorEmailMessage && <ErrorContext title={errorEmailMessage} />}
+        </Input>
+        {changePassword && (
+          <Input
+            text="패스워드"
+            value={password || ''}
+            type="password"
+            onChange={changePassword}
+            isRequired={true}
+          />
+        )}
         {convertRoles.length > 0 && (
           <>
             <span className="form__content__title inline-block text-base font-medium text-gray-600">
@@ -73,12 +77,12 @@ const FormContent = ({
           </>
         )}
       </div>
+      {children}
       <button
-        onClick={() => {
-          hasModify ? save() : setHasModify(true);
-        }}
+        className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+        onClick={() => submit}
       >
-        {hasModify ? '저장' : '수정'}
+        {buttonLabel}
       </button>
     </div>
   );
