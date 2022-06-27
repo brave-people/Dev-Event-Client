@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { STATUS_201, STATUS_203 } from '../../../config/constants';
+import { STATUS_200, STATUS_201, STATUS_400 } from '../../../config/constants';
 import { registerIdApi } from '../../../pages/api/auth/id';
 import { registerEmailApi } from '../../../pages/api/auth/email';
 import { registerUserApi } from '../../../pages/api/auth/register';
@@ -31,9 +31,8 @@ const Create = () => {
     registerIdApi({
       user_id: e.target.value,
     }).then((res) => {
-      if (res.status_code !== STATUS_203) {
-        return setMessage(res.message);
-      }
+      if (res.status_code === STATUS_200) return setMessage(res.message);
+      if (res.status_code === STATUS_400) return setErrorMessage(res.message);
     });
   };
 
@@ -47,23 +46,21 @@ const Create = () => {
         email
       )
     ) {
-      registerEmailApi({ email }).then((res) => {
-        if (res.status_code !== STATUS_203) {
-          return setErrorEmailMessage(res.message);
-        }
-      });
-    }
+      setErrorEmailMessage('');
 
-    if (email.length > 0) setErrorEmailMessage('이메일 형식이 아닙니다.');
+      registerEmailApi({ email }).then((res) => {
+        if (res.status_code === STATUS_400)
+          return setErrorEmailMessage(res.message);
+      });
+    } else if (email.length > 0)
+      return setErrorEmailMessage('이메일 형식이 아닙니다.');
   };
 
   const changePassword = (e: { target: { value: string } }) => {
     setPassword(e.target.value);
   };
 
-  const submit = (e: MouseEvent) => {
-    e.preventDefault();
-
+  const submit = () => {
     registerUserApi({
       name,
       user_id: id,

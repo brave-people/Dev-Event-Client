@@ -1,5 +1,5 @@
 import type { JwtPayload } from 'jsonwebtoken';
-import type { ReactElement } from 'react';
+import type { MouseEventHandler, ReactElement } from 'react';
 
 /** user info 관련 타입 */
 export type UserRoleType = 'ROLE_ADMIN' | 'ROLE_MANAGER' | 'ROLE_USER';
@@ -90,7 +90,7 @@ export interface UserContent extends Omit<UserRegisterModel, 'password'> {
   errorEmailMessage?: string;
   roles?: UserRole[];
   buttonLabel: string;
-  submit: (e: MouseEvent) => void;
+  submit: MouseEventHandler<HTMLButtonElement>;
   readonlyList?: string[];
   children: ReactElement;
 }

@@ -33,8 +33,7 @@ const Modify = () => {
   const changeEmail = (e: { target: { value: string } }) =>
     setNewEmail(e.target.value);
 
-  const submit = (e: MouseEvent) => {
-    e.preventDefault();
+  const submit = () => {
     const removeRoles = convertPrevRoles.filter(
       (prevRole) => !roles.has(prevRole)
     );
