@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import type {
-  EventErrorFormProps,
-  EventErrorFormModel,
-} from '../../../model/Event';
+import type { EventErrorFormProps, EventErrorFormModel } from '../model/Event';
 
 export const useErrorContext = ({
   title,
@@ -27,7 +24,7 @@ export const useErrorContext = ({
   return { error, validateForm };
 };
 
-const ErrorContext = () => {
+const ErrorContext = ({ title = '필수 입력값 입니다' }: { title?: string }) => {
   return (
     <p className="form__content--error">
       <svg
@@ -44,7 +41,7 @@ const ErrorContext = () => {
           d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
-      필수 입력값입니다
+      {title}
     </p>
   );
 };
