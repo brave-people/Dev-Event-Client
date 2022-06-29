@@ -83,32 +83,50 @@ const Modify = () => {
         submit={submit}
         readonlyList={['id']}
       >
-        <>
-          <input
-            id="checkbox_admin"
-            type="checkbox"
-            value="ROLE_ADMIN"
-            onChange={changeRole}
-            checked={roles.has('ROLE_ADMIN')}
-          />
-          <label htmlFor="checkbox_admin">관리자</label>
-          <input
-            id="checkbox_admin"
-            type="checkbox"
-            value="ROLE_MANAGER"
-            onChange={changeRole}
-            checked={roles.has('ROLE_MANAGER')}
-          />
-          <label htmlFor="checkbox_admin">매니저</label>
-          <input
-            id="checkbox_admin"
-            type="checkbox"
-            value="ROLE_USER"
-            onChange={changeRole}
-            checked={roles.has('ROLE_USER')}
-          />
-          <label htmlFor="checkbox_admin">사용자</label>
-        </>
+        <div className="form__content__input">
+          <label className="form__content__title inline-block text-base font-medium text-gray-600">
+            권한
+          </label>
+          <div className="bg-gray-50 p-2 rounded inline-flex items-center text-sm font-medium">
+            <input
+              id="checkbox_admin"
+              type="checkbox"
+              value="ROLE_ADMIN"
+              onChange={changeRole}
+              checked={roles.has('ROLE_ADMIN')}
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            />
+            <label htmlFor="checkbox_admin" className="mx-2 text-gray-800">
+              관리자
+            </label>
+          </div>
+          <div className="mx-4 bg-gray-50 p-2 rounded inline-flex items-center text-sm font-medium">
+            <input
+              id="checkbox_manager"
+              type="checkbox"
+              value="ROLE_MANAGER"
+              onChange={changeRole}
+              checked={roles.has('ROLE_MANAGER')}
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            />
+            <label htmlFor="checkbox_manager" className="mx-2 text-gray-800">
+              매니저
+            </label>
+          </div>
+          <div className="bg-gray-50 p-2 rounded inline-flex items-center text-sm font-medium">
+            <input
+              id="checkbox_user"
+              type="checkbox"
+              value="ROLE_USER"
+              onChange={changeRole}
+              checked={roles.has('ROLE_USER')}
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            />
+            <label htmlFor="checkbox_user" className="mx-2 text-gray-800">
+              사용자
+            </label>
+          </div>
+        </div>
       </FormContent>
     </div>
   );

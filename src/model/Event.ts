@@ -63,3 +63,5 @@ export interface EventFormModel {
   saveForm: (e: MouseEvent<HTMLButtonElement>) => Promise<void>;
   isModify?: boolean;
 }
+
+export type EventRouter = '/admin/event' | '/admin/replay' | '/admin/groups';

@@ -22,7 +22,7 @@ const Header = ({
   };
 
   return (
-    <header className="admin__header">
+    <header className="header">
       <a href="/admin/event" className="text-4xl font-bold">
         용감한 관리자
       </a>
