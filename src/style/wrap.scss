@@ -20,14 +20,11 @@
 }
 
 .wrap__box--bg {
+  width: calc(100% - 280px);
   min-height: calc(100vh - 90px);
+  display: inline-block;
   background-color: $color_bg;
   border-left: 1px solid $color_gray-300;
-
-  &--aside {
-    width: calc(100% - 280px);
-    display: inline-block;
-  }
 }
 
 .wrap__nav {
