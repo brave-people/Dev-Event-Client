@@ -22,4 +22,21 @@
 .wrap__box--bg {
   min-height: calc(100vh - 90px);
   background-color: $color_bg;
+  border-left: 1px solid $color_gray-300;
+
+  &--aside {
+    width: calc(100% - 280px);
+    display: inline-block;
+  }
+}
+
+.wrap__nav {
+  width: 280px;
+  height: 100%;
+  position: sticky;
+  top: 0;
+  display: inline-block;
+  padding: 28px 16px 0;
+  font-size: 18px;
+  color: $color_gray-900;
 }

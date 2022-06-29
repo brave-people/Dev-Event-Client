@@ -777,6 +777,10 @@ select {
   height: 2.5rem;
 }
 
+.h-5 {
+  height: 1.25rem;
+}
+
 .w-4 {
   width: 1rem;
 }
@@ -931,6 +935,11 @@ select {
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
+.bg-blue-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(191 219 254 / var(--tw-bg-opacity));
+}
+
 .p-8 {
   padding: 2rem;
 }
@@ -986,6 +995,10 @@ select {
 
 .pb-6 {
   padding-bottom: 1.5rem;
+}
+
+.pl-4 {
+  padding-left: 1rem;
 }
 
 .text-left {
@@ -1087,6 +1100,16 @@ select {
 .text-gray-800 {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+
+.text-blue-700 {
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity));
+}
+
+.text-blue-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity));
 }
 
 .placeholder-gray-500::-moz-placeholder {
