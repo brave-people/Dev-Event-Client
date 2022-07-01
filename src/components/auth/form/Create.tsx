@@ -1,69 +1,66 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import type { FormEvent } from 'react';
+import { STATUS_200, STATUS_201, STATUS_400 } from '../../../config/constants';
 import { registerIdApi } from '../../../pages/api/auth/id';
-import { STATUS_201, STATUS_203 } from '../../../config/constants';
 import { registerEmailApi } from '../../../pages/api/auth/email';
 import { registerUserApi } from '../../../pages/api/auth/register';
-import Input from '../../input/Input';
+import FormContent from './Content';
 
 const Create = () => {
   const router = useRouter();
 
-  /** form */
+  // form
   const [name, setName] = useState('');
   const [id, setId] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  /** message */
+  // message
   const [message, setMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [errorEmailMessage, setErrorEmailMessage] = useState('');
 
   const changeName = (e: { target: { value: string } }) => {
     setName(e.target.value);
   };
 
-  const changeId = (e: { target: { value: string } }) => {
+  const changeUserId = (e: { target: { value: string } }) => {
     setId(e.target.value);
     setMessage('');
 
     registerIdApi({
       user_id: e.target.value,
     }).then((res) => {
-      if (res.status_code !== STATUS_203) {
-        return setMessage(res.message);
-      }
+      if (res.status_code === STATUS_200) return setMessage(res.message);
+      if (res.status_code === STATUS_400) return setErrorMessage(res.message);
     });
   };
 
   const changeEmail = (e: { target: { value: string } }) => {
     const email = e.target.value;
     setEmail(email);
-    setMessage('');
+    setErrorEmailMessage('');
 
     if (
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
         email
       )
     ) {
+      setErrorEmailMessage('');
+
       registerEmailApi({ email }).then((res) => {
-        if (res.status_code !== STATUS_203) {
-          return setMessage(res.message);
-        }
+        if (res.status_code === STATUS_400)
+          return setErrorEmailMessage(res.message);
       });
-    } else {
-      setMessage('이메일 형식이 아닙니다.');
-    }
+    } else if (email.length > 0)
+      return setErrorEmailMessage('이메일 형식이 아닙니다.');
   };
 
   const changePassword = (e: { target: { value: string } }) => {
     setPassword(e.target.value);
   };
 
-  const submit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const submit = () => {
     registerUserApi({
       name,
       user_id: id,
@@ -75,54 +72,74 @@ const Create = () => {
         return;
       }
 
-      setMessage('축하해요! 가입에 성공하였어요 😎 2초 후 홈으로 이동합니다.');
-      return setTimeout(() => router.push('/admin/event'), 2000);
+      setMessage(
+        '축하해요! 가입에 성공하였어요 😎 2초 후 유저목록으로 이동합니다.'
+      );
+      return setTimeout(() => router.push('/auth/users'), 2000);
     });
   };
 
   return (
-    <>
-      <form onSubmit={submit}>
-        <Input
-          type="text"
-          text="이름"
-          value={name}
-          onChange={changeName}
-          isRequired={true}
-        />
-        <Input
-          type="text"
-          text="아이디"
-          value={id}
-          onChange={changeId}
-          isRequired={true}
-        />
-        <Input
-          type="email"
-          text="이메일"
-          value={email}
-          onChange={changeEmail}
-          isRequired={true}
-        />
-        <Input
-          type="password"
-          text="패스워드"
-          value={password}
-          onChange={changePassword}
-          isRequired={true}
-        />
-        <div className="relative">
-          <button
-            type="submit"
-            className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-          >
-            가입
-          </button>
-        </div>
-      </form>
-      {errorMessage && <p>{errorMessage}</p>}
-      {message && <p>{message}</p>}
-    </>
+    <div className="list">
+      <FormContent
+        user_id={id}
+        name={name}
+        email={email}
+        password={password}
+        changeUserId={changeUserId}
+        changeName={changeName}
+        changeEmail={changeEmail}
+        changePassword={changePassword}
+        errorEmailMessage={errorEmailMessage}
+        buttonLabel="가입"
+        submit={submit}
+      >
+        <>
+          {errorMessage && (
+            <div className="list__button--pop--right bg-red-500">
+              <button onClick={() => setErrorMessage('')}>
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+              {errorMessage}
+            </div>
+          )}
+          {message && (
+            <div className="list__button--pop--right bg-blue-500">
+              <button onClick={() => setMessage('')}>
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </button>
+              {message}
+            </div>
+          )}
+        </>
+      </FormContent>
+    </div>
   );
 };
 

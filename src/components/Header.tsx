@@ -22,7 +22,7 @@ const Header = ({
   };
 
   return (
-    <header className="admin__header">
+    <header className="header">
       <a href="/admin/event" className="text-4xl font-bold">
         용감한 관리자
       </a>
@@ -96,19 +96,34 @@ const Header = ({
               )}
             </Menu.Item>
             {isAdmin && (
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="/auth/users"
-                    className={classNames(
-                      active && 'bg-blue-50',
-                      'block px-4 py-2 text-sm text-gray-500 font-bold'
-                    )}
-                  >
-                    회원 관리
-                  </a>
-                )}
-              </Menu.Item>
+              <>
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      href="/auth/users"
+                      className={classNames(
+                        active && 'bg-blue-50',
+                        'block px-4 py-2 text-sm text-gray-500 font-bold'
+                      )}
+                    >
+                      회원 관리
+                    </a>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      href="/auth/create"
+                      className={classNames(
+                        active && 'bg-blue-50',
+                        'block px-4 py-2 text-sm text-gray-500 font-bold'
+                      )}
+                    >
+                      회원 생성
+                    </a>
+                  )}
+                </Menu.Item>
+              </>
             )}
             <Menu.Item>
               {({ active }) => (

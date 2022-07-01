@@ -1,4 +1,5 @@
 import type { JwtPayload } from 'jsonwebtoken';
+import type { MouseEventHandler, ReactElement } from 'react';
 
 /** user info 관련 타입 */
 export type UserRoleType = 'ROLE_ADMIN' | 'ROLE_MANAGER' | 'ROLE_USER';
@@ -12,7 +13,7 @@ export type UserAuthType =
   | 'GOOGLE'
   | 'GITHUB';
 
-/** auth 관련 모델*/
+// auth 관련 모델
 export interface UserIdModel {
   user_id: string;
 }
@@ -78,4 +79,18 @@ export interface UsersModel {
   name: string;
   roles: UserRole[];
   user_id: string;
+}
+
+export interface UserContent extends Omit<UserRegisterModel, 'password'> {
+  password?: string;
+  changeUserId?: (e: { target: { value: string } }) => void;
+  changeName: (e: { target: { value: string } }) => void;
+  changeEmail: (e: { target: { value: string } }) => void;
+  changePassword?: (e: { target: { value: string } }) => void;
+  errorEmailMessage?: string;
+  roles?: UserRole[];
+  buttonLabel: string;
+  submit: MouseEventHandler<HTMLButtonElement>;
+  readonlyList?: string[];
+  children: ReactElement;
 }

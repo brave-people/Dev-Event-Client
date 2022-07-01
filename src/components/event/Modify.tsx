@@ -5,7 +5,7 @@ import { createTagApi } from '../../pages/api/events/tag';
 import { modifyEventsApi } from '../../pages/api/events/modify';
 import { STATUS_200 } from '../../config/constants';
 import FormContent from './form/Content';
-import { useErrorContext } from './form/ErrorContext';
+import { useErrorContext } from '../ErrorContext';
 import type { MouseEvent } from 'react';
 import type { EventModel, EventResponseModel } from '../../model/Event';
 
@@ -73,9 +73,9 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      start_date_time: dayjs(startDate).format('YYYY-MM-DD HH:MM'),
+      start_date_time: dayjs(startDate).format('YYYY-MM-DD'),
       start_time: dayjs(startTime).format('HH:MM'),
-      end_date_time: dayjs(endDate).format('YYYY-MM-DD HH:MM'),
+      end_date_time: dayjs(endDate).format('YYYY-MM-DD'),
       end_time: dayjs(endTime).format('HH:MM'),
       tags: tags?.map((tag) => ({
         tag_name: tag,

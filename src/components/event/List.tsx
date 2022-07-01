@@ -162,12 +162,12 @@ const List = () => {
             />
           </div>
         </div>
-        {!list.length ? (
-          <div>
-            <p>이달의 이벤트가 없어요! 이벤트를 만들어주세요</p>
-          </div>
-        ) : (
-          <div className="list__table relative mt-8 border rounded">
+        <div className="list__table relative mt-8 border rounded">
+          {!list.length ? (
+            <p className="py-24 text-center font-bold text-base">
+              이달의 이벤트가 없어요! 이벤트를 만들어주세요
+            </p>
+          ) : (
             <table className="w-full p-4">
               <thead className="list__table--thead">
                 <tr>
@@ -185,8 +185,13 @@ const List = () => {
                       <tr>
                         <td className="list__table--sub-title">{index + 1}</td>
                         <td>{value.title}</td>
-                        <td className="list__table--link">
-                          <a href={value.event_link}>홈페이지</a>
+                        <td>
+                          <a
+                            href={value.event_link}
+                            className="list__table__tag list__table--link"
+                          >
+                            홈페이지
+                          </a>
                         </td>
                         <td>{value.start_date_time}</td>
                         <td>{value.end_date_time}</td>
@@ -236,15 +241,15 @@ const List = () => {
                   ))}
               </tbody>
             </table>
-            <button
-              type="button"
-              className="list__button--create"
-              onClick={() => router.push('/admin/event/create')}
-            >
-              이벤트 생성
-            </button>
-          </div>
-        )}
+          )}
+          <button
+            type="button"
+            className="list__button--pop"
+            onClick={() => router.push('/admin/event/create')}
+          >
+            이벤트 생성
+          </button>
+        </div>
         {showAlert && (
           <CenterAlert
             title="정말 삭제할까요?"
