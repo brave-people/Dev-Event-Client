@@ -1,5 +1,5 @@
 import 'react-datepicker/dist/react-datepicker.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
 import { getEventApi } from '../../api/events';
@@ -9,19 +9,28 @@ import EventModifyForm from '../../../components/event/Modify';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import type { EventResponseModel } from '../../../model/Event';
+import { useRouter } from 'next/router';
 
 const queryClient = new QueryClient();
 
-const EventModify = ({
-  token,
-  event,
-}: {
-  token: TokenModel;
-  event: EventResponseModel;
-}) => {
+const EventModify = ({ token }: { token: TokenModel }) => {
+  const { query } = useRouter();
+  const [event, setEvent] = useState<EventResponseModel>();
+
+  const data = async () =>
+    await getEventApi({ token, id: query.id?.toString() || '' });
+
   useEffect(() => {
-    if (token) useUpdateCookie(document, token);
+    if (token) {
+      useUpdateCookie(document, token);
+
+      // https://github.com/vercel/next.js/discussions/20641?sort=new
+      // vercel 배포 후 500 에러 이슈로 인해 useEffect 내부에서 호출하도록 수정
+      data().then((res) => setEvent(res));
+    }
   }, []);
+
+  if (!event) return null;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -48,9 +57,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
 
   // id가 없다면 이벤트 조회 페이지로 이동
   if (!id) return { redirect: { destination: '/admin/event' } };
-
-  const data = await getEventApi({ token: token.data, id: id.toString() });
-  return { props: { token: token.data, event: data } };
+  return { props: { token: token.data } };
 };
 
 export default EventModify;
