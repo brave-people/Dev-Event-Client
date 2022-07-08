@@ -111,6 +111,10 @@
 
   .react-datepicker-wrapper {
     max-width: fit-content;
+
+    input:disabled {
+      opacity: 0.5;
+    }
   }
 
   .react-datepicker__tab-loop {

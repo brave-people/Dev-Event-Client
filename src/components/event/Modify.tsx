@@ -21,6 +21,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const [tags, setTags] = useState<string[]>(
     event?.tags.map((tag) => tag.tag_name)
   );
+  const [hasTime, setHasTime] = useState(false);
 
   const { error, validateForm } = useErrorContext({
     title,
@@ -50,6 +51,9 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
   };
+  const changeHasTime = () => {
+    setHasTime(!hasTime);
+  };
 
   const saveEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -73,10 +77,10 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      start_date_time: dayjs(startDate).format('YYYY-MM-DD'),
-      start_time: dayjs(startTime).format('HH:MM'),
-      end_date_time: dayjs(endDate).format('YYYY-MM-DD'),
-      end_time: dayjs(endTime).format('HH:MM'),
+      start_date_time: dayjs(startDate).format('YYYY-MM-DD') + ' 00:00',
+      start_time: hasTime ? dayjs(startTime).format('HH:MM') : '00:00',
+      end_date_time: dayjs(endDate).format('YYYY-MM-DD') + ' 00:00',
+      end_time: hasTime ? dayjs(endTime).format('HH:MM') : '00:00',
       tags: tags?.map((tag) => ({
         tag_name: tag,
       })),
@@ -98,6 +102,8 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         tags={tags}
         setTags={setTags}
         allTags={event?.tags}
+        hasTime={hasTime}
+        setHasTime={changeHasTime}
         changeTitle={changeTitle}
         changeDescription={changeDescription}
         changeOrganizer={changeOrganizer}

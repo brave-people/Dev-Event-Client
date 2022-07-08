@@ -6,6 +6,7 @@ import ImageUploadComponent from '../../ImageUpload';
 import ErrorContext from '../../ErrorContext';
 import Tag from './Tag';
 import type { EventFormModel } from '../../../model/Event';
+import Checkbox from '../../input/Checkbox';
 
 const FormContent = ({
   title,
@@ -20,6 +21,8 @@ const FormContent = ({
   tags,
   setTags,
   allTags,
+  hasTime = false,
+  setHasTime,
   startDate,
   setStartDate,
   startTime,
@@ -109,6 +112,11 @@ const FormContent = ({
         >
           <Tag tags={tags} setTags={setTags} allTags={allTags} />
         </div>
+        {setHasTime && (
+          <div className="checkbox--blue mb-4">
+            <Checkbox value={hasTime} onChange={setHasTime} label="시간 표시" />
+          </div>
+        )}
         <div
           className={classNames('form__content--date mb-6', {
             'mt-8': tags.length && !isModify,
@@ -126,7 +134,11 @@ const FormContent = ({
           <span className="w-40 inline-block text-base text-gray-600 ml-4">
             시작 시간
           </span>
-          <TimeComponent time={startTime} setTime={setStartTime} />
+          <TimeComponent
+            time={startTime}
+            setTime={setStartTime}
+            disabled={!hasTime}
+          />
         </div>
         <div className="form__content--date">
           <span className="form__content__title inline-block text-base text-gray-600">
@@ -142,7 +154,11 @@ const FormContent = ({
           <span className="w-40 inline-block text-base text-gray-600 ml-4">
             종료 시간
           </span>
-          <TimeComponent time={endTime} setTime={setEndTime} />
+          <TimeComponent
+            time={endTime}
+            setTime={setEndTime}
+            disabled={!hasTime}
+          />
         </div>
         <div className="my-8" />
         <div>
