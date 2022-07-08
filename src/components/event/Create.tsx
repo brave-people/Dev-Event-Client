@@ -18,6 +18,7 @@ export const Create = ({ allTags }: { allTags: TagModel[] }) => {
   const [organizer, setOrganizer] = useState('');
   const [eventLink, setEventLink] = useState('');
   const [tags, setTags] = useState<string[]>([]);
+  const [hasTime, setHasTime] = useState(false);
 
   const { error, validateForm } = useErrorContext({
     title,
@@ -47,6 +48,9 @@ export const Create = ({ allTags }: { allTags: TagModel[] }) => {
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
   };
+  const changeHasTime = () => {
+    setHasTime(!hasTime);
+  };
 
   const createEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -63,16 +67,23 @@ export const Create = ({ allTags }: { allTags: TagModel[] }) => {
       }
     }
 
+    const convertTime = (time: Date) =>
+      hasTime ? dayjs(time).format('HH:MM') : '00:00';
+
     const body: EventModel = {
       title,
       description,
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      start_date_time: dayjs(startDate).format('YYYY-MM-DD HH:MM'),
-      start_time: dayjs(startTime).format('HH:MM'),
-      end_date_time: dayjs(endDate).format('YYYY-MM-DD HH:MM'),
-      end_time: dayjs(endTime).format('HH:MM'),
+      start_date_time: `${dayjs(startDate).format('YYYY-MM-DD')} ${convertTime(
+        startTime
+      )}`,
+      start_time: convertTime(startTime),
+      end_date_time: `${dayjs(endDate).format('YYYY-MM-DD')} ${convertTime(
+        endTime
+      )}`,
+      end_time: convertTime(endTime),
       tags: tags.map((tag) => ({
         tag_name: tag,
       })),
@@ -99,6 +110,8 @@ export const Create = ({ allTags }: { allTags: TagModel[] }) => {
         tags={tags}
         setTags={setTags}
         allTags={allTags}
+        hasTime={hasTime}
+        setHasTime={changeHasTime}
         startDate={startDate}
         setStartDate={setStartDate}
         startTime={startTime}

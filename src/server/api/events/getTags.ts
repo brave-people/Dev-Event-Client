@@ -1,10 +1,11 @@
 import { Headers } from '../../../config/headers';
-import { RequestHeaders } from '../../../model/Api';
+import urls from '../../../config/urls';
+import type { RequestHeaders } from '../../../model/Api';
 
 const getTagsApi = async (token: string | undefined) => {
   if (!token) return;
 
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events/tags`, {
+  return await fetch(`${urls.admin}/events/tags`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: token,

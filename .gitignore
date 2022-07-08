@@ -20,6 +20,10 @@
 .env.development.local
 .env.test.local
 .env.production
+.env.local
+
+/src/config/urls
+/src/config/urls.ts
 
 npm-debug.log*
 yarn-debug.log*

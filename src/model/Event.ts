@@ -1,4 +1,9 @@
-import type { Dispatch, SetStateAction, MouseEvent } from 'react';
+import type {
+  Dispatch,
+  SetStateAction,
+  MouseEvent,
+  ChangeEventHandler,
+} from 'react';
 import type { TagNameModel, TagModel } from './Tag';
 
 interface Event {
@@ -50,6 +55,8 @@ export interface EventFormModel {
   tags: string[];
   setTags: Dispatch<SetStateAction<string[]>>;
   allTags: TagModel[];
+  hasTime?: boolean;
+  setHasTime?: ChangeEventHandler<HTMLInputElement>;
   startDate: Date;
   setStartDate: Dispatch<SetStateAction<Date>>;
   startTime: Date;

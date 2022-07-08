@@ -4,9 +4,11 @@ import type { Dispatch, SetStateAction } from 'react';
 const TimeComponent = ({
   time,
   setTime,
+  disabled,
 }: {
   time: Date;
   setTime: Dispatch<SetStateAction<Date>>;
+  disabled: boolean;
 }) => {
   return (
     <DatePicker
@@ -17,6 +19,7 @@ const TimeComponent = ({
       timeIntervals={30}
       timeCaption="Time"
       dateFormat="h:mm aa"
+      disabled={disabled}
       className="appearance-none w-50 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
     />
   );
