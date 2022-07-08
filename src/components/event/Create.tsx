@@ -67,16 +67,23 @@ export const Create = ({ allTags }: { allTags: TagModel[] }) => {
       }
     }
 
+    const convertTime = (time: Date) =>
+      hasTime ? dayjs(time).format('HH:MM') : '00:00';
+
     const body: EventModel = {
       title,
       description,
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      start_date_time: dayjs(startDate).format('YYYY-MM-DD') + ' 00:00',
-      start_time: hasTime ? dayjs(startTime).format('HH:MM') : '00:00',
-      end_date_time: dayjs(endDate).format('YYYY-MM-DD') + ' 00:00',
-      end_time: hasTime ? dayjs(endTime).format('HH:MM') : '00:00',
+      start_date_time: `${dayjs(startDate).format('YYYY-MM-DD')} ${convertTime(
+        startTime
+      )}`,
+      start_time: convertTime(startTime),
+      end_date_time: `${dayjs(endDate).format('YYYY-MM-DD')} ${convertTime(
+        endTime
+      )}`,
+      end_time: convertTime(endTime),
       tags: tags.map((tag) => ({
         tag_name: tag,
       })),
