@@ -1,6 +1,5 @@
 import cookie from 'cookie';
 import { Headers } from '../../../config/headers';
-import urls from '../../../config/urls';
 import type { RequestHeaders } from '../../../model/Api';
 import type { EventModel } from '../../../model/Event';
 
@@ -11,7 +10,7 @@ export const modifyEventsApi = async ({
   data: EventModel;
   id: string;
 }) => {
-  return await fetch(`${urls.admin}/events/${id}`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

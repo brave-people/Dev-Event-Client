@@ -1,5 +1,4 @@
 import cookie from 'cookie';
-import urls from '../../../../config/urls';
 import { Headers } from '../../../../config/headers';
 import type { RequestHeaders, ResponseModel } from '../../../../model/Api';
 import type { UserRoleType } from '../../../../model/User';
@@ -9,7 +8,7 @@ export const addRoleUsersApi = async ({
 }: {
   data: { role_code: UserRoleType; user_id: string };
 }): Promise<ResponseModel> => {
-  return await fetch(`${urls.admin}/users/role`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/users/role`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -25,7 +24,7 @@ export const deleteRoleUsersApi = async ({
 }: {
   data: { role_code: UserRoleType; user_id: string };
 }): Promise<ResponseModel> => {
-  return await fetch(`${urls.admin}/users/role`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/users/role`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

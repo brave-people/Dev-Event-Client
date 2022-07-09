@@ -1209,14 +1209,6 @@ select {
   --tw-ring-offset-width: 2px;
 }
 
-.disabled\:opacity-75:disabled {
-  opacity: 0.75;
-}
-
-.disabled\:opacity-50:disabled {
-  opacity: 0.5;
-}
-
 @media (min-width: 640px) {
   .sm\:text-sm {
     font-size: 0.875rem;
