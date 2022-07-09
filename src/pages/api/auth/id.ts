@@ -1,12 +1,11 @@
 import cookie from 'cookie';
 import { Headers } from '../../../config/headers';
-import urls from '../../../config/urls';
 import type { UserIdModel } from '../../../model/User';
 import type { RequestHeaders } from '../../../model/Api';
 
 /** 중복 아이디 체크 */
 export const registerIdApi = async (req: UserIdModel) => {
-  return await fetch(`${urls.admin}/register/id`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/register/id`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

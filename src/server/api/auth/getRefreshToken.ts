@@ -1,13 +1,12 @@
 import cookie from 'cookie';
 import { Headers } from '../../../config/headers';
-import urls from '../../../config/urls';
 import type { RequestHeaders } from '../../../model/Api';
 
 /** refresh token 발급 */
 export const getRefreshTokenApi = async (cookies: string | undefined) => {
   if (!cookies) return { error: { message: 'refresh_token을 넣어주세요' } };
 
-  return await fetch(`${urls.admin}/token/refresh`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/token/refresh`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

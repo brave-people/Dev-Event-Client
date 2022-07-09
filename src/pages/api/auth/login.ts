@@ -1,10 +1,9 @@
 import { Headers } from '../../../config/headers';
-import urls from '../../../config/urls';
 import type { ResponseTokenModel, UserModel } from '../../../model/User';
 import type { RequestHeaders } from '../../../model/Api';
 
 export const loginApi = async (req: UserModel): Promise<ResponseTokenModel> => {
-  const response = await fetch(`${urls.admin}/login`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
