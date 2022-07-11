@@ -72,7 +72,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
     }
 
     const convertTime = (time: Date) =>
-      hasTime ? dayjs(time).format('HH:MM') : '00:00';
+      hasTime ? dayjs(time).format('HH:mm') : '00:00';
 
     const body: EventModel = {
       title,

@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import { createTagApi } from '../../pages/api/events/tag';
 import { createEventsApi } from '../../pages/api/events/create';
+import getTags from '../../server/api/events/getTags';
 import { STATUS_201 } from '../../config/constants';
 import FormContent from './form/Content';
 import { useErrorContext } from '../ErrorContext';
 import type { MouseEvent } from 'react';
 import type { TagModel } from '../../model/Tag';
 import type { EventModel } from '../../model/Event';
+import type { TokenModel } from '../../model/User';
 
-export const Create = ({ allTags }: { allTags: TagModel[] }) => {
+export const Create = ({ token }: { token: TokenModel }) => {
   const router = useRouter();
+  const allTags = useRef<TagModel[]>([]);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -60,15 +63,15 @@ export const Create = ({ allTags }: { allTags: TagModel[] }) => {
       return validateForm();
 
     for (const tag of tags) {
-      if (!allTags?.length) {
+      if (!allTags.current?.length) {
         await createTagApi({ tag_name: tag });
-      } else if (allTags.every((prevTag) => prevTag.tag_name !== tag)) {
+      } else if (allTags.current.every((prevTag) => prevTag.tag_name !== tag)) {
         await createTagApi({ tag_name: tag });
       }
     }
 
     const convertTime = (time: Date) =>
-      hasTime ? dayjs(time).format('HH:MM') : '00:00';
+      hasTime ? dayjs(time).format('HH:mm') : '00:00';
 
     const body: EventModel = {
       title,
@@ -95,6 +98,16 @@ export const Create = ({ allTags }: { allTags: TagModel[] }) => {
     return alert(data.message);
   };
 
+  useEffect(() => {
+    if (allTags.current.length) return;
+
+    const setAllTags = async () => {
+      return (allTags.current = await getTags(token['access_token']));
+    };
+
+    setAllTags();
+  }, []);
+
   return (
     <div className="list">
       <FormContent
@@ -109,7 +122,7 @@ export const Create = ({ allTags }: { allTags: TagModel[] }) => {
         changeEventLink={changeEventLink}
         tags={tags}
         setTags={setTags}
-        allTags={allTags}
+        allTags={allTags.current}
         hasTime={hasTime}
         setHasTime={changeHasTime}
         startDate={startDate}
