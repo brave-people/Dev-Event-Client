@@ -1,4 +1,3 @@
-import type { HeadersInit } from 'next/dist/server/web/spec-compliant/headers';
 import {
   STATUS_200,
   STATUS_201,
@@ -14,7 +13,7 @@ type Status =
   | typeof STATUS_400
   | typeof STATUS_404;
 
-export type RequestHeaders = HeadersInit & {
+export type RequestHeaders = {
   APP_NAME: string;
   APP_TOKEN: string;
 };
