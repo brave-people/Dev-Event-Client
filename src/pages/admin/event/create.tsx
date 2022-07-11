@@ -2,18 +2,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
-import getTags from '../../../server/api/events/getTags';
 import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/Event';
 import EventCreateForm from '../../../components/event/Create';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
-import type { TagModel } from '../../../model/Tag';
 
 const queryClient = new QueryClient();
 
-const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
-  const { token, allTags } = data || {};
+const EventCreate = (data: { token: TokenModel }) => {
+  const { token } = data || {};
 
   useEffect(() => {
     if (token?.access_token) useUpdateCookie(document, token);
@@ -22,7 +20,7 @@ const EventCreate = (data: { token: TokenModel; allTags: TagModel[] }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <EventComponent title="개발자 행사 등록">
-        <EventCreateForm allTags={allTags} />
+        <EventCreateForm token={token} />
       </EventComponent>
     </QueryClientProvider>
   );
@@ -41,8 +39,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  const tags = await getTags(token.data['access_token']);
-  return { props: { token: token.data, allTags: tags } };
+  return { props: { token: token.data } };
 };
 
 export default EventCreate;
