@@ -6,8 +6,8 @@ const TimeComponent = ({
   setTime,
   disabled,
 }: {
-  time: Date;
-  setTime: Dispatch<SetStateAction<Date>>;
+  time: Date | null;
+  setTime: Dispatch<SetStateAction<Date | null>>;
   disabled: boolean;
 }) => {
   return (

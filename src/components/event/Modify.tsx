@@ -21,7 +21,6 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const [tags, setTags] = useState<string[]>(
     event?.tags.map((tag) => tag.tag_name)
   );
-  const [hasTime, setHasTime] = useState(false);
 
   const { error, validateForm } = useErrorContext({
     title,
@@ -32,9 +31,15 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
 
   // date
   const [startDate, setStartDate] = useState(new Date(event?.start_date_time));
-  const [startTime, setStartTime] = useState(new Date(event?.start_date_time));
+  const [startTime, setStartTime] = useState<Date | null>(
+    new Date(event?.start_date_time)
+  );
   const [endDate, setEndDate] = useState(new Date(event?.end_date_time));
-  const [endTime, setEndTime] = useState(new Date(event?.end_date_time));
+  const [endTime, setEndTime] = useState<Date | null>(
+    new Date(event?.end_date_time)
+  );
+  const [hasStartTime, setHasStartTime] = useState(false);
+  const [hasEndTime, setHasEndTime] = useState(false);
 
   // image
   const [coverImageUrl, setCoverImageUrl] = useState(event?.cover_image_link);
@@ -51,8 +56,11 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
   };
-  const changeHasTime = () => {
-    setHasTime(!hasTime);
+  const changeHasStartTime = () => {
+    setHasStartTime(!hasStartTime);
+  };
+  const changeHasEndTime = () => {
+    setHasEndTime(!hasEndTime);
   };
 
   const saveEvent = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -71,8 +79,11 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
       }
     }
 
-    const convertTime = (time: Date) =>
-      hasTime ? dayjs(time).format('HH:mm') : '00:00';
+    const convertTime = (time: Date | null, type: 'start' | 'end') => {
+      const hasType = type === 'start' ? hasStartTime : hasEndTime;
+      if (!time || !hasType) return '00:00';
+      return dayjs(time).format('HH:mm');
+    };
 
     const body: EventModel = {
       title,
@@ -81,13 +92,15 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
       display_sequence: 0,
       event_link: eventLink,
       start_date_time: `${dayjs(startDate).format('YYYY-MM-DD')} ${convertTime(
-        startTime
+        startTime,
+        'start'
       )}`,
-      start_time: convertTime(startTime),
+      start_time: convertTime(startTime, 'start'),
       end_date_time: `${dayjs(endDate).format('YYYY-MM-DD')} ${convertTime(
-        endTime
+        endTime,
+        'end'
       )}`,
-      end_time: convertTime(endTime),
+      end_time: convertTime(endTime, 'end'),
       tags: tags?.map((tag) => ({
         tag_name: tag,
       })),
@@ -109,8 +122,6 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         tags={tags}
         setTags={setTags}
         allTags={event?.tags}
-        hasTime={hasTime}
-        setHasTime={changeHasTime}
         changeTitle={changeTitle}
         changeDescription={changeDescription}
         changeOrganizer={changeOrganizer}
@@ -123,6 +134,10 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         setEndDate={setEndDate}
         endTime={endTime}
         setEndTime={setEndTime}
+        hasStartTime={hasStartTime}
+        setHasStartTime={changeHasStartTime}
+        hasEndTime={hasEndTime}
+        setHasEndTime={changeHasEndTime}
         error={error}
         coverImageUrl={coverImageUrl}
         setCoverImageUrl={setCoverImageUrl}

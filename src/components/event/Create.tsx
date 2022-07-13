@@ -21,7 +21,6 @@ export const Create = ({ token }: { token: TokenModel }) => {
   const [organizer, setOrganizer] = useState('');
   const [eventLink, setEventLink] = useState('');
   const [tags, setTags] = useState<string[]>([]);
-  const [hasTime, setHasTime] = useState(false);
 
   const { error, validateForm } = useErrorContext({
     title,
@@ -32,9 +31,11 @@ export const Create = ({ token }: { token: TokenModel }) => {
 
   // date
   const [startDate, setStartDate] = useState(new Date());
-  const [startTime, setStartTime] = useState(new Date());
+  const [startTime, setStartTime] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
+  const [endTime, setEndTime] = useState<Date | null>(null);
+  const [hasStartTime, setHasStartTime] = useState(false);
+  const [hasEndTime, setHasEndTime] = useState(false);
 
   // image
   const [coverImageUrl, setCoverImageUrl] = useState('');
@@ -51,8 +52,11 @@ export const Create = ({ token }: { token: TokenModel }) => {
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
   };
-  const changeHasTime = () => {
-    setHasTime(!hasTime);
+  const changeHasStartTime = () => {
+    setHasStartTime(!hasStartTime);
+  };
+  const changeHasEndTime = () => {
+    setHasEndTime(!hasEndTime);
   };
 
   const createEvent = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -70,8 +74,11 @@ export const Create = ({ token }: { token: TokenModel }) => {
       }
     }
 
-    const convertTime = (time: Date) =>
-      hasTime ? dayjs(time).format('HH:mm') : '00:00';
+    const convertTime = (time: Date | null, type: 'start' | 'end') => {
+      const hasType = type === 'start' ? hasStartTime : hasEndTime;
+      if (!time || !hasType) return '00:00';
+      return dayjs(time).format('HH:mm');
+    };
 
     const body: EventModel = {
       title,
@@ -80,13 +87,15 @@ export const Create = ({ token }: { token: TokenModel }) => {
       display_sequence: 0,
       event_link: eventLink,
       start_date_time: `${dayjs(startDate).format('YYYY-MM-DD')} ${convertTime(
-        startTime
+        startTime,
+        'start'
       )}`,
-      start_time: convertTime(startTime),
+      start_time: convertTime(startTime, 'start'),
       end_date_time: `${dayjs(endDate).format('YYYY-MM-DD')} ${convertTime(
-        endTime
+        endTime,
+        'end'
       )}`,
-      end_time: convertTime(endTime),
+      end_time: convertTime(endTime, 'end'),
       tags: tags.map((tag) => ({
         tag_name: tag,
       })),
@@ -123,8 +132,6 @@ export const Create = ({ token }: { token: TokenModel }) => {
         tags={tags}
         setTags={setTags}
         allTags={allTags.current}
-        hasTime={hasTime}
-        setHasTime={changeHasTime}
         startDate={startDate}
         setStartDate={setStartDate}
         startTime={startTime}
@@ -132,6 +139,10 @@ export const Create = ({ token }: { token: TokenModel }) => {
         endDate={endDate}
         setEndDate={setEndDate}
         endTime={endTime}
+        hasStartTime={hasStartTime}
+        setHasStartTime={changeHasStartTime}
+        hasEndTime={hasEndTime}
+        setHasEndTime={changeHasEndTime}
         setEndTime={setEndTime}
         setCoverImageUrl={setCoverImageUrl}
         saveForm={(e: MouseEvent<HTMLButtonElement>) => createEvent(e)}
