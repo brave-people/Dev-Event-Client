@@ -2,7 +2,6 @@
   "name": "dev-event-client",
   "version": "0.2.0",
   "main": "index.js",
-  "type": "module",
   "repository": "https://github.com/brave-people/Dev-Event-Client.git",
   "author": "leedoopal <1233wsh@gmail.com>",
   "license": "MIT",
