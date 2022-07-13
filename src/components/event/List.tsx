@@ -1,86 +1,15 @@
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { createPortal } from 'react-dom';
 import { useRouter } from 'next/router';
 import { getEventsApi } from '../../pages/api/events';
 import { deleteEventApi } from '../../pages/api/events/delete';
-import YearAndMonthPicker from './date/YearAndMonthPicker';
+import FormList from './form/List';
 import CenterAlert from '../alert/CenterAlert';
-import type {
-  MouseEvent,
-  Dispatch,
-  SetStateAction,
-  MutableRefObject,
-} from 'react';
 import type { EventResponseModel } from '../../model/Event';
-
-interface Picker {
-  showPicker: boolean;
-  closePicker: () => void;
-  pickerRef: MutableRefObject<HTMLDivElement | null>;
-  year: number;
-  month: number;
-  setYear: Dispatch<SetStateAction<number>>;
-  setMonth: Dispatch<SetStateAction<number>>;
-}
-
-const PickerLayer = ({
-  showPicker,
-  closePicker,
-  pickerRef,
-  year,
-  month,
-  setYear,
-  setMonth,
-}: Picker) => {
-  const divRef = useRef<HTMLDivElement | null>(null);
-
-  const removePicker = () => {
-    if (pickerRef.current?.parentNode && divRef.current?.parentNode) {
-      pickerRef.current?.removeChild(divRef.current);
-      closePicker();
-    }
-  };
-
-  useEffect(() => {
-    divRef.current = document.createElement('div');
-
-    document.addEventListener('click', (e) => {
-      const path = e.composedPath();
-      const target = e.target as Element;
-      const clickPicker = [...path].find((node) => node === pickerRef.current);
-      const clickPickerMonth =
-        target.getAttribute('data-label') === 'picker-month';
-      (clickPickerMonth && removePicker()) || (!clickPicker && removePicker());
-    });
-  }, []);
-
-  if (!divRef.current) return null;
-
-  if (showPicker) {
-    pickerRef.current?.appendChild(divRef.current);
-
-    return createPortal(
-      <YearAndMonthPicker
-        currentYear={year}
-        currentMonth={month}
-        setYear={setYear}
-        setMonth={setMonth}
-      />,
-      divRef.current
-    );
-  }
-
-  if (pickerRef.current?.children?.length) closePicker();
-
-  return null;
-};
 
 const List = () => {
   const router = useRouter();
 
-  const pickerRef = useRef<HTMLDivElement>(null);
-  const [showPicker, setShowPicker] = useState(false);
   const [currentDate] = useState<Date>(new Date());
   const [list, setList] = useState<EventResponseModel[]>([]);
   const [keyword, setKeyword] = useState('');
@@ -102,12 +31,6 @@ const List = () => {
     await refetch();
   };
 
-  const changeShowPicker = (event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    setShowPicker(!showPicker);
-  };
-  const closePicker = () => setShowPicker(false);
-
   useEffect(() => {
     if (!data) return setList([]);
     if (!keyword) return setList(data);
@@ -121,47 +44,14 @@ const List = () => {
   return (
     <>
       <div className="list">
-        <div className="list__header">
-          <div className="relative">
-            <button className="list__header__button" onClick={changeShowPicker}>
-              <span>{year}년&nbsp;</span>
-              <span>{month + 1}월</span>
-            </button>
-            <div ref={pickerRef}>
-              <PickerLayer
-                showPicker={showPicker}
-                closePicker={closePicker}
-                pickerRef={pickerRef}
-                year={year}
-                month={month}
-                setYear={setYear}
-                setMonth={setMonth}
-              />
-            </div>
-          </div>
-          <div className="list__search">
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="#6E6E6E"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            <input
-              type="text"
-              placeholder="모임명으로 검색"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-            />
-          </div>
-        </div>
+        <FormList
+          year={year}
+          setYear={setYear}
+          month={month}
+          setMonth={setMonth}
+          keyword={keyword}
+          setKeyword={setKeyword}
+        />
         <div className="list__table relative mt-8 border rounded">
           {!list.length ? (
             <p className="py-24 text-center font-bold text-base">
