@@ -21,8 +21,10 @@ const FormContent = ({
   tags,
   setTags,
   allTags,
-  hasTime = false,
-  setHasTime,
+  hasStartTime = false,
+  setHasStartTime,
+  hasEndTime = false,
+  setHasEndTime,
   startDate,
   setStartDate,
   startTime,
@@ -112,13 +114,8 @@ const FormContent = ({
         >
           <Tag tags={tags} setTags={setTags} allTags={allTags} />
         </div>
-        {setHasTime && (
-          <div className="checkbox--blue mb-4">
-            <Checkbox value={hasTime} onChange={setHasTime} label="시간 표시" />
-          </div>
-        )}
         <div
-          className={classNames('form__content--date mb-6', {
+          className={classNames('mb-6', {
             'mt-8': tags.length && !isModify,
           })}
         >
@@ -129,18 +126,29 @@ const FormContent = ({
             dateFormat="yyyy/MM/dd"
             selected={startDate}
             onChange={(date) => date && setStartDate(date)}
-            className="appearance-none w-80 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            className="appearance-none w-50 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           />
-          <span className="w-40 inline-block text-base text-gray-600 ml-4">
-            시작 시간
-          </span>
-          <TimeComponent
-            time={startTime}
-            setTime={setStartTime}
-            disabled={!hasTime}
-          />
+          <div className="inline-block">
+            <span className="w-20 inline-block text-base text-gray-600 ml-4">
+              시작 시간
+            </span>
+            <TimeComponent
+              time={startTime}
+              setTime={setStartTime}
+              disabled={!hasStartTime}
+            />
+            {setHasStartTime && (
+              <div className="checkbox--blue inline-block ml-4">
+                <Checkbox
+                  value={hasStartTime}
+                  onChange={setHasStartTime}
+                  label="시간 표시"
+                />
+              </div>
+            )}
+          </div>
         </div>
-        <div className="form__content--date">
+        <div className="">
           <span className="form__content__title inline-block text-base text-gray-600">
             종료 일시
           </span>
@@ -149,16 +157,27 @@ const FormContent = ({
             selected={endDate}
             minDate={startDate}
             onChange={(date) => date && setEndDate(date)}
-            className="appearance-none w-80 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            className="appearance-none w-50 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           />
-          <span className="w-40 inline-block text-base text-gray-600 ml-4">
-            종료 시간
-          </span>
-          <TimeComponent
-            time={endTime}
-            setTime={setEndTime}
-            disabled={!hasTime}
-          />
+          <div className="inline-block">
+            <span className="w-20 inline-block text-base text-gray-600 ml-4">
+              종료 시간
+            </span>
+            <TimeComponent
+              time={endTime}
+              setTime={setEndTime}
+              disabled={!hasEndTime}
+            />
+            {setHasEndTime && (
+              <div className="checkbox--blue inline-block ml-4">
+                <Checkbox
+                  value={hasEndTime}
+                  onChange={setHasEndTime}
+                  label="시간 표시"
+                />
+              </div>
+            )}
+          </div>
         </div>
         <div className="my-8" />
         <div>

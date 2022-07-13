@@ -46,7 +46,7 @@ const SignIn = ({ data }: { data: string | null }) => {
 
         setLoading(false);
         useUpdateCookie(document, res.data);
-        router.push('/admin/event', undefined, { shallow: true });
+        router.push('/admin/event');
       }
     );
   };

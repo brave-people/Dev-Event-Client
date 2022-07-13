@@ -26,9 +26,7 @@ const Users = () => {
 
   const clickModifyUser = (user: UsersModel) => {
     setSelectedUser(user);
-    router.push('/auth/users/modify', undefined, {
-      shallow: true,
-    });
+    router.push('/auth/users/modify');
   };
 
   const clickDeleteUser = async (user: UsersModel) => {

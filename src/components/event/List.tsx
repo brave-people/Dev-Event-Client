@@ -216,9 +216,7 @@ const List = () => {
                                 className="text-blue-500 font-bold"
                                 onClick={() =>
                                   router.push(
-                                    `/admin/event/modify?id=${value.id}`,
-                                    undefined,
-                                    { shallow: true }
+                                    `/admin/event/modify?id=${value.id}`
                                   )
                                 }
                               >
