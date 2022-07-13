@@ -24,7 +24,7 @@ const Modify = () => {
     if (data.name) return;
 
     alert('변경할 사용자를 먼저 선택해주세요!');
-    router.push('/auth/users', undefined, { shallow: true });
+    router.push('/auth/users');
   }, [data]);
 
   const changeName = (e: { target: { value: string } }) =>
