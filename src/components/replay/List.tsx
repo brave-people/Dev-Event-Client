@@ -15,10 +15,10 @@ const List = () => {
   const [keyword, setKeyword] = useState('');
 
   const [year, setYear] = useState(currentDate.getFullYear());
-  const [showAlert, setShowAlert] = useState(false);
-  const [currentId, setCurrentId] = useState<number | null>(null);
+  const [, setShowAlert] = useState(false);
+  const [, setCurrentId] = useState<number | null>(null);
 
-  const { data, refetch } = useQuery(
+  const { data } = useQuery(
     ['fetchEvents', { year }],
     async () => await getReplayApi({ year }),
     { refetchOnWindowFocus: false }
