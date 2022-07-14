@@ -23,10 +23,12 @@ const Event = ({
         <Nav />
         <section className="p-8 wrap__box--bg">
           <h1 className="mb-4 text-3xl font-bold">{title}</h1>
-          {children}
-          {layer && (
-            <div className="bg-gray-300 block fixed top-0 left-0 opacity-60 w-full h-full" />
-          )}
+          <>
+            {layer && (
+              <div className="bg-gray-300 block fixed top-0 left-0 opacity-60 w-full h-full" />
+            )}
+            {children}
+          </>
         </section>
       </main>
     </Suspense>
