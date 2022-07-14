@@ -17,6 +17,7 @@ const Tags = ({
   allTags: TagModel[];
 }) => {
   const tagRef = useRef<HTMLInputElement>(null);
+  const tagLabelRef = useRef<HTMLLabelElement>(null);
   const [tag, setTag] = useState('');
   const [showPrevTags, setShowPrevTags] = useState<boolean>(false);
 
@@ -39,6 +40,7 @@ const Tags = ({
     if (e.code === 'Enter') {
       e.preventDefault();
       e.stopPropagation();
+      tagRef.current?.blur();
       const target = e.target as HTMLInputElement;
       const replaceValue = target.value.replaceAll(/\s/g, '');
       if (tags.length > 4) return alert('태그는 5개까지만 등록 가능해요!');
@@ -46,19 +48,18 @@ const Tags = ({
       setTags((prevTags: string[]) =>
         Array.from(new Set([...prevTags, replaceValue]))
       );
-      tagRef.current?.focus();
       setTag('');
       setShowPrevTags(false);
     }
   };
   const deleteTag = (currentTag: string) => {
     setTags((prevTags) => prevTags.filter((tag) => tag !== currentTag));
-    tagRef.current?.focus();
   };
 
   return (
     <>
       <label
+        ref={tagLabelRef}
         htmlFor="tag"
         className="form__content__title inline-block text-base font-medium text-gray-600"
       >
@@ -72,6 +73,7 @@ const Tags = ({
         value={tag}
         onChange={changeTag}
         onClick={() => setShowPrevTags(true)}
+        onBlur={() => setShowPrevTags(false)}
         onKeyPress={updateTags}
         className="appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
         autoComplete="off"
