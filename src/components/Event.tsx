@@ -25,7 +25,7 @@ const Event = ({
           <h1 className="mb-4 text-3xl font-bold">{title}</h1>
           <>
             {layer && (
-              <div className="bg-gray-300 block fixed top-0 left-0 opacity-60 w-full h-full" />
+              <div className="z-10 bg-gray-300 block fixed top-0 left-0 opacity-60 w-full h-full" />
             )}
             {children}
           </>
