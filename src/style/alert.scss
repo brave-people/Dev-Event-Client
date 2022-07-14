@@ -1,0 +1,14 @@
+@import './color';
+@import './variables';
+
+.alert--center {
+  position: fixed;
+  top: 50%;
+  left: calc(50% + #{$sub__nav / 2});
+  transform: translate(-50%, -50%);
+  background: $color_white;
+  padding: 24px 48px 24px 24px;
+  border-radius: $border__radius;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
+  z-index: 9;
+}

@@ -1,4 +1,5 @@
 @import "./color";
+@import "./variables";
 
 .wrap--vertical {
   height: 100vh;
@@ -20,7 +21,7 @@
 }
 
 .wrap__box--bg {
-  width: calc(100% - 280px);
+  width: calc(100% - #{$sub__nav});
   min-height: calc(100vh - 90px);
   display: inline-block;
   background-color: $color_bg;
@@ -28,7 +29,7 @@
 }
 
 .wrap__nav {
-  width: 280px;
+  width: $sub__nav;
   height: 100%;
   position: sticky;
   top: 0;

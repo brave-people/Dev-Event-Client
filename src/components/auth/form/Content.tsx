@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import stores from '../../../store';
+import { stores } from '../../../store';
 import { getUserRole } from '../../../util/get-user-role';
 import Input from '../../input/Input';
 import ErrorContext from '../../ErrorContext';

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
-import stores from '../../store';
+import { stores } from '../../store';
 import { getUsersProfileApi } from '../../pages/api/auth/users/profile';
 
 export const useUserProfile = () => {
