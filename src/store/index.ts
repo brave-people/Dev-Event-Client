@@ -1,7 +1,7 @@
 import { userState } from './User';
+import { alertLayerState } from './Layer';
 
-const stores = {
+export const stores = {
   user: userState,
+  layer: alertLayerState,
 };
-
-export default stores;
