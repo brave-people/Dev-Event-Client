@@ -6,6 +6,7 @@ import type {
   SetStateAction,
 } from 'react';
 import type { TagModel } from '../../../model/Tag';
+import getFirstConsonant from '../../../util/get-first-consonant';
 
 const Tags = ({
   tags,
@@ -20,9 +21,14 @@ const Tags = ({
   const tagLabelRef = useRef<HTMLLabelElement>(null);
   const [tag, setTag] = useState('');
   const [showPrevTags, setShowPrevTags] = useState<boolean>(false);
+  const [filterAllTags, setFilterAllTags] = useState(allTags);
+
+  const showAllTags = showPrevTags && filterAllTags?.length > 0;
 
   const changeTag = (e: { target: { value: string } }) => {
-    setTag(e.target.value);
+    const value = e.target.value;
+    setTag(value);
+    setFilterAllTags(getFirstConsonant({ words: value, allWord: allTags }));
   };
   const changeSelectTag = (e: MouseEvent<HTMLButtonElement>) => {
     const { value } = e.target as HTMLButtonElement;
@@ -78,9 +84,9 @@ const Tags = ({
         className="appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
         autoComplete="off"
       />
-      {showPrevTags && allTags?.length > 0 && (
+      {showAllTags && (
         <div className="form__content--all-tags--popup z-10">
-          {allTags.map((tag) => (
+          {filterAllTags.map((tag) => (
             <button key={tag.id} value={tag.tag_name} onClick={changeSelectTag}>
               {tag.tag_name}
             </button>
