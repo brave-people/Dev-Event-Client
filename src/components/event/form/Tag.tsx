@@ -58,7 +58,8 @@ const Tags = ({
       setShowPrevTags(false);
     }
   };
-  const deleteTag = (currentTag: string) => {
+  const deleteTag = (e: MouseEvent<HTMLButtonElement>, currentTag: string) => {
+    e.preventDefault();
     setTags((prevTags) => prevTags.filter((tag) => tag !== currentTag));
   };
 
@@ -99,7 +100,7 @@ const Tags = ({
             return (
               <button
                 key={index}
-                onClick={() => deleteTag(tag)}
+                onClick={(e) => deleteTag(e, tag)}
                 className="rounded py-1 px-3 mr-3 text-blue-600 bg-white-400 border border-blue-600 font-bold text-sm flex items-center"
               >
                 {tag}
