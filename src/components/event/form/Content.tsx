@@ -100,6 +100,7 @@ const FormContent = ({
             value={eventLink}
             onChange={changeEventLink}
             required
+            autoComplete="off"
             className={classNames(
               'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
               { 'border-red-400': error.title }
