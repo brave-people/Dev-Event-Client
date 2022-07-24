@@ -1,7 +1,7 @@
-export interface TagNameModel {
+export interface TagName {
   tag_name: string;
 }
 
-export interface TagModel extends TagNameModel {
+export interface Tag extends TagName {
   id: number;
 }

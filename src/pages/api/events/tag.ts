@@ -1,9 +1,9 @@
 import cookie from 'cookie';
 import { Headers } from '../../../config/headers';
 import type { RequestHeaders } from '../../../model/Api';
-import type { TagNameModel } from '../../../model/Tag';
+import type { Tag, TagName } from '../../../model/Tag';
 
-const createTagApi = async (data: TagNameModel) => {
+const createTagApi = async (data: TagName) => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events/tags`, {
     method: 'POST',
     headers: {

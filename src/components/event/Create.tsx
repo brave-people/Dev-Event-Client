@@ -8,13 +8,13 @@ import { STATUS_201 } from '../../config/constants';
 import FormContent from './form/Content';
 import { useErrorContext } from '../ErrorContext';
 import type { MouseEvent } from 'react';
-import type { TagModel } from '../../model/Tag';
+import type { Tag } from '../../model/Tag';
 import type { EventModel } from '../../model/Event';
 import type { TokenModel } from '../../model/User';
 
 export const Create = ({ token }: { token: TokenModel }) => {
   const router = useRouter();
-  const allTags = useRef<TagModel[]>([]);
+  const allTags = useRef<Tag[]>([]);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

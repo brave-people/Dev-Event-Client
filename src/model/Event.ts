@@ -4,7 +4,7 @@ import type {
   MouseEvent,
   ChangeEventHandler,
 } from 'react';
-import type { TagNameModel, TagModel } from './Tag';
+import type { TagName, Tag } from './Tag';
 
 interface Event {
   title: string;
@@ -20,12 +20,12 @@ interface Event {
 }
 
 export interface EventModel extends Event {
-  tags: TagNameModel[];
+  tags: TagName[];
 }
 
 export interface EventResponseModel extends Event {
   id: number;
-  tags: TagModel[];
+  tags: Tag[];
 }
 
 export interface EventErrorFormProps {
@@ -54,7 +54,7 @@ export interface EventFormModel {
   changeEventLink: (e: { target: { value: string } }) => void;
   tags: string[];
   setTags: Dispatch<SetStateAction<string[]>>;
-  allTags: TagModel[];
+  allTags: Tag[];
   hasStartTime?: boolean;
   hasEndTime?: boolean;
   setHasStartTime?: ChangeEventHandler<HTMLInputElement>;
