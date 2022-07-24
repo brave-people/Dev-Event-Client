@@ -8,9 +8,9 @@ const YearAndMonthPicker = ({
   setMonth,
 }: {
   currentYear: number;
-  currentMonth: number;
+  currentMonth?: number;
   setYear: Dispatch<SetStateAction<number>>;
-  setMonth: Dispatch<SetStateAction<number>>;
+  setMonth?: Dispatch<SetStateAction<number>>;
 }) => {
   const months = Array.from({ length: 12 }, (_, index) => ({
     value: index,
@@ -53,22 +53,24 @@ const YearAndMonthPicker = ({
           </svg>
         </button>
       </div>
-      <div className="grid grid-cols-3">
-        {months.map((month) => (
-          <button
-            key={month.value}
-            type="button"
-            value={month.value}
-            onClick={() => setMonth(month.value)}
-            className={classNames('p-3 text-sm text-gray-700', {
-              'bg-blue-500 text-white rounded': month.value === currentMonth,
-            })}
-            data-label="picker-month"
-          >
-            {month.text}
-          </button>
-        ))}
-      </div>
+      {setMonth && (
+        <div className="grid grid-cols-3">
+          {months.map((month) => (
+            <button
+              key={month.value}
+              type="button"
+              value={month.value}
+              onClick={() => setMonth(month.value)}
+              className={classNames('p-3 text-sm text-gray-700', {
+                'bg-blue-500 text-white rounded': month.value === currentMonth,
+              })}
+              data-label="picker-month"
+            >
+              {month.text}
+            </button>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };
