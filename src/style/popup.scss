@@ -1,0 +1,38 @@
+@import './color';
+@import './variables';
+
+.popup {
+  width: 600px;
+  top: 50%;
+  left: calc(#{$common_width} + 50%);
+  position: fixed;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 13px rgb(0 0 0 / 15%);
+  background-color: $color_white;
+  border-radius: $border__radius;
+}
+
+.popup__button {
+  position: relative;
+  left: 100%;
+  display: inline-block;
+  transform: translateX(-100%);
+}
+
+.tag__colors {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  &--active {
+    font-weight: bold;
+    background-color: $color_gray-100;
+    border: 1px solid $color_gray-300;
+    border-radius: $border__radius;
+  }
+
+  button {
+    display: grid;
+    justify-content: center;
+    padding: 8px 0;
+  }
+}

@@ -15,4 +15,14 @@ const createTagApi = async (data: TagName) => {
   }).then((res) => res.json());
 };
 
-export { createTagApi };
+const getTagsApi = async (): Promise<Tag[]> => {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events/tags`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: cookie.parse(document.cookie)['access_token'],
+      ...Headers(),
+    } as RequestHeaders,
+  }).then((res) => res.json());
+};
+
+export { getTagsApi, createTagApi };
