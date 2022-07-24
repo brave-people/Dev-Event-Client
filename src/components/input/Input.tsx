@@ -1,6 +1,6 @@
 import { useId } from 'react';
-import type { ReactNode, InputHTMLAttributes } from 'react';
 import classNames from 'classnames';
+import type { ReactNode, InputHTMLAttributes } from 'react';
 
 const Input = ({
   text,
@@ -11,6 +11,7 @@ const Input = ({
   readonly = false,
   disable = false,
   placeholder,
+  autoComplete,
   customClass,
   children,
 }: {
@@ -22,6 +23,7 @@ const Input = ({
   readonly?: boolean;
   disable?: boolean;
   placeholder?: string;
+  autoComplete?: 'on' | 'off';
   customClass?: Record<string, boolean>;
   children?: ReactNode;
 }) => {
@@ -46,6 +48,7 @@ const Input = ({
         required={isRequired}
         readOnly={readonly}
         disabled={disable}
+        autoComplete={autoComplete}
         {...(placeholder && { placeholder })}
         className={classNames(
           'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
