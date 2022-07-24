@@ -73,4 +73,8 @@ export interface EventFormModel {
   isModify?: boolean;
 }
 
-export type EventRouter = '/admin/event' | '/admin/replay' | '/admin/groups';
+export type EventRouter =
+  | '/admin/event'
+  | '/admin/replay'
+  | '/admin/groups'
+  | '/admin/event/tag';
