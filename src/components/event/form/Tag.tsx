@@ -5,7 +5,7 @@ import type {
   KeyboardEvent,
   SetStateAction,
 } from 'react';
-import type { TagModel } from '../../../model/Tag';
+import type { Tag } from '../../../model/Tag';
 import getFirstConsonant from '../../../util/get-first-consonant';
 
 const Tags = ({
@@ -15,7 +15,7 @@ const Tags = ({
 }: {
   tags: string[];
   setTags: Dispatch<SetStateAction<string[]>>;
-  allTags: TagModel[];
+  allTags: Tag[];
 }) => {
   const tagRef = useRef<HTMLInputElement>(null);
   const tagLabelRef = useRef<HTMLLabelElement>(null);
