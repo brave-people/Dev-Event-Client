@@ -27,6 +27,17 @@ const modifyTagApi = async (data: TagName, id: number) => {
   }).then((res) => res.json());
 };
 
+const deleteTagApi = async (id: number) => {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events/tags/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: cookie.parse(document.cookie)['access_token'],
+      ...Headers(),
+    } as RequestHeaders,
+  }).then((res) => res.json());
+};
+
 const getTagsApi = async (): Promise<Tag[]> => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events/tags`, {
     headers: {
@@ -37,4 +48,4 @@ const getTagsApi = async (): Promise<Tag[]> => {
   }).then((res) => res.json());
 };
 
-export { createTagApi, modifyTagApi, getTagsApi };
+export { createTagApi, modifyTagApi, deleteTagApi, getTagsApi };

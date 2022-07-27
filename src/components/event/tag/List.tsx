@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import {
   createTagApi,
   modifyTagApi,
+  deleteTagApi,
   getTagsApi,
 } from '../../../pages/api/events/tag';
 import TagLayer from '../../layer/Tag';
@@ -27,7 +28,7 @@ const TagList = ({ tags }: { tags: Tag[] }) => {
     { refetchOnWindowFocus: false }
   );
 
-  const setLayer = (type: TagLayerType) => {
+  const setLayer = async (type: TagLayerType) => {
     // 생성
     if (type === 'create') {
       resetCheckbox();
@@ -44,8 +45,19 @@ const TagList = ({ tags }: { tags: Tag[] }) => {
     }
 
     // 삭제
-    if (type === 'delete' && !selectTags.at(-1))
-      return alert('태그를 하나 이상 선택해주세요');
+    if (type === 'delete') {
+      if (!selectTags.at(-1)) return alert('태그를 하나 이상 선택해주세요');
+
+      const deleteTags = async () => {
+        for (const tag of selectTags) {
+          await deleteTagApi(tag.id);
+        }
+      };
+
+      await deleteTags();
+      resetCheckbox();
+      await refetch();
+    }
 
     setLayerType(type);
   };
@@ -166,7 +178,7 @@ const TagList = ({ tags }: { tags: Tag[] }) => {
             <thead className="list__table--thead">
               <tr>
                 <td className="list__table--title w-20" />
-                <td className="list__table--title">No</td>
+                <td className="list__table--title">ID</td>
                 <td className="list__table--title">태그 이름</td>
                 <td className="list__table--title">색상</td>
               </tr>
@@ -185,7 +197,7 @@ const TagList = ({ tags }: { tags: Tag[] }) => {
                           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                         />
                       </td>
-                      <td className="list__table--sub-title">{index + 1}</td>
+                      <td className="list__table--sub-title">{value.id}</td>
                       <td>{value.tag_name}</td>
                       <td>
                         <span
