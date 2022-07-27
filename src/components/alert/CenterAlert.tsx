@@ -12,11 +12,21 @@ const CenterAlert = ({
   save: () => void;
 }) => {
   return (
-    <div>
-      <p>{title}</p>
-      <p>{description}</p>
-      <button onClick={() => showAlert(false)}>취소</button>
-      <button onClick={save}>확인</button>
+    <div className="alert--center">
+      <p className="font-medium text-md">{title}</p>
+      <p className="text-sm text-gray-700 mb-6">{description}</p>
+      <button
+        onClick={save}
+        className="text-sm text-white bg-blue-600 rounded py-2 px-6 mr-3"
+      >
+        확인
+      </button>
+      <button
+        onClick={() => showAlert(false)}
+        className="text-sm text-blue-600 border-solid border border-gray-300 rounded py-2 px-6 mr-4"
+      >
+        취소
+      </button>
     </div>
   );
 };

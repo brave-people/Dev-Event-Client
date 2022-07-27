@@ -1,4 +1,5 @@
 @import './color';
+@import './variables';
 
 .header {
   height: 90px;
@@ -26,7 +27,7 @@
 }
 
 .month--picker {
-  width: 280px;
+  width: $sub__nav;
   background-color: $color_white;
   position: absolute;
   top: 24px;

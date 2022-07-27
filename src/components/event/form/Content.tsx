@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import DatePicker from 'react-datepicker';
 import Input from '../../input/Input';
-import TimeComponent from '../date/Time';
+import TimeComponent from '../../input/date/Time';
 import ImageUploadComponent from '../../ImageUpload';
 import ErrorContext from '../../ErrorContext';
 import Tag from './Tag';
@@ -100,6 +100,7 @@ const FormContent = ({
             value={eventLink}
             onChange={changeEventLink}
             required
+            autoComplete="off"
             className={classNames(
               'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
               { 'border-red-400': error.title }
