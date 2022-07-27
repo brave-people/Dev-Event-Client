@@ -1,26 +1,37 @@
-import 'react-datepicker/dist/react-datepicker.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
 import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/Event';
-import ReplayList from '../../../components/replay/List';
+import EventTagList from '../../../components/event/tag/List';
+import { getTagsApi } from '../../api/events/tag';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
+import type { Tag } from '../../../model/Tag';
 
 const queryClient = new QueryClient();
 
-const Replay = (data: { token: TokenModel }) => {
-  const { token } = data || {};
+const EventTag = ({ token }: { token: TokenModel }) => {
+  const [tags, setTags] = useState<Tag[]>([]);
+
+  const data = async () => await getTagsApi();
 
   useEffect(() => {
-    if (token?.access_token) useUpdateCookie(document, token);
+    if (token) {
+      useUpdateCookie(document, token);
+
+      // https://github.com/vercel/next.js/discussions/20641?sort=new
+      // vercel 배포 후 500 에러 이슈로 인해 useEffect 내부에서 호출하도록 수정
+      data().then((res) => setTags(res));
+    }
   }, []);
+
+  if (!tags.length) return null;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <EventComponent title="개발자 행사 다시보기">
-        <ReplayList />
+      <EventComponent title="태그 관리">
+        <EventTagList tags={tags} />
       </EventComponent>
     </QueryClientProvider>
   );
@@ -42,4 +53,4 @@ export const getServerSideProps = async (context: NextPageContext) => {
   return { props: { token: token.data } };
 };
 
-export default Replay;
+export default EventTag;

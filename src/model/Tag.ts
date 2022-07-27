@@ -1,7 +1,10 @@
-export interface TagNameModel {
+export interface TagName {
   tag_name: string;
+  tag_color: string;
 }
 
-export interface TagModel extends TagNameModel {
+export interface Tag extends TagName {
   id: number;
 }
+
+export type TagLayerType = 'create' | 'modify' | 'delete';
