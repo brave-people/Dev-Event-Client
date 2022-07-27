@@ -3,14 +3,13 @@ import { createPortal } from 'react-dom';
 import classNames from 'classnames';
 import Input from '../input/Input';
 import type { Dispatch, SetStateAction, MutableRefObject } from 'react';
-import type { Tag, TagLayerType } from '../../model/Tag';
+import type { TagLayerType } from '../../model/Tag';
 
 interface TagLayerProps {
-  type: TagLayerType;
+  type: TagLayerType | null;
   layerRef: MutableRefObject<HTMLDivElement | null>;
   showLayer: boolean;
   closeLayer: () => void;
-  selectTags: Tag[];
   name: string;
   setName: Dispatch<SetStateAction<string>>;
   color: string;
@@ -36,7 +35,6 @@ const TagLayer = ({
   layerRef,
   showLayer,
   closeLayer,
-  selectTags,
   name,
   setName,
   color,
@@ -44,7 +42,7 @@ const TagLayer = ({
   save,
 }: TagLayerProps) => {
   const divRef = useRef<HTMLDivElement | null>(null);
-  const showName = type === 'create' || selectTags.length === 1;
+  const showName = type !== 'delete';
 
   const onChangeName = (e: { target: { value: string } }) =>
     setName(e.target.value);

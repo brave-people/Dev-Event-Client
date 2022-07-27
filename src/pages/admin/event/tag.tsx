@@ -4,10 +4,10 @@ import getToken from '../../../server/api/auth/getToken';
 import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/Event';
 import EventTagList from '../../../components/event/tag/List';
+import { getTagsApi } from '../../api/events/tag';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
-import { getTagsApi } from '../../api/events/tag';
-import { Tag } from '../../../model/Tag';
+import type { Tag } from '../../../model/Tag';
 
 const queryClient = new QueryClient();
 
