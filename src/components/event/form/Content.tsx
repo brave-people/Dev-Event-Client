@@ -108,13 +108,7 @@ const FormContent = ({
           />
           {error.eventLink && <ErrorContext />}
         </div>
-        <div
-          className={classNames('form__content__input relative', {
-            'form__content--modify': isModify,
-          })}
-        >
-          <Tag tags={tags} setTags={setTags} allTags={allTags} />
-        </div>
+        <Tag tags={tags} setTags={setTags} allTags={allTags} />
         <div
           className={classNames('mb-6', {
             'mt-8': tags.length && !isModify,
