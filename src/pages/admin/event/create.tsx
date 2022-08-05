@@ -1,7 +1,10 @@
 import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useSetRecoilState } from 'recoil';
+import { stores } from '../../../store';
 import getToken from '../../../server/api/auth/getToken';
+import { getTagsApi } from '../../api/events/tag';
 import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/Event';
 import EventCreateForm from '../../../components/event/Create';
@@ -10,17 +13,19 @@ import type { TokenModel } from '../../../model/User';
 
 const queryClient = new QueryClient();
 
-const EventCreate = (data: { token: TokenModel }) => {
-  const { token } = data || {};
+const EventCreate = ({ token }: { token: TokenModel }) => {
+  const setTags = useSetRecoilState(stores.tags);
+  const tagsData = async () => await getTagsApi();
 
   useEffect(() => {
     if (token?.access_token) useUpdateCookie(document, token);
+    tagsData().then((res) => setTags(res));
   }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <EventComponent title="개발자 행사 등록">
-        <EventCreateForm token={token} />
+        <EventCreateForm />
       </EventComponent>
     </QueryClientProvider>
   );
