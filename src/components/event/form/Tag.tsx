@@ -6,7 +6,7 @@ import type {
   Dispatch,
   KeyboardEvent,
   SetStateAction,
-  ReactNode,
+  ReactElement,
 } from 'react';
 import type { Tag } from '../../../model/Tag';
 
@@ -17,7 +17,7 @@ const Tags = ({
 }: {
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
-  children: ReactNode;
+  children: ReactElement;
 }) => {
   const allTags = useRecoilValue(stores.tags);
 
