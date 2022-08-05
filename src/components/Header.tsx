@@ -7,11 +7,7 @@ import { selectedUserState } from '../store/User';
 import { getUserRoleIsAdmin } from '../util/get-user-role';
 import type { UsersModel, UserProfileModel } from '../model/User';
 
-const Header = ({
-  user,
-}: {
-  user: UsersModel | UserProfileModel | undefined;
-}) => {
+const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
   const router = useRouter();
   const setSelectedUser = useSetRecoilState(selectedUserState);
   const isAdmin = getUserRoleIsAdmin(user?.roles);
