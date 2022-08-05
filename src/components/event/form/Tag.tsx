@@ -1,28 +1,31 @@
 import { useEffect, useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { stores } from '../../../store';
 import type {
   MouseEvent,
   Dispatch,
   KeyboardEvent,
   SetStateAction,
+  ReactNode,
 } from 'react';
 import type { Tag } from '../../../model/Tag';
 
 const Tags = ({
   tags,
   setTags,
-  allTags,
+  children,
 }: {
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
-  allTags: Tag[];
+  children: ReactNode;
 }) => {
+  const allTags = useRecoilValue(stores.tags);
+
   const tagRef = useRef<HTMLInputElement>(null);
   const tagLabelRef = useRef<HTMLLabelElement>(null);
   const [tag, setTag] = useState('');
   const [showPrevTags, setShowPrevTags] = useState<boolean>(false);
-  const [filterAllTags, setFilterAllTags] = useState(allTags);
-
-  console.log('filterAllTags: ', filterAllTags);
+  const [filterAllTags, setFilterAllTags] = useState(allTags || []);
 
   const changeTag = (e: { target: { value: string } }) => {
     const value = e.target.value;
@@ -48,8 +51,6 @@ const Tags = ({
   };
 
   const clickTagEvent = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
     const { value } = e.target as HTMLButtonElement;
     updateTag(value);
   };
@@ -71,15 +72,15 @@ const Tags = ({
   };
 
   const blurEvent = () => {
-    // click event를 먼저 받을 수 있게 setTimeout 0ms 추가
+    // click event를 먼저 받을 수 있게 setTimeout 1ms 추가
     setTimeout(() => {
       setShowPrevTags(false);
-    }, 0);
+    }, 10);
   };
 
   useEffect(() => {
     setFilterAllTags(allTags);
-  }, []);
+  }, [allTags]);
 
   return (
     <>
@@ -92,7 +93,7 @@ const Tags = ({
           태그
           <span className="text-red-500">*</span>
         </label>
-        {tags?.length > 0 ? (
+        {tags.length > 0 ? (
           <div className="form__content--all-tags">
             {tags.map((tag, index) => {
               return (
@@ -157,6 +158,7 @@ const Tags = ({
           </div>
         )}
       </div>
+      <div className="form__content__input">{children}</div>
     </>
   );
 };
