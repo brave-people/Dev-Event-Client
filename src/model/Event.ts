@@ -54,7 +54,6 @@ export interface EventFormModel {
   changeEventLink: (e: { target: { value: string } }) => void;
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
-  allTags: Tag[];
   hasStartTime?: boolean;
   hasEndTime?: boolean;
   setHasStartTime?: ChangeEventHandler<HTMLInputElement>;

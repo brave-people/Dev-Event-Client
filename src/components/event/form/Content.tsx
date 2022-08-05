@@ -20,7 +20,6 @@ const FormContent = ({
   changeEventLink,
   tags,
   setTags,
-  allTags,
   hasStartTime = false,
   setHasStartTime,
   hasEndTime = false,
@@ -46,9 +45,9 @@ const FormContent = ({
           value={title}
           onChange={changeTitle}
           isRequired={true}
-          customClass={{ 'border-red-400': error.title }}
+          customClass={{ 'border-red-400': error.title && !title }}
         >
-          {error.title && <ErrorContext />}
+          {error.title && !title && <ErrorContext />}
         </Input>
         <div className="form__content__input">
           <label
@@ -81,10 +80,10 @@ const FormContent = ({
             required
             className={classNames(
               'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
-              { 'border-red-400': error.title }
+              { 'border-red-400': error.organizer && !organizer }
             )}
           />
-          {error.organizer && <ErrorContext />}
+          {error.organizer && !organizer && <ErrorContext />}
         </div>
         <div className="form__content__input">
           <label
@@ -103,12 +102,14 @@ const FormContent = ({
             autoComplete="off"
             className={classNames(
               'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
-              { 'border-red-400': error.title }
+              { 'border-red-400': error.title && !eventLink }
             )}
           />
-          {error.eventLink && <ErrorContext />}
+          {error.eventLink && !eventLink && <ErrorContext />}
         </div>
-        <Tag tags={tags} setTags={setTags} allTags={allTags} />
+        <Tag tags={tags} setTags={setTags}>
+          {error.tags && !tags.length && <ErrorContext />}
+        </Tag>
         <div
           className={classNames('mb-6', {
             'mt-8': tags.length && !isModify,
