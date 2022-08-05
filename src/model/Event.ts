@@ -6,6 +6,8 @@ import type {
 } from 'react';
 import type { Tag } from './Tag';
 
+export type EventTimeType = 'DATE' | 'RECRUIT';
+
 interface Event {
   title: string;
   description: string;
@@ -17,6 +19,7 @@ interface Event {
   end_date_time: string;
   end_time: string;
   cover_image_link: string;
+  event_time_type: EventTimeType;
 }
 
 export interface EventModel extends Event {
@@ -54,6 +57,8 @@ export interface EventFormModel {
   changeEventLink: (e: { target: { value: string } }) => void;
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
+  eventTimeType: EventTimeType;
+  changeEventTimeType: (e: MouseEvent, type: EventTimeType) => void;
   hasStartTime?: boolean;
   hasEndTime?: boolean;
   setHasStartTime?: ChangeEventHandler<HTMLInputElement>;
