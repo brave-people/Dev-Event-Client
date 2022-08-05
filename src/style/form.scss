@@ -49,6 +49,14 @@
     position: relative;
     display: flex;
     align-items: center;
+
+    &--tag {
+      margin-bottom: 8px;
+    }
+
+    &--tag-search {
+      margin-left: $common-width;
+    }
   }
 
   &__title {
@@ -71,37 +79,33 @@
 
   &--all-tags {
     display: flex;
-    position: absolute;
-    bottom: -8px;
-    left: 120px;
-    transform: translateY(100%);
-
-    .form__content--modify & {
-      bottom: 50%;
-      transform: translateY(50%);
-      margin-left: 8px;
-    }
   }
 
   &--all-tags--popup {
-    width: 140px;
-    //height: 200px;
-    padding: 8px;
+    width: 200px;
+    max-height: 400px;
+    padding: 16px 16px 8px 16px;
     position: absolute;
-    left: $common_width;
-    bottom: 12px;
+    bottom: 0;
     transform: translateY(100%);
     font-size: 14px;
     color: $color_secondary;
     font-weight: 700;
     background: $color_white;
     box-shadow: $box__shadow;
+    border: 1px solid $color_blue-50;
     border-radius: $border__radius;
     overflow-y: auto;
 
     button {
+      min-width: 48px;
       display: block;
-      padding: 8px 0;
+      margin-bottom: 8px;
+      background: $color_blue-50;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-align: left;
+      font-weight: 500;
     }
   }
 

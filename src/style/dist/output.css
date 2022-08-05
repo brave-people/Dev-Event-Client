@@ -761,6 +761,18 @@ select {
   margin-right: 2rem;
 }
 
+.ml-36 {
+  margin-left: 9rem;
+}
+
+.ml-32 {
+  margin-left: 8rem;
+}
+
+.ml-28 {
+  margin-left: 7rem;
+}
+
 .block {
   display: block;
 }

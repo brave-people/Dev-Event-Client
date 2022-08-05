@@ -1,32 +1,30 @@
-import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
-import { createTagApi } from '../../pages/api/events/tag';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { createEventsApi } from '../../pages/api/events/create';
-import getTags from '../../server/api/events/getTags';
 import { STATUS_201 } from '../../config/constants';
 import FormContent from './form/Content';
 import { useErrorContext } from '../ErrorContext';
 import type { MouseEvent } from 'react';
 import type { Tag } from '../../model/Tag';
 import type { EventModel } from '../../model/Event';
-import type { TokenModel } from '../../model/User';
 
-export const Create = ({ token }: { token: TokenModel }) => {
+export const Create = () => {
   const router = useRouter();
-  const allTags = useRef<Tag[]>([]);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [organizer, setOrganizer] = useState('');
   const [eventLink, setEventLink] = useState('');
-  const [tags, setTags] = useState<string[]>([]);
+  const [eventTags, setEventTags] = useState<Tag[]>([]);
+
+  const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
 
   const { error, validateForm } = useErrorContext({
     title,
     organizer,
     eventLink,
-    tags,
+    tags: eventTagsName,
   });
 
   // date
@@ -63,16 +61,8 @@ export const Create = ({ token }: { token: TokenModel }) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (!title || !organizer || !eventLink || !tags.length)
+    if (!title || !organizer || !eventLink || !eventTagsName)
       return validateForm();
-
-    for (const tag of tags) {
-      if (!allTags.current?.length) {
-        await createTagApi({ tag_name: tag });
-      } else if (allTags.current.every((prevTag) => prevTag.tag_name !== tag)) {
-        await createTagApi({ tag_name: tag });
-      }
-    }
 
     const convertTime = (time: Date | null, type: 'start' | 'end') => {
       const hasType = type === 'start' ? hasStartTime : hasEndTime;
@@ -96,9 +86,7 @@ export const Create = ({ token }: { token: TokenModel }) => {
         'end'
       )}`,
       end_time: convertTime(endTime, 'end'),
-      tags: tags.map((tag) => ({
-        tag_name: tag,
-      })),
+      tags: eventTags,
       cover_image_link: coverImageUrl,
     };
 
@@ -106,16 +94,6 @@ export const Create = ({ token }: { token: TokenModel }) => {
     if (data.status_code === STATUS_201) return router.reload();
     return alert(data.message);
   };
-
-  useEffect(() => {
-    if (allTags.current.length) return;
-
-    const setAllTags = async () => {
-      return (allTags.current = await getTags(token['access_token']));
-    };
-
-    setAllTags();
-  }, []);
 
   return (
     <div className="list">
@@ -129,9 +107,8 @@ export const Create = ({ token }: { token: TokenModel }) => {
         changeOrganizer={changeOrganizer}
         eventLink={eventLink}
         changeEventLink={changeEventLink}
-        tags={tags}
-        setTags={setTags}
-        allTags={allTags.current}
+        tags={eventTagsName}
+        setTags={setEventTags}
         startDate={startDate}
         setStartDate={setStartDate}
         startTime={startTime}
