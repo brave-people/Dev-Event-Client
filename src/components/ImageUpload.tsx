@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import Cropper from 'cropperjs';
+import { fetchUploadImage } from '../pages/api/image';
 import type { BaseSyntheticEvent } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
-import { fetchUploadImage } from '../pages/api/image';
 
 const ImageUpload = ({
   coverImageUrl,
@@ -25,11 +25,6 @@ const ImageUpload = ({
     name: string;
   }>({ url: '', name: '' });
   const [cropper, setCropper] = useState<Cropper | null>(null);
-
-  useEffect(() => {
-    if (!imageRef.current) return;
-    setCropper(new Cropper(imageRef.current, { aspectRatio: 16 / 9 }));
-  }, [imageUrl]);
 
   const changeImageUpload = async ({ file }: { file: File }) => {
     deleteImage();
@@ -76,6 +71,11 @@ const ImageUpload = ({
     e.preventDefault();
     e.stopPropagation();
   };
+
+  useEffect(() => {
+    if (!imageRef.current) return;
+    setCropper(new Cropper(imageRef.current, { aspectRatio: 16 / 9 }));
+  }, [imageUrl]);
 
   useEffect(() => {
     if (dragRef.current) {

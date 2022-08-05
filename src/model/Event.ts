@@ -4,7 +4,9 @@ import type {
   MouseEvent,
   ChangeEventHandler,
 } from 'react';
-import type { TagName, Tag } from './Tag';
+import type { Tag } from './Tag';
+
+export type EventTimeType = 'DATE' | 'RECRUIT';
 
 interface Event {
   title: string;
@@ -17,10 +19,11 @@ interface Event {
   end_date_time: string;
   end_time: string;
   cover_image_link: string;
+  event_time_type: EventTimeType;
 }
 
 export interface EventModel extends Event {
-  tags: TagName[];
+  tags: Tag[];
 }
 
 export interface EventResponseModel extends Event {
@@ -53,8 +56,9 @@ export interface EventFormModel {
   eventLink: string;
   changeEventLink: (e: { target: { value: string } }) => void;
   tags: string[];
-  setTags: Dispatch<SetStateAction<string[]>>;
-  allTags: Tag[];
+  setTags: Dispatch<SetStateAction<Tag[]>>;
+  eventTimeType: EventTimeType;
+  changeEventTimeType: (e: MouseEvent, type: EventTimeType) => void;
   hasStartTime?: boolean;
   hasEndTime?: boolean;
   setHasStartTime?: ChangeEventHandler<HTMLInputElement>;

@@ -1,33 +1,25 @@
-import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
-import { createTagApi } from '../../pages/api/events/tag';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { createEventsApi } from '../../pages/api/events/create';
-import getTags from '../../server/api/events/getTags';
 import { STATUS_201 } from '../../config/constants';
 import FormContent from './form/Content';
 import { useErrorContext } from '../ErrorContext';
 import type { MouseEvent } from 'react';
 import type { Tag } from '../../model/Tag';
-import type { EventModel } from '../../model/Event';
-import type { TokenModel } from '../../model/User';
+import type { EventModel, EventTimeType } from '../../model/Event';
 
-export const Create = ({ token }: { token: TokenModel }) => {
+export const Create = () => {
   const router = useRouter();
-  const allTags = useRef<Tag[]>([]);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [organizer, setOrganizer] = useState('');
   const [eventLink, setEventLink] = useState('');
-  const [tags, setTags] = useState<string[]>([]);
-
-  const { error, validateForm } = useErrorContext({
-    title,
-    organizer,
-    eventLink,
-    tags,
-  });
+  const [eventTags, setEventTags] = useState<Tag[]>([]);
+  const [eventTimeType, setEventTimeType] = useState<EventTimeType>(
+    'DATE' as const
+  );
 
   // date
   const [startDate, setStartDate] = useState(new Date());
@@ -39,6 +31,15 @@ export const Create = ({ token }: { token: TokenModel }) => {
 
   // image
   const [coverImageUrl, setCoverImageUrl] = useState('');
+
+  const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
+
+  const { error, validateForm } = useErrorContext({
+    title,
+    organizer,
+    eventLink,
+    tags: eventTagsName,
+  });
 
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
@@ -52,6 +53,11 @@ export const Create = ({ token }: { token: TokenModel }) => {
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
   };
+  const changeEventTimeType = (e: MouseEvent, type: EventTimeType) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setEventTimeType(type);
+  };
   const changeHasStartTime = () => {
     setHasStartTime(!hasStartTime);
   };
@@ -60,19 +66,10 @@ export const Create = ({ token }: { token: TokenModel }) => {
   };
 
   const createEvent = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
     e.stopPropagation();
 
-    if (!title || !organizer || !eventLink || !tags.length)
+    if (!title || !organizer || !eventLink || !eventTagsName)
       return validateForm();
-
-    for (const tag of tags) {
-      if (!allTags.current?.length) {
-        await createTagApi({ tag_name: tag });
-      } else if (allTags.current.every((prevTag) => prevTag.tag_name !== tag)) {
-        await createTagApi({ tag_name: tag });
-      }
-    }
 
     const convertTime = (time: Date | null, type: 'start' | 'end') => {
       const hasType = type === 'start' ? hasStartTime : hasEndTime;
@@ -96,26 +93,15 @@ export const Create = ({ token }: { token: TokenModel }) => {
         'end'
       )}`,
       end_time: convertTime(endTime, 'end'),
-      tags: tags.map((tag) => ({
-        tag_name: tag,
-      })),
+      tags: eventTags,
       cover_image_link: coverImageUrl,
+      event_time_type: eventTimeType,
     };
 
     const data = await createEventsApi({ data: body });
     if (data.status_code === STATUS_201) return router.reload();
     return alert(data.message);
   };
-
-  useEffect(() => {
-    if (allTags.current.length) return;
-
-    const setAllTags = async () => {
-      return (allTags.current = await getTags(token['access_token']));
-    };
-
-    setAllTags();
-  }, []);
 
   return (
     <div className="list">
@@ -129,9 +115,10 @@ export const Create = ({ token }: { token: TokenModel }) => {
         changeOrganizer={changeOrganizer}
         eventLink={eventLink}
         changeEventLink={changeEventLink}
-        tags={tags}
-        setTags={setTags}
-        allTags={allTags.current}
+        tags={eventTagsName}
+        setTags={setEventTags}
+        eventTimeType={eventTimeType}
+        changeEventTimeType={changeEventTimeType}
         startDate={startDate}
         setStartDate={setStartDate}
         startTime={startTime}
@@ -145,7 +132,7 @@ export const Create = ({ token }: { token: TokenModel }) => {
         setHasEndTime={changeHasEndTime}
         setEndTime={setEndTime}
         setCoverImageUrl={setCoverImageUrl}
-        saveForm={(e: MouseEvent<HTMLButtonElement>) => createEvent(e)}
+        saveForm={createEvent}
       />
     </div>
   );

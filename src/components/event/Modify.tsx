@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
-import { createTagApi } from '../../pages/api/events/tag';
 import { modifyEventsApi } from '../../pages/api/events/modify';
 import { STATUS_200 } from '../../config/constants';
 import FormContent from './form/Content';
 import { useErrorContext } from '../ErrorContext';
 import type { MouseEvent } from 'react';
-import type { EventModel, EventResponseModel } from '../../model/Event';
+import type {
+  EventModel,
+  EventResponseModel,
+  EventTimeType,
+} from '../../model/Event';
+import type { Tag } from '../../model/Tag';
 
 const Modify = ({ event }: { event: EventResponseModel }) => {
   const router = useRouter();
@@ -18,16 +22,10 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const [description, setDescription] = useState(event?.description);
   const [organizer, setOrganizer] = useState(event?.organizer);
   const [eventLink, setEventLink] = useState(event?.event_link);
-  const [tags, setTags] = useState<string[]>(
-    event?.tags.map((tag) => tag.tag_name)
+  const [eventTags, setEventTags] = useState<Tag[]>(event?.tags);
+  const [eventTimeType, setEventTimeType] = useState<EventTimeType>(
+    event?.event_time_type
   );
-
-  const { error, validateForm } = useErrorContext({
-    title,
-    organizer,
-    eventLink,
-    tags,
-  });
 
   // date
   const [startDate, setStartDate] = useState(new Date(event?.start_date_time));
@@ -44,6 +42,15 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   // image
   const [coverImageUrl, setCoverImageUrl] = useState(event?.cover_image_link);
 
+  const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
+
+  const { error, validateForm } = useErrorContext({
+    title,
+    organizer,
+    eventLink,
+    tags: eventTagsName,
+  });
+
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
   };
@@ -56,6 +63,11 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
   };
+  const changeEventTimeType = (e: MouseEvent, type: EventTimeType) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setEventTimeType(type);
+  };
   const changeHasStartTime = () => {
     setHasStartTime(!hasStartTime);
   };
@@ -67,17 +79,8 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (!title || !organizer || !eventLink || !tags.length)
+    if (!title || !organizer || !eventLink || !eventTags.length)
       return validateForm();
-
-    for (const tag of tags) {
-      const allTags = event?.tags;
-      if (!allTags.length) {
-        await createTagApi({ tag_name: tag });
-      } else if (allTags.every((prevTag) => prevTag.tag_name !== tag)) {
-        await createTagApi({ tag_name: tag });
-      }
-    }
 
     const convertTime = (time: Date | null, type: 'start' | 'end') => {
       const hasType = type === 'start' ? hasStartTime : hasEndTime;
@@ -101,10 +104,9 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         'end'
       )}`,
       end_time: convertTime(endTime, 'end'),
-      tags: tags?.map((tag) => ({
-        tag_name: tag,
-      })),
+      tags: eventTags,
       cover_image_link: coverImageUrl,
+      event_time_type: eventTimeType,
     };
 
     const data = await modifyEventsApi({ data: body, id: id.toString() });
@@ -119,13 +121,14 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         description={description}
         organizer={organizer}
         eventLink={eventLink}
-        tags={tags}
-        setTags={setTags}
-        allTags={event?.tags}
+        tags={eventTagsName}
+        setTags={setEventTags}
         changeTitle={changeTitle}
         changeDescription={changeDescription}
         changeOrganizer={changeOrganizer}
         changeEventLink={changeEventLink}
+        eventTimeType={eventTimeType}
+        changeEventTimeType={changeEventTimeType}
         startDate={startDate}
         setStartDate={setStartDate}
         startTime={startTime}

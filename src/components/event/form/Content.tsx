@@ -5,8 +5,8 @@ import TimeComponent from '../../input/date/Time';
 import ImageUploadComponent from '../../ImageUpload';
 import ErrorContext from '../../ErrorContext';
 import Tag from './Tag';
-import type { EventFormModel } from '../../../model/Event';
 import Checkbox from '../../input/Checkbox';
+import type { EventFormModel } from '../../../model/Event';
 
 const FormContent = ({
   title,
@@ -20,7 +20,8 @@ const FormContent = ({
   changeEventLink,
   tags,
   setTags,
-  allTags,
+  eventTimeType,
+  changeEventTimeType,
   hasStartTime = false,
   setHasStartTime,
   hasEndTime = false,
@@ -46,9 +47,9 @@ const FormContent = ({
           value={title}
           onChange={changeTitle}
           isRequired={true}
-          customClass={{ 'border-red-400': error.title }}
+          customClass={{ 'border-red-400': error.title && !title }}
         >
-          {error.title && <ErrorContext />}
+          {error.title && !title && <ErrorContext />}
         </Input>
         <div className="form__content__input">
           <label
@@ -81,10 +82,10 @@ const FormContent = ({
             required
             className={classNames(
               'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
-              { 'border-red-400': error.title }
+              { 'border-red-400': error.organizer && !organizer }
             )}
           />
-          {error.organizer && <ErrorContext />}
+          {error.organizer && !organizer && <ErrorContext />}
         </div>
         <div className="form__content__input">
           <label
@@ -103,17 +104,36 @@ const FormContent = ({
             autoComplete="off"
             className={classNames(
               'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
-              { 'border-red-400': error.title }
+              { 'border-red-400': error.title && !eventLink }
             )}
           />
-          {error.eventLink && <ErrorContext />}
+          {error.eventLink && !eventLink && <ErrorContext />}
         </div>
-        <div
-          className={classNames('form__content__input relative', {
-            'form__content--modify': isModify,
-          })}
-        >
-          <Tag tags={tags} setTags={setTags} allTags={allTags} />
+        <Tag tags={tags} setTags={setTags}>
+          {error.tags && !tags.length ? <ErrorContext /> : <></>}
+        </Tag>
+        <div className="form__content__input">
+          <span className="form__content__title inline-block text-base text-gray-600">
+            시간 유형
+          </span>
+          <button
+            onClick={(e) => changeEventTimeType(e, 'DATE')}
+            className={classNames(
+              'border-solid border border-gray-300 rounded py-2 px-6 text-sm text-gray-600 mr-2',
+              { 'border-blue-500': eventTimeType === 'DATE' }
+            )}
+          >
+            일시
+          </button>
+          <button
+            onClick={(e) => changeEventTimeType(e, 'RECRUIT')}
+            className={classNames(
+              'border-solid border border-gray-300 rounded py-2 px-6 text-sm text-gray-600',
+              { 'border-blue-500': eventTimeType === 'RECRUIT' }
+            )}
+          >
+            모집
+          </button>
         </div>
         <div
           className={classNames('mb-6', {
@@ -121,7 +141,7 @@ const FormContent = ({
           })}
         >
           <span className="form__content__title inline-block text-base text-gray-600">
-            시작 일시
+            시작 일자
           </span>
           <DatePicker
             dateFormat="yyyy/MM/dd"
@@ -151,7 +171,7 @@ const FormContent = ({
         </div>
         <div className="">
           <span className="form__content__title inline-block text-base text-gray-600">
-            종료 일시
+            종료 일자
           </span>
           <DatePicker
             dateFormat="yyyy/MM/dd"

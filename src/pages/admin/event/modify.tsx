@@ -2,8 +2,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useSetRecoilState } from 'recoil';
+import { stores } from '../../../store';
 import getToken from '../../../server/api/auth/getToken';
 import { getEventApi } from '../../api/events';
+import { getTagsApi } from '../../api/events/tag';
 import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/Event';
 import EventModifyForm from '../../../components/event/Modify';
@@ -15,19 +18,21 @@ const queryClient = new QueryClient();
 
 const EventModify = ({ token }: { token: TokenModel }) => {
   const { query } = useRouter();
+  const setTags = useSetRecoilState(stores.tags);
   const [event, setEvent] = useState<EventResponseModel>();
 
   const data = async () =>
     await getEventApi({ token, id: query.id?.toString() || '' });
 
-  useEffect(() => {
-    if (token) {
-      useUpdateCookie(document, token);
+  const tagsData = async () => await getTagsApi();
 
-      // https://github.com/vercel/next.js/discussions/20641?sort=new
-      // vercel 배포 후 500 에러 이슈로 인해 useEffect 내부에서 호출하도록 수정
-      data().then((res) => setEvent(res));
-    }
+  useEffect(() => {
+    if (token?.access_token) useUpdateCookie(document, token);
+
+    // https://github.com/vercel/next.js/discussions/20641?sort=new
+    // vercel 배포 후 500 에러 이슈로 인해 useEffect 내부에서 호출하도록 수정
+    data().then((res) => setEvent(res));
+    tagsData().then((res) => setTags(res));
   }, []);
 
   if (!event) return null;
