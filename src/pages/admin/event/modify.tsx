@@ -2,6 +2,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useSetRecoilState } from 'recoil';
+import { stores } from '../../../store';
 import getToken from '../../../server/api/auth/getToken';
 import { getEventApi } from '../../api/events';
 import { getTagsApi } from '../../api/events/tag';
@@ -11,14 +13,13 @@ import EventModifyForm from '../../../components/event/Modify';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import type { EventResponseModel } from '../../../model/Event';
-import type { Tag } from '../../../model/Tag';
 
 const queryClient = new QueryClient();
 
 const EventModify = ({ token }: { token: TokenModel }) => {
   const { query } = useRouter();
+  const setTags = useSetRecoilState(stores.tags);
   const [event, setEvent] = useState<EventResponseModel>();
-  const [tags, setTags] = useState<Tag[]>([]);
 
   const data = async () =>
     await getEventApi({ token, id: query.id?.toString() || '' });
@@ -39,7 +40,7 @@ const EventModify = ({ token }: { token: TokenModel }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <EventComponent title="개발자 행사 수정">
-        <EventModifyForm event={event} tags={tags} />
+        <EventModifyForm event={event} />
       </EventComponent>
     </QueryClientProvider>
   );

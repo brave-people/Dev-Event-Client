@@ -9,13 +9,8 @@ import type { MouseEvent } from 'react';
 import type { EventModel, EventResponseModel } from '../../model/Event';
 import type { Tag } from '../../model/Tag';
 
-const Modify = ({
-  event,
-  tags,
-}: {
-  event: EventResponseModel;
-  tags: Tag[];
-}) => {
+const Modify = ({ event }: { event: EventResponseModel }) => {
+  console.log(event);
   const router = useRouter();
   const {
     query: { id = '' },
@@ -116,7 +111,6 @@ const Modify = ({
         eventLink={eventLink}
         tags={eventTagsName}
         setTags={setEventTags}
-        allTags={tags}
         changeTitle={changeTitle}
         changeDescription={changeDescription}
         changeOrganizer={changeOrganizer}
