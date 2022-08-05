@@ -6,11 +6,14 @@ import { STATUS_200 } from '../../config/constants';
 import FormContent from './form/Content';
 import { useErrorContext } from '../ErrorContext';
 import type { MouseEvent } from 'react';
-import type { EventModel, EventResponseModel } from '../../model/Event';
+import type {
+  EventModel,
+  EventResponseModel,
+  EventTimeType,
+} from '../../model/Event';
 import type { Tag } from '../../model/Tag';
 
 const Modify = ({ event }: { event: EventResponseModel }) => {
-  console.log(event);
   const router = useRouter();
   const {
     query: { id = '' },
@@ -20,15 +23,9 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const [organizer, setOrganizer] = useState(event?.organizer);
   const [eventLink, setEventLink] = useState(event?.event_link);
   const [eventTags, setEventTags] = useState<Tag[]>(event?.tags);
-
-  const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
-
-  const { error, validateForm } = useErrorContext({
-    title,
-    organizer,
-    eventLink,
-    tags: eventTagsName,
-  });
+  const [eventTimeType, setEventTimeType] = useState<EventTimeType>(
+    event?.event_time_type
+  );
 
   // date
   const [startDate, setStartDate] = useState(new Date(event?.start_date_time));
@@ -45,6 +42,15 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   // image
   const [coverImageUrl, setCoverImageUrl] = useState(event?.cover_image_link);
 
+  const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
+
+  const { error, validateForm } = useErrorContext({
+    title,
+    organizer,
+    eventLink,
+    tags: eventTagsName,
+  });
+
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
   };
@@ -56,6 +62,11 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   };
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
+  };
+  const changeEventTimeType = (e: MouseEvent, type: EventTimeType) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setEventTimeType(type);
   };
   const changeHasStartTime = () => {
     setHasStartTime(!hasStartTime);
@@ -95,6 +106,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
       end_time: convertTime(endTime, 'end'),
       tags: eventTags,
       cover_image_link: coverImageUrl,
+      event_time_type: eventTimeType,
     };
 
     const data = await modifyEventsApi({ data: body, id: id.toString() });
@@ -115,6 +127,8 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         changeDescription={changeDescription}
         changeOrganizer={changeOrganizer}
         changeEventLink={changeEventLink}
+        eventTimeType={eventTimeType}
+        changeEventTimeType={changeEventTimeType}
         startDate={startDate}
         setStartDate={setStartDate}
         startTime={startTime}
