@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { ReactElement, useEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { stores } from '../../../store';
 import type {
@@ -17,7 +17,7 @@ const Tags = ({
 }: {
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
-  children: ReactNode;
+  children: ReactElement;
 }) => {
   const allTags = useRecoilValue(stores.tags);
 

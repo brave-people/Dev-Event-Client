@@ -7,7 +7,7 @@ import FormContent from './form/Content';
 import { useErrorContext } from '../ErrorContext';
 import type { MouseEvent } from 'react';
 import type { Tag } from '../../model/Tag';
-import type { EventModel } from '../../model/Event';
+import type { EventModel, EventTimeType } from '../../model/Event';
 
 export const Create = () => {
   const router = useRouter();
@@ -17,15 +17,9 @@ export const Create = () => {
   const [organizer, setOrganizer] = useState('');
   const [eventLink, setEventLink] = useState('');
   const [eventTags, setEventTags] = useState<Tag[]>([]);
-
-  const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
-
-  const { error, validateForm } = useErrorContext({
-    title,
-    organizer,
-    eventLink,
-    tags: eventTagsName,
-  });
+  const [eventTimeType, setEventTimeType] = useState<EventTimeType>(
+    'DATE' as const
+  );
 
   // date
   const [startDate, setStartDate] = useState(new Date());
@@ -37,6 +31,15 @@ export const Create = () => {
 
   // image
   const [coverImageUrl, setCoverImageUrl] = useState('');
+
+  const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
+
+  const { error, validateForm } = useErrorContext({
+    title,
+    organizer,
+    eventLink,
+    tags: eventTagsName,
+  });
 
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
@@ -50,6 +53,11 @@ export const Create = () => {
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
   };
+  const changeEventTimeType = (e: MouseEvent, type: EventTimeType) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setEventTimeType(type);
+  };
   const changeHasStartTime = () => {
     setHasStartTime(!hasStartTime);
   };
@@ -58,7 +66,6 @@ export const Create = () => {
   };
 
   const createEvent = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
     e.stopPropagation();
 
     if (!title || !organizer || !eventLink || !eventTagsName)
@@ -88,6 +95,7 @@ export const Create = () => {
       end_time: convertTime(endTime, 'end'),
       tags: eventTags,
       cover_image_link: coverImageUrl,
+      event_time_type: eventTimeType,
     };
 
     const data = await createEventsApi({ data: body });
@@ -109,6 +117,8 @@ export const Create = () => {
         changeEventLink={changeEventLink}
         tags={eventTagsName}
         setTags={setEventTags}
+        eventTimeType={eventTimeType}
+        changeEventTimeType={changeEventTimeType}
         startDate={startDate}
         setStartDate={setStartDate}
         startTime={startTime}
@@ -122,7 +132,7 @@ export const Create = () => {
         setHasEndTime={changeHasEndTime}
         setEndTime={setEndTime}
         setCoverImageUrl={setCoverImageUrl}
-        saveForm={(e: MouseEvent<HTMLButtonElement>) => createEvent(e)}
+        saveForm={createEvent}
       />
     </div>
   );
