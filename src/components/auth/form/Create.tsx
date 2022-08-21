@@ -4,6 +4,8 @@ import { STATUS_200, STATUS_201, STATUS_400 } from '../../../config/constants';
 import { registerIdApi } from '../../../pages/api/auth/id';
 import { registerEmailApi } from '../../../pages/api/auth/email';
 import { registerUserApi } from '../../../pages/api/auth/register';
+import useErrorMessage from '../message/Error';
+import useMessage from '../message/Base';
 import FormContent from './Content';
 
 const Create = () => {
@@ -16,8 +18,8 @@ const Create = () => {
   const [password, setPassword] = useState('');
 
   // message
-  const [message, setMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const { Message, setMessage } = useMessage();
+  const { MessageError, setErrorMessage } = useErrorMessage();
   const [errorEmailMessage, setErrorEmailMessage] = useState('');
 
   const changeName = (e: { target: { value: string } }) => {
@@ -61,6 +63,8 @@ const Create = () => {
   };
 
   const submit = () => {
+    if (!name || !id || !email || !password) return;
+
     registerUserApi({
       name,
       user_id: id,
@@ -95,48 +99,8 @@ const Create = () => {
         submit={submit}
       >
         <>
-          {errorMessage && (
-            <div className="list__button--pop--right bg-red-500">
-              <button onClick={() => setErrorMessage('')}>
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-              {errorMessage}
-            </div>
-          )}
-          {message && (
-            <div className="list__button--pop--right bg-blue-500">
-              <button onClick={() => setMessage('')}>
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </button>
-              {message}
-            </div>
-          )}
+          <MessageError />
+          <Message />
         </>
       </FormContent>
     </div>

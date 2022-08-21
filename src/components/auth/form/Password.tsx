@@ -3,13 +3,14 @@ import { useRouter } from 'next/router';
 import { STATUS_200 } from '../../../config/constants';
 import { passwordApi } from '../../../pages/api/auth/users/password';
 import Input from '../../input/Input';
+import useErrorMessage from '../message/Error';
 
 const Password = () => {
   const router = useRouter();
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [checkNewPassword, setCheckNewPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const { MessageError, setErrorMessage } = useErrorMessage();
 
   const changePassword = (e: { target: { value: string } }) => {
     setPassword(e.target.value);
@@ -66,27 +67,7 @@ const Password = () => {
             value={checkNewPassword}
             onChange={changeCheckNewPassword}
           />
-          {errorMessage && (
-            <div className="list__button--pop--right bg-red-500">
-              <button onClick={() => setErrorMessage('')}>
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-              {errorMessage}
-            </div>
-          )}
+          <MessageError />
         </div>
         <button
           className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
