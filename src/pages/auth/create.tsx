@@ -45,7 +45,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
   }
 
   const accessToken = jwt.decode(token?.data?.access_token) as JwtPayload;
-  if (!token && !getUserRoleIsAdmin(accessToken?.roles)) {
+  if (!token?.data && !getUserRoleIsAdmin(accessToken?.roles)) {
     return {
       props: {
         error: '관리자만 계정을 생성할 수 있어요!',
