@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { stores } from '../../../store';
 import type {
@@ -6,7 +6,7 @@ import type {
   Dispatch,
   KeyboardEvent,
   SetStateAction,
-  ReactNode,
+  ReactElement,
 } from 'react';
 import type { Tag } from '../../../model/Tag';
 
