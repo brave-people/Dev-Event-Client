@@ -6,7 +6,7 @@ import type { RequestHeaders } from '../../../model/Api';
 export const getRefreshTokenApi = async (cookies: string | undefined) => {
   if (!cookies) return { error: { message: 'refresh_token을 넣어주세요' } };
 
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/token/refresh`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/token/refresh`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -9,7 +9,7 @@ export const getReplayApi = async ({
   year: number;
 }): Promise<EventResponseModel[]> => {
   return await fetch(
-    `${process.env.NEXT_PUBLIC_ADMIN_URL}/replayEvents/search/time/${year}`,
+    `${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/replayEvents/search/time/${year}`,
     {
       method: 'GET',
       headers: {
