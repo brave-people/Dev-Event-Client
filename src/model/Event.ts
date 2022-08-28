@@ -15,11 +15,11 @@ interface Event {
   display_sequence: number;
   event_link: string;
   start_date_time: string;
-  start_time: string;
   end_date_time: string;
-  end_time: string;
   cover_image_link: string;
   event_time_type: EventTimeType;
+  use_start_date_time_yn: boolean;
+  use_end_date_time_yn: boolean;
 }
 
 export interface EventModel extends Event {
