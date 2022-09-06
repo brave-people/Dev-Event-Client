@@ -16,7 +16,7 @@ const TimeComponent = ({
       onChange={(date) => date && setTime(date)}
       showTimeSelect
       showTimeSelectOnly
-      timeIntervals={60}
+      timeIntervals={30}
       timeCaption="Time"
       dateFormat="hh:mm aa"
       disabled={disabled}
