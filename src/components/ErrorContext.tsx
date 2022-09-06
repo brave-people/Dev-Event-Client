@@ -1,16 +1,18 @@
 import { useState } from 'react';
-import type { EventErrorFormProps, EventErrorFormModel } from '../model/Event';
+import type { EventErrorForm } from '../model/Event';
 
 export const useErrorContext = ({
   title,
   organizer,
   eventLink,
+  replayLink = '',
   tags,
-}: EventErrorFormProps) => {
-  const [error, setError] = useState<EventErrorFormModel>({
+}: EventErrorForm<string>) => {
+  const [error, setError] = useState<EventErrorForm<boolean>>({
     title: false,
     organizer: false,
     eventLink: false,
+    replayLink: false,
     tags: false,
   });
 
@@ -18,6 +20,7 @@ export const useErrorContext = ({
     setError((prevState) => ({ ...prevState, title: !title }));
     setError((prevState) => ({ ...prevState, organizer: !organizer }));
     setError((prevState) => ({ ...prevState, eventLink: !eventLink }));
+    setError((prevState) => ({ ...prevState, replayLink: !replayLink }));
     setError((prevState) => ({ ...prevState, tags: !tags.length }));
   };
 

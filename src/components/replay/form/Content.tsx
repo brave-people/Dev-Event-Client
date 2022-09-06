@@ -6,7 +6,8 @@ import ImageUploadComponent from '../../ImageUpload';
 import ErrorContext from '../../ErrorContext';
 import Tag from './Tag';
 import Checkbox from '../../input/Checkbox';
-import type { EventFormModel } from '../../../model/Event';
+import FormLink from '../form/link';
+import type { ReplayFormModel } from '../../../model/Replay';
 
 const FormContent = ({
   title,
@@ -20,8 +21,6 @@ const FormContent = ({
   changeEventLink,
   tags,
   setTags,
-  eventTimeType,
-  changeEventTimeType,
   hasStartTime = false,
   setHasStartTime,
   hasEndTime = false,
@@ -38,7 +37,7 @@ const FormContent = ({
   setCoverImageUrl,
   saveForm,
   isModify = false,
-}: EventFormModel) => {
+}: ReplayFormModel) => {
   return (
     <form className="form--large">
       <div className="form__content">
@@ -109,32 +108,19 @@ const FormContent = ({
           />
           {error.eventLink && !eventLink && <ErrorContext />}
         </div>
+        <div className="form__content__input">
+          <label
+            htmlFor="event_link"
+            className="form__content__title inline-block text-base text-gray-600"
+          >
+            다시보기링크
+            <span className="text-red-500">*</span>
+          </label>
+          <FormLink />
+        </div>
         <Tag tags={tags} setTags={setTags}>
           {error.tags && !tags.length ? <ErrorContext /> : <></>}
         </Tag>
-        <div className="form__content__input">
-          <span className="form__content__title inline-block text-base text-gray-600">
-            시간 유형
-          </span>
-          <button
-            onClick={(e) => changeEventTimeType(e, 'DATE')}
-            className={classNames(
-              'border-solid border border-gray-300 rounded py-2 px-6 text-sm text-gray-600 mr-2',
-              { 'border-blue-500': eventTimeType === 'DATE' }
-            )}
-          >
-            일시
-          </button>
-          <button
-            onClick={(e) => changeEventTimeType(e, 'RECRUIT')}
-            className={classNames(
-              'border-solid border border-gray-300 rounded py-2 px-6 text-sm text-gray-600',
-              { 'border-blue-500': eventTimeType === 'RECRUIT' }
-            )}
-          >
-            모집
-          </button>
-        </div>
         <div
           className={classNames('mb-6', {
             'mt-8': tags.length && !isModify,
