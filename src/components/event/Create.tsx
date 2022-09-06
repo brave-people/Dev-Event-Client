@@ -66,16 +66,16 @@ export const Create = () => {
   };
 
   const createEvent = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     e.stopPropagation();
 
     if (!title || !organizer || !eventLink || !eventTagsName)
       return validateForm();
 
-    const convertTime = (time: Date | null, type: 'start' | 'end') => {
-      const hasType = type === 'start' ? hasStartTime : hasEndTime;
-      if (!time || !hasType) return '00:00';
-      return dayjs(time).format('HH:mm');
-    };
+    const convertTime = (time: Date | null) =>
+      time ? 'T' + dayjs(time).format('HH:mm') : 'T00:00';
+    const convertStartTime = convertTime(startTime);
+    const convertEndTime = convertTime(endTime);
 
     const body: EventModel = {
       title,
@@ -83,23 +83,19 @@ export const Create = () => {
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      start_date_time: `${dayjs(startDate).format('YYYY-MM-DD')} ${convertTime(
-        startTime,
-        'start'
-      )}`,
-      start_time: convertTime(startTime, 'start'),
-      end_date_time: `${dayjs(endDate).format('YYYY-MM-DD')} ${convertTime(
-        endTime,
-        'end'
-      )}`,
-      end_time: convertTime(endTime, 'end'),
+      start_date_time: `${dayjs(startDate).format(
+        'YYYY-MM-DD'
+      )}${convertStartTime}`,
+      end_date_time: `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`,
       tags: eventTags,
       cover_image_link: coverImageUrl,
       event_time_type: eventTimeType,
+      use_start_date_time_yn: !!convertStartTime,
+      use_end_date_time_yn: !!convertEndTime,
     };
 
     const data = await createEventsApi({ data: body });
-    if (data.status_code === STATUS_201) return router.reload();
+    if (data.status_code === STATUS_201) return await router.reload();
     return alert(data.message);
   };
 

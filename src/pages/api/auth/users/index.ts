@@ -10,7 +10,7 @@ import type {
 } from '../../../../model/User';
 
 export const getUsersApi = async (): Promise<UsersModel[]> => {
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/users`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/users`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: cookie.parse(document.cookie)['access_token'],
@@ -24,7 +24,7 @@ export const modifyUsersApi = async ({
 }: {
   data: UserEmailModel & UserNameModel;
 }): Promise<ResponseModel> => {
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/users`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/users`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export const deleteUsersApi = async ({
 }: {
   data: UserIdModel & { auth_type: UserAuthType };
 }): Promise<ResponseModel> => {
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/users`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/users`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
