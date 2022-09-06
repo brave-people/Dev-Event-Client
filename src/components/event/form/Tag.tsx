@@ -31,7 +31,7 @@ const Tags = ({
     const value = e.target.value;
     setTag(value);
     setFilterAllTags(
-      allTags.filter((tag) => {
+      allTags?.filter((tag) => {
         const lowerTag = tag.tag_name.toLowerCase();
         return lowerTag.includes(value.toLowerCase());
       })
@@ -48,11 +48,13 @@ const Tags = ({
 
     setTag('');
     setShowPrevTags(false);
+    setFilterAllTags(allTags);
   };
 
   const clickTagEvent = (e: MouseEvent<HTMLButtonElement>) => {
     const { value } = e.target as HTMLButtonElement;
     updateTag(value);
+    setFilterAllTags(allTags);
   };
 
   const keyboardTagEvent = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -142,7 +144,7 @@ const Tags = ({
         />
         {showPrevTags && (
           <div className="form__content--all-tags--popup z-10">
-            {filterAllTags.at(-1) ? (
+            {filterAllTags.length ? (
               filterAllTags.map((tag) => (
                 <button
                   key={tag.id}
