@@ -31,24 +31,18 @@ export interface EventResponseModel extends Event {
   tags: Tag[];
 }
 
-export interface EventErrorFormProps {
-  title: string;
-  organizer: string;
-  eventLink: string;
-  tags: string[];
-}
-
-export interface EventErrorFormModel {
-  title: boolean;
-  organizer: boolean;
-  eventLink: boolean;
-  tags: boolean;
+export interface EventErrorForm<T> {
+  title: T;
+  organizer: T;
+  eventLink: T;
+  replayLink?: T;
+  tags: T extends string ? string[] : boolean;
 }
 
 export interface EventFormModel {
   title: string;
   changeTitle: (e: { target: { value: string } }) => void;
-  error: EventErrorFormModel;
+  error: EventErrorForm<boolean>;
   description: string;
   changeDescription: (e: { target: { value: string } }) => void;
   organizer: string;

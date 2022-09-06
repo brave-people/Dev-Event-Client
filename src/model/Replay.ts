@@ -1,11 +1,11 @@
-import { Tag } from './Tag';
+import type { Tag } from './Tag';
 import {
   ChangeEventHandler,
   Dispatch,
   MouseEvent,
   SetStateAction,
 } from 'react';
-import { EventErrorForm } from './Event';
+import type { EventErrorForm } from './Event';
 
 interface Replay {
   title: string;
@@ -20,7 +20,10 @@ interface Replay {
 }
 
 export interface ReplayModel extends Replay {
-  tags: Tag[];
+  links: {
+    link: string;
+    link_type: 'HOMEPAGE';
+  }[];
 }
 
 export interface ReplayFormModel {
