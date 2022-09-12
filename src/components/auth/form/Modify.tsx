@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { selectedUserState } from '../../../store/User';
+import { selectedUserState } from '../../../store/user';
 import {
   addRoleUsersApi,
   deleteRoleUsersApi,

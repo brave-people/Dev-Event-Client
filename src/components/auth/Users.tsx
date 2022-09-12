@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 import { deleteUsersApi, getUsersApi } from '../../pages/api/auth/users';
-import { userState, selectedUserState } from '../../store/User';
+import { userState, selectedUserState } from '../../store/user';
 import { getUserRole } from '../../util/get-user-role';
 import { getConvertAuthType } from '../../util/get-convert-auth-type';
 import { getUserRoleIsAdmin } from '../../util/get-user-role';
