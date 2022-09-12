@@ -108,10 +108,10 @@ const FormContent = ({
           />
           {error.eventLink && !eventLink && <ErrorContext />}
         </div>
-        <div className="form__content__input">
+        <div className="relative mb-8">
           <label
             htmlFor="event_link"
-            className="form__content__title inline-block text-base text-gray-600"
+            className="form__content__title inline-block text-base text-gray-600 absolute top-1"
           >
             다시보기링크
             <span className="text-red-500">*</span>

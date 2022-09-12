@@ -109,6 +109,13 @@
     }
   }
 
+  &__list {
+    width: calc(100% - #{$common_width});
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+
   .react-datepicker-wrapper {
     max-width: fit-content;
 
