@@ -1,6 +1,6 @@
-import { userState } from './User';
-import { layerState } from './Layer';
-import { tagsState } from './Tags';
+import { userState } from './user';
+import { layerState } from './layer';
+import { tagsState } from './tags';
 
 export const stores = {
   user: userState,

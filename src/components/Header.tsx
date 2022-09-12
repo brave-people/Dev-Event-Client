@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { useSetRecoilState } from 'recoil';
-import { selectedUserState } from '../store/User';
+import { selectedUserState } from '../store/user';
 import { getUserRoleIsAdmin } from '../util/get-user-role';
 import type { UsersModel, UserProfileModel } from '../model/User';
 
