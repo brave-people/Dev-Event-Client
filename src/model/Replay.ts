@@ -7,8 +7,11 @@ import {
 } from 'react';
 import type { EventErrorForm } from './Event';
 
+type LinkType = 'HOMEPAGE' | 'YOUTUBE';
+
 interface Replay {
   title: string;
+  organizer: string;
   description: string;
   display_sequence: number;
   event_link: string;
@@ -19,11 +22,13 @@ interface Replay {
   use_end_date_time_yn: 'Y' | 'N';
 }
 
+export interface ReplayLink {
+  link: string;
+  link_type: LinkType;
+}
+
 export interface ReplayModel extends Replay {
-  links: {
-    link: string;
-    link_type: 'HOMEPAGE';
-  }[];
+  links: ReplayLink[];
 }
 
 export interface ReplayFormModel {

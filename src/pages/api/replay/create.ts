@@ -1,7 +1,7 @@
 import cookie from 'cookie';
 import { Headers } from '../../../config/headers';
 import type { RequestHeaders } from '../../../model/Api';
-import type { ReplayModel } from '../../../model/Event';
+import type { ReplayModel } from '../../../model/Replay';
 
 export const createReplayApi = async ({ data }: { data: ReplayModel }) => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/replayEvents`, {
