@@ -72,10 +72,10 @@ const Tags = ({
   };
 
   const blurEvent = () => {
-    // click event를 먼저 받을 수 있게 setTimeout 1ms 추가
+    // click event를 먼저 받을 수 있게 setTimeout 100ms 추가
     setTimeout(() => {
       setShowPrevTags(false);
-    }, 10);
+    }, 100);
   };
 
   useEffect(() => {
