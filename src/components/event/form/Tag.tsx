@@ -19,7 +19,7 @@ const Tags = ({
   setTags: Dispatch<SetStateAction<Tag[]>>;
   children: ReactElement;
 }) => {
-  const allTags = useRecoilValue(stores.tags);
+  const allTags = useRecoilValue(stores.eventTags);
 
   const tagRef = useRef<HTMLInputElement>(null);
   const tagLabelRef = useRef<HTMLLabelElement>(null);

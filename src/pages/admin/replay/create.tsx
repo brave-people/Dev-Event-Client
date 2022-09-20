@@ -14,7 +14,7 @@ import type { TokenModel } from '../../../model/User';
 const queryClient = new QueryClient();
 
 const EventCreate = ({ token }: { token: TokenModel }) => {
-  const setTags = useSetRecoilState(stores.tags);
+  const setTags = useSetRecoilState(stores.eventTags);
   const tagsData = async () => await getTagsApi();
 
   useEffect(() => {

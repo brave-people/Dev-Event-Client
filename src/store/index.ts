@@ -1,9 +1,9 @@
 import { userState } from './user';
 import { layerState } from './layer';
-import { tagsState } from './tags';
+import { eventTagsState } from './tags';
 
 export const stores = {
   user: userState,
   layer: layerState,
-  tags: tagsState,
+  eventTags: eventTagsState,
 };

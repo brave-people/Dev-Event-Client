@@ -18,7 +18,7 @@ const queryClient = new QueryClient();
 
 const EventModify = ({ token }: { token: TokenModel }) => {
   const { query } = useRouter();
-  const setTags = useSetRecoilState(stores.tags);
+  const setTags = useSetRecoilState(stores.eventTags);
   const [event, setEvent] = useState<EventResponseModel>();
 
   const data = async () =>
