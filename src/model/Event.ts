@@ -18,8 +18,8 @@ interface Event {
   end_date_time: string;
   cover_image_link: string;
   event_time_type: EventTimeType;
-  use_start_date_time_yn: boolean;
-  use_end_date_time_yn: boolean;
+  use_start_date_time_yn: 'Y' | 'N';
+  use_end_date_time_yn: 'Y' | 'N';
 }
 
 export interface EventModel extends Event {

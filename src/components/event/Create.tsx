@@ -90,8 +90,8 @@ export const Create = () => {
       tags: eventTags,
       cover_image_link: coverImageUrl,
       event_time_type: eventTimeType,
-      use_start_date_time_yn: !!convertStartTime,
-      use_end_date_time_yn: !!convertEndTime,
+      정: hasStartTime ? 'Y' : 'N',
+      use_end_date_time_yn: hasEndTime ? 'Y' : 'N',
     };
 
     const data = await createEventsApi({ data: body });
