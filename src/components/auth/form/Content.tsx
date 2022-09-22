@@ -1,5 +1,5 @@
-import { useRecoilValue } from 'recoil';
-import { stores } from '../../../store';
+import { useAtom } from 'jotai';
+import { userAtom } from '../../../store/user';
 import { getUserRole } from '../../../util/get-user-role';
 import Input from '../../input/Input';
 import ErrorContext from '../../ErrorContext';
@@ -21,7 +21,7 @@ const FormContent = ({
   readonlyList,
   children,
 }: UserContent) => {
-  const user = useRecoilValue(stores.user);
+  const [user] = useAtom(userAtom);
   const convertRoles = getUserRole(roles);
 
   if (!user) return null;

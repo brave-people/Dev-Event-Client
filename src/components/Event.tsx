@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import { useRecoilValue } from 'recoil';
-import { stores } from '../store';
+import { useAtom } from 'jotai';
+import { layerAtom } from '../store/layer';
 import { useUserProfile } from './auth/Profile';
 import Header from './Header';
 import Nav from './Nav';
@@ -13,7 +13,7 @@ const Event = ({
   title: string;
   children: ReactElement;
 }) => {
-  const layer = useRecoilValue(stores.layer);
+  const [layer] = useAtom(layerAtom);
   const { data: user } = useUserProfile();
 
   return (

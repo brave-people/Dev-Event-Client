@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import { useQuery } from 'react-query';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import { deleteUsersApi, getUsersApi } from '../../pages/api/auth/users';
-import { userState, selectedUserState } from '../../store/user';
+import { userAtom, selectedUserAtom } from '../../store/user';
 import { getUserRole } from '../../util/get-user-role';
 import { getConvertAuthType } from '../../util/get-convert-auth-type';
 import { getUserRoleIsAdmin } from '../../util/get-user-role';
@@ -18,8 +18,8 @@ const Users = () => {
       refetchOnWindowFocus: false,
     }
   );
-  const user = useRecoilValue(userState);
-  const setSelectedUser = useSetRecoilState(selectedUserState);
+  const [user] = useAtom(userAtom);
+  const [, setSelectedUser] = useAtom(selectedUserAtom);
   const isAdmin = getUserRoleIsAdmin(user?.roles);
 
   if (!data || !data.length) return null;

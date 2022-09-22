@@ -1,8 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
-import { useSetRecoilState } from 'recoil';
-import { stores } from '../../store';
+import { useAtom } from 'jotai';
+import { layerAtom } from '../../store/layer';
 import { getEventsApi } from '../../pages/api/events';
 import { deleteEventApi } from '../../pages/api/events/delete';
 import FormList from './form/List';
@@ -11,7 +11,7 @@ import type { EventResponseModel } from '../../model/Event';
 
 const List = () => {
   const router = useRouter();
-  const setLayer = useSetRecoilState(stores.layer);
+  const [, setLayer] = useAtom(layerAtom);
 
   const [currentDate] = useState<Date>(new Date());
   const [list, setList] = useState<EventResponseModel[]>([]);

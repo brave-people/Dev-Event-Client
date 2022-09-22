@@ -1,11 +1,9 @@
-import { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { linksState } from '../../../../store/replay';
+import { useAtom } from 'jotai';
+import { linksAtom } from '../../../../store/replay';
 import LinkInput from './Input';
 
 const Link = () => {
-  const [replayLinks, setReplayLinks] = useRecoilState(linksState);
-  const [count, setCount] = useState(0);
+  const [replayLinks, setReplayLinks] = useAtom(linksAtom);
 
   const addLink = () => {
     setReplayLinks((prev) => [

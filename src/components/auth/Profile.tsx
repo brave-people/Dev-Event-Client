@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilState } from 'recoil';
-import { stores } from '../../store';
+import { useAtom } from 'jotai';
+import { userAtom } from '../../store/user';
 import { getUsersProfileApi } from '../../pages/api/auth/users/profile';
 
 export const useUserProfile = () => {
-  const [userState, setUserState] = useRecoilState(stores.user);
+  const [userState, setUserState] = useAtom(userAtom);
 
   const { data, refetch } = useQuery(
     ['fetchUsersProfile'],

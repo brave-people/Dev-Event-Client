@@ -2,8 +2,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useSetRecoilState } from 'recoil';
-import { stores } from '../../../store';
+import { useAtom } from 'jotai';
+import { eventTagsAtom } from '../../../store/tags';
 import getToken from '../../../server/api/auth/getToken';
 import { getEventApi } from '../../api/events';
 import { getTagsApi } from '../../api/events/tag';
@@ -18,7 +18,7 @@ const queryClient = new QueryClient();
 
 const EventModify = ({ token }: { token: TokenModel }) => {
   const { query } = useRouter();
-  const setTags = useSetRecoilState(stores.eventTags);
+  const [, setTags] = useAtom(eventTagsAtom);
   const [event, setEvent] = useState<EventResponseModel>();
 
   const data = async () =>

@@ -2,14 +2,14 @@ import { Fragment } from 'react';
 import { useRouter } from 'next/router';
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import { useSetRecoilState } from 'recoil';
-import { selectedUserState } from '../store/user';
+import { useAtom } from 'jotai';
+import { selectedUserAtom } from '../store/user';
 import { getUserRoleIsAdmin } from '../util/get-user-role';
 import type { UsersModel, UserProfileModel } from '../model/User';
 
 const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
   const router = useRouter();
-  const setSelectedUser = useSetRecoilState(selectedUserState);
+  const [, setSelectedUser] = useAtom(selectedUserAtom);
   const isAdmin = getUserRoleIsAdmin(user?.roles);
 
   const onClickModifyUser = () => {

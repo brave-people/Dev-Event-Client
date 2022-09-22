@@ -2,8 +2,8 @@ import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
-import { linksState } from '../../../../store/replay';
-import { useSetRecoilState } from 'recoil';
+import { linksAtom } from '../../../../store/replay';
+import { useAtom } from 'jotai';
 
 const replayType = [
   {
@@ -20,7 +20,7 @@ const replayType = [
 
 const LinkInput = ({ replayLink, id }) => {
   const { link, link_type } = replayLink;
-  const setLinks = useSetRecoilState(linksState);
+  const [, setLinks] = useAtom(linksAtom);
   const [selected, setSelected] = useState(replayType[0]);
 
   const removeLink = (id: number) => {

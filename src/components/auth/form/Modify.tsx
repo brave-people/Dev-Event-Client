@@ -1,7 +1,7 @@
-import { useRecoilValue } from 'recoil';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { selectedUserState } from '../../../store/user';
+import { useAtom } from 'jotai';
+import { selectedUserAtom } from '../../../store/user';
 import {
   addRoleUsersApi,
   deleteRoleUsersApi,
@@ -12,7 +12,7 @@ import type { UserRoleType } from '../../../model/User';
 
 const Modify = () => {
   const router = useRouter();
-  const data = useRecoilValue(selectedUserState);
+  const [data] = useAtom(selectedUserAtom);
   const convertPrevRoles = data.roles.map((role) => role.code);
   const [roles, setRoles] = useState<Set<UserRoleType>>(
     new Set(convertPrevRoles)

@@ -1,9 +1,5 @@
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 import type { ReplayLink } from '../model/Replay';
 
 // 다시보기링크
-const linksKey = 'LINKS_KEY';
-export const linksState = atom<ReplayLink[]>({
-  key: linksKey,
-  default: [],
-});
+export const linksAtom = atom<ReplayLink[]>([]);

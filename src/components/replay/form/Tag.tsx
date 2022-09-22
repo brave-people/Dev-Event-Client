@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { stores } from '../../../store';
+import { useAtom } from 'jotai';
+import { replayTagsAtom } from '../../../store/tags';
 import type {
   MouseEvent,
   Dispatch,
@@ -19,7 +19,7 @@ const Tags = ({
   setTags: Dispatch<SetStateAction<Tag[]>>;
   children: ReactElement;
 }) => {
-  const allTags = useRecoilValue(stores.replayTags);
+  const [allTags] = useAtom(replayTagsAtom);
 
   const tagRef = useRef<HTMLInputElement>(null);
   const tagLabelRef = useRef<HTMLLabelElement>(null);
