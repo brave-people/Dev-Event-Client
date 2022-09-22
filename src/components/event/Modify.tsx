@@ -36,8 +36,12 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const [endTime, setEndTime] = useState<Date | null>(
     new Date(event?.end_date_time)
   );
-  const [hasStartTime, setHasStartTime] = useState(false);
-  const [hasEndTime, setHasEndTime] = useState(false);
+  const [hasStartTime, setHasStartTime] = useState(
+    event?.use_start_date_time_yn === 'Y'
+  );
+  const [hasEndTime, setHasEndTime] = useState(
+    event?.use_end_date_time_yn === 'Y'
+  );
 
   // image
   const [coverImageUrl, setCoverImageUrl] = useState(event?.cover_image_link);

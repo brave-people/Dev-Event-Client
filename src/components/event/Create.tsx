@@ -90,7 +90,7 @@ export const Create = () => {
       tags: eventTags,
       cover_image_link: coverImageUrl,
       event_time_type: eventTimeType,
-      정: hasStartTime ? 'Y' : 'N',
+      use_start_date_time_yn: hasStartTime ? 'Y' : 'N',
       use_end_date_time_yn: hasEndTime ? 'Y' : 'N',
     };
 
