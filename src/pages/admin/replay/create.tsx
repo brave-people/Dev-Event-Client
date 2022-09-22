@@ -1,7 +1,10 @@
 import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useAtom } from 'jotai';
+import { replayTagsAtom } from '../../../store/tags';
 import getToken from '../../../server/api/auth/getToken';
+import { getTagsApi } from '../../api/replay/tag';
 import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/Event';
 import ReplayCreateForm from '../../../components/replay/Create';
@@ -11,8 +14,12 @@ import type { TokenModel } from '../../../model/User';
 const queryClient = new QueryClient();
 
 const EventCreate = ({ token }: { token: TokenModel }) => {
+  const [, setTags] = useAtom(replayTagsAtom);
+  const tagsData = async () => await getTagsApi();
+
   useEffect(() => {
     if (token?.access_token) useUpdateCookie(document, token);
+    tagsData().then((res) => setTags(res));
   }, []);
 
   return (
