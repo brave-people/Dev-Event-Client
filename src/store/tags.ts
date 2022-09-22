@@ -6,3 +6,9 @@ export const eventTagsState = atom<Tag[]>({
   key: eventTagsKey,
   default: [],
 });
+
+const replayTagsKey = 'REPLAY_TAGS_KEY';
+export const replayTagsState = atom<Tag[]>({
+  key: replayTagsKey,
+  default: [],
+});

@@ -6,6 +6,7 @@ import { getReplayApi } from '../../pages/api/replay';
 import FormList from '../event/form/List';
 // import CenterAlert from '../alert/CenterAlert';
 import type { EventResponseModel } from '../../model/Event';
+import { getTagsApi } from '../../pages/api/replay/tag';
 
 const List = () => {
   const router = useRouter();
@@ -19,8 +20,14 @@ const List = () => {
   const [, setCurrentId] = useState<number | null>(null);
 
   const { data } = useQuery(
-    ['fetchEvents', { year }],
+    ['fetchReplay', { year }],
     async () => await getReplayApi({ year }),
+    { refetchOnWindowFocus: false }
+  );
+
+  const { data: tags, refetch } = useQuery(
+    ['fetchReplayTags'],
+    async () => await getTagsApi(),
     { refetchOnWindowFocus: false }
   );
 
