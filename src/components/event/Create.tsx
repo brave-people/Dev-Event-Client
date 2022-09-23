@@ -22,12 +22,10 @@ export const Create = () => {
   );
 
   // date
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(null);
-  const [hasStartTime, setHasStartTime] = useState(false);
-  const [hasEndTime, setHasEndTime] = useState(false);
 
   // image
   const [coverImageUrl, setCoverImageUrl] = useState('');
@@ -58,12 +56,6 @@ export const Create = () => {
     e.stopPropagation();
     setEventTimeType(type);
   };
-  const changeHasStartTime = () => {
-    setHasStartTime(!hasStartTime);
-  };
-  const changeHasEndTime = () => {
-    setHasEndTime(!hasEndTime);
-  };
 
   const createEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -83,15 +75,17 @@ export const Create = () => {
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      start_date_time: `${dayjs(startDate).format(
-        'YYYY-MM-DD'
-      )}${convertStartTime}`,
-      end_date_time: `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`,
+      start_date_time: startDate
+        ? `${dayjs(startDate).format('YYYY-MM-DD')}${convertStartTime}`
+        : null,
+      end_date_time: endDate
+        ? `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`
+        : null,
       tags: eventTags,
       cover_image_link: coverImageUrl,
       event_time_type: eventTimeType,
-      use_start_date_time_yn: hasStartTime ? 'Y' : 'N',
-      use_end_date_time_yn: hasEndTime ? 'Y' : 'N',
+      ...(startDate && { use_start_date_time_yn: startTime ? 'Y' : 'N' }),
+      ...(endDate && { use_end_date_time_yn: endTime ? 'Y' : 'N' }),
     };
 
     const data = await createEventsApi({ data: body });
@@ -122,10 +116,6 @@ export const Create = () => {
         endDate={endDate}
         setEndDate={setEndDate}
         endTime={endTime}
-        hasStartTime={hasStartTime}
-        setHasStartTime={changeHasStartTime}
-        hasEndTime={hasEndTime}
-        setHasEndTime={changeHasEndTime}
         setEndTime={setEndTime}
         setCoverImageUrl={setCoverImageUrl}
         saveForm={createEvent}
