@@ -5,7 +5,6 @@ import TimeComponent from '../../input/date/Time';
 import ImageUploadComponent from '../../ImageUpload';
 import ErrorContext from '../../ErrorContext';
 import Tag from './Tag';
-import Checkbox from '../../input/Checkbox';
 import FormLink from '../form/link';
 import type { ReplayFormModel } from '../../../model/Replay';
 
@@ -21,10 +20,6 @@ const FormContent = ({
   changeEventLink,
   tags,
   setTags,
-  hasStartTime = false,
-  setHasStartTime,
-  hasEndTime = false,
-  setHasEndTime,
   startDate,
   setStartDate,
   startTime,
@@ -122,7 +117,7 @@ const FormContent = ({
           {error.tags && !tags.length ? <ErrorContext /> : <></>}
         </Tag>
         <div
-          className={classNames('mb-6', {
+          className={classNames('mb-6 flex items-center', {
             'mt-8': tags.length && !isModify,
           })}
         >
@@ -133,29 +128,18 @@ const FormContent = ({
             dateFormat="yyyy/MM/dd"
             selected={startDate}
             onChange={(date) => date && setStartDate(date)}
-            className="appearance-none w-50 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            isClearable={true}
+            placeholderText=""
+            className="appearance-none w-52 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           />
-          <div className="inline-block">
-            <span className="w-20 inline-block text-base text-gray-600 ml-4">
+          <div className="w-full inline-flex items-center justify-end">
+            <span className="w-20 inline-block text-base text-gray-600">
               시작 시간
             </span>
-            <TimeComponent
-              time={startTime}
-              setTime={setStartTime}
-              disabled={!hasStartTime}
-            />
-            {setHasStartTime && (
-              <div className="checkbox--blue inline-block ml-4">
-                <Checkbox
-                  value={hasStartTime}
-                  onChange={setHasStartTime}
-                  label="시간 표시"
-                />
-              </div>
-            )}
+            <TimeComponent time={startTime} setTime={setStartTime} />
           </div>
         </div>
-        <div className="">
+        <div className="mb-6 flex items-center">
           <span className="form__content__title inline-block text-base text-gray-600">
             종료 일자
           </span>
@@ -164,26 +148,15 @@ const FormContent = ({
             selected={endDate}
             minDate={startDate}
             onChange={(date) => date && setEndDate(date)}
-            className="appearance-none w-50 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            isClearable={true}
+            placeholderText=""
+            className="appearance-none w-52 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           />
-          <div className="inline-block">
-            <span className="w-20 inline-block text-base text-gray-600 ml-4">
+          <div className="w-full inline-flex items-center justify-end">
+            <span className="w-20 inline-block text-base text-gray-600">
               종료 시간
             </span>
-            <TimeComponent
-              time={endTime}
-              setTime={setEndTime}
-              disabled={!hasEndTime}
-            />
-            {setHasEndTime && (
-              <div className="checkbox--blue inline-block ml-4">
-                <Checkbox
-                  value={hasEndTime}
-                  onChange={setHasEndTime}
-                  label="시간 표시"
-                />
-              </div>
-            )}
+            <TimeComponent time={endTime} setTime={setEndTime} />
           </div>
         </div>
         <div className="my-8" />
