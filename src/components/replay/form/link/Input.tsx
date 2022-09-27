@@ -2,30 +2,43 @@ import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
+import { useSetAtom } from 'jotai';
 import { linksAtom } from '../../../../store/replay';
-import { useAtom } from 'jotai';
+import type { LinkType } from '../../../../model/Replay';
+
+interface LinkInputProps {
+  id: number;
+}
 
 const replayType = [
   {
     id: 1,
     label: '홈페이지',
-    value: 'HOMEPAGE',
+    value: 'HOMEPAGE' as LinkType,
   },
   {
     id: 2,
     label: 'Youtube',
-    value: 'YOUTUBE',
+    value: 'YOUTUBE' as LinkType,
   },
 ];
 
-const LinkInput = ({ replayLink, id }) => {
-  const { link, link_type } = replayLink;
-  const [, setLinks] = useAtom(linksAtom);
+const LinkInput = ({ id }: LinkInputProps) => {
+  const setLinks = useSetAtom(linksAtom);
   const [selected, setSelected] = useState(replayType[0]);
 
   const removeLink = (id: number) => {
     setLinks((prev) => {
       return prev.filter((_, index) => index !== id);
+    });
+  };
+
+  const changeLink = (e: { target: { value: string } }) => {
+    const { value } = e.target;
+    setLinks((prev) => {
+      prev[id].link = value;
+      prev[id].link_type = selected.value;
+      return prev;
     });
   };
 
@@ -85,6 +98,7 @@ const LinkInput = ({ replayLink, id }) => {
       <input
         type="text"
         className="w-full border-none focus:outline-none focus:ring-transparent text-sm py-0"
+        onChange={(e) => changeLink(e)}
       />
       <button className="rounded-full" onClick={() => removeLink(id)}>
         <svg

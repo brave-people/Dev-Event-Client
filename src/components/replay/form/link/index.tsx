@@ -1,11 +1,14 @@
 import { useAtom } from 'jotai';
 import { linksAtom } from '../../../../store/replay';
 import LinkInput from './Input';
+import type { MouseEvent } from 'react';
 
 const Link = () => {
   const [replayLinks, setReplayLinks] = useAtom(linksAtom);
 
-  const addLink = () => {
+  const addLink = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
     setReplayLinks((prev) => [
       ...prev,
       {
@@ -18,7 +21,7 @@ const Link = () => {
   return (
     <>
       {replayLinks.map((replayLink, index) => (
-        <LinkInput key={index} id={index} replayLink={replayLink} />
+        <LinkInput key={index} id={index} />
       ))}
       <button
         className="link__button--plus w-100 flex justify-center rounded-full"

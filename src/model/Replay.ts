@@ -7,7 +7,7 @@ import {
 } from 'react';
 import type { EventErrorForm } from './Event';
 
-type LinkType = 'HOMEPAGE' | 'YOUTUBE';
+export type LinkType = 'HOMEPAGE' | 'YOUTUBE';
 
 interface Replay {
   title: string;
@@ -18,6 +18,7 @@ interface Replay {
   start_date_time: string;
   end_date_time: string;
   cover_image_link: string;
+  tags: Tag[];
   use_start_date_time_yn: 'Y' | 'N';
   use_end_date_time_yn: 'Y' | 'N';
 }
@@ -41,8 +42,6 @@ export interface ReplayFormModel {
   changeOrganizer: (e: { target: { value: string } }) => void;
   eventLink: string;
   changeEventLink: (e: { target: { value: string } }) => void;
-  links: { link: string; link_type: string }[];
-  changeLinks: (e: { target: { value: string } }) => void;
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
   hasStartTime?: boolean;

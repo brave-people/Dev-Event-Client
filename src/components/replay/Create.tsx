@@ -1,7 +1,9 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useAtomValue } from 'jotai';
 import { createReplayApi } from '../../pages/api/replay/create';
+import { linksAtom } from '../../store/replay';
 import { STATUS_201 } from '../../config/constants';
 import FormContent from './form/Content';
 import { useErrorContext } from '../ErrorContext';
@@ -11,13 +13,13 @@ import type { ReplayModel } from '../../model/Replay';
 
 export const Create = () => {
   const router = useRouter();
+  const replayLinks = useAtomValue(linksAtom);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [organizer, setOrganizer] = useState('');
   const [eventLink, setEventLink] = useState('');
   const [eventTags, setEventTags] = useState<Tag[]>([]);
-  const [links, setLinks] = useState([]);
 
   // date
   const [startDate, setStartDate] = useState(new Date());
@@ -51,9 +53,6 @@ export const Create = () => {
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
   };
-  const changeLinks = (e: { target: { value: string } }) => {
-    // setEventLink(e.target.value);
-  };
   const changeHasStartTime = () => {
     setHasStartTime(!hasStartTime);
   };
@@ -79,7 +78,7 @@ export const Create = () => {
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      // links: [{ link: replayLink, link_type: 'HOMEPAGE' }],
+      links: replayLinks,
       start_date_time: `${dayjs(startDate).format(
         'YYYY-MM-DD'
       )}${convertStartTime}`,
@@ -108,8 +107,6 @@ export const Create = () => {
         changeOrganizer={changeOrganizer}
         eventLink={eventLink}
         changeEventLink={changeEventLink}
-        links={links}
-        changeLinks={changeLinks}
         tags={eventTagsName}
         setTags={setEventTags}
         startDate={startDate}
