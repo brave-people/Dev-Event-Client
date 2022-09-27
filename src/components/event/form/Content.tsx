@@ -146,7 +146,7 @@ const FormContent = ({
             placeholderText=""
             className="appearance-none w-52 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           />
-          <div className="w-full inline-flex items-center justify-end">
+          <div className="w-full inline-flex items-center justify-center">
             <span className="w-20 inline-block text-base text-gray-600">
               시작 시간
             </span>
@@ -166,7 +166,7 @@ const FormContent = ({
             placeholderText=""
             className="appearance-none w-52 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           />
-          <div className="w-full inline-flex items-center justify-end">
+          <div className="w-full inline-flex items-center justify-center">
             <span className="w-20 inline-block text-base text-gray-600">
               종료 시간
             </span>
