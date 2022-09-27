@@ -18,6 +18,14 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const {
     query: { id = '' },
   } = router;
+
+  const {
+    start_date_time,
+    end_date_time,
+    use_start_date_time_yn,
+    use_end_date_time_yn,
+  } = event;
+
   const [title, setTitle] = useState(event?.title);
   const [description, setDescription] = useState(event?.description);
   const [organizer, setOrganizer] = useState(event?.organizer);
@@ -28,16 +36,22 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   );
 
   // date
-  const [startDate, setStartDate] = useState(new Date(event?.start_date_time));
+  const [startDate, setStartDate] = useState(
+    start_date_time ? new Date(start_date_time) : null
+  );
   const [startTime, setStartTime] = useState<Date | null>(
-    new Date(event?.start_date_time)
+    start_date_time && use_start_date_time_yn === 'Y'
+      ? new Date(start_date_time)
+      : null
   );
-  const [endDate, setEndDate] = useState(new Date(event?.end_date_time));
+  const [endDate, setEndDate] = useState(
+    end_date_time ? new Date(end_date_time) : null
+  );
   const [endTime, setEndTime] = useState<Date | null>(
-    new Date(event?.end_date_time)
+    end_date_time && use_end_date_time_yn === 'Y'
+      ? new Date(end_date_time)
+      : null
   );
-  const [hasStartTime, setHasStartTime] = useState(false);
-  const [hasEndTime, setHasEndTime] = useState(false);
 
   // image
   const [coverImageUrl, setCoverImageUrl] = useState(event?.cover_image_link);
@@ -68,12 +82,6 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
     e.stopPropagation();
     setEventTimeType(type);
   };
-  const changeHasStartTime = () => {
-    setHasStartTime(!hasStartTime);
-  };
-  const changeHasEndTime = () => {
-    setHasEndTime(!hasEndTime);
-  };
 
   const saveEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -93,15 +101,17 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      start_date_time: `${dayjs(startDate).format(
-        'YYYY-MM-DD'
-      )}${convertStartTime}`,
-      end_date_time: `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`,
+      start_date_time: startDate
+        ? `${dayjs(startDate).format('YYYY-MM-DD')}${convertStartTime}`
+        : null,
+      end_date_time: endDate
+        ? `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`
+        : null,
       tags: eventTags,
       cover_image_link: coverImageUrl,
       event_time_type: eventTimeType,
-      use_start_date_time_yn: !!convertStartTime,
-      use_end_date_time_yn: !!convertEndTime,
+      ...(startDate && { use_start_date_time_yn: startTime ? 'Y' : 'N' }),
+      ...(endDate && { use_end_date_time_yn: endTime ? 'Y' : 'N' }),
     };
 
     const data = await modifyEventsApi({ data: body, id: id.toString() });
@@ -132,10 +142,6 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         setEndDate={setEndDate}
         endTime={endTime}
         setEndTime={setEndTime}
-        hasStartTime={hasStartTime}
-        setHasStartTime={changeHasStartTime}
-        hasEndTime={hasEndTime}
-        setHasEndTime={changeHasEndTime}
         error={error}
         coverImageUrl={coverImageUrl}
         setCoverImageUrl={setCoverImageUrl}

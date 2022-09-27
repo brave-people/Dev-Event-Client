@@ -9,6 +9,7 @@ import {
 import FormContent from './Content';
 import type { ChangeEvent } from 'react';
 import type { UserRoleType } from '../../../model/User';
+import { modifyUsersApi } from '../../../pages/api/auth/users';
 
 const Modify = () => {
   const router = useRouter();
@@ -27,19 +28,28 @@ const Modify = () => {
     router.push('/auth/users');
   }, [data]);
 
-  const changeName = (e: { target: { value: string } }) =>
+  const changeName = (e: { target: { value: string } }) => {
     setNewName(e.target.value);
+  };
 
-  const changeEmail = (e: { target: { value: string } }) =>
+  const changeEmail = (e: { target: { value: string } }) => {
     setNewEmail(e.target.value);
+  };
 
   const submit = () => {
+    const changedName = newName !== data.name;
+    const changedEmail = newEmail !== data.email;
+
     const removeRoles = convertPrevRoles.filter(
       (prevRole) => !roles.has(prevRole)
     );
     const addRoles = Array.from(roles).filter(
       (prevRole) => !convertPrevRoles.includes(prevRole)
     );
+
+    const modifyUsersData = async () =>
+      (changedName || changedEmail) &&
+      (await modifyUsersApi({ data: { name: newName, email: newEmail } }));
 
     const removeRolesData = removeRoles.map(
       async (role) =>
@@ -55,12 +65,12 @@ const Modify = () => {
         })
     );
 
-    Promise.all([removeRolesData, addRolesData])
+    Promise.all([removeRolesData, addRolesData, modifyUsersData()])
       .then(async () => {
-        await alert('권한 부여에 성공했어요! 유저목록으로 이동합니다');
+        await alert('회원정보 수정에 성공했어요! 유저목록으로 이동합니다');
         return router.push('/auth/users');
       })
-      .catch((err) => console.error('권한 부여에 실패했어요: ', err));
+      .catch((err) => console.error('회원정보 수정에 실패했어요: ', err));
   };
 
   const changeRole = (e: ChangeEvent<HTMLInputElement>) => {
