@@ -5,7 +5,7 @@ import type { RequestHeaders } from '../../../model/Api';
 
 /** 중복 이메일 체크 */
 export const registerEmailApi = async (req: UserEmailModel) => {
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/register/email`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/register/email`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

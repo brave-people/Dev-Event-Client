@@ -8,7 +8,7 @@ export const addRoleUsersApi = async ({
 }: {
   data: { role_code: UserRoleType; user_id: string };
 }): Promise<ResponseModel> => {
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/users/role`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/users/role`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export const deleteRoleUsersApi = async ({
 }: {
   data: { role_code: UserRoleType; user_id: string };
 }): Promise<ResponseModel> => {
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/users/role`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/users/role`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ export const passwordApi = async ({
 }: {
   data: PasswordModel;
 }): Promise<ResponseModel> => {
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/users/password`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/users/password`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
