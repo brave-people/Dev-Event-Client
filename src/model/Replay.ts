@@ -1,10 +1,5 @@
+import type { Dispatch, MouseEvent, SetStateAction } from 'react';
 import type { Tag } from './Tag';
-import {
-  ChangeEventHandler,
-  Dispatch,
-  MouseEvent,
-  SetStateAction,
-} from 'react';
 import type { EventErrorForm } from './Event';
 
 export type LinkType = 'HOMEPAGE' | 'YOUTUBE';
@@ -32,6 +27,10 @@ export interface ReplayModel extends Replay {
   links: ReplayLink[];
 }
 
+export interface ReplayResponseModel extends ReplayModel {
+  id: number;
+}
+
 export interface ReplayFormModel {
   title: string;
   changeTitle: (e: { target: { value: string } }) => void;
@@ -44,16 +43,12 @@ export interface ReplayFormModel {
   changeEventLink: (e: { target: { value: string } }) => void;
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
-  hasStartTime?: boolean;
-  hasEndTime?: boolean;
-  setHasStartTime?: ChangeEventHandler<HTMLInputElement>;
-  setHasEndTime?: ChangeEventHandler<HTMLInputElement>;
   startDate: Date | null;
-  setStartDate: Dispatch<SetStateAction<Date>>;
+  setStartDate: Dispatch<SetStateAction<Date | null>>;
   startTime: Date | null;
   setStartTime: Dispatch<SetStateAction<Date | null>>;
   endDate: Date | null;
-  setEndDate: Dispatch<SetStateAction<Date>>;
+  setEndDate: Dispatch<SetStateAction<Date | null>>;
   endTime: Date | null;
   setEndTime: Dispatch<SetStateAction<Date | null>>;
   coverImageUrl?: string;

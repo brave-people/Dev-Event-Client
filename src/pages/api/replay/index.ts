@@ -1,13 +1,14 @@
 import cookie from 'cookie';
 import { Headers } from '../../../config/headers';
-import type { EventResponseModel } from '../../../model/Event';
 import type { RequestHeaders } from '../../../model/Api';
+import type { ReplayResponseModel } from '../../../model/Replay';
+import { TokenModel } from '../../../model/User';
 
-export const getReplayApi = async ({
+export const getReplayEventsApi = async ({
   year,
 }: {
   year: number;
-}): Promise<EventResponseModel[]> => {
+}): Promise<ReplayResponseModel[]> => {
   return await fetch(
     `${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/replayEvents/search/time/${year}`,
     {
@@ -15,6 +16,26 @@ export const getReplayApi = async ({
       headers: {
         'Content-Type': 'application/json',
         Authorization: cookie.parse(document.cookie)['access_token'],
+        ...Headers(),
+      } as RequestHeaders,
+    }
+  ).then((res) => res.json());
+};
+
+export const getReplayEventApi = async ({
+  token,
+  id,
+}: {
+  token: TokenModel;
+  id: string;
+}): Promise<ReplayResponseModel> => {
+  return await fetch(
+    `${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/replayEvents/${id}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token.access_token,
         ...Headers(),
       } as RequestHeaders,
     }
