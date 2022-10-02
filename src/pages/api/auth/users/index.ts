@@ -1,4 +1,4 @@
-import cookie from 'cookie';
+import Cookie from 'cookie';
 import { Headers } from '../../../../config/headers';
 import type { RequestHeaders, ResponseModel } from '../../../../model/Api';
 import type {
@@ -13,7 +13,7 @@ export const getUsersApi = async (): Promise<UsersModel[]> => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/users`, {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: cookie.parse(document.cookie)['access_token'],
+      Authorization: Cookie.parse(document.cookie)['access_token'],
       ...Headers(),
     } as RequestHeaders,
   }).then((res) => res.json());
@@ -28,7 +28,7 @@ export const modifyUsersApi = async ({
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: cookie.parse(document.cookie)['access_token'],
+      Authorization: Cookie.parse(document.cookie)['access_token'],
       ...Headers(),
     } as RequestHeaders,
     body: JSON.stringify(data),
@@ -44,7 +44,7 @@ export const deleteUsersApi = async ({
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: cookie.parse(document.cookie)['access_token'],
+      Authorization: Cookie.parse(document.cookie)['access_token'],
       ...Headers(),
     } as RequestHeaders,
     body: JSON.stringify(data),

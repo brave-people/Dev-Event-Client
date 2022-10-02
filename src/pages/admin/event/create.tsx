@@ -5,20 +5,17 @@ import { useSetRecoilState } from 'recoil';
 import { stores } from '../../../store';
 import getToken from '../../../server/api/auth/getToken';
 import { getTagsApi } from '../../api/events/tag';
-import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/Event';
 import EventCreateForm from '../../../components/event/Create';
 import type { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../../model/User';
 
 const queryClient = new QueryClient();
 
-const EventCreate = ({ token }: { token: TokenModel }) => {
+const EventCreate = () => {
   const setTags = useSetRecoilState(stores.tags);
   const tagsData = async () => await getTagsApi();
 
   useEffect(() => {
-    if (token?.access_token) useUpdateCookie(document, token);
     tagsData().then((res) => setTags(res));
   }, []);
 
@@ -32,8 +29,8 @@ const EventCreate = ({ token }: { token: TokenModel }) => {
 };
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const cookies = context.req?.headers.cookie;
-  const token = await getToken(cookies);
+  const cookie = context.req?.headers.cookie;
+  const token = await getToken(cookie);
 
   // token이 없거나 에러나면 로그인 페이지로 이동
   if (!token?.data || token?.error) {
@@ -44,7 +41,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  return { props: { token: token.data } };
+  return { props: {} };
 };
 
 export default EventCreate;
