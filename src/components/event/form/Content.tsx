@@ -35,7 +35,7 @@ const FormContent = ({
   endTime,
   setEndTime,
   coverImageUrl,
-  setCoverImageUrl,
+  setBlob,
   saveForm,
   isModify = false,
 }: EventFormModel) => {
@@ -207,7 +207,7 @@ const FormContent = ({
           </span>
           <ImageUploadComponent
             coverImageUrl={coverImageUrl}
-            setCoverImageUrl={setCoverImageUrl}
+            setBlob={setBlob}
           />
         </div>
       </div>

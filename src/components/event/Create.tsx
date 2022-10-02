@@ -8,6 +8,7 @@ import { useErrorContext } from '../ErrorContext';
 import type { MouseEvent } from 'react';
 import type { Tag } from '../../model/Tag';
 import type { EventModel, EventTimeType } from '../../model/Event';
+import { fetchUploadImage } from '../../pages/api/image';
 
 export const Create = () => {
   const router = useRouter();
@@ -30,7 +31,7 @@ export const Create = () => {
   const [hasEndTime, setHasEndTime] = useState(false);
 
   // image
-  const [coverImageUrl, setCoverImageUrl] = useState('');
+  const [blob, setBlob] = useState<FormData | null>(null);
 
   const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
 
@@ -65,7 +66,21 @@ export const Create = () => {
     setHasEndTime(!hasEndTime);
   };
 
+  const uploadImage = async () => {
+    if (blob === null) return '';
+
+    const data = await fetchUploadImage({
+      fileType: 'DEV_EVENT',
+      body: blob,
+    });
+
+    if (data.message) alert(data.message);
+    if (data.file_url) return data.file_url;
+    return '';
+  };
+
   const createEvent = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     e.stopPropagation();
 
     if (!title || !organizer || !eventLink || !eventTagsName)
@@ -76,6 +91,8 @@ export const Create = () => {
       if (!time || !hasType) return '00:00';
       return dayjs(time).format('HH:mm');
     };
+
+    const coverImageUrl = await uploadImage();
 
     const body: EventModel = {
       title,
@@ -131,7 +148,7 @@ export const Create = () => {
         hasEndTime={hasEndTime}
         setHasEndTime={changeHasEndTime}
         setEndTime={setEndTime}
-        setCoverImageUrl={setCoverImageUrl}
+        setBlob={setBlob}
         saveForm={createEvent}
       />
     </div>
