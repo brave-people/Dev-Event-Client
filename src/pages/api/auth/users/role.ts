@@ -1,4 +1,4 @@
-import cookie from 'cookie';
+import Cookie from 'cookie';
 import { Headers } from '../../../../config/headers';
 import type { RequestHeaders, ResponseModel } from '../../../../model/Api';
 import type { UserRoleType } from '../../../../model/User';
@@ -12,7 +12,7 @@ export const addRoleUsersApi = async ({
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: cookie.parse(document.cookie)['access_token'],
+      Authorization: Cookie.parse(document.cookie)['access_token'],
       ...Headers(),
     } as RequestHeaders,
     body: JSON.stringify(data),
@@ -28,7 +28,7 @@ export const deleteRoleUsersApi = async ({
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: cookie.parse(document.cookie)['access_token'],
+      Authorization: Cookie.parse(document.cookie)['access_token'],
       ...Headers(),
     } as RequestHeaders,
     body: JSON.stringify(data),

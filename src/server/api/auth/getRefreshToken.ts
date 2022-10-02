@@ -1,4 +1,4 @@
-import cookie from 'cookie';
+import Cookie from 'cookie';
 import { Headers } from '../../../config/headers';
 import type { RequestHeaders } from '../../../model/Api';
 
@@ -13,7 +13,7 @@ export const getRefreshTokenApi = async (cookies: string | undefined) => {
       ...Headers(),
     } as RequestHeaders,
     body: JSON.stringify({
-      refresh_token: cookie.parse(cookies)['refresh_token'],
+      refresh_token: Cookie.parse(cookies)['refresh_token'],
     }),
   })
     .then((res) => res.json())

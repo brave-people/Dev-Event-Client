@@ -1,19 +1,12 @@
-import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
-import { useUpdateCookie } from '../../../util/use-cookie';
 import UserComponent from '../../../components/User';
 import UserModifyForm from '../../../components/auth/form/Modify';
 import type { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../../model/User';
 
 const queryClient = new QueryClient();
 
-const UsersModify = ({ token }: { token: TokenModel }) => {
-  useEffect(() => {
-    if (token) useUpdateCookie(document, token);
-  }, []);
-
+const UsersModify = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <UserComponent title="계정 수정">
@@ -24,8 +17,8 @@ const UsersModify = ({ token }: { token: TokenModel }) => {
 };
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const cookies = context.req?.headers.cookie;
-  const token = await getToken(cookies);
+  const cookie = context.req?.headers.cookie;
+  const token = await getToken(cookie);
 
   // token이 없거나 에러나면 로그인 페이지로 이동
   if (!token?.data || token?.error) {
@@ -36,7 +29,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  return { props: { token: token.data } };
+  return { props: {} };
 };
 
 export default UsersModify;
