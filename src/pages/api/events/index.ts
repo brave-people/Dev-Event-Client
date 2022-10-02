@@ -1,9 +1,8 @@
-import cookie from 'cookie';
+import Cookie from 'cookie';
 import { Headers } from '../../../config/headers';
 import type { CalendarProps } from '../../../model/Calendar';
 import type { RequestHeaders } from '../../../model/Api';
 import type { EventResponseModel } from '../../../model/Event';
-import type { TokenModel } from '../../../model/User';
 
 export const getEventsApi = async ({
   year,
@@ -15,7 +14,7 @@ export const getEventsApi = async ({
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: cookie.parse(document.cookie)['access_token'],
+        Authorization: Cookie.parse(document.cookie)['access_token'],
         ...Headers(),
       } as RequestHeaders,
     }
@@ -23,17 +22,15 @@ export const getEventsApi = async ({
 };
 
 export const getEventApi = async ({
-  token,
   id,
 }: {
-  token: TokenModel;
   id: string;
 }): Promise<EventResponseModel> => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: token.access_token,
+      Authorization: Cookie.parse(document.cookie)['access_token'],
       ...Headers(),
     } as RequestHeaders,
   }).then((res) => res.json());

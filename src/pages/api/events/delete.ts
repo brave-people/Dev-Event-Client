@@ -1,4 +1,4 @@
-import cookie from 'cookie';
+import Cookie from 'cookie';
 import { Headers } from '../../../config/headers';
 import type { RequestHeaders } from '../../../model/Api';
 
@@ -7,7 +7,7 @@ export const deleteEventApi = async ({ id }: { id: number }) => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: cookie.parse(document.cookie)['access_token'],
+      Authorization: Cookie.parse(document.cookie)['access_token'],
       ...Headers(),
     } as RequestHeaders,
   }).then((res) => res.json());

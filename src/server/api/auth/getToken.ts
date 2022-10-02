@@ -1,9 +1,9 @@
-import cookie from 'cookie';
+import Cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 import { getRefreshTokenApi } from './getRefreshToken';
 
 const getToken = async (cookies: string | undefined) => {
-  const parsedCookies = cookies && cookie.parse(cookies);
+  const parsedCookies = cookies && Cookie.parse(cookies);
   const accessToken = parsedCookies
     ? (jwt.decode(parsedCookies['access_token']) as jwt.JwtPayload)
     : {};

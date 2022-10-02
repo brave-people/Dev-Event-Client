@@ -1,22 +1,13 @@
 import 'react-datepicker/dist/react-datepicker.css';
-import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
-import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/Event';
 import ReplayList from '../../../components/replay/List';
 import type { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../../model/User';
 
 const queryClient = new QueryClient();
 
-const Replay = (data: { token: TokenModel }) => {
-  const { token } = data || {};
-
-  useEffect(() => {
-    if (token?.access_token) useUpdateCookie(document, token);
-  }, []);
-
+const Replay = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <EventComponent title="개발자 행사 다시보기">
@@ -27,8 +18,8 @@ const Replay = (data: { token: TokenModel }) => {
 };
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const cookies = context.req?.headers.cookie;
-  const token = await getToken(cookies);
+  const cookie = context.req?.headers.cookie;
+  const token = await getToken(cookie);
 
   // token이 없거나 에러나면 로그인 페이지로 이동
   if (!token?.data || token?.error) {
@@ -39,7 +30,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  return { props: { token: token.data } };
+  return { props: {} };
 };
 
 export default Replay;
