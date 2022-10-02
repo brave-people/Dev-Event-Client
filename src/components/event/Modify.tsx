@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import { modifyEventsApi } from '../../pages/api/events/modify';
+import { fetchUploadImage } from '../../pages/api/image';
 import { STATUS_200 } from '../../config/constants';
 import FormContent from './form/Content';
 import { useErrorContext } from '../ErrorContext';
@@ -54,7 +55,8 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   );
 
   // image
-  const [coverImageUrl, setCoverImageUrl] = useState(event?.cover_image_link);
+  const [coverImageUrl] = useState(event?.cover_image_link);
+  const [blob, setBlob] = useState<FormData | null>(null);
 
   const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
 
@@ -83,6 +85,19 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
     setEventTimeType(type);
   };
 
+  const uploadImage = async () => {
+    if (blob === null) return '';
+
+    const data = await fetchUploadImage({
+      fileType: 'DEV_EVENT',
+      body: blob,
+    });
+
+    if (data.message) alert(data.message);
+    if (data.file_url) return data.file_url;
+    return '';
+  };
+
   const saveEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -94,6 +109,8 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
       time ? 'T' + dayjs(time).format('HH:mm') : 'T00:00';
     const convertStartTime = convertTime(startTime);
     const convertEndTime = convertTime(endTime);
+
+    const coverImageUrl = await uploadImage();
 
     const body: EventModel = {
       title,
@@ -144,7 +161,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         setEndTime={setEndTime}
         error={error}
         coverImageUrl={coverImageUrl}
-        setCoverImageUrl={setCoverImageUrl}
+        setBlob={setBlob}
         saveForm={saveEvent}
         isModify={true}
       />
