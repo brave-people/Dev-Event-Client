@@ -66,10 +66,7 @@ const Modify = () => {
     );
 
     Promise.all([removeRolesData, addRolesData, modifyUsersData()])
-      .then(async () => {
-        await alert('회원정보 수정에 성공했어요! 유저목록으로 이동합니다');
-        return router.push('/auth/users');
-      })
+      .then(() => alert('회원정보 수정에 성공했어요!'))
       .catch((err) => console.error('회원정보 수정에 실패했어요: ', err));
   };
 
