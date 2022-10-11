@@ -26,5 +26,6 @@ export const selectedUserState = atom<UsersModel | UserProfileModel>({
     name: '',
     roles: [],
     user_id: '',
+    user_no: 0,
   },
 });
