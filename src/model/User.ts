@@ -72,6 +72,7 @@ export interface PasswordModel {
 }
 
 export interface UsersModel {
+  user_no: number;
   auth_type: UserAuthType;
   create_dt: string;
   update_dt: string;
