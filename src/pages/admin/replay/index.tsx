@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
 import { useUpdateCookie } from '../../../util/use-cookie';
-import EventComponent from '../../../components/Event';
-import ReplayList from '../../../components/replay/List';
+import EventComponent from '../../../components/templates/Event';
+import ReplayList from '../../../components/organisms/form/replay/List';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 

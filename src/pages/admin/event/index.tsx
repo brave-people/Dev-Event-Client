@@ -3,8 +3,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 import getToken from '../../../server/api/auth/getToken';
-import EventComponent from '../../../components/Event';
-import EventList from '../../../components/event/List';
+import EventComponent from '../../../components/templates/Event';
+import EventList from '../../../components/organisms/event/List';
 import { useUpdateCookie } from '../../../util/use-cookie';
 
 const queryClient = new QueryClient();

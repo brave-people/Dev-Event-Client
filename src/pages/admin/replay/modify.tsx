@@ -8,7 +8,7 @@ import getToken from '../../../server/api/auth/getToken';
 import { getTagsApi } from '../../api/replay/tag';
 import { getReplayEventApi } from '../../api/replay';
 import { useUpdateCookie } from '../../../util/use-cookie';
-import EventComponent from '../../../components/Event';
+import EventComponent from '../../../components/templates/Event';
 import ReplayModifyForm from '../../../components/replay/Modify';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';

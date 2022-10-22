@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
 import { useUpdateCookie } from '../../../util/use-cookie';
-import UserComponent from '../../../components/User';
-import UsersComponent from '../../../components/auth/Users';
+import UserComponent from '../../../components/templates/User';
+import UsersComponent from '../../../components/organisms/auth/Users';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 

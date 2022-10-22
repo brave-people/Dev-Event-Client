@@ -6,8 +6,8 @@ import { eventTagsAtom } from '../../../store/tags';
 import getToken from '../../../server/api/auth/getToken';
 import { getTagsApi } from '../../api/events/tag';
 import { useUpdateCookie } from '../../../util/use-cookie';
-import EventComponent from '../../../components/Event';
-import EventCreateForm from '../../../components/event/Create';
+import EventComponent from '../../../components/templates/Event';
+import EventCreateForm from '../../../components/organisms/event/Create';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 

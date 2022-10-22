@@ -6,8 +6,8 @@ import { replayTagsAtom } from '../../../store/tags';
 import getToken from '../../../server/api/auth/getToken';
 import { getTagsApi } from '../../api/replay/tag';
 import { useUpdateCookie } from '../../../util/use-cookie';
-import EventComponent from '../../../components/Event';
-import ReplayCreateForm from '../../../components/replay/Create';
+import EventComponent from '../../../components/templates/Event';
+import ReplayCreateForm from '../../../components/organisms/replay/Create';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 
