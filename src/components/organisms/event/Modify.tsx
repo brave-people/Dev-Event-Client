@@ -19,13 +19,6 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
     query: { id = '' },
   } = router;
 
-  const {
-    start_date_time,
-    end_date_time,
-    use_start_date_time_yn,
-    use_end_date_time_yn,
-  } = event;
-
   const [title, setTitle] = useState(event?.title);
   const [description, setDescription] = useState(event?.description);
   const [organizer, setOrganizer] = useState(event?.organizer);
@@ -37,19 +30,19 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
 
   // date
   const [startDate, setStartDate] = useState(
-    start_date_time ? new Date(start_date_time) : null
+    event.start_date_time ? new Date(event.start_date_time) : null
   );
   const [startTime, setStartTime] = useState<Date | null>(
-    start_date_time && use_start_date_time_yn === 'Y'
-      ? new Date(start_date_time)
+    event.start_date_time && event.use_start_date_time_yn === 'Y'
+      ? new Date(event.start_date_time)
       : null
   );
   const [endDate, setEndDate] = useState(
-    end_date_time ? new Date(end_date_time) : null
+    event.end_date_time ? new Date(event.end_date_time) : null
   );
   const [endTime, setEndTime] = useState<Date | null>(
-    end_date_time && use_end_date_time_yn === 'Y'
-      ? new Date(end_date_time)
+    event.end_date_time && event.use_end_date_time_yn === 'Y'
+      ? new Date(event.end_date_time)
       : null
   );
 
