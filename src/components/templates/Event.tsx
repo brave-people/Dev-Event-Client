@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { useAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { layerAtom } from '../../store/layer';
 import { useUserProfile } from '../organisms/auth/Profile';
 import Header from '../layouts/Header';
@@ -13,7 +13,7 @@ const Event = ({
   title: string;
   children: ReactElement;
 }) => {
-  const [layer] = useAtom(layerAtom);
+  const layer = useAtomValue(layerAtom);
   const { data: user } = useUserProfile();
 
   return (

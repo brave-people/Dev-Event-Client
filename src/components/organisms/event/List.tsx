@@ -11,14 +11,13 @@ import type { EventResponseModel } from '../../../model/Event';
 
 const List = () => {
   const router = useRouter();
-  const [, setLayer] = useAtom(layerAtom);
+  const [layer, setLayer] = useAtom(layerAtom);
 
   const [currentDate] = useState<Date>(new Date());
   const [list, setList] = useState<EventResponseModel[]>([]);
   const [keyword, setKeyword] = useState('');
   const [year, setYear] = useState(currentDate.getFullYear());
   const [month, setMonth] = useState(currentDate.getMonth());
-  const [showAlert, setShowAlert] = useState(false);
   const [currentId, setCurrentId] = useState<number | null>(null);
 
   const { data, refetch } = useQuery(
@@ -29,13 +28,13 @@ const List = () => {
 
   const clickDeleteButton = (id: number) => {
     setCurrentId(id);
-    setShowAlert(true);
+    setLayer(true);
   };
 
   const deleteEvent = async () => {
     if (!currentId) return;
     await deleteEventApi({ id: currentId });
-    setShowAlert(false);
+    setLayer(false);
     await refetch();
   };
 
@@ -48,10 +47,6 @@ const List = () => {
     );
     return setList(findKeywordList);
   }, [keyword, data]);
-
-  useEffect(() => {
-    setLayer(showAlert);
-  }, [showAlert]);
 
   return (
     <div className="list">
@@ -146,11 +141,11 @@ const List = () => {
           이벤트 생성
         </button>
       </div>
-      {showAlert && (
+      {layer && (
         <CenterAlert
           title="정말 삭제할까요?"
           description="돌이킬 수 없어요 🥲"
-          showAlert={setShowAlert}
+          showAlert={setLayer}
           save={deleteEvent}
         />
       )}
