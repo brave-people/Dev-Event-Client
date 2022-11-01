@@ -20,8 +20,8 @@ const Link = () => {
 
   return (
     <>
-      {replayLinks.map((replayLink, index) => (
-        <LinkInput key={index} id={index} />
+      {replayLinks?.map((replayLink, index) => (
+        <LinkInput key={index} id={index} replayLink={replayLink} />
       ))}
       <button
         className="link__button--plus w-100 flex justify-center rounded-full"

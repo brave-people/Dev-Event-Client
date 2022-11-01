@@ -118,7 +118,7 @@ const FormContent = ({
         </Tag>
         <div
           className={classNames('mb-6 flex items-center', {
-            'mt-8': tags.length && !isModify,
+            'mt-8': tags?.length && !isModify,
           })}
         >
           <span className="form__content__title inline-block text-base text-gray-600">
@@ -179,7 +179,7 @@ const FormContent = ({
           확인
         </button>
         <a
-          href={'/admin/event'}
+          href={'/admin/replay'}
           className="form__button form__button--right w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-gray-400 text-white bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
         >
           취소
