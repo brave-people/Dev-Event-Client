@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
 import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/templates/Event';
-import ReplayList from '../../../components/organisms/form/replay/List';
+import ReplayList from '../../../components/organisms/replay/List';
 import type { NextPageContext } from 'next/types';
 import type { TokenModel } from '../../../model/User';
 
