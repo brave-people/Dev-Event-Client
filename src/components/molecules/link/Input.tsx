@@ -2,12 +2,13 @@ import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
-import { useSetAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import { linksAtom } from '../../../store/replay';
-import type { LinkType } from '../../../model/Replay';
+import type { LinkType, ReplayLink } from '../../../model/Replay';
 
 interface LinkInputProps {
   id: number;
+  replayLink: ReplayLink;
 }
 
 const replayType = [
@@ -23,9 +24,14 @@ const replayType = [
   },
 ];
 
-const LinkInput = ({ id }: LinkInputProps) => {
-  const setLinks = useSetAtom(linksAtom);
-  const [selected, setSelected] = useState(replayType[0]);
+const LinkInput = ({ id, replayLink }: LinkInputProps) => {
+  const findReplayType = replayType.find(
+    (type) => type.value === replayLink?.link_type
+  );
+  const [links, setLinks] = useAtom(linksAtom);
+
+  const [value, setValue] = useState(links[id].link);
+  const [selected, setSelected] = useState(findReplayType ?? replayType[0]);
 
   const removeLink = (id: number) => {
     setLinks((prev) => {
@@ -35,6 +41,7 @@ const LinkInput = ({ id }: LinkInputProps) => {
 
   const changeLink = (e: { target: { value: string } }) => {
     const { value } = e.target;
+    setValue(value);
     setLinks((prev) => {
       prev[id].link = value;
       prev[id].link_type = selected.value;
@@ -97,8 +104,9 @@ const LinkInput = ({ id }: LinkInputProps) => {
       </Listbox>
       <input
         type="text"
-        className="w-full border-none focus:outline-none focus:ring-transparent text-sm py-0"
+        value={value}
         onChange={(e) => changeLink(e)}
+        className="w-full border-none focus:outline-none focus:ring-transparent text-sm py-0"
       />
       <button className="rounded-full" onClick={() => removeLink(id)}>
         <svg

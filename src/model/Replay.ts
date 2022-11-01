@@ -10,12 +10,12 @@ interface Replay {
   description: string;
   display_sequence: number;
   event_link: string;
-  start_date_time: string;
-  end_date_time: string;
+  start_date_time: string | null;
+  end_date_time: string | null;
   cover_image_link: string;
   tags: Tag[];
-  use_start_date_time_yn: 'Y' | 'N';
-  use_end_date_time_yn: 'Y' | 'N';
+  use_start_date_time_yn?: 'Y' | 'N';
+  use_end_date_time_yn?: 'Y' | 'N';
 }
 
 export interface ReplayLink {

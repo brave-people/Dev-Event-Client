@@ -93,7 +93,7 @@ const Tags = ({
           태그
           <span className="text-red-500">*</span>
         </label>
-        {tags.length > 0 ? (
+        {tags?.length > 0 ? (
           <div className="form__content--all-tags">
             {tags.map((tag, index) => {
               return (

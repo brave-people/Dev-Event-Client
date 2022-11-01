@@ -1,18 +1,18 @@
 import { Fragment, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
-import { getReplayApi } from '../../../../pages/api/replay';
+import { getReplayEventsApi } from '../../../../pages/api/replay';
 // import { deleteEventApi } from '../../pages/api/events/delete';
 import FormList from '../event/List';
 // import CenterAlert from '../alert/CenterAlert';
-import type { EventResponseModel } from '../../../../model/Event';
+import type { ReplayResponseModel } from '../../../../model/Replay';
 import { getTagsApi } from '../../../../pages/api/replay/tag';
 
 const List = () => {
   const router = useRouter();
 
   const [currentDate] = useState<Date>(new Date());
-  const [list, setList] = useState<EventResponseModel[]>([]);
+  const [list, setList] = useState<ReplayResponseModel[]>([]);
   const [keyword, setKeyword] = useState('');
 
   const [year, setYear] = useState(currentDate.getFullYear());
@@ -21,7 +21,7 @@ const List = () => {
 
   const { data } = useQuery(
     ['fetchReplay', { year }],
-    async () => await getReplayApi({ year }),
+    async () => await getReplayEventsApi({ year }),
     { refetchOnWindowFocus: false }
   );
 
@@ -75,7 +75,7 @@ const List = () => {
               </thead>
               <tbody>
                 {list.length > 0 &&
-                  list.map((value: EventResponseModel, index: number) => (
+                  list.map((value, index) => (
                     <Fragment key={value.id}>
                       <tr>
                         <td className="list__table--sub-title">{index + 1}</td>
@@ -111,7 +111,7 @@ const List = () => {
                                 className="text-blue-500 font-bold"
                                 onClick={() =>
                                   router.push(
-                                    `/admin/event/modify?id=${value.id}`
+                                    `/admin/replay/modify?id=${value.id}`
                                   )
                                 }
                               >
