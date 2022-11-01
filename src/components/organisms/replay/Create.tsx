@@ -22,12 +22,10 @@ export const Create = () => {
   const [eventTags, setEventTags] = useState<Tag[]>([]);
 
   // date
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(null);
-  const [hasStartTime, setHasStartTime] = useState(false);
-  const [hasEndTime, setHasEndTime] = useState(false);
 
   // image
   const [coverImageUrl, setCoverImageUrl] = useState('');
@@ -52,12 +50,6 @@ export const Create = () => {
   };
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
-  };
-  const changeHasStartTime = () => {
-    setHasStartTime(!hasStartTime);
-  };
-  const changeHasEndTime = () => {
-    setHasEndTime(!hasEndTime);
   };
 
   const convertTime = (time: Date | null) =>
@@ -116,10 +108,6 @@ export const Create = () => {
         endDate={endDate}
         setEndDate={setEndDate}
         endTime={endTime}
-        hasStartTime={hasStartTime}
-        setHasStartTime={changeHasStartTime}
-        hasEndTime={hasEndTime}
-        setHasEndTime={changeHasEndTime}
         setEndTime={setEndTime}
         setCoverImageUrl={setCoverImageUrl}
         saveForm={createEvent}

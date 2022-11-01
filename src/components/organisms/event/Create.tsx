@@ -89,7 +89,7 @@ export const Create = () => {
     };
 
     const data = await createEventsApi({ data: body });
-    if (data.status_code === STATUS_201) return await router.reload();
+    if (data.status_code === STATUS_201) return router.reload();
     return alert(data.message);
   };
 
