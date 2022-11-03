@@ -11,7 +11,7 @@ export const fetchUploadImage = async ({
   body,
 }: UploadImageProps): Promise<ResponseUploadImage> => {
   return await fetch(
-    `${process.env.NEXT_PUBLIC_ADMIN_URL}/images/${fileType}`,
+    `${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/images/${fileType}`,
     {
       method: 'POST',
       headers: {

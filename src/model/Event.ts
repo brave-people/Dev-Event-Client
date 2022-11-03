@@ -1,9 +1,4 @@
-import type {
-  Dispatch,
-  SetStateAction,
-  MouseEvent,
-  ChangeEventHandler,
-} from 'react';
+import type { Dispatch, SetStateAction, MouseEvent } from 'react';
 import type { Tag } from './Tag';
 
 export type EventTimeType = 'DATE' | 'RECRUIT';
@@ -14,12 +9,12 @@ interface Event {
   organizer: string;
   display_sequence: number;
   event_link: string;
-  start_date_time: string;
-  start_time: string;
-  end_date_time: string;
-  end_time: string;
+  start_date_time: string | null;
+  end_date_time: string | null;
   cover_image_link: string;
   event_time_type: EventTimeType;
+  use_start_date_time_yn?: 'Y' | 'N';
+  use_end_date_time_yn?: 'Y' | 'N';
 }
 
 export interface EventModel extends Event {
@@ -59,16 +54,12 @@ export interface EventFormModel {
   setTags: Dispatch<SetStateAction<Tag[]>>;
   eventTimeType: EventTimeType;
   changeEventTimeType: (e: MouseEvent, type: EventTimeType) => void;
-  hasStartTime?: boolean;
-  hasEndTime?: boolean;
-  setHasStartTime?: ChangeEventHandler<HTMLInputElement>;
-  setHasEndTime?: ChangeEventHandler<HTMLInputElement>;
   startDate: Date | null;
-  setStartDate: Dispatch<SetStateAction<Date>>;
+  setStartDate: Dispatch<SetStateAction<Date | null>>;
   startTime: Date | null;
   setStartTime: Dispatch<SetStateAction<Date | null>>;
   endDate: Date | null;
-  setEndDate: Dispatch<SetStateAction<Date>>;
+  setEndDate: Dispatch<SetStateAction<Date | null>>;
   endTime: Date | null;
   setEndTime: Dispatch<SetStateAction<Date | null>>;
   coverImageUrl?: string;

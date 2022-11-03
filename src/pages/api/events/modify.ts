@@ -10,7 +10,7 @@ export const modifyEventsApi = async ({
   data: EventModel;
   id: string;
 }) => {
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events/${id}`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V2_URL}/events/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

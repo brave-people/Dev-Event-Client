@@ -4,7 +4,7 @@ import type { UserRegisterModel } from '../../../model/User';
 import type { RequestHeaders } from '../../../model/Api';
 
 export const registerUserApi = async (req: UserRegisterModel) => {
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/register/user`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/register/user`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

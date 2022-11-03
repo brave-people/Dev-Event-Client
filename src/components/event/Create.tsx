@@ -23,12 +23,10 @@ export const Create = () => {
   );
 
   // date
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(null);
-  const [hasStartTime, setHasStartTime] = useState(false);
-  const [hasEndTime, setHasEndTime] = useState(false);
 
   // image
   const [blob, setBlob] = useState<FormData | null>(null);
@@ -59,12 +57,6 @@ export const Create = () => {
     e.stopPropagation();
     setEventTimeType(type);
   };
-  const changeHasStartTime = () => {
-    setHasStartTime(!hasStartTime);
-  };
-  const changeHasEndTime = () => {
-    setHasEndTime(!hasEndTime);
-  };
 
   const uploadImage = async () => {
     if (blob === null) return '';
@@ -86,11 +78,10 @@ export const Create = () => {
     if (!title || !organizer || !eventLink || !eventTagsName)
       return validateForm();
 
-    const convertTime = (time: Date | null, type: 'start' | 'end') => {
-      const hasType = type === 'start' ? hasStartTime : hasEndTime;
-      if (!time || !hasType) return '00:00';
-      return dayjs(time).format('HH:mm');
-    };
+    const convertTime = (time: Date | null) =>
+      time ? 'T' + dayjs(time).format('HH:mm') : 'T00:00';
+    const convertStartTime = convertTime(startTime);
+    const convertEndTime = convertTime(endTime);
 
     const coverImageUrl = await uploadImage();
 
@@ -100,23 +91,21 @@ export const Create = () => {
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      start_date_time: `${dayjs(startDate).format('YYYY-MM-DD')} ${convertTime(
-        startTime,
-        'start'
-      )}`,
-      start_time: convertTime(startTime, 'start'),
-      end_date_time: `${dayjs(endDate).format('YYYY-MM-DD')} ${convertTime(
-        endTime,
-        'end'
-      )}`,
-      end_time: convertTime(endTime, 'end'),
+      start_date_time: startDate
+        ? `${dayjs(startDate).format('YYYY-MM-DD')}${convertStartTime}`
+        : null,
+      end_date_time: endDate
+        ? `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`
+        : null,
       tags: eventTags,
       cover_image_link: coverImageUrl,
       event_time_type: eventTimeType,
+      ...(startDate && { use_start_date_time_yn: startTime ? 'Y' : 'N' }),
+      ...(endDate && { use_end_date_time_yn: endTime ? 'Y' : 'N' }),
     };
 
     const data = await createEventsApi({ data: body });
-    if (data.status_code === STATUS_201) return router.reload();
+    if (data.status_code === STATUS_201) return await router.reload();
     return alert(data.message);
   };
 
@@ -143,10 +132,6 @@ export const Create = () => {
         endDate={endDate}
         setEndDate={setEndDate}
         endTime={endTime}
-        hasStartTime={hasStartTime}
-        setHasStartTime={changeHasStartTime}
-        hasEndTime={hasEndTime}
-        setHasEndTime={changeHasEndTime}
         setEndTime={setEndTime}
         setBlob={setBlob}
         saveForm={createEvent}

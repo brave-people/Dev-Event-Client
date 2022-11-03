@@ -5,7 +5,7 @@ import type { UserProfileModel } from '../../../../model/User';
 
 // 관리자 회원 프로필 조회
 export const getUsersProfileApi = async (): Promise<UserProfileModel> => {
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/users/profile`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/users/profile`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

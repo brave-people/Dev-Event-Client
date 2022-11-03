@@ -9,7 +9,7 @@ export const getEventsApi = async ({
   month,
 }: CalendarProps): Promise<EventResponseModel[]> => {
   return await fetch(
-    `${process.env.NEXT_PUBLIC_ADMIN_URL}/events/${year}/${month}`,
+    `${process.env.NEXT_PUBLIC_ADMIN_V2_URL}/events/${year}/${month}`,
     {
       method: 'GET',
       headers: {
@@ -26,7 +26,7 @@ export const getEventApi = async ({
 }: {
   id: string;
 }): Promise<EventResponseModel> => {
-  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/events/${id}`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V2_URL}/events/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
