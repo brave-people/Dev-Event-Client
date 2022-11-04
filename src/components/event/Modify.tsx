@@ -110,7 +110,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
     const convertStartTime = convertTime(startTime);
     const convertEndTime = convertTime(endTime);
 
-    const coverImageUrl = await uploadImage();
+    const newCoverImageUrl = await uploadImage();
 
     const body: EventModel = {
       title,
@@ -125,7 +125,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         ? `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`
         : null,
       tags: eventTags,
-      cover_image_link: coverImageUrl,
+      cover_image_link: newCoverImageUrl || coverImageUrl,
       event_time_type: eventTimeType,
       ...(startDate && { use_start_date_time_yn: startTime ? 'Y' : 'N' }),
       ...(endDate && { use_end_date_time_yn: endTime ? 'Y' : 'N' }),
