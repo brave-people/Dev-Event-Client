@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
-import { selectedUserAtom } from '../../../../store/user';
+import { selectedUserAtom } from '../../../../store/User';
 import {
   addRoleUsersApi,
   deleteRoleUsersApi,

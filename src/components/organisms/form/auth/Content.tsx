@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import { userAtom } from '../../../../store/user';
+import { userAtom } from '../../../../store/User';
 import { getUserRole } from '../../../../util/get-user-role';
 import Input from '../../../atoms/input/Input';
 import ErrorContext from '../../../layouts/ErrorContext';
