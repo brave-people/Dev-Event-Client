@@ -66,4 +66,5 @@ export type EventRouter =
   | '/admin/event'
   | '/admin/replay'
   | '/admin/groups'
-  | '/admin/event/tag';
+  | '/admin/event/tag'
+  | '/admin/replay/tag';

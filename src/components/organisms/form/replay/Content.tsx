@@ -4,7 +4,7 @@ import Input from '../../../atoms/input/Input';
 import TimeComponent from '../../../molecules/date/DatePicker';
 import ImageUploadComponent from '../../ImageUpload';
 import ErrorContext from '../../../layouts/ErrorContext';
-import Tag from '../../tag/ReplayTag';
+import Tag from './Tag';
 import FormLink from '../../../molecules/link';
 import type { ReplayFormModel } from '../../../../model/Replay';
 

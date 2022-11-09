@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { useAtom } from 'jotai';
-import { replayTagsAtom } from '../../../store/tags';
+import { useAtomValue } from 'jotai';
+import { replayTagsAtom } from '../../../../store/tags';
 import type {
   MouseEvent,
   Dispatch,
@@ -8,7 +8,7 @@ import type {
   SetStateAction,
   ReactElement,
 } from 'react';
-import type { Tag } from '../../../model/Tag';
+import type { Tag } from '../../../../model/Tag';
 
 const Tags = ({
   tags,
@@ -19,7 +19,7 @@ const Tags = ({
   setTags: Dispatch<SetStateAction<Tag[]>>;
   children: ReactElement;
 }) => {
-  const [allTags] = useAtom(replayTagsAtom);
+  const allTags = useAtomValue(replayTagsAtom);
 
   const tagRef = useRef<HTMLInputElement>(null);
   const tagLabelRef = useRef<HTMLLabelElement>(null);
@@ -31,28 +31,37 @@ const Tags = ({
     const value = e.target.value;
     setTag(value);
     setFilterAllTags(
-      allTags?.filter(({ tag_name }) => {
-        const lowerTag = tag_name.toLowerCase();
+      allTags?.filter((tag) => {
+        const lowerTag = tag.tag_name.toLowerCase();
         return lowerTag.includes(value.toLowerCase());
       })
     );
   };
 
-  const updateTag = (value: string) => {
-    const currentTag = allTags.find(({ tag_name }) => tag_name === value);
+  const updateTag = (
+    e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLInputElement>,
+    value: string
+  ) => {
+    e.preventDefault();
+    const currentTag = allTags.find((tag) => tag.tag_name === value);
 
     if (currentTag) {
       if (tags.length > 4) return alert('태그는 5개까지만 등록 가능해요!');
-      setTags((prevTags) => Array.from(new Set([...prevTags, currentTag])));
+      if (tags.find((tag) => tag === value)) return;
+      setTags((prevTags) => {
+        return Array.from(new Set([...prevTags, currentTag]));
+      });
     }
 
     setTag('');
     setShowPrevTags(false);
+    setFilterAllTags(allTags);
   };
 
   const clickTagEvent = (e: MouseEvent<HTMLButtonElement>) => {
     const { value } = e.target as HTMLButtonElement;
-    updateTag(value);
+    updateTag(e, value);
+    setFilterAllTags(allTags);
   };
 
   const keyboardTagEvent = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -60,7 +69,7 @@ const Tags = ({
       e.preventDefault();
 
       const { value } = e.target as HTMLInputElement;
-      updateTag(value);
+      updateTag(e, value);
     }
   };
 
@@ -72,10 +81,10 @@ const Tags = ({
   };
 
   const blurEvent = () => {
-    // click event를 먼저 받을 수 있게 setTimeout 1ms 추가
+    // click event를 먼저 받을 수 있게 setTimeout 100ms 추가
     setTimeout(() => {
       setShowPrevTags(false);
-    }, 10);
+    }, 100);
   };
 
   useEffect(() => {
@@ -93,7 +102,7 @@ const Tags = ({
           태그
           <span className="text-red-500">*</span>
         </label>
-        {tags?.length > 0 ? (
+        {tags.length > 0 ? (
           <div className="form__content--all-tags">
             {tags.map((tag, index) => {
               return (

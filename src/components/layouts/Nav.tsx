@@ -71,6 +71,22 @@ const Nav = () => {
             <CogSvgIcon />
             개발자 행사 다시보기 관리
           </a>
+          <ul>
+            <li>
+              <a
+                href="/admin/replay/tag"
+                className={classNames(
+                  'flex items-center rounded text-base mt-4 py-2 px-10',
+                  {
+                    'text-blue-800 font-bold bg-blue-50':
+                      currentRouter('/admin/replay/tag'),
+                  }
+                )}
+              >
+                - 태그 관리
+              </a>
+            </li>
+          </ul>
         </li>
         <li>
           <a

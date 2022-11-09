@@ -38,12 +38,19 @@ const Tags = ({
     );
   };
 
-  const updateTag = (value: string) => {
+  const updateTag = (
+    e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLInputElement>,
+    value: string
+  ) => {
+    e.preventDefault();
     const currentTag = allTags.find((tag) => tag.tag_name === value);
 
     if (currentTag) {
       if (tags.length > 4) return alert('태그는 5개까지만 등록 가능해요!');
-      setTags((prevTags) => Array.from(new Set([...prevTags, currentTag])));
+      if (tags.find((tag) => tag === value)) return;
+      setTags((prevTags) => {
+        return Array.from(new Set([...prevTags, currentTag]));
+      });
     }
 
     setTag('');
@@ -53,7 +60,7 @@ const Tags = ({
 
   const clickTagEvent = (e: MouseEvent<HTMLButtonElement>) => {
     const { value } = e.target as HTMLButtonElement;
-    updateTag(value);
+    updateTag(e, value);
     setFilterAllTags(allTags);
   };
 
@@ -62,7 +69,7 @@ const Tags = ({
       e.preventDefault();
 
       const { value } = e.target as HTMLInputElement;
-      updateTag(value);
+      updateTag(e, value);
     }
   };
 

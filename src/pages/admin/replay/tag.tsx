@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
 import EventComponent from '../../../components/templates/Event';
-import EventTagList from '../../../components/organisms/tag/Event';
-import { getTagsApi } from '../../api/events/tag';
+import ReplayTagList from '../../../components/organisms/tag/Replay';
+import { getTagsApi } from '../../api/replay/tag';
 import type { NextPageContext } from 'next/types';
 import type { Tag } from '../../../model/Tag';
 
 const queryClient = new QueryClient();
 
-const EventTag = () => {
+const ReplayTag = () => {
   const [tags, setTags] = useState<Tag[]>([]);
   const data = async () => await getTagsApi();
 
@@ -24,7 +24,7 @@ const EventTag = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <EventComponent title="태그 관리">
-        <EventTagList tags={tags} />
+        <ReplayTagList tags={tags} />
       </EventComponent>
     </QueryClientProvider>
   );
@@ -46,4 +46,4 @@ export const getServerSideProps = async (context: NextPageContext) => {
   return { props: {} };
 };
 
-export default EventTag;
+export default ReplayTag;
