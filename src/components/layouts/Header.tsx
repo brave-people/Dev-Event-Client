@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { useAtom } from 'jotai';
-import { selectedUserAtom } from '../../store/user';
+import { selectedUserAtom } from '../../store/User';
 import { getUserRoleIsAdmin } from '../../util/get-user-role';
 import type { UsersModel, UserProfileModel } from '../../model/User';
 
