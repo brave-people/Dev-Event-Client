@@ -2,7 +2,6 @@ import Cookie from 'cookie';
 import { Headers } from '../../../config/headers';
 import type { RequestHeaders } from '../../../model/Api';
 import type { ReplayResponseModel } from '../../../model/Replay';
-import { TokenModel } from '../../../model/User';
 
 export const getReplayEventsApi = async ({
   year,
@@ -23,10 +22,8 @@ export const getReplayEventsApi = async ({
 };
 
 export const getReplayEventApi = async ({
-  token,
   id,
 }: {
-  token: TokenModel;
   id: string;
 }): Promise<ReplayResponseModel> => {
   return await fetch(
@@ -35,7 +32,7 @@ export const getReplayEventApi = async ({
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: token.access_token,
+        Authorization: Cookie.parse(document.cookie)['access_token'],
         ...Headers(),
       } as RequestHeaders,
     }
