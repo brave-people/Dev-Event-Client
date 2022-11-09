@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
-import EventComponent from '../../../components/Event';
-import EventTagList from '../../../components/event/tag/List';
+import EventComponent from '../../../components/templates/Event';
+import EventTagList from '../../../components/organisms/tag/Event';
 import { getTagsApi } from '../../api/events/tag';
 import type { NextPageContext } from 'next/types';
 import type { Tag } from '../../../model/Tag';
@@ -11,10 +11,11 @@ const queryClient = new QueryClient();
 
 const EventTag = () => {
   const [tags, setTags] = useState<Tag[]>([]);
-
   const data = async () => await getTagsApi();
 
   useEffect(() => {
+    // https://github.com/vercel/next.js/discussions/20641?sort=new
+    // vercel 배포 후 500 에러 이슈로 인해 useEffect 내부에서 호출하도록 수정
     data().then((res) => setTags(res));
   }, []);
 

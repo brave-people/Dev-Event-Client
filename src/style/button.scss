@@ -1,0 +1,9 @@
+@import './color';
+@import './variables';
+
+.link__button--plus {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-left: $common-width / 2
+}

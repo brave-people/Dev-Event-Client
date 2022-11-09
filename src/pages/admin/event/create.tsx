@@ -1,18 +1,18 @@
 import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useSetRecoilState } from 'recoil';
-import { stores } from '../../../store';
+import { useSetAtom } from 'jotai';
+import { eventTagsAtom } from '../../../store/tags';
 import getToken from '../../../server/api/auth/getToken';
 import { getTagsApi } from '../../api/events/tag';
-import EventComponent from '../../../components/Event';
-import EventCreateForm from '../../../components/event/Create';
+import EventComponent from '../../../components/templates/Event';
+import EventCreateForm from '../../../components/organisms/event/Create';
 import type { NextPageContext } from 'next/types';
 
 const queryClient = new QueryClient();
 
 const EventCreate = () => {
-  const setTags = useSetRecoilState(stores.tags);
+  const setTags = useSetAtom(eventTagsAtom);
   const tagsData = async () => await getTagsApi();
 
   useEffect(() => {
@@ -29,8 +29,8 @@ const EventCreate = () => {
 };
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const cookie = context.req?.headers.cookie;
-  const token = await getToken(cookie);
+  const cookies = context.req?.headers.cookie;
+  const token = await getToken(cookies);
 
   // token이 없거나 에러나면 로그인 페이지로 이동
   if (!token?.data || token?.error) {
