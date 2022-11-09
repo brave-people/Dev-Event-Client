@@ -3,16 +3,14 @@ import { useRouter } from 'next/router';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../server/api/auth/getToken';
-import { useUpdateCookie } from '../../util/use-cookie';
 import { getUserRoleIsAdmin } from '../../util/get-user-role';
 import UserComponent from '../../components/templates/User';
 import UserForm from '../../components/organisms/form/auth/Create';
 import type { NextPageContext } from 'next/types';
-import type { ResponseTokenModel } from '../../model/User';
 
 const queryClient = new QueryClient();
 
-const Create = ({ data, error }: ResponseTokenModel) => {
+const Create = ({ error }: { error: string }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -20,7 +18,6 @@ const Create = ({ data, error }: ResponseTokenModel) => {
       alert(error);
       router.push('/auth/signIn');
     }
-    if (data?.access_token) useUpdateCookie(document, data);
   }, []);
 
   return (
@@ -33,10 +30,10 @@ const Create = ({ data, error }: ResponseTokenModel) => {
 };
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const cookies = context.req?.headers.cookie;
-  const token = await getToken(cookies);
+  const cookie = context.req?.headers.cookie;
+  const token = await getToken(cookie);
 
-  if (cookies && (!token || token?.error)) {
+  if (cookie && (!token || token?.error)) {
     return {
       redirect: {
         destination: '/auth/signIn',
@@ -53,7 +50,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  return { props: token };
+  return { props: {} };
 };
 
 export default Create;

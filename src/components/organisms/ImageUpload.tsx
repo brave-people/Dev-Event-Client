@@ -6,10 +6,10 @@ import type { Dispatch, SetStateAction } from 'react';
 
 const ImageUpload = ({
   coverImageUrl,
-  setCoverImageUrl,
+  setBlob,
 }: {
   coverImageUrl?: string;
-  setCoverImageUrl: Dispatch<SetStateAction<string>>;
+  setBlob: Dispatch<SetStateAction<FormData | null>>;
 }) => {
   const htmlFor = 'image-upload';
   const imageRef = useRef(null);
@@ -37,25 +37,24 @@ const ImageUpload = ({
   };
   const clickCropImageUpload = (e: BaseSyntheticEvent) => {
     e.preventDefault();
-    const imgSrc = cropper?.getCroppedCanvas()?.toDataURL() || '';
-    setCropImageUrl({ url: imgSrc, name: imageUrl.name });
-
-    cropper?.getCroppedCanvas()?.toBlob(async (blob) => {
-      const formData = new FormData();
-      if (blob) {
-        formData.append('images', blob, imageUrl.name);
-        for (const [key, value] of Array.from(formData)) {
-          formData.set(key, value);
-        }
-        const data = await fetchUploadImage({
-          fileType: 'DEV_EVENT',
-          body: formData,
-        });
-
-        if (data.message) return alert(data.message);
-        if (data.file_url) return setCoverImageUrl(data.file_url);
-      }
+    setCropImageUrl({
+      url: cropper?.getCroppedCanvas({ maxWidth: 560 })?.toDataURL() || '',
+      name: imageUrl.name,
     });
+    cropper?.getCroppedCanvas({ maxWidth: 560 })?.toBlob(
+      async (blob) => {
+        const formData = new FormData();
+        if (blob) {
+          formData.append('images', blob, imageUrl.name);
+          for (const [key, value] of Array.from(formData)) {
+            formData.set(key, value);
+          }
+          setBlob(formData);
+        }
+      },
+      'image/jpg',
+      0.9
+    );
   };
   const deleteImage = () => {
     setImageUrl({ url: '', name: '' });

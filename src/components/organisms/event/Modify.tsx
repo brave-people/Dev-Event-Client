@@ -47,7 +47,8 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   );
 
   // image
-  const [coverImageUrl, setCoverImageUrl] = useState(event?.cover_image_link);
+  const [coverImageUrl] = useState(event?.cover_image_link);
+  const [blob, setBlob] = useState<FormData | null>(null);
 
   const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
 
@@ -76,6 +77,19 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
     setEventTimeType(type);
   };
 
+  const uploadImage = async () => {
+    if (blob === null) return '';
+
+    const data = await fetchUploadImage({
+      fileType: 'DEV_EVENT',
+      body: blob,
+    });
+
+    if (data.message) alert(data.message);
+    if (data.file_url) return data.file_url;
+    return '';
+  };
+
   const saveEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -87,6 +101,8 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
       time ? 'T' + dayjs(time).format('HH:mm') : 'T00:00';
     const convertStartTime = convertTime(startTime);
     const convertEndTime = convertTime(endTime);
+
+    const newCoverImageUrl = await uploadImage();
 
     const body: EventModel = {
       title,
@@ -101,7 +117,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         ? `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`
         : null,
       tags: eventTags,
-      cover_image_link: coverImageUrl,
+      cover_image_link: newCoverImageUrl || coverImageUrl,
       event_time_type: eventTimeType,
       ...(startDate && { use_start_date_time_yn: startTime ? 'Y' : 'N' }),
       ...(endDate && { use_end_date_time_yn: endTime ? 'Y' : 'N' }),
@@ -137,7 +153,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         setEndTime={setEndTime}
         error={error}
         coverImageUrl={coverImageUrl}
-        setCoverImageUrl={setCoverImageUrl}
+        setBlob={setBlob}
         saveForm={saveEvent}
         isModify={true}
       />

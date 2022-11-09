@@ -1,7 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { eventTagsAtom } from '../../../store/tags';
 import getToken from '../../../server/api/auth/getToken';
 import { getTagsApi } from '../../api/events/tag';
@@ -14,7 +14,7 @@ import type { TokenModel } from '../../../model/User';
 const queryClient = new QueryClient();
 
 const EventCreate = ({ token }: { token: TokenModel }) => {
-  const [, setTags] = useAtom(eventTagsAtom);
+  const setTags = useSetAtom(eventTagsAtom);
   const tagsData = async () => await getTagsApi();
 
   useEffect(() => {

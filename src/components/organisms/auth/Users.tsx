@@ -46,7 +46,9 @@ const Users = () => {
         <table className="w-full p-4">
           <thead className="list__table--thead">
             <tr>
+              <td className="list__table--title">No</td>
               <td className="list__table--title">아이디</td>
+              <td className="list__table--title">이메일</td>
               <td className="list__table--title">회원유형</td>
               <td className="list__table--title">권한</td>
               <td className="list__table--title">최초 발급일</td>
@@ -56,6 +58,8 @@ const Users = () => {
             {data.map((user, index) => {
               return (
                 <tr key={`${user.email}_${index}`}>
+                  <td>{user.user_no}</td>
+                  <td>{user.user_id}</td>
                   <td>{user.email}</td>
                   <td>{getConvertAuthType(user.auth_type)}</td>
                   <td>

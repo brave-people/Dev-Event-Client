@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import cookie from 'cookie';
-import cookies from 'js-cookie';
+import Cookie from 'cookie';
+import Cookies from 'js-cookie';
 import { loginApi } from '../api/auth/login';
 import { useUpdateCookie } from '../../util/use-cookie';
 import Input from '../../components/atoms/input/Input';
@@ -29,8 +29,10 @@ const SignIn = ({ data }: { data: string | null }) => {
   const changeSaveId = () => {
     setSaveId(!saveId);
 
-    if (saveId) return cookies.remove('save_id');
-    cookies.set('save_id', JSON.stringify({ save_id: id }));
+    if (saveId) return Cookies.remove('save_id');
+    Cookies.set('save_id', JSON.stringify({ save_id: id }), {
+      expires: 365 * 10,
+    });
   };
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
@@ -45,7 +47,18 @@ const SignIn = ({ data }: { data: string | null }) => {
         if (res.message) return setMessage(res.message);
 
         setLoading(false);
-        useUpdateCookie(document, res.data);
+        const {
+          access_token,
+          access_token_expired_at,
+          refresh_token,
+          refresh_token_expired_at,
+        } = res.data;
+        Cookies.set('access_token', access_token, {
+          expires: new Date(access_token_expired_at),
+        });
+        Cookies.set('refresh_token', refresh_token, {
+          expires: new Date(refresh_token_expired_at),
+        });
         router.push('/admin/event');
       }
     );
@@ -116,8 +129,8 @@ const SignIn = ({ data }: { data: string | null }) => {
 };
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const cookies = context.req?.headers.cookie;
-  const parsedCookies = cookies && cookie.parse(cookies);
+  const cookie = context.req?.headers.cookie;
+  const parsedCookies = cookie && Cookie.parse(cookie);
 
   if (parsedCookies && parsedCookies['save_id']) {
     return {
