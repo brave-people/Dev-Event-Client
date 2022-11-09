@@ -4,8 +4,8 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../server/api/auth/getToken';
 import { getUserRoleIsAdmin } from '../../util/get-user-role';
-import UserComponent from '../../components/User';
-import UserForm from '../../components/auth/form/Create';
+import UserComponent from '../../components/templates/User';
+import UserForm from '../../components/organisms/form/auth/Create';
 import type { NextPageContext } from 'next/types';
 
 const queryClient = new QueryClient();
