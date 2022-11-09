@@ -1,29 +1,22 @@
 import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
-import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/templates/Event';
 import EventTagList from '../../../components/organisms/tag/EventTag';
 import { getTagsApi } from '../../api/events/tag';
 import type { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../../model/User';
 import type { Tag } from '../../../model/Tag';
 
 const queryClient = new QueryClient();
 
-const EventTag = ({ token }: { token: TokenModel }) => {
+const EventTag = () => {
   const [tags, setTags] = useState<Tag[]>([]);
-
   const data = async () => await getTagsApi();
 
   useEffect(() => {
-    if (token) {
-      useUpdateCookie(document, token);
-
-      // https://github.com/vercel/next.js/discussions/20641?sort=new
-      // vercel 배포 후 500 에러 이슈로 인해 useEffect 내부에서 호출하도록 수정
-      data().then((res) => setTags(res));
-    }
+    // https://github.com/vercel/next.js/discussions/20641?sort=new
+    // vercel 배포 후 500 에러 이슈로 인해 useEffect 내부에서 호출하도록 수정
+    data().then((res) => setTags(res));
   }, []);
 
   if (!tags.length) return null;
@@ -50,7 +43,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  return { props: { token: token.data } };
+  return { props: {} };
 };
 
 export default EventTag;

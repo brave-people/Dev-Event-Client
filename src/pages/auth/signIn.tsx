@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import Cookie from 'cookie';
 import Cookies from 'js-cookie';
 import { loginApi } from '../api/auth/login';
-import { useUpdateCookie } from '../../util/use-cookie';
 import Input from '../../components/atoms/input/Input';
 import Checkbox from '../../components/atoms/input/Checkbox';
 import type { FormEvent } from 'react';

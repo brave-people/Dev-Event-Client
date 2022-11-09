@@ -1,19 +1,12 @@
-import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import type { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../../model/User';
 import getToken from '../../../server/api/auth/getToken';
 import EventComponent from '../../../components/templates/Event';
 import EventList from '../../../components/organisms/event/List';
-import { useUpdateCookie } from '../../../util/use-cookie';
 
 const queryClient = new QueryClient();
 
-const Event = ({ token }: { token: TokenModel }) => {
-  useEffect(() => {
-    if (token) useUpdateCookie(document, token);
-  }, []);
-
+const Event = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <EventComponent title="개발자 행사 목록">
@@ -36,7 +29,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  return { props: { token: token.data } };
+  return { props: {} };
 };
 
 export default Event;

@@ -1,24 +1,21 @@
 import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { replayTagsAtom } from '../../../store/tags';
 import getToken from '../../../server/api/auth/getToken';
 import { getTagsApi } from '../../api/replay/tag';
-import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/templates/Event';
 import ReplayCreateForm from '../../../components/organisms/replay/Create';
 import type { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../../model/User';
 
 const queryClient = new QueryClient();
 
-const EventCreate = ({ token }: { token: TokenModel }) => {
-  const [, setTags] = useAtom(replayTagsAtom);
+const EventCreate = () => {
+  const setTags = useSetAtom(replayTagsAtom);
   const tagsData = async () => await getTagsApi();
 
   useEffect(() => {
-    if (token?.access_token) useUpdateCookie(document, token);
     tagsData().then((res) => setTags(res));
   }, []);
 
@@ -44,7 +41,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  return { props: { token: token.data } };
+  return { props: {} };
 };
 
 export default EventCreate;

@@ -8,16 +8,14 @@ import { linksAtom } from '../../../store/replay';
 import getToken from '../../../server/api/auth/getToken';
 import { getTagsApi } from '../../api/replay/tag';
 import { getReplayEventApi } from '../../api/replay';
-import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/templates/Event';
 import ReplayModifyForm from '../../../components/organisms/replay/Modify';
 import type { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../../model/User';
 import type { ReplayResponseModel } from '../../../model/Replay';
 
 const queryClient = new QueryClient();
 
-const ReplayModify = ({ token }: { token: TokenModel }) => {
+const ReplayModify = () => {
   const {
     query: { id = '' },
   } = useRouter();
@@ -26,12 +24,10 @@ const ReplayModify = ({ token }: { token: TokenModel }) => {
   const setReplayLinks = useSetAtom(linksAtom);
   const [replay, setReplay] = useState<ReplayResponseModel>();
 
-  const data = async () =>
-    await getReplayEventApi({ token, id: id.toString() });
+  const data = async () => await getReplayEventApi({ id: id.toString() });
   const tagsData = async () => await getTagsApi();
 
   useEffect(() => {
-    if (token?.access_token) useUpdateCookie(document, token);
     data().then((res) => {
       setReplay(res);
       setReplayLinks(res.links);

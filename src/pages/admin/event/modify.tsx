@@ -7,28 +7,24 @@ import { eventTagsAtom } from '../../../store/tags';
 import getToken from '../../../server/api/auth/getToken';
 import { getEventApi } from '../../api/events';
 import { getTagsApi } from '../../api/events/tag';
-import { useUpdateCookie } from '../../../util/use-cookie';
 import EventComponent from '../../../components/templates/Event';
 import EventModifyForm from '../../../components/organisms/event/Modify';
 import type { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../../model/User';
 import type { EventResponseModel } from '../../../model/Event';
 
 const queryClient = new QueryClient();
 
-const EventModify = ({ token }: { token: TokenModel }) => {
+const EventModify = () => {
   const { query } = useRouter();
   const setTags = useSetAtom(eventTagsAtom);
   const [event, setEvent] = useState<EventResponseModel>();
 
   const data = async () =>
-    await getEventApi({ token, id: query.id?.toString() || '' });
+    await getEventApi({ id: query.id?.toString() || '' });
 
   const tagsData = async () => await getTagsApi();
 
   useEffect(() => {
-    if (token?.access_token) useUpdateCookie(document, token);
-
     // https://github.com/vercel/next.js/discussions/20641?sort=new
     // vercel 배포 후 500 에러 이슈로 인해 useEffect 내부에서 호출하도록 수정
     data().then((res) => setEvent(res));
@@ -62,7 +58,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
 
   // id가 없다면 이벤트 조회 페이지로 이동
   if (!id) return { redirect: { destination: '/admin/event' } };
-  return { props: { token: token.data } };
+  return { props: {} };
 };
 
 export default EventModify;

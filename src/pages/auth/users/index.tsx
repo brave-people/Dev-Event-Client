@@ -1,19 +1,12 @@
-import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
-import { useUpdateCookie } from '../../../util/use-cookie';
 import UserComponent from '../../../components/templates/User';
 import UsersComponent from '../../../components/organisms/auth/Users';
 import type { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../../model/User';
 
 const queryClient = new QueryClient();
 
-const Users = ({ token }: { token: TokenModel }) => {
-  useEffect(() => {
-    if (token) useUpdateCookie(document, token);
-  }, []);
-
+const Users = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <UserComponent title="회원관리">
@@ -36,7 +29,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  return { props: { token: token.data } };
+  return { props: {} };
 };
 
 export default Users;

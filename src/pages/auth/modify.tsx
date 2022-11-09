@@ -1,20 +1,12 @@
-import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../server/api/auth/getToken';
-import { useUpdateCookie } from '../../util/use-cookie';
 import UserComponent from '../../components/templates/User';
 import UserModifyForm from '../../components/organisms/form/auth/Modify';
-
 import type { NextPageContext } from 'next/types';
-import type { TokenModel } from '../../model/User';
 
 const queryClient = new QueryClient();
 
-const Modify = ({ token }: { token: TokenModel }) => {
-  useEffect(() => {
-    if (token) useUpdateCookie(document, token);
-  }, []);
-
+const Modify = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <UserComponent title="회원정보수정">
@@ -37,7 +29,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  return { props: { token: token.data } };
+  return { props: {} };
 };
 
 export default Modify;
