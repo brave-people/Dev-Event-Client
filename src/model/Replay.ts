@@ -52,7 +52,7 @@ export interface ReplayFormModel {
   endTime: Date | null;
   setEndTime: Dispatch<SetStateAction<Date | null>>;
   coverImageUrl?: string;
-  setCoverImageUrl: Dispatch<SetStateAction<string>>;
+  setBlob: Dispatch<SetStateAction<FormData | null>>;
   saveForm: (e: MouseEvent<HTMLButtonElement>) => Promise<void>;
   isModify?: boolean;
 }

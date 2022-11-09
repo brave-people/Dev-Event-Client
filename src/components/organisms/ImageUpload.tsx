@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import Cropper from 'cropperjs';
-import { fetchUploadImage } from '../../pages/api/image';
 import type { BaseSyntheticEvent } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 

@@ -10,6 +10,7 @@ import { useErrorContext } from '../../layouts/ErrorContext';
 import type { MouseEvent } from 'react';
 import type { Tag } from '../../../model/Tag';
 import type { ReplayModel } from '../../../model/Replay';
+import { fetchUploadImage } from '../../../pages/api/image';
 
 export const Create = () => {
   const router = useRouter();
@@ -28,7 +29,7 @@ export const Create = () => {
   const [endTime, setEndTime] = useState<Date | null>(null);
 
   // image
-  const [coverImageUrl, setCoverImageUrl] = useState('');
+  const [blob, setBlob] = useState<FormData | null>(null);
 
   const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
 
@@ -52,6 +53,19 @@ export const Create = () => {
     setEventLink(e.target.value);
   };
 
+  const uploadImage = async () => {
+    if (blob === null) return '';
+
+    const data = await fetchUploadImage({
+      fileType: 'DEV_EVENT',
+      body: blob,
+    });
+
+    if (data.message) alert(data.message);
+    if (data.file_url) return data.file_url;
+    return '';
+  };
+
   const convertTime = (time: Date | null) =>
     time ? 'T' + dayjs(time).format('HH:mm') : 'T00:00';
   const convertStartTime = convertTime(startTime);
@@ -63,6 +77,8 @@ export const Create = () => {
 
     if (!title || !organizer || !eventLink || !eventTagsName)
       return validateForm();
+
+    const coverImageUrl = await uploadImage();
 
     const body: ReplayModel = {
       title,
@@ -109,7 +125,7 @@ export const Create = () => {
         setEndDate={setEndDate}
         endTime={endTime}
         setEndTime={setEndTime}
-        setCoverImageUrl={setCoverImageUrl}
+        setBlob={setBlob}
         saveForm={createEvent}
       />
     </div>

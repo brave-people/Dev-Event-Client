@@ -29,7 +29,7 @@ const FormContent = ({
   endTime,
   setEndTime,
   coverImageUrl,
-  setCoverImageUrl,
+  setBlob,
   saveForm,
   isModify = false,
 }: ReplayFormModel) => {
@@ -166,7 +166,7 @@ const FormContent = ({
           </span>
           <ImageUploadComponent
             coverImageUrl={coverImageUrl}
-            setCoverImageUrl={setCoverImageUrl}
+            setBlob={setBlob}
           />
         </div>
       </div>

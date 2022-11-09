@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { useAtomValue } from 'jotai';
 import { linksAtom } from '../../../store/replay';
 import { modifyReplayApi } from '../../../pages/api/replay/modify';
+import { fetchUploadImage } from '../../../pages/api/image';
 import { STATUS_200 } from '../../../config/constants';
 import FormContent from '../form/replay/Content';
 import { useErrorContext } from '../../layouts/ErrorContext';
@@ -44,7 +45,8 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
   );
 
   // image
-  const [coverImageUrl, setCoverImageUrl] = useState(replay?.cover_image_link);
+  const [coverImageUrl] = useState(replay?.cover_image_link);
+  const [blob, setBlob] = useState<FormData | null>(null);
 
   const replayTagsName = replayTags?.map(({ tag_name }) => tag_name);
 
@@ -68,6 +70,19 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
     setEventLink(e.target.value);
   };
 
+  const uploadImage = async () => {
+    if (blob === null) return '';
+
+    const data = await fetchUploadImage({
+      fileType: 'DEV_EVENT',
+      body: blob,
+    });
+
+    if (data.message) alert(data.message);
+    if (data.file_url) return data.file_url;
+    return '';
+  };
+
   const saveEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -79,6 +94,8 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
       time ? 'T' + dayjs(time).format('HH:mm') : 'T00:00';
     const convertStartTime = convertTime(startTime);
     const convertEndTime = convertTime(endTime);
+
+    const newCoverImageUrl = await uploadImage();
 
     const body: ReplayModel = {
       title,
@@ -94,7 +111,7 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
         ? `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`
         : null,
       tags: replayTags,
-      cover_image_link: coverImageUrl,
+      cover_image_link: newCoverImageUrl || coverImageUrl,
       ...(startDate && { use_start_date_time_yn: startTime ? 'Y' : 'N' }),
       ...(endDate && { use_end_date_time_yn: endTime ? 'Y' : 'N' }),
     };
@@ -127,7 +144,7 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
         setEndTime={setEndTime}
         error={error}
         coverImageUrl={coverImageUrl}
-        setCoverImageUrl={setCoverImageUrl}
+        setBlob={setBlob}
         saveForm={saveEvent}
         isModify={true}
       />
