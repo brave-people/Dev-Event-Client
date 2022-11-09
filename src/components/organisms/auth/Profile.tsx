@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useAtom } from 'jotai';
-import { userAtom } from '../../../store/user';
+import { userAtom } from '../../../store/User';
 import { getUsersProfileApi } from '../../../pages/api/auth/users/profile';
 
 export const useUserProfile = () => {
