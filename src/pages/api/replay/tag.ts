@@ -47,15 +47,13 @@ export const deleteTagApi = async (id: number) => {
   ).then((res) => res.json());
 };
 
-export const getTagsApi = async (token?: string): Promise<Tag[]> => {
+export const getTagsApi = async (): Promise<Tag[]> => {
   return await fetch(
     `${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/replayEvents/tags`,
     {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: token
-          ? token
-          : Cookie.parse(document.cookie)['access_token'],
+        Authorization: Cookie.parse(document.cookie)['access_token'],
         ...Headers(),
       } as RequestHeaders,
     }
