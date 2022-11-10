@@ -23,7 +23,7 @@ const TagList = ({ tags }: { tags: Tag[] }) => {
   const [color, setColor] = useState('');
 
   const { data, refetch } = useQuery(
-    ['fetchEventTags'],
+    ['fetchReplayTags'],
     async () => await getTagsApi(),
     { refetchOnWindowFocus: false }
   );
