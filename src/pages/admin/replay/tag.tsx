@@ -19,8 +19,6 @@ const ReplayTag = () => {
     data().then((res) => setTags(res));
   }, []);
 
-  if (!tags.length) return null;
-
   return (
     <QueryClientProvider client={queryClient}>
       <EventComponent title="태그 관리">
