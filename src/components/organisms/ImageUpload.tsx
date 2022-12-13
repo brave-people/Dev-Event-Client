@@ -14,6 +14,7 @@ const ImageUpload = ({
   const imageRef = useRef(null);
   const prevImageRef = useRef(coverImageUrl);
   const dragRef = useRef<HTMLLabelElement | null>(null);
+  const [size, setSize] = useState(0);
 
   const [imageUrl, setImageUrl] = useState<{
     url?: string;
@@ -32,15 +33,16 @@ const ImageUpload = ({
     reader.onload = async () => {
       setImageUrl({ url: reader.result?.toString(), name: file.name });
     };
+    setSize(file.size);
     reader.readAsDataURL(file);
   };
   const clickCropImageUpload = (e: BaseSyntheticEvent) => {
     e.preventDefault();
     setCropImageUrl({
-      url: cropper?.getCroppedCanvas({ maxWidth: 560 })?.toDataURL() || '',
+      url: cropper?.getCroppedCanvas({ maxWidth: 1024 })?.toDataURL() || '',
       name: imageUrl.name,
     });
-    cropper?.getCroppedCanvas({ maxWidth: 560 })?.toBlob(
+    cropper?.getCroppedCanvas({ maxWidth: 1024 })?.toBlob(
       async (blob) => {
         const formData = new FormData();
         if (blob) {
@@ -52,7 +54,7 @@ const ImageUpload = ({
         }
       },
       'image/jpg',
-      0.9
+      1
     );
   };
   const deleteImage = () => {
@@ -70,8 +72,20 @@ const ImageUpload = ({
     e.stopPropagation();
   };
 
+  const bytesToSize = (bytes: number) => {
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes === 0) return 'n/a';
+    const i = parseInt(
+      String(Math.floor(Math.log(bytes) / Math.log(1024))),
+      10
+    );
+    if (i === 0) return `${bytes} ${sizes[i]})`;
+    return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
+  };
+
   useEffect(() => {
     if (!imageRef.current) return;
+    console.log(imageRef?.current);
     setCropper(new Cropper(imageRef.current, { aspectRatio: 16 / 9 }));
   }, [imageUrl]);
 
@@ -132,6 +146,9 @@ const ImageUpload = ({
           </div>
         )}
       </section>
+      {size > 0 && (
+        <p className="mt-4 text-sm text-right">{bytesToSize(size)}</p>
+      )}
       {imageUrl.url && (
         <div className="mt-4">
           <button
