@@ -133,10 +133,8 @@ $create_button_height: 48px;
 .list__button--pop {
   width: 220px;
   height: $create_button_height;
-  position: absolute;
-  bottom: $create_button_height / -2;
+  position: fixed;
   left: 50%;
-  transform: translate(-50%, 100%);
   background-color: $color_blue-500;
   color: $color_white;
   font-size: 14px;
