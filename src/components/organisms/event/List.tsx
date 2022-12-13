@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useRef } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
@@ -13,12 +13,16 @@ const List = () => {
   const router = useRouter();
   const [layer, setLayer] = useAtom(layerAtom);
 
+  const divRef = useRef<HTMLDivElement>(null);
+
   const [currentDate] = useState<Date>(new Date());
   const [list, setList] = useState<EventResponseModel[]>([]);
   const [keyword, setKeyword] = useState('');
   const [year, setYear] = useState(currentDate.getFullYear());
   const [month, setMonth] = useState(currentDate.getMonth());
   const [currentId, setCurrentId] = useState<number | null>(null);
+
+  const [maxHeight, setMaxHeight] = useState<string | null>(null);
 
   const { data, refetch } = useQuery(
     ['fetchEvents', { year, month }],
@@ -39,6 +43,18 @@ const List = () => {
   };
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!divRef.current) return;
+
+    const divRefBottom = divRef.current.getBoundingClientRect().bottom;
+    const top =
+      divRef.current.clientHeight > window.innerHeight
+        ? `calc(100vh - 72px)`
+        : `calc(${divRefBottom}px - 24px)`;
+    setMaxHeight(top);
+  }, [list]);
+
+  useEffect(() => {
     if (!data) return setList([]);
     if (!keyword) return setList(data);
 
@@ -49,7 +65,7 @@ const List = () => {
   }, [keyword, data]);
 
   return (
-    <div className="list">
+    <div ref={divRef} className="list">
       <FormList
         year={year}
         setYear={setYear}
@@ -133,13 +149,16 @@ const List = () => {
             </tbody>
           </table>
         )}
-        <button
-          type="button"
-          className="list__button--pop"
-          onClick={() => router.push('/admin/event/create')}
-        >
-          이벤트 생성
-        </button>
+        {maxHeight && (
+          <button
+            type="button"
+            className="list__button--pop"
+            onClick={() => router.push('/admin/event/create')}
+            style={{ top: maxHeight }}
+          >
+            이벤트 생성
+          </button>
+        )}
       </div>
       {layer && (
         <CenterAlert
