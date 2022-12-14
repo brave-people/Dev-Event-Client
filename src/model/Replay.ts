@@ -44,7 +44,7 @@ export interface ReplayFormModel {
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
   startDate: Date | null;
-  setStartDate: Dispatch<SetStateAction<Date | null>>;
+  changeStartDate: (date: Date | null) => void;
   startTime: Date | null;
   setStartTime: Dispatch<SetStateAction<Date | null>>;
   endDate: Date | null;

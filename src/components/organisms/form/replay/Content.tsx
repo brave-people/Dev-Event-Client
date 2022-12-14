@@ -21,7 +21,7 @@ const FormContent = ({
   tags,
   setTags,
   startDate,
-  setStartDate,
+  changeStartDate,
   startTime,
   setStartTime,
   endDate,
@@ -127,7 +127,7 @@ const FormContent = ({
           <DatePicker
             dateFormat="yyyy/MM/dd"
             selected={startDate}
-            onChange={(date) => date && setStartDate(date)}
+            onChange={(date) => date && changeStartDate(date)}
             isClearable={true}
             placeholderText=""
             className="appearance-none w-52 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"

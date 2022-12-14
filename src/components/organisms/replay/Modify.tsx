@@ -69,6 +69,11 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
   };
+  const changeStartDate = (startDate: Date | null) => {
+    setStartDate(startDate);
+    if (!startDate || !endDate) return;
+    if (endDate < startDate) setEndDate(startDate);
+  };
 
   const uploadImage = async () => {
     if (blob === null) return '';
@@ -135,7 +140,7 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
         changeOrganizer={changeOrganizer}
         changeEventLink={changeEventLink}
         startDate={startDate}
-        setStartDate={setStartDate}
+        changeStartDate={changeStartDate}
         startTime={startTime}
         setStartTime={setStartTime}
         endDate={endDate}

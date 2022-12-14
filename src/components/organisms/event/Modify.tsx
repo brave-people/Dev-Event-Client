@@ -77,6 +77,11 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
     e.stopPropagation();
     setEventTimeType(type);
   };
+  const changeStartDate = (startDate: Date | null) => {
+    setStartDate(startDate);
+    if (!startDate || !endDate) return;
+    if (endDate < startDate) setEndDate(startDate);
+  };
 
   const uploadImage = async () => {
     if (blob === null) return '';
@@ -145,7 +150,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         eventTimeType={eventTimeType}
         changeEventTimeType={changeEventTimeType}
         startDate={startDate}
-        setStartDate={setStartDate}
+        changeStartDate={changeStartDate}
         startTime={startTime}
         setStartTime={setStartTime}
         endDate={endDate}

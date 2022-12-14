@@ -49,7 +49,7 @@ export interface EventFormModel {
   eventTimeType: EventTimeType;
   changeEventTimeType: (e: MouseEvent, type: EventTimeType) => void;
   startDate: Date | null;
-  setStartDate: Dispatch<SetStateAction<Date | null>>;
+  changeStartDate: (date: Date | null) => void;
   startTime: Date | null;
   setStartTime: Dispatch<SetStateAction<Date | null>>;
   endDate: Date | null;
