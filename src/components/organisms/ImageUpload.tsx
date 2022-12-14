@@ -60,6 +60,7 @@ const ImageUpload = ({
   const deleteImage = () => {
     setImageUrl({ url: '', name: '' });
     setCropImageUrl({ url: '', name: '' });
+    setSize(0);
   };
   const dragAndDropHandler = (e: DragEvent) => {
     e.preventDefault();
