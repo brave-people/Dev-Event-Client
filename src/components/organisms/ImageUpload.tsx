@@ -33,7 +33,6 @@ const ImageUpload = ({
     reader.onload = async () => {
       setImageUrl({ url: reader.result?.toString(), name: file.name });
     };
-    setSize(file.size);
     reader.readAsDataURL(file);
   };
   const clickCropImageUpload = (e: BaseSyntheticEvent) => {
@@ -46,6 +45,7 @@ const ImageUpload = ({
       async (blob) => {
         const formData = new FormData();
         if (blob) {
+          setSize(blob.size);
           formData.append('images', blob, imageUrl.name);
           for (const [key, value] of Array.from(formData)) {
             formData.set(key, value);
