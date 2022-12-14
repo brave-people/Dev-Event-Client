@@ -52,6 +52,11 @@ export const Create = () => {
   const changeEventLink = (e: { target: { value: string } }) => {
     setEventLink(e.target.value);
   };
+  const changeStartDate = (startDate: Date | null) => {
+    setStartDate(startDate);
+    if (!startDate || !endDate) return;
+    if (endDate < startDate) setEndDate(startDate);
+  };
 
   const uploadImage = async () => {
     if (blob === null) return '';
@@ -118,7 +123,7 @@ export const Create = () => {
         tags={eventTagsName}
         setTags={setEventTags}
         startDate={startDate}
-        setStartDate={setStartDate}
+        changeStartDate={changeStartDate}
         startTime={startTime}
         setStartTime={setStartTime}
         endDate={endDate}
