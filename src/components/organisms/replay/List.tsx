@@ -49,7 +49,7 @@ const List = () => {
     const top =
       divRef.current.clientHeight > window.innerHeight
         ? `calc(100vh - 72px)`
-        : `calc(${divRefBottom}px - 24px)`;
+        : `${divRefBottom - 24}px`;
     setMaxHeight(top);
   }, [list]);
 
