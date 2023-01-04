@@ -34,7 +34,7 @@ const List = ({
       <div className="relative">
         <button className="list__header__button" onClick={changeShowPicker}>
           <span>{year}년&nbsp;</span>
-          {month && <span>{month + 1}월</span>}
+          {typeof month === 'number' && <span>{month + 1}월</span>}
         </button>
         <div ref={pickerRef}>
           <PickerLayer
