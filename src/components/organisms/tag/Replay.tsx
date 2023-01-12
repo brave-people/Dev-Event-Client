@@ -5,7 +5,7 @@ import {
   modifyTagApi,
   deleteTagApi,
   getTagsApi,
-} from '../../../pages/api/replay/tag';
+} from '../../../api/replay/tag';
 import TagLayer from '../../molecules/layer/Tag';
 import { STATUS_200, STATUS_201 } from '../../../config/constants';
 import type { ChangeEvent } from 'react';

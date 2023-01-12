@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useQuery } from 'react-query';
 import type { CalendarProps } from '../../../model/Calendar';
-import { getEventsApi } from '../../../pages/api/events';
+import { getEventsApi } from '../../../api/events';
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());

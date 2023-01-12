@@ -19,7 +19,7 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
 
   return (
     <header className="header">
-      <a href="/admin/event" className="text-4xl font-bold">
+      <a href="/src/app/admin/event" className="text-4xl font-bold">
         용감한 관리자
       </a>
       <Menu as="div" className="ml-3 relative">
@@ -81,7 +81,7 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="/auth/password"
+                  href="/src/app/auth/password"
                   className={classNames(
                     active && 'bg-blue-50',
                     'block px-4 py-2 text-sm text-gray-500 font-bold'
@@ -96,7 +96,7 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
                 <Menu.Item>
                   {({ active }) => (
                     <a
-                      href="/auth/users"
+                      href="/src/app/auth/users"
                       className={classNames(
                         active && 'bg-blue-50',
                         'block px-4 py-2 text-sm text-gray-500 font-bold'
@@ -109,7 +109,7 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
                 <Menu.Item>
                   {({ active }) => (
                     <a
-                      href="/auth/create"
+                      href="/src/app/auth/create"
                       className={classNames(
                         active && 'bg-blue-50',
                         'block px-4 py-2 text-sm text-gray-500 font-bold'
@@ -124,7 +124,7 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="/auth/signOut"
+                  href="/src/app/auth/signOut"
                   className={classNames(
                     active && 'bg-blue-50',
                     'block px-4 py-2 text-sm text-gray-500 font-bold'

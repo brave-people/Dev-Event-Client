@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useQuery } from 'react-query';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
-import { deleteUsersApi, getUsersApi } from '../../../pages/api/auth/users';
+import { deleteUsersApi, getUsersApi } from '../../../api/auth/users';
 import { userAtom, selectedUserAtom } from '../../../store/User';
 import { getUserRole } from '../../../util/get-user-role';
 import { getConvertAuthType } from '../../../util/get-convert-auth-type';

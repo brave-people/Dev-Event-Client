@@ -34,7 +34,7 @@ const Nav = () => {
       <ul>
         <li>
           <a
-            href="/admin/event"
+            href="/src/app/admin/event"
             className={classNames('flex items-center rounded p-2', {
               'text-blue-800 font-bold bg-blue-50':
                 currentRouter('/admin/event'),
@@ -46,7 +46,7 @@ const Nav = () => {
           <ul>
             <li>
               <a
-                href="/admin/event/tag"
+                href="/src/app/admin/event/tag"
                 className={classNames(
                   'flex items-center rounded text-base mt-4 py-2 px-10',
                   {
@@ -62,7 +62,7 @@ const Nav = () => {
         </li>
         <li className="my-4">
           <a
-            href="/admin/replay"
+            href="/src/app/admin/replay"
             className={classNames('flex items-center rounded p-2', {
               'text-blue-800 font-bold bg-blue-50':
                 currentRouter('/admin/replay'),
@@ -74,7 +74,7 @@ const Nav = () => {
           <ul>
             <li>
               <a
-                href="/admin/replay/tag"
+                href="/src/app/admin/replay/tag"
                 className={classNames(
                   'flex items-center rounded text-base mt-4 py-2 px-10',
                   {
@@ -90,7 +90,7 @@ const Nav = () => {
         </li>
         <li>
           <a
-            href="/admin/groups"
+            href="/src/app/admin/groups"
             className={classNames('flex items-center rounded p-2', {
               'text-blue-800 font-bold bg-blue-50':
                 currentRouter('/admin/groups'),

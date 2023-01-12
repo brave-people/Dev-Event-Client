@@ -5,9 +5,9 @@ import {
   STATUS_201,
   STATUS_400,
 } from '../../../../config/constants';
-import { registerIdApi } from '../../../../pages/api/auth/id';
-import { registerEmailApi } from '../../../../pages/api/auth/email';
-import { registerUserApi } from '../../../../pages/api/auth/register';
+import { registerIdApi } from '../../../../api/auth/id';
+import { registerEmailApi } from '../../../../api/auth/email';
+import { registerUserApi } from '../../../../api/auth/register';
 import useErrorMessage from '../../../molecules/message/Error';
 import useMessage from '../../../molecules/message/Base';
 import FormContent from './Content';

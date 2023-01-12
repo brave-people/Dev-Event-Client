@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { createEventsApi } from '../../../pages/api/events/create';
-import { fetchUploadImage } from '../../../pages/api/image';
+import { createEventsApi } from '../../../api/events/create';
+import { fetchUploadImage } from '../../../api/image';
 import { STATUS_201 } from '../../../config/constants';
 import FormContent from '../form/event/Content';
 import { useErrorContext } from '../../layouts/ErrorContext';

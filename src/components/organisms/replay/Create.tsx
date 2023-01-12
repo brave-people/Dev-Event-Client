@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAtomValue } from 'jotai';
-import { createReplayApi } from '../../../pages/api/replay/create';
+import { createReplayApi } from '../../../api/replay/create';
 import { linksAtom } from '../../../store/replay';
 import { STATUS_201 } from '../../../config/constants';
 import FormContent from '../form/replay/Content';
@@ -10,7 +10,7 @@ import { useErrorContext } from '../../layouts/ErrorContext';
 import type { MouseEvent } from 'react';
 import type { Tag } from '../../../model/Tag';
 import type { ReplayModel } from '../../../model/Replay';
-import { fetchUploadImage } from '../../../pages/api/image';
+import { fetchUploadImage } from '../../../api/image';
 
 export const Create = () => {
   const router = useRouter();

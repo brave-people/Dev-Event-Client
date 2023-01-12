@@ -5,11 +5,11 @@ import { selectedUserAtom } from '../../../../store/User';
 import {
   addRoleUsersApi,
   deleteRoleUsersApi,
-} from '../../../../pages/api/auth/users/role';
+} from '../../../../api/auth/users/role';
 import FormContent from './Content';
 import type { ChangeEvent } from 'react';
 import type { UserRoleType } from '../../../../model/User';
-import { modifyUsersApi } from '../../../../pages/api/auth/users';
+import { modifyUsersApi } from '../../../../api/auth/users';
 
 const Modify = () => {
   const router = useRouter();
