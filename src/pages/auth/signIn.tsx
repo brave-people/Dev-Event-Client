@@ -110,7 +110,7 @@ const SignIn = ({ data }: { data: string | null }) => {
           )}
           <div className="checkbox--blue mb-4">
             <Checkbox
-              value={saveId}
+              checked={saveId}
               onChange={changeSaveId}
               label="아이디 저장"
             />

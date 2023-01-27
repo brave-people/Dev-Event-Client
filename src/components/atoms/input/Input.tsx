@@ -2,6 +2,36 @@ import { useId } from 'react';
 import classNames from 'classnames';
 import type { ReactNode, InputHTMLAttributes } from 'react';
 
+type TextProps = {
+  text?: string;
+  isRequired?: boolean;
+};
+
+type InputProps = {
+  value: string;
+  onChange?: (e: { target: { value: string } }) => void;
+  type?: InputHTMLAttributes<HTMLInputElement>['type'];
+  readonly?: boolean;
+  disable?: boolean;
+  placeholder?: string;
+  autoComplete?: 'on' | 'off';
+  customClass?: Record<string, boolean>;
+  children?: ReactNode;
+} & TextProps;
+
+const Text = ({ id, text, isRequired }: TextProps & { id: string }) => {
+  if (!text) return null;
+  return (
+    <label
+      htmlFor={id}
+      className="form__content__title inline-block text-base font-medium text-gray-600"
+    >
+      {text}
+      {isRequired && <span className="text-red-500">*</span>}
+    </label>
+  );
+};
+
 const Input = ({
   text,
   value,
@@ -14,32 +44,12 @@ const Input = ({
   autoComplete,
   customClass,
   children,
-}: {
-  text?: string;
-  value: string;
-  onChange?: (e: { target: { value: string } }) => void;
-  type?: InputHTMLAttributes<HTMLInputElement>['type'];
-  isRequired?: boolean;
-  readonly?: boolean;
-  disable?: boolean;
-  placeholder?: string;
-  autoComplete?: 'on' | 'off';
-  customClass?: Record<string, boolean>;
-  children?: ReactNode;
-}) => {
+}: InputProps) => {
   const id = useId();
 
   return (
     <div className="form__content__input">
-      {text && (
-        <label
-          htmlFor={id}
-          className="form__content__title inline-block text-base font-medium text-gray-600"
-        >
-          {text}
-          {isRequired && <span className="text-red-500">*</span>}
-        </label>
-      )}
+      <Text id={id} text={text} isRequired={isRequired} />
       <input
         id={id}
         type={type}

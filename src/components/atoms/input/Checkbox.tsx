@@ -2,19 +2,19 @@ import { useId } from 'react';
 import type { ChangeEventHandler } from 'react';
 
 const Checkbox = ({
-  value,
-  onChange,
   label,
+  checked,
+  onChange,
 }: {
-  value: boolean | string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
   label: string;
+  checked: boolean | string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
 }) => {
   const id = useId();
 
   return (
     <>
-      <input id={id} type="checkbox" onChange={onChange} checked={!!value} />
+      <input id={id} type="checkbox" onChange={onChange} checked={!!checked} />
       <label htmlFor={id}>{label}</label>
     </>
   );
