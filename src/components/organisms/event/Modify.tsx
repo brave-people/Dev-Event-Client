@@ -53,7 +53,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
 
   const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
 
-  const { error, validateForm } = useErrorContext({
+  const { formErrors, validateForm } = useErrorContext({
     title,
     organizer,
     eventLink,
@@ -157,7 +157,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         setEndDate={setEndDate}
         endTime={endTime}
         setEndTime={setEndTime}
-        error={error}
+        error={formErrors}
         coverImageUrl={coverImageUrl}
         setBlob={setBlob}
         saveForm={saveEvent}

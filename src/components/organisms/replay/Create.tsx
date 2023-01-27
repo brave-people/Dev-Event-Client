@@ -33,7 +33,7 @@ export const Create = () => {
 
   const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
 
-  const { error, validateForm } = useErrorContext({
+  const { formErrors, validateForm } = useErrorContext({
     title,
     organizer,
     eventLink,
@@ -113,7 +113,7 @@ export const Create = () => {
       <FormContent
         title={title}
         changeTitle={changeTitle}
-        error={error}
+        error={formErrors}
         description={description}
         changeDescription={changeDescription}
         organizer={organizer}

@@ -50,7 +50,7 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
 
   const replayTagsName = replayTags?.map(({ tag_name }) => tag_name);
 
-  const { error, validateForm } = useErrorContext({
+  const { formErrors, validateForm } = useErrorContext({
     title,
     organizer,
     eventLink,
@@ -147,7 +147,7 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
         setEndDate={setEndDate}
         endTime={endTime}
         setEndTime={setEndTime}
-        error={error}
+        error={formErrors}
         coverImageUrl={coverImageUrl}
         setBlob={setBlob}
         saveForm={saveEvent}

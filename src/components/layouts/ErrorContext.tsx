@@ -8,7 +8,7 @@ export const useErrorContext = ({
   replayLink = '',
   tags,
 }: EventErrorForm<string>) => {
-  const [error, setError] = useState<EventErrorForm<boolean>>({
+  const [formErrors, setFormErrors] = useState<EventErrorForm<boolean>>({
     title: false,
     organizer: false,
     eventLink: false,
@@ -16,18 +16,23 @@ export const useErrorContext = ({
     tags: false,
   });
 
-  const validateForm = () => {
-    setError((prevState) => ({ ...prevState, title: !title }));
-    setError((prevState) => ({ ...prevState, organizer: !organizer }));
-    setError((prevState) => ({ ...prevState, eventLink: !eventLink }));
-    setError((prevState) => ({ ...prevState, replayLink: !replayLink }));
-    setError((prevState) => ({ ...prevState, tags: !tags.length }));
-  };
+  const validateForm = () =>
+    setFormErrors({
+      title: !title,
+      organizer: !organizer,
+      eventLink: !eventLink,
+      replayLink: !replayLink,
+      tags: !tags.length,
+    });
 
-  return { error, validateForm };
+  return { formErrors, validateForm };
 };
 
-const ErrorContext = ({ title = '필수 입력값 입니다' }: { title?: string }) => {
+const ErrorContext = ({
+  errorMessage = '필수 입력값 입니다',
+}: {
+  errorMessage?: string;
+}) => {
   return (
     <p className="form__content--error">
       <svg
@@ -44,7 +49,7 @@ const ErrorContext = ({ title = '필수 입력값 입니다' }: { title?: string
           d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
-      {title}
+      {errorMessage}
     </p>
   );
 };
