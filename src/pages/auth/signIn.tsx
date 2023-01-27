@@ -29,7 +29,7 @@ const SignIn = ({ data }: { data: string | null }) => {
     setSaveId(!saveId);
 
     if (saveId) return Cookies.remove('save_id');
-    Cookies.set('save_id', JSON.stringify({ save_id: id }), {
+    Cookies.set('save_id', id, {
       expires: 365 * 10,
     });
   };
@@ -134,7 +134,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
   if (parsedCookies && parsedCookies['save_id']) {
     return {
       props: {
-        data: JSON.parse(parsedCookies['save_id']).save_id,
+        data: parsedCookies['save_id'],
       },
     };
   }
