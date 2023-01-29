@@ -728,6 +728,11 @@ select {
   margin: 1rem;
 }
 
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -748,11 +753,6 @@ select {
   margin-bottom: 2rem;
 }
 
-.my-1 {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -769,16 +769,20 @@ select {
   margin-top: 0.5rem;
 }
 
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mr-4 {
+  margin-right: 1rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
 
 .mt-4 {
   margin-top: 1rem;
-}
-
-.mr-4 {
-  margin-right: 1rem;
 }
 
 .mb-8 {
@@ -791,10 +795,6 @@ select {
 
 .mr-2 {
   margin-right: 0.5rem;
-}
-
-.mb-6 {
-  margin-bottom: 1.5rem;
 }
 
 .mt-16 {
@@ -1051,6 +1051,11 @@ select {
   background-color: rgb(239 246 255 / var(--tw-bg-opacity));
 }
 
+.bg-blue-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+}
+
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -1074,11 +1079,6 @@ select {
 .bg-blue-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
-}
-
-.bg-blue-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
 
 .bg-red-500 {
@@ -1253,6 +1253,21 @@ select {
   color: rgb(30 64 175 / var(--tw-text-opacity));
 }
 
+.text-gray-700 {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-blue-600 {
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity));
+}
+
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
@@ -1273,24 +1288,9 @@ select {
   color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
 .text-gray-900 {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-
-.text-gray-700 {
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
-}
-
-.text-blue-600 {
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity));
 }
 
 .text-gray-400 {
