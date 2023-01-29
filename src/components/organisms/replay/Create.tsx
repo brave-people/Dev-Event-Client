@@ -1,16 +1,16 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import type { MouseEvent } from 'react';
 import { useRouter } from 'next/router';
 import { useAtomValue } from 'jotai';
+import { STATUS_201 } from '../../../config/constants';
+import type { ReplayModel } from '../../../model/Replay';
+import type { Tag } from '../../../model/Tag';
+import { fetchUploadImage } from '../../../pages/api/image';
 import { createReplayApi } from '../../../pages/api/replay/create';
 import { linksAtom } from '../../../store/replay';
-import { STATUS_201 } from '../../../config/constants';
-import FormContent from '../form/replay/Content';
 import { useErrorContext } from '../../layouts/ErrorContext';
-import type { MouseEvent } from 'react';
-import type { Tag } from '../../../model/Tag';
-import type { ReplayModel } from '../../../model/Replay';
-import { fetchUploadImage } from '../../../pages/api/image';
+import FormContent from '../form/replay/Content';
 
 export const Create = () => {
   const router = useRouter();
@@ -22,7 +22,7 @@ export const Create = () => {
   const [eventLink, setEventLink] = useState('');
   const [eventTags, setEventTags] = useState<Tag[]>([]);
 
-  // date
+  // datepicker
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(new Date());

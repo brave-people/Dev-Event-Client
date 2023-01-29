@@ -1,14 +1,14 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import type { MouseEvent } from 'react';
 import { useRouter } from 'next/router';
+import { STATUS_201 } from '../../../config/constants';
+import type { EventModel, EventTimeType } from '../../../model/Event';
+import type { Tag } from '../../../model/Tag';
 import { createEventsApi } from '../../../pages/api/events/create';
 import { fetchUploadImage } from '../../../pages/api/image';
-import { STATUS_201 } from '../../../config/constants';
-import FormContent from '../form/event/Content';
 import { useErrorContext } from '../../layouts/ErrorContext';
-import type { MouseEvent } from 'react';
-import type { Tag } from '../../../model/Tag';
-import type { EventModel, EventTimeType } from '../../../model/Event';
+import FormContent from '../form/event/Content';
 
 export const Create = () => {
   const router = useRouter();
@@ -22,7 +22,7 @@ export const Create = () => {
     'DATE' as const
   );
 
-  // date
+  // datepicker
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(new Date());

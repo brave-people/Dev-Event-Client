@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
-import { useAtomValue } from 'jotai';
-import { linksAtom } from '../../../store/replay';
-import { modifyReplayApi } from '../../../pages/api/replay/modify';
-import { fetchUploadImage } from '../../../pages/api/image';
-import { STATUS_200 } from '../../../config/constants';
-import FormContent from '../form/replay/Content';
-import { useErrorContext } from '../../layouts/ErrorContext';
+import { useState } from 'react';
 import type { MouseEvent } from 'react';
+import { useRouter } from 'next/router';
+import { useAtomValue } from 'jotai';
+import { STATUS_200 } from '../../../config/constants';
 import type { ReplayModel, ReplayResponseModel } from '../../../model/Replay';
 import type { Tag } from '../../../model/Tag';
+import { fetchUploadImage } from '../../../pages/api/image';
+import { modifyReplayApi } from '../../../pages/api/replay/modify';
+import { linksAtom } from '../../../store/replay';
+import { useErrorContext } from '../../layouts/ErrorContext';
+import FormContent from '../form/replay/Content';
 
 const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
   const router = useRouter();
@@ -26,7 +26,7 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
   const [eventLink, setEventLink] = useState(replay?.event_link);
   const [replayTags, setReplayTags] = useState<Tag[]>(replay.tags);
 
-  // date
+  // datepicker
   const [startDate, setStartDate] = useState(
     replay.start_date_time ? new Date(replay.start_date_time) : null
   );
