@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
+import type { Dispatch, SetStateAction, MutableRefObject } from 'react';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
-import Input from '../../atoms/input/Input';
-import type { Dispatch, SetStateAction, MutableRefObject } from 'react';
 import type { TagLayerType } from '../../../model/Tag';
+import CloseIcon from '../../atoms/icon/CloseIcon';
+import Input from '../../atoms/input/Input';
 
 interface TagLayerProps {
   type: TagLayerType | null;
@@ -75,20 +76,7 @@ const TagLayer = ({
       <div className="flex justify-between p-4">
         <h3 className="uppercase text-xl font-medium">{type} tags</h3>
         <button onClick={closeLayer}>
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <CloseIcon />
         </button>
       </div>
       <div className="m-4">
