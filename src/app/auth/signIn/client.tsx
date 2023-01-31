@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-import { loginApi } from '../../../api/auth/login';
-import Input from '../../../components/atoms/input/Input';
-import Checkbox from '../../../components/atoms/input/Checkbox';
+import { useState } from 'react';
 import type { FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { loginApi } from '../../../api/auth/login';
+import Checkbox from '../../../components/atoms/input/Checkbox';
+import Input from '../../../components/atoms/input/Input';
 import type { ResponseTokenModel } from '../../../model/User';
 
 const Page = ({ data }: { data: string }) => {
@@ -58,7 +58,7 @@ const Page = ({ data }: { data: string }) => {
         Cookies.set('refresh_token', refresh_token, {
           expires: new Date(refresh_token_expired_at),
         });
-        router.push('/event');
+        router.push('/admin/event');
       }
     );
   };
