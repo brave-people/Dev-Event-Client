@@ -12,7 +12,8 @@
     "start": "next start",
     "lint": "next lint",
     "tailwind": "npx tailwindcss -i src/style/base.css -o ./src/style/dist/output.css --watch",
-    "deploy": "vercel build && vercel deploy"
+    "deploy": "vercel build && vercel deploy",
+    "deduplicate": "yarn-deduplicate yarn.lock"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
