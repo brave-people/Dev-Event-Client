@@ -1,15 +1,16 @@
-import Cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 import { getRefreshTokenApi } from './getRefreshToken';
 
-const getToken = async (cookies: string | undefined) => {
-  const parsedCookies = cookies && Cookie.parse(cookies);
-  const accessToken = parsedCookies
-    ? (jwt.decode(parsedCookies['access_token']) as jwt.JwtPayload)
-    : {};
-  const refreshToken = parsedCookies
-    ? (jwt.decode(parsedCookies['refresh_token']) as jwt.JwtPayload)
-    : {};
+const getToken = async ({
+  access_token,
+  refresh_token,
+}: {
+  access_token: string | undefined;
+  refresh_token: string | undefined;
+}): Promise<{ data: string } | { error: boolean }> => {
+  const accessToken = (jwt.decode(access_token || '') as jwt.JwtPayload) ?? {};
+  const refreshToken =
+    (jwt.decode(refresh_token || '') as jwt.JwtPayload) ?? {};
 
   // accessToken이 없는 경우 error를 return
   if (!accessToken?.exp) return { error: true };
@@ -18,26 +19,21 @@ const getToken = async (cookies: string | undefined) => {
   if (accessToken.exp) {
     // accessToken이 만료전인 경우 accessToken을 return
     if (accessToken.exp * 1000 > new Date().getTime()) {
-      return { data: parsedCookies };
+      return access_token ? { data: access_token } : { error: true };
     }
 
     // refreshToken이 있는 경우
     if (refreshToken.exp) {
       // refreshToken이 만료전인 경우 refreshToken을 return
       if (refreshToken.exp * 1000 > new Date().getTime()) {
-        const data = await getRefreshTokenApi(cookies);
-
-        if (data?.error) {
-          console.error(data.error.message);
-          return null;
-        }
-
-        return { data };
+        return await getRefreshTokenApi(refresh_token);
       }
 
-      return { error: { message: true } };
+      return { error: true };
     }
   }
+
+  return { error: true };
 };
 
 export default getToken;
