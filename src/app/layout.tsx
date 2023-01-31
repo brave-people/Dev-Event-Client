@@ -1,9 +1,8 @@
 import React from 'react';
-// import type { AppProps } from 'next/app';
-// import { Provider } from 'jotai';
 import '../style/dist/output.css';
 import '../style/index.scss';
-export default function RootLayout({
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
