@@ -53,18 +53,7 @@ export interface UserProfileModel {
   refetch: () => void;
 }
 
-export interface TokenModel {
-  access_token: string;
-  access_token_expired_at: string;
-  refresh_token: string;
-  refresh_token_expired_at: string;
-}
-
-export interface ResponseTokenModel {
-  data: TokenModel;
-  message: string;
-  error?: string;
-}
+export type ResponseTokenModel = { data?: string; error?: boolean };
 
 export interface PasswordModel {
   current_password: string;

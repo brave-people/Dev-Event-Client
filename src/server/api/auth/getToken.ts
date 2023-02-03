@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import type { ResponseTokenModel } from '../../../model/User';
 import { getRefreshTokenApi } from './getRefreshToken';
 
 const getToken = async ({
@@ -7,7 +8,7 @@ const getToken = async ({
 }: {
   access_token: string | undefined;
   refresh_token: string | undefined;
-}): Promise<{ data: string } | { error: boolean }> => {
+}): Promise<ResponseTokenModel> => {
   const accessToken = (jwt.decode(access_token || '') as jwt.JwtPayload) ?? {};
   const refreshToken =
     (jwt.decode(refresh_token || '') as jwt.JwtPayload) ?? {};
