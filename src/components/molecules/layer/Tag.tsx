@@ -1,22 +1,20 @@
-import { useEffect, useRef } from 'react';
-import type { Dispatch, SetStateAction, MutableRefObject } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type { MutableRefObject } from 'react';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
-import type { TagLayerType } from '../../../model/Tag';
+import { STATUS_200, STATUS_201 } from '../../../config/constants';
+import type { TagState } from '../../../model/Tag';
+import { createTagApi, modifyTagApi } from '../../../pages/api/events/tag';
 import CloseIcon from '../../atoms/icon/CloseIcon';
 import Input from '../../atoms/input/Input';
 
-interface TagLayerProps {
-  type: TagLayerType | null;
+type TagLayerProps = {
+  state: TagState;
   layerRef: MutableRefObject<HTMLDivElement | null>;
-  showLayer: boolean;
   closeLayer: () => void;
-  name: string;
-  setName: Dispatch<SetStateAction<string>>;
-  color: string;
-  setColor: Dispatch<SetStateAction<string>>;
-  save: () => void;
-}
+  resetCheckbox: () => void;
+  refetch: () => void;
+};
 
 const colors = [
   '#6DC670',
@@ -32,23 +30,51 @@ const colors = [
 ];
 
 const TagLayer = ({
-  type,
+  state,
   layerRef,
-  showLayer,
   closeLayer,
-  name,
-  setName,
-  color,
-  setColor,
-  save,
+  resetCheckbox,
+  refetch,
 }: TagLayerProps) => {
+  const { showLayer, activeType, tagList, selectTags } = state;
+
+  const [name, setName] = useState('');
+  const [color, setColor] = useState('');
   const divRef = useRef<HTMLDivElement | null>(null);
-  const showName = type !== 'delete';
 
   const onChangeName = (e: { target: { value: string } }) =>
     setName(e.target.value);
 
   const onChangeColor = (value: string) => setColor(value);
+
+  const save = async () => {
+    if (activeType === 'create') {
+      if (!name) return alert('이름을 넣어주세요');
+      if (!color) return alert('색상을 골라주세요');
+
+      const findTag = tagList.find(({ tag_name }) => tag_name === name);
+      if (findTag) return alert(`이미 있는 태그에요! 태그 id: ${findTag.id}`);
+
+      const data = await createTagApi({ tag_name: name, tag_color: color });
+      if (data.status_code === STATUS_201) {
+        closeLayer();
+        await refetch();
+      }
+    }
+
+    if (activeType === 'modify') {
+      const data = await modifyTagApi(
+        { tag_name: name, tag_color: color },
+        selectTags[0].id
+      );
+
+      if (data.status_code === STATUS_200) {
+        resetCheckbox();
+        closeLayer();
+        await refetch();
+      }
+    }
+  };
 
   useEffect(() => {
     divRef.current = document.createElement('div');
@@ -59,14 +85,19 @@ const TagLayer = ({
 
     if (showLayer) {
       layerRef.current?.appendChild(divRef.current);
-    } else {
-      // close 시 초기화
+
+      if (activeType === 'modify') {
+        setName(selectTags[0].tag_name);
+        setColor(selectTags[0].tag_color);
+      }
+    } else if (layerRef.current?.childElementCount) {
+      layerRef.current?.removeChild(divRef.current);
+    }
+
+    return () => {
       setName('');
       setColor('');
-
-      layerRef.current?.children?.length &&
-        layerRef.current?.removeChild(divRef.current);
-    }
+    };
   }, [showLayer]);
 
   if (!divRef.current || !showLayer) return null;
@@ -74,20 +105,18 @@ const TagLayer = ({
   return createPortal(
     <div className="popup p-4">
       <div className="flex justify-between p-4">
-        <h3 className="uppercase text-xl font-medium">{type} tags</h3>
+        <h3 className="uppercase text-xl font-medium">{activeType} tags</h3>
         <button onClick={closeLayer}>
           <CloseIcon />
         </button>
       </div>
       <div className="m-4">
-        {showName && (
-          <Input
-            text="태그 이름"
-            value={name}
-            onChange={onChangeName}
-            autoComplete="off"
-          />
-        )}
+        <Input
+          text="태그 이름"
+          value={name}
+          onChange={onChangeName}
+          autoComplete="off"
+        />
         <p className="form__content__title inline-block text-base font-medium text-gray-600 mb-4">
           태그 색상
         </p>

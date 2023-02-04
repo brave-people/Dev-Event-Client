@@ -8,3 +8,11 @@ export interface Tag extends TagName {
 }
 
 export type TagLayerType = 'create' | 'modify' | 'delete';
+
+export type TagState = {
+  tagList: Tag[];
+  selectTags: Tag[];
+  activeType: TagLayerType | null;
+  keyword: string;
+  showLayer: boolean;
+};
