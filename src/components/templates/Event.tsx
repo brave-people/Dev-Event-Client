@@ -1,10 +1,9 @@
-import { Suspense } from 'react';
+import type { ReactElement } from 'react';
 import { useAtomValue } from 'jotai';
 import { layerAtom } from '../../store/layer';
-import { useUserProfile } from '../organisms/auth/Profile';
 import Header from '../layouts/Header';
 import Nav from '../layouts/Nav';
-import type { ReactElement } from 'react';
+import { useUserProfile } from '../organisms/auth/Profile';
 
 const BackgroundBox = () => {
   return (
@@ -23,7 +22,7 @@ const Event = ({
   const { data: user } = useUserProfile();
 
   return (
-    <Suspense fallback={<div>로딩중...</div>}>
+    <>
       <Header user={user} />
       <main className="flex">
         <Nav />
@@ -33,7 +32,7 @@ const Event = ({
           {children}
         </section>
       </main>
-    </Suspense>
+    </>
   );
 };
 
