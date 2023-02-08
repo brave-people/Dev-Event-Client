@@ -18,7 +18,7 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
     query: { id = '' },
   } = router;
 
-  const links = useAtomValue(linksAtom);
+  const replayLinks = useAtomValue(linksAtom);
 
   const [title, setTitle] = useState(replay?.title);
   const [description, setDescription] = useState(replay?.description);
@@ -108,7 +108,7 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
       organizer,
       display_sequence: 0,
       event_link: eventLink,
-      links,
+      links: replayLinks,
       start_date_time: startDate
         ? `${dayjs(startDate).format('YYYY-MM-DD')}${convertStartTime}`
         : null,
