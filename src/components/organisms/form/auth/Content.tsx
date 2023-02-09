@@ -1,9 +1,9 @@
 import { useAtom } from 'jotai';
+import type { UserContent } from '../../../../model/User';
 import { userAtom } from '../../../../store/User';
 import { getUserRole } from '../../../../util/get-user-role';
 import Input from '../../../atoms/input/Input';
 import ErrorContext from '../../../layouts/ErrorContext';
-import type { UserContent } from '../../../../model/User';
 
 const FormContent = ({
   user_id,
@@ -55,7 +55,9 @@ const FormContent = ({
           isRequired={true}
           readonly={readonlyInput('email')}
         >
-          {errorEmailMessage && <ErrorContext title={errorEmailMessage} />}
+          {errorEmailMessage && (
+            <ErrorContext errorMessage={errorEmailMessage} />
+          )}
         </Input>
         {changePassword && (
           <Input

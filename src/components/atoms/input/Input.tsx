@@ -1,6 +1,6 @@
 import { useId } from 'react';
-import classNames from 'classnames';
 import type { ReactNode, InputHTMLAttributes } from 'react';
+import classNames from 'classnames';
 
 type TextProps = {
   text?: string;
