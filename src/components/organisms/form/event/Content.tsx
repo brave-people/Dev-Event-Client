@@ -42,70 +42,42 @@ const FormContent = ({
           value={title}
           onChange={changeTitle}
           isRequired={true}
-          customClass={{ 'border-red-400': error.title && !title }}
+          customClass={{ 'border-red-400': error.title }}
         >
-          {error.title && !title && <ErrorContext />}
+          {error.title && <ErrorContext />}
         </Input>
-        <div className="form__content__input">
-          <label
-            htmlFor="description"
-            className="form__content__title inline-block text-base text-gray-600"
-          >
-            행사 설명
-          </label>
-          <input
-            id="description"
-            type="text"
+        <div className="form__content">
+          <Input
+            text="행사 설명"
             value={description}
             onChange={changeDescription}
-            className="appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           />
         </div>
-        <div className="form__content__input">
-          <label
-            htmlFor="organizer"
-            className="form__content__title inline-block text-base text-gray-600"
-          >
-            주최
-            <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="organizer"
-            type="text"
+        <div className="form__content">
+          <Input
+            text="주최"
             value={organizer}
             onChange={changeOrganizer}
-            required
-            className={classNames(
-              'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
-              { 'border-red-400': error.organizer && !organizer }
-            )}
-          />
-          {error.organizer && !organizer && <ErrorContext />}
-        </div>
-        <div className="form__content__input">
-          <label
-            htmlFor="event_link"
-            className="form__content__title inline-block text-base text-gray-600"
+            isRequired={true}
+            customClass={{ 'border-red-400': error.organizer }}
           >
-            행사 링크
-            <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="event_link"
-            type="text"
+            {error.organizer && <ErrorContext />}
+          </Input>
+        </div>
+        <div className="form__content">
+          <Input
+            text="행사 링크"
             value={eventLink}
             onChange={changeEventLink}
-            required
+            isRequired={true}
             autoComplete="off"
-            className={classNames(
-              'appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
-              { 'border-red-400': error.eventLink && !eventLink }
-            )}
-          />
-          {error.eventLink && !eventLink && <ErrorContext />}
+            customClass={{ 'border-red-400': error.eventLink }}
+          >
+            {error.eventLink && <ErrorContext />}
+          </Input>
         </div>
         <Tag tags={tags} setTags={setTags}>
-          {error.tags && !tags.length ? <ErrorContext /> : <></>}
+          {error.tags && <ErrorContext />}
         </Tag>
         <div className="form__content__input">
           <span className="form__content__title inline-block text-base text-gray-600">
@@ -132,7 +104,7 @@ const FormContent = ({
         </div>
         <div
           className={classNames('mb-6 flex items-center', {
-            'mt-8': tags.length && !isModify,
+            'mt-8': tags?.length && !isModify,
           })}
         >
           <span className="form__content__title inline-block text-base text-gray-600">

@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { useAtom } from 'jotai';
-import { eventTagsAtom } from '../../../../store/tags';
 import type {
   MouseEvent,
   Dispatch,
   KeyboardEvent,
   SetStateAction,
-  ReactElement,
+  ReactNode,
 } from 'react';
+import { useAtom } from 'jotai';
 import type { Tag } from '../../../../model/Tag';
+import { eventTagsAtom } from '../../../../store/tags';
 
 const Tags = ({
   tags,
@@ -17,7 +17,7 @@ const Tags = ({
 }: {
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
-  children: ReactElement;
+  children: ReactNode;
 }) => {
   const [allTags] = useAtom(eventTagsAtom);
 
