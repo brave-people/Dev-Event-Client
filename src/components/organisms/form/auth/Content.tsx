@@ -1,4 +1,4 @@
-import { useAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import type { UserContent } from '../../../../model/User';
 import { userAtom } from '../../../../store/User';
 import { getUserRole } from '../../../../util/get-user-role';
@@ -14,20 +14,20 @@ const FormContent = ({
   changeName,
   changeEmail,
   changePassword,
-  errorEmailMessage,
+  error,
   roles = [],
   buttonLabel,
   submit,
-  readonlyList,
+  readonlyList = [],
   children,
 }: UserContent) => {
-  const [user] = useAtom(userAtom);
+  const user = useAtomValue(userAtom);
   const convertRoles = getUserRole(roles);
 
   if (!user) return null;
 
   const readonlyInput = (value: string) =>
-    !!readonlyList?.find((item) => item === value);
+    !!readonlyList.find((item) => item === value);
 
   return (
     <div className="form--large">
@@ -36,7 +36,7 @@ const FormContent = ({
           text="아이디"
           value={user_id}
           onChange={changeUserId}
-          isRequired={readonlyInput('user_id')}
+          isRequired={!readonlyInput('user_id')}
           readonly={readonlyInput('user_id')}
           disable={readonlyInput('user_id')}
         />
@@ -46,7 +46,9 @@ const FormContent = ({
           onChange={changeName}
           isRequired={true}
           readonly={readonlyInput('name')}
-        />
+        >
+          {error.name.show && <ErrorContext />}
+        </Input>
         <Input
           text="이메일"
           value={email}
@@ -55,9 +57,7 @@ const FormContent = ({
           isRequired={true}
           readonly={readonlyInput('email')}
         >
-          {errorEmailMessage && (
-            <ErrorContext errorMessage={errorEmailMessage} />
-          )}
+          {error.email.show && <ErrorContext message={error.email.message} />}
         </Input>
         {changePassword && (
           <Input
@@ -66,7 +66,9 @@ const FormContent = ({
             type="password"
             onChange={changePassword}
             isRequired={true}
-          />
+          >
+            {error.password.show && <ErrorContext />}
+          </Input>
         )}
         {convertRoles.length > 0 && (
           <>

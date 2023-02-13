@@ -3,12 +3,16 @@ import type { Dispatch, SetStateAction } from 'react';
 
 type PopupProps = {
   message: string;
-  setShowPopup: Dispatch<SetStateAction<boolean>>;
+  setShowPopup: Dispatch<
+    SetStateAction<{ showSuccessPopup: boolean; successPopupMessage: string }>
+  >;
 };
 
 type SuccessPopup = {
   show: boolean;
-  setShow: Dispatch<SetStateAction<boolean>>;
+  setShow: Dispatch<
+    SetStateAction<{ showSuccessPopup: boolean; successPopupMessage: string }>
+  >;
   message: string;
   ms?: number;
 };
@@ -18,7 +22,11 @@ const Popup = ({ message, setShowPopup }: PopupProps) => {
 
   return (
     <div className="list__button--pop--right bg-blue-500">
-      <button onClick={() => setShowPopup(false)}>
+      <button
+        onClick={() =>
+          setShowPopup({ showSuccessPopup: false, successPopupMessage: '' })
+        }
+      >
         <svg
           className="w-6 h-6"
           fill="none"
@@ -41,7 +49,10 @@ const Popup = ({ message, setShowPopup }: PopupProps) => {
 
 const SuccessPopup = ({ show, setShow, message, ms = 2000 }: SuccessPopup) => {
   useEffect(() => {
-    const timer = setTimeout(() => setShow(false), ms);
+    const timer = setTimeout(
+      () => setShow({ showSuccessPopup: false, successPopupMessage: '' }),
+      ms
+    );
     return () => clearTimeout(timer);
   }, [show]);
 

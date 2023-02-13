@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { STATUS_200 } from '../../../../config/constants';
 import { passwordApi } from '../../../../pages/api/auth/users/password';
 import Input from '../../../atoms/input/Input';
-import useErrorMessage from '../../../molecules/message/Error';
+import useErrorMessage from '../../../molecules/toast/Error';
 
 const Password = () => {
   const router = useRouter();
