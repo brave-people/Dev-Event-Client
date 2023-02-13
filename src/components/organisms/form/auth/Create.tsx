@@ -1,30 +1,36 @@
-import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import {
   STATUS_200,
   STATUS_201,
   STATUS_400,
 } from '../../../../config/constants';
-import { registerIdApi } from '../../../../pages/api/auth/id';
 import { registerEmailApi } from '../../../../pages/api/auth/email';
+import { registerIdApi } from '../../../../pages/api/auth/id';
 import { registerUserApi } from '../../../../pages/api/auth/register';
-import useErrorMessage from '../../../molecules/message/Error';
-import useMessage from '../../../molecules/message/Base';
+import useErrorMessage from '../../../molecules/toast/Error';
+import SuccessPopup from '../../../molecules/toast/Success';
 import FormContent from './Content';
 
 const Create = () => {
   const router = useRouter();
 
   // form
-  const [name, setName] = useState('');
   const [id, setId] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [{ showSuccessPopup, successPopupMessage }, setShowSuccessPopup] =
+    useState({ showSuccessPopup: false, successPopupMessage: '' });
 
-  // message
-  const { Message, setMessage } = useMessage();
+  const [error, setError] = useState({
+    name: { show: false },
+    email: { show: false, message: '' },
+    password: { show: false },
+  });
+
+  // toast
   const { MessageError, setErrorMessage } = useErrorMessage();
-  const [errorEmailMessage, setErrorEmailMessage] = useState('');
 
   const changeName = (e: { target: { value: string } }) => {
     setName(e.target.value);
@@ -32,12 +38,17 @@ const Create = () => {
 
   const changeUserId = (e: { target: { value: string } }) => {
     setId(e.target.value);
-    setMessage('');
+    setShowSuccessPopup((prev) => ({ ...prev, showSuccessPopup: false }));
 
     registerIdApi({
       user_id: e.target.value,
     }).then((res) => {
-      if (res.status_code === STATUS_200) return setMessage(res.message);
+      if (res.status_code === STATUS_200)
+        return setShowSuccessPopup({
+          showSuccessPopup: true,
+          successPopupMessage: res.message,
+        });
+
       if (res.status_code === STATUS_400) return setErrorMessage(res.message);
     });
   };
@@ -45,21 +56,27 @@ const Create = () => {
   const changeEmail = (e: { target: { value: string } }) => {
     const email = e.target.value;
     setEmail(email);
-    setErrorEmailMessage('');
+    setError((prev) => ({ ...prev, email: { show: false, message: '' } }));
 
     if (
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
         email
       )
     ) {
-      setErrorEmailMessage('');
+      setError((prev) => ({ ...prev, email: { show: false, message: '' } }));
 
       registerEmailApi({ email }).then((res) => {
         if (res.status_code === STATUS_400)
-          return setErrorEmailMessage(res.message);
+          return setError((prev) => ({
+            ...prev,
+            email: { show: true, message: res.message },
+          }));
       });
     } else if (email.length > 0)
-      return setErrorEmailMessage('이메일 형식이 아닙니다.');
+      return setError((prev) => ({
+        ...prev,
+        email: { show: true, message: '이메일 형식이 아니에요!' },
+      }));
   };
 
   const changePassword = (e: { target: { value: string } }) => {
@@ -67,7 +84,12 @@ const Create = () => {
   };
 
   const submit = () => {
-    if (!name || !id || !email || !password) return;
+    if (!name || !id || !email || !password)
+      return setError({
+        name: { show: !name },
+        email: { show: !email, message: '' },
+        password: { show: !password },
+      });
 
     registerUserApi({
       name,
@@ -80,9 +102,11 @@ const Create = () => {
         return;
       }
 
-      setMessage(
-        '축하해요! 가입에 성공하였어요 😎 2초 후 유저목록으로 이동합니다.'
-      );
+      setShowSuccessPopup({
+        showSuccessPopup: true,
+        successPopupMessage:
+          '축하해요! 가입에 성공하였어요 😎 2초 후 유저목록으로 이동합니다.',
+      });
       return setTimeout(() => router.push('/auth/users'), 2000);
     });
   };
@@ -98,13 +122,17 @@ const Create = () => {
         changeName={changeName}
         changeEmail={changeEmail}
         changePassword={changePassword}
-        errorEmailMessage={errorEmailMessage}
+        error={error}
         buttonLabel="가입"
         submit={submit}
       >
         <>
           <MessageError />
-          <Message />
+          <SuccessPopup
+            show={showSuccessPopup}
+            message={successPopupMessage}
+            setShow={setShowSuccessPopup}
+          />
         </>
       </FormContent>
     </div>
