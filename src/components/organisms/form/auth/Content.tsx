@@ -47,7 +47,7 @@ const FormContent = ({
           isRequired={true}
           readonly={readonlyInput('name')}
         >
-          {error.name.show && <ErrorContext />}
+          {error.name?.show && <ErrorContext />}
         </Input>
         <Input
           text="이메일"
@@ -57,7 +57,7 @@ const FormContent = ({
           isRequired={true}
           readonly={readonlyInput('email')}
         >
-          {error.email.show && <ErrorContext message={error.email.message} />}
+          {error.email?.show && <ErrorContext message={error.email?.message} />}
         </Input>
         {changePassword && (
           <Input
@@ -67,7 +67,7 @@ const FormContent = ({
             onChange={changePassword}
             isRequired={true}
           >
-            {error.password.show && <ErrorContext />}
+            {error.password?.show && <ErrorContext />}
           </Input>
         )}
         {convertRoles.length > 0 && (

@@ -1,25 +1,32 @@
 import { useEffect, useState } from 'react';
+import type { ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
-import { selectedUserAtom } from '../../../../store/User';
+import type { UserRoleType } from '../../../../model/User';
+import { modifyUsersApi } from '../../../../pages/api/auth/users';
 import {
   addRoleUsersApi,
   deleteRoleUsersApi,
 } from '../../../../pages/api/auth/users/role';
+import { selectedUserAtom } from '../../../../store/User';
 import FormContent from './Content';
-import type { ChangeEvent } from 'react';
-import type { UserRoleType } from '../../../../model/User';
-import { modifyUsersApi } from '../../../../pages/api/auth/users';
 
 const Modify = () => {
   const router = useRouter();
+
   const [data] = useAtom(selectedUserAtom);
   const convertPrevRoles = data.roles.map((role) => role.code);
+
   const [roles, setRoles] = useState<Set<UserRoleType>>(
     new Set(convertPrevRoles)
   );
   const [newName, setNewName] = useState(data.name);
   const [newEmail, setNewEmail] = useState(data.email);
+
+  const [error, setError] = useState({
+    name: { show: false },
+    email: { show: false, message: '' },
+  });
 
   useEffect(() => {
     if (data.name) return;
@@ -37,6 +44,12 @@ const Modify = () => {
   };
 
   const submit = () => {
+    if (!newName || !newEmail)
+      return setError({
+        name: { show: !newName },
+        email: { show: !newEmail, message: '' },
+      });
+
     const changedName = newName !== data.name;
     const changedEmail = newEmail !== data.email;
 
@@ -83,12 +96,13 @@ const Modify = () => {
       <FormContent
         user_id={data.user_id || ''}
         name={newName}
-        changeName={changeName}
         email={newEmail}
+        changeName={changeName}
         changeEmail={changeEmail}
         buttonLabel="수정"
         submit={submit}
         readonlyList={['id']}
+        error={error}
       >
         <div className="form__content__input">
           <label className="form__content__title inline-block text-base font-medium text-gray-600">
