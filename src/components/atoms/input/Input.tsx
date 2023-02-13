@@ -53,9 +53,9 @@ const Input = ({
       <input
         id={id}
         type={type}
-        value={value}
-        onChange={onChange}
+        defaultValue={value}
         required={isRequired}
+        onChange={onChange}
         readOnly={readonly}
         disabled={disable}
         autoComplete={autoComplete}

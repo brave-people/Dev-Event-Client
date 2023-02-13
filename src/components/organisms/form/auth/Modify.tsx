@@ -9,6 +9,7 @@ import {
   deleteRoleUsersApi,
 } from '../../../../pages/api/auth/users/role';
 import { selectedUserAtom } from '../../../../store/User';
+import Checkbox from '../../../atoms/input/Checkbox';
 import FormContent from './Content';
 
 const Modify = () => {
@@ -109,43 +110,28 @@ const Modify = () => {
             권한
           </label>
           <div className="bg-gray-50 p-2 rounded inline-flex items-center text-sm font-medium">
-            <input
-              id="checkbox_admin"
-              type="checkbox"
-              value="ROLE_ADMIN"
-              onChange={changeRole}
+            <Checkbox
+              label="관리자"
               checked={roles.has('ROLE_ADMIN')}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              onChange={changeRole}
+              value="ROLE_ADMIN"
             />
-            <label htmlFor="checkbox_admin" className="mx-2 text-gray-800">
-              관리자
-            </label>
           </div>
           <div className="mx-4 bg-gray-50 p-2 rounded inline-flex items-center text-sm font-medium">
-            <input
-              id="checkbox_manager"
-              type="checkbox"
-              value="ROLE_MANAGER"
-              onChange={changeRole}
+            <Checkbox
+              label="매니저"
               checked={roles.has('ROLE_MANAGER')}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              onChange={changeRole}
+              value="ROLE_MANAGER"
             />
-            <label htmlFor="checkbox_manager" className="mx-2 text-gray-800">
-              매니저
-            </label>
           </div>
           <div className="bg-gray-50 p-2 rounded inline-flex items-center text-sm font-medium">
-            <input
-              id="checkbox_user"
-              type="checkbox"
-              value="ROLE_USER"
-              onChange={changeRole}
+            <Checkbox
+              label="사용자"
               checked={roles.has('ROLE_USER')}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              onChange={changeRole}
+              value="ROLE_USER"
             />
-            <label htmlFor="checkbox_user" className="mx-2 text-gray-800">
-              사용자
-            </label>
           </div>
         </div>
       </FormContent>
