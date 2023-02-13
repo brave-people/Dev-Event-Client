@@ -84,7 +84,12 @@ const Create = () => {
   };
 
   const submit = () => {
-    if (!name || !id || !email || !password) return;
+    if (!name || !id || !email || !password)
+      return setError({
+        name: { show: !name },
+        email: { show: !email, message: '' },
+        password: { show: !password },
+      });
 
     registerUserApi({
       name,

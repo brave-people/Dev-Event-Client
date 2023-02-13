@@ -36,7 +36,7 @@ const FormContent = ({
           text="아이디"
           value={user_id}
           onChange={changeUserId}
-          isRequired={!readonlyInput('user_id')}
+          isRequired={readonlyInput('user_id')}
           readonly={readonlyInput('user_id')}
           disable={readonlyInput('user_id')}
         />
