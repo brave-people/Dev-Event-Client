@@ -4,10 +4,10 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { loginApi } from '../../../api/auth/login';
+import AlertIcon from '../../../components/atoms/icon/AlertIcon';
 import Checkbox from '../../../components/atoms/input/Checkbox';
 import Input from '../../../components/atoms/input/Input';
-import type { ResponseTokenModel } from '../../../model/User';
-import { loginApi } from '../../../api/auth/login';
 
 const Page = ({ data }: { data: string }) => {
   const router = useRouter();
@@ -41,26 +41,24 @@ const Page = ({ data }: { data: string }) => {
     if (!id || !password) return;
 
     setLoading(true);
-    await loginApi({ user_id: id, password }).then(
-      (res: ResponseTokenModel) => {
-        if (res.message) return setMessage(res.message);
+    await loginApi({ user_id: id, password }).then((res) => {
+      if (res.message) return setMessage(res.message);
 
-        setLoading(false);
-        const {
-          access_token,
-          access_token_expired_at,
-          refresh_token,
-          refresh_token_expired_at,
-        } = res.data;
-        Cookies.set('access_token', access_token, {
-          expires: new Date(access_token_expired_at),
-        });
-        Cookies.set('refresh_token', refresh_token, {
-          expires: new Date(refresh_token_expired_at),
-        });
-        router.push('/admin/event');
-      }
-    );
+      setLoading(false);
+      const {
+        access_token,
+        access_token_expired_at,
+        refresh_token,
+        refresh_token_expired_at,
+      } = res.data;
+      Cookies.set('access_token', access_token, {
+        expires: new Date(access_token_expired_at),
+      });
+      Cookies.set('refresh_token', refresh_token, {
+        expires: new Date(refresh_token_expired_at),
+      });
+      router.push('/admin/event');
+    });
   };
 
   return (
@@ -91,20 +89,7 @@ const Page = ({ data }: { data: string }) => {
           )}
           {message && (
             <p className="mb-4 p-2 bg-red-50 rounded font-bold text-red-600 text-sm">
-              <svg
-                className="w-4 h-4 mr-1 inline"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                />
-              </svg>
+              <AlertIcon />
               {message}
             </p>
           )}
@@ -126,20 +111,5 @@ const Page = ({ data }: { data: string }) => {
     </section>
   );
 };
-
-/*export const getServerSideProps = async (context: NextPageContext) => {
-  const cookie = context.req?.headers.cookie;
-  const parsedCookies = cookie && Cookie.parse(cookie);
-
-  if (parsedCookies && parsedCookies['save_id']) {
-    return {
-      props: {
-        data: JSON.parse(parsedCookies['save_id']).save_id,
-      },
-    };
-  }
-
-  return { props: { data: null } };
-};*/
 
 export default Page;

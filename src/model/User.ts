@@ -1,10 +1,7 @@
-import type { JwtPayload } from 'jsonwebtoken';
 import type { MouseEventHandler, ReactElement } from 'react';
 
 /** user info 관련 타입 */
 export type UserRoleType = 'ROLE_ADMIN' | 'ROLE_MANAGER' | 'ROLE_USER';
-export type UserSubType = 'admin' | 'user';
-export type UserInfoType = string | JwtPayload | null;
 export type UserAuthType =
   | 'NONE'
   | 'ADMIN'
@@ -54,6 +51,15 @@ export interface UserProfileModel {
 }
 
 export type ResponseTokenModel = { data?: string; error?: boolean };
+export type ResponseSignInModel = {
+  data: {
+    access_token: string;
+    access_token_expired_at: string;
+    refresh_token: string;
+    refresh_token_expired_at: string;
+  };
+  message?: string;
+};
 
 export interface PasswordModel {
   current_password: string;
