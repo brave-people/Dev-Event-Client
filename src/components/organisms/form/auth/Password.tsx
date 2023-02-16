@@ -3,13 +3,14 @@ import { useRouter } from 'next/router';
 import { STATUS_200 } from '../../../../config/constants';
 import { passwordApi } from '../../../../api/auth/users/password';
 import Input from '../../../atoms/input/Input';
-import useErrorMessage from '../../../molecules/message/Error';
+import useErrorMessage from '../../../molecules/toast/Error';
 
 const Password = () => {
   const router = useRouter();
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [checkNewPassword, setCheckNewPassword] = useState('');
+
   const { MessageError, setErrorMessage } = useErrorMessage();
 
   const changePassword = (e: { target: { value: string } }) => {
@@ -27,11 +28,11 @@ const Password = () => {
   const submit = async () => {
     if (!password || !newPassword)
       return setErrorMessage(
-        '현재 패스워드, 새로운 패스워드 모두 입력해주세요 :)'
+        '현재 패스워드, 새로운 패스워드 모두 입력해주세요 🥲'
       );
 
     if (!password !== !newPassword)
-      return setErrorMessage('패스워드가 서로 일치하지 않아요');
+      return setErrorMessage('패스워드가 서로 일치하지 않아요 🥲');
 
     const body = {
       current_password: password,

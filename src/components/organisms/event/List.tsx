@@ -2,12 +2,12 @@ import { Fragment, useEffect, useState, useRef } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
-import { layerAtom } from '../../../store/layer';
+import type { EventResponseModel } from '../../../model/Event';
 import { getEventsApi } from '../../../api/events';
 import { deleteEventApi } from '../../../api/events/delete';
+import { layerAtom } from '../../../store/layer';
+import Alert from '../../molecules/Alert';
 import FormList from '../form/event/List';
-import CenterAlert from '../../molecules/alert/CenterAlert';
-import type { EventResponseModel } from '../../../model/Event';
 
 const List = () => {
   const router = useRouter();
@@ -161,11 +161,11 @@ const List = () => {
         )}
       </div>
       {layer && (
-        <CenterAlert
-          title="정말 삭제할까요?"
-          description="돌이킬 수 없어요 🥲"
-          showAlert={setLayer}
-          save={deleteEvent}
+        <Alert
+          alertTitle="정말 삭제할까요?"
+          alertDescription="돌이킬 수 없어요 🥲"
+          toggleAlert={setLayer}
+          onSave={deleteEvent}
         />
       )}
     </div>

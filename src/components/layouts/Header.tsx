@@ -1,15 +1,17 @@
 import { Fragment } from 'react';
-import { useRouter } from 'next/router';
-import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import { useAtom } from 'jotai';
+import { Menu, Transition } from '@headlessui/react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useSetAtom } from 'jotai';
+import type { UsersModel, UserProfileModel } from '../../model/User';
 import { selectedUserAtom } from '../../store/User';
 import { getUserRoleIsAdmin } from '../../util/get-user-role';
-import type { UsersModel, UserProfileModel } from '../../model/User';
 
 const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
   const router = useRouter();
-  const [, setSelectedUser] = useAtom(selectedUserAtom);
+  const setSelectedUser = useSetAtom(selectedUserAtom);
+
   const isAdmin = getUserRoleIsAdmin(user?.roles);
 
   const onClickModifyUser = () => {
@@ -19,9 +21,9 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
 
   return (
     <header className="header">
-      <a href="/src/app/admin/event" className="text-4xl font-bold">
+      <Link href="/admin/event" className="text-4xl font-bold">
         용감한 관리자
-      </a>
+      </Link>
       <Menu as="div" className="ml-3 relative">
         <div>
           <Menu.Button className="flex p-2 items-center bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2">
@@ -80,58 +82,58 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/src/app/auth/password"
+                <Link
+                  href="/auth/password"
                   className={classNames(
                     active && 'bg-blue-50',
                     'block px-4 py-2 text-sm text-gray-500 font-bold'
                   )}
                 >
                   비밀번호 변경
-                </a>
+                </Link>
               )}
             </Menu.Item>
             {isAdmin && (
               <>
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href="/src/app/auth/users"
+                    <Link
+                      href="/auth/users"
                       className={classNames(
                         active && 'bg-blue-50',
                         'block px-4 py-2 text-sm text-gray-500 font-bold'
                       )}
                     >
                       회원 관리
-                    </a>
+                    </Link>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href="/src/app/auth/create"
+                    <Link
+                      href="/auth/create"
                       className={classNames(
                         active && 'bg-blue-50',
                         'block px-4 py-2 text-sm text-gray-500 font-bold'
                       )}
                     >
                       회원 생성
-                    </a>
+                    </Link>
                   )}
                 </Menu.Item>
               </>
             )}
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/src/app/auth/signOut"
+                <Link
+                  href="/auth/signOut"
                   className={classNames(
                     active && 'bg-blue-50',
                     'block px-4 py-2 text-sm text-gray-500 font-bold'
                   )}
                 >
                   로그아웃
-                </a>
+                </Link>
               )}
             </Menu.Item>
           </Menu.Items>

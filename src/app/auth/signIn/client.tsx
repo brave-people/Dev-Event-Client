@@ -4,10 +4,10 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { loginApi } from '../../../api/auth/login';
 import Checkbox from '../../../components/atoms/input/Checkbox';
 import Input from '../../../components/atoms/input/Input';
 import type { ResponseTokenModel } from '../../../model/User';
+import { loginApi } from '../../../api/auth/login';
 
 const Page = ({ data }: { data: string }) => {
   const router = useRouter();
@@ -110,7 +110,7 @@ const Page = ({ data }: { data: string }) => {
           )}
           <div className="checkbox--blue mb-4">
             <Checkbox
-              value={saveId}
+              checked={saveId}
               onChange={changeSaveId}
               label="아이디 저장"
             />

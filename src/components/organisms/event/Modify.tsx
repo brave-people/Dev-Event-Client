@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
-import { modifyEventsApi } from '../../../api/events/modify';
-import { fetchUploadImage } from '../../../api/image';
-import { STATUS_200 } from '../../../config/constants';
-import FormContent from '../form/event/Content';
-import { useErrorContext } from '../../layouts/ErrorContext';
+import { useState } from 'react';
 import type { MouseEvent } from 'react';
+import { useRouter } from 'next/router';
+import { STATUS_200 } from '../../../config/constants';
 import type {
   EventModel,
   EventResponseModel,
   EventTimeType,
 } from '../../../model/Event';
 import type { Tag } from '../../../model/Tag';
+import { modifyEventsApi } from '../../../api/events/modify';
+import { fetchUploadImage } from '../../../api/image';
+import { useErrorContext } from '../../layouts/ErrorContext';
+import FormContent from '../form/event/Content';
 
 const Modify = ({ event }: { event: EventResponseModel }) => {
   const router = useRouter();
@@ -29,7 +29,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
     event?.event_time_type
   );
 
-  // date
+  // datepicker
   const [startDate, setStartDate] = useState(
     event.start_date_time ? new Date(event.start_date_time) : null
   );
@@ -53,7 +53,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
 
   const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
 
-  const { error, validateForm } = useErrorContext({
+  const { formErrors, validateForm } = useErrorContext({
     title,
     organizer,
     eventLink,
@@ -157,7 +157,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
         setEndDate={setEndDate}
         endTime={endTime}
         setEndTime={setEndTime}
-        error={error}
+        error={formErrors}
         coverImageUrl={coverImageUrl}
         setBlob={setBlob}
         saveForm={saveEvent}
