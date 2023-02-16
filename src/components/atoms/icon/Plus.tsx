@@ -1,4 +1,4 @@
-const MinusIcon = () => (
+const Plus = () => (
   <svg
     className="w-6 h-6"
     fill="none"
@@ -10,9 +10,9 @@ const MinusIcon = () => (
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="1"
-      d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+      d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
     />
   </svg>
 );
 
-export default MinusIcon;
+export default Plus;

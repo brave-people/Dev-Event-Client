@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { STATUS_200, STATUS_201 } from '../../../config/constants';
 import type { TagState } from '../../../model/Tag';
 import { createTagApi, modifyTagApi } from '../../../pages/api/events/tag';
-import CloseIcon from '../../atoms/icon/CloseIcon';
+import Close from '../../atoms/icon/Close';
 import Input from '../../atoms/input/Input';
 
 type TagLayerProps = {
@@ -107,7 +107,7 @@ const TagLayer = ({
       <div className="flex justify-between p-4">
         <h3 className="uppercase text-xl font-medium">{activeType} tags</h3>
         <button onClick={closeLayer}>
-          <CloseIcon />
+          <Close />
         </button>
       </div>
       <div className="m-4">

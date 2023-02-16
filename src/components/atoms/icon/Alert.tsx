@@ -1,4 +1,4 @@
-const AlertIcon = () => (
+const Alert = () => (
   <svg
     className="w-4 h-4 mr-1 inline"
     fill="none"
@@ -15,4 +15,4 @@ const AlertIcon = () => (
   </svg>
 );
 
-export default AlertIcon;
+export default Alert;

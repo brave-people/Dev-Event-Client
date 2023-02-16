@@ -1,4 +1,4 @@
-const CloseIcon = () => (
+const Minus = () => (
   <svg
     className="w-6 h-6"
     fill="none"
@@ -9,10 +9,10 @@ const CloseIcon = () => (
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth="2"
-      d="M6 18L18 6M6 6l12 12"
+      strokeWidth="1"
+      d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
     />
   </svg>
 );
 
-export default CloseIcon;
+export default Minus;

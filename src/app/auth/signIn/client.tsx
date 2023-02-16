@@ -5,7 +5,7 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { loginApi } from '../../../api/auth/login';
-import AlertIcon from '../../../components/atoms/icon/AlertIcon';
+import Alert from '../../../components/atoms/icon/Alert';
 import Checkbox from '../../../components/atoms/input/Checkbox';
 import Input from '../../../components/atoms/input/Input';
 
@@ -89,7 +89,7 @@ const Page = ({ data }: { data: string }) => {
           )}
           {message && (
             <p className="mb-4 p-2 bg-red-50 rounded font-bold text-red-600 text-sm">
-              <AlertIcon />
+              <Alert />
               {message}
             </p>
           )}

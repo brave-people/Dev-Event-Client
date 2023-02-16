@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import type { EventRouter } from '../../model/Event';
-import SettingIcon from '../atoms/icon/SettingIcon';
+import Setting from '../atoms/icon/Setting';
 
 type ItemType = {
   path: EventRouter;
@@ -77,7 +77,7 @@ const Nav = () => {
                   'text-blue-800 font-bold bg-blue-50': isActive(path),
                 })}
               >
-                <SettingIcon />
+                <Setting />
                 {title}
               </a>
               {subItems && <SubNav subItems={subItems} isActive={isActive} />}
