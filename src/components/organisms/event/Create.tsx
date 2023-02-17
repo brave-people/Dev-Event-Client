@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { createEventsApi } from '../../../api/events/create';
 import { fetchUploadImage } from '../../../api/image';
 import { STATUS_201 } from '../../../config/constants';
@@ -53,7 +53,8 @@ export const Create = () => {
   };
   const changeEventTimeType = (e: MouseEvent, type: EventTimeType) => {
     e.preventDefault();
-    e.stopPropagation();
+    console.log(type);
+    // e.stopPropagation();
     setEventTimeType(type);
   };
   const changeStartDate = (startDate: Date | null) => {
@@ -118,7 +119,8 @@ export const Create = () => {
     };
 
     const data = await createEventsApi({ data: body });
-    if (data.status_code === STATUS_201) return router.reload();
+    console.log(data, data.status_code);
+    if (data.status_code === STATUS_201) return router.refresh();
     return alert(data.message);
   };
 
