@@ -1,16 +1,15 @@
-import 'react-datepicker/dist/react-datepicker.css';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useRouter } from 'next/router';
+import type { NextPageContext } from 'next/types';
 import { useSetAtom } from 'jotai';
-import { eventTagsAtom } from '../../../store/tags';
-import getToken from '../../../server/api/auth/getToken';
 import { getEventApi } from '../../../api/events';
 import { getTagsApi } from '../../../api/events/tag';
-import EventComponent from '../../../components/templates/Event';
 import EventModifyForm from '../../../components/organisms/event/Modify';
-import type { NextPageContext } from 'next/types';
+import EventComponent from '../../../components/templates/Event';
 import type { EventResponseModel } from '../../../model/Event';
+import getToken from '../../../server/api/auth/getToken';
+import { eventTagsAtom } from '../../../store/tags';
 
 const queryClient = new QueryClient();
 
