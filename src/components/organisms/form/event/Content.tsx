@@ -86,8 +86,11 @@ const FormContent = ({
           <button
             onClick={(e) => changeEventTimeType(e, 'DATE')}
             className={classNames(
-              'border-solid border border-gray-300 rounded py-2 px-6 text-sm text-gray-600 mr-2',
-              { 'border-blue-500': eventTimeType === 'DATE' }
+              'border-solid border rounded py-2 px-6 text-sm text-gray-600 mr-2',
+              {
+                'border-blue-500': eventTimeType === 'DATE',
+                'border-gray-300': eventTimeType !== 'DATE',
+              }
             )}
           >
             일시
@@ -95,8 +98,11 @@ const FormContent = ({
           <button
             onClick={(e) => changeEventTimeType(e, 'RECRUIT')}
             className={classNames(
-              'border-solid border border-gray-300 rounded py-2 px-6 text-sm text-gray-600',
-              { 'border-blue-500': eventTimeType === 'RECRUIT' }
+              'border-solid border rounded py-2 px-6 text-sm text-gray-600',
+              {
+                'border-blue-500': eventTimeType === 'RECRUIT',
+                'border-gray-300': eventTimeType !== 'RECRUIT',
+              }
             )}
           >
             모집

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useRouter } from 'next/navigation';
 import type { NextPageContext } from 'next/types';

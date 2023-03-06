@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import Cropper from 'cropperjs';
+import { useEffect, useRef, useState } from 'react';
 import type { BaseSyntheticEvent } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
+import Image from 'next/image';
 
 const ImageUpload = ({
   coverImageUrl,
