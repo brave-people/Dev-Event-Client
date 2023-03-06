@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import type { EventRouter } from '../../model/Event';
 import Setting from '../atoms/icon/Setting';
 
@@ -62,7 +62,7 @@ const SubNav = ({
 );
 
 const Nav = () => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const isActive = (path: EventRouter) => path === pathname;
 
   return (

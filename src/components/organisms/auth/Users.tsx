@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import { useQuery } from 'react-query';
+import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
-import { useRouter } from 'next/router';
 import { deleteUsersApi, getUsersApi } from '../../../api/auth/users';
-import { userAtom, selectedUserAtom } from '../../../store/User';
-import { getUserRole } from '../../../util/get-user-role';
-import { getConvertAuthType } from '../../../util/get-convert-auth-type';
-import { getUserRoleIsAdmin } from '../../../util/get-user-role';
 import type { UsersModel } from '../../../model/User';
+import { userAtom, selectedUserAtom } from '../../../store/User';
+import { getConvertAuthType } from '../../../util/get-convert-auth-type';
+import { getUserRole } from '../../../util/get-user-role';
+import { getUserRoleIsAdmin } from '../../../util/get-user-role';
 
 const Users = () => {
   const router = useRouter();

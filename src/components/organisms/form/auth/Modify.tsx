@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import type { ChangeEvent } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
-import type { UserRoleType } from '../../../../model/User';
 import { modifyUsersApi } from '../../../../api/auth/users';
 import {
   addRoleUsersApi,
   deleteRoleUsersApi,
 } from '../../../../api/auth/users/role';
+import type { UserRoleType } from '../../../../model/User';
 import { selectedUserAtom } from '../../../../store/User';
 import Checkbox from '../../../atoms/input/Checkbox';
 import FormContent from './Content';

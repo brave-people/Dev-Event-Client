@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import getToken from '../../server/api/auth/getToken';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import type { NextPageContext } from 'next/types';
+import getToken from '../../server/api/auth/getToken';
 
 const SignOut = () => {
   const router = useRouter();

@@ -1,10 +1,10 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
-import type { ReplayResponseModel } from '../../../model/Replay';
 import { getReplayEventsApi } from '../../../api/replay';
 import { deleteReplayApi } from '../../../api/replay/delete';
+import type { ReplayResponseModel } from '../../../model/Replay';
 import { layerAtom } from '../../../store/layer';
 import Alert from '../../molecules/Alert';
 import FormList from '../form/replay/List';

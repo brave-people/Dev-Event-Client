@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useAtomValue } from 'jotai';
+import { fetchUploadImage } from '../../../api/image';
+import { modifyReplayApi } from '../../../api/replay/modify';
 import { STATUS_200 } from '../../../config/constants';
 import type { ReplayModel, ReplayResponseModel } from '../../../model/Replay';
 import type { Tag } from '../../../model/Tag';
-import { fetchUploadImage } from '../../../api/image';
-import { modifyReplayApi } from '../../../api/replay/modify';
 import { linksAtom } from '../../../store/replay';
 import { useErrorContext } from '../../layouts/ErrorContext';
 import FormContent from '../form/replay/Content';

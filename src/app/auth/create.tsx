@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useRouter } from 'next/navigation';
+import type { NextPageContext } from 'next/types';
+import UserForm from '../../components/organisms/form/auth/Create';
+import UserComponent from '../../components/templates/User';
 import getToken from '../../server/api/auth/getToken';
 import { getUserRoleIsAdmin } from '../../util/get-user-role';
-import UserComponent from '../../components/templates/User';
-import UserForm from '../../components/organisms/form/auth/Create';
-import type { NextPageContext } from 'next/types';
 
 const queryClient = new QueryClient();
 

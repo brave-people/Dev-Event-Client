@@ -1,7 +1,9 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { modifyEventsApi } from '../../../api/events/modify';
+import { fetchUploadImage } from '../../../api/image';
 import { STATUS_200 } from '../../../config/constants';
 import type {
   EventModel,
@@ -9,8 +11,6 @@ import type {
   EventTimeType,
 } from '../../../model/Event';
 import type { Tag } from '../../../model/Tag';
-import { modifyEventsApi } from '../../../api/events/modify';
-import { fetchUploadImage } from '../../../api/image';
 import { useErrorContext } from '../../layouts/ErrorContext';
 import FormContent from '../form/event/Content';
 

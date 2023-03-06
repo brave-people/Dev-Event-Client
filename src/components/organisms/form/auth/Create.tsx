@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { registerEmailApi } from '../../../../api/auth/email';
+import { registerIdApi } from '../../../../api/auth/id';
+import { registerUserApi } from '../../../../api/auth/register';
 import {
   STATUS_200,
   STATUS_201,
   STATUS_400,
 } from '../../../../config/constants';
-import { registerEmailApi } from '../../../../api/auth/email';
-import { registerIdApi } from '../../../../api/auth/id';
-import { registerUserApi } from '../../../../api/auth/register';
 import useErrorMessage from '../../../molecules/toast/Error';
 import SuccessPopup from '../../../molecules/toast/Success';
 import FormContent from './Content';

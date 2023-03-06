@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { createEventsApi } from '../../../api/events/create';
 import { fetchUploadImage } from '../../../api/image';
 import { STATUS_201 } from '../../../config/constants';

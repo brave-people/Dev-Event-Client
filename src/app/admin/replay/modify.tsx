@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import type { NextPageContext } from 'next/types';
 import { useSetAtom } from 'jotai';
+import { getReplayEventApi } from '../../../api/replay';
+import { getTagsApi } from '../../../api/replay/tag';
 import ReplayModifyForm from '../../../components/organisms/replay/Modify';
 import EventComponent from '../../../components/templates/Event';
 import type { ReplayResponseModel } from '../../../model/Replay';
 import getToken from '../../../server/api/auth/getToken';
 import { linksAtom } from '../../../store/replay';
 import { replayTagsAtom } from '../../../store/tags';
-import { getReplayEventApi } from '../../../api/replay';
-import { getTagsApi } from '../../../api/replay/tag';
 
 const queryClient = new QueryClient();
 

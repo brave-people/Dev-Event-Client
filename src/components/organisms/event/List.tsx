@@ -1,10 +1,10 @@
 import { Fragment, useEffect, useState, useRef } from 'react';
 import { useQuery } from 'react-query';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
-import type { EventResponseModel } from '../../../model/Event';
 import { getEventsApi } from '../../../api/events';
 import { deleteEventApi } from '../../../api/events/delete';
+import type { EventResponseModel } from '../../../model/Event';
 import { layerAtom } from '../../../store/layer';
 import Alert from '../../molecules/Alert';
 import FormList from '../form/event/List';
