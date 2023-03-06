@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { modifyEventsApi } from '../../../api/events/modify';
 import { fetchUploadImage } from '../../../api/image';
 import { STATUS_200 } from '../../../config/constants';
@@ -16,9 +16,8 @@ import FormContent from '../form/event/Content';
 
 const Modify = ({ event }: { event: EventResponseModel }) => {
   const router = useRouter();
-  const {
-    query: { id = '' },
-  } = router;
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id') || '';
 
   const [title, setTitle] = useState(event?.title);
   const [description, setDescription] = useState(event?.description);
@@ -130,7 +129,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
     };
 
     const data = await modifyEventsApi({ data: body, id: id.toString() });
-    if (data.status_code === STATUS_200) return router.reload();
+    if (data.status_code === STATUS_200) return router.refresh();
     return alert(data.message);
   };
 

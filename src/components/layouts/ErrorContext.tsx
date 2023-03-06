@@ -1,7 +1,37 @@
+import { useState } from 'react';
+import type { EventErrorForm } from '../../model/Event';
+
+export const useErrorContext = ({
+  title,
+  organizer,
+  eventLink,
+  replayLink = '',
+  tags,
+}: EventErrorForm<string>) => {
+  const [formErrors, setFormErrors] = useState<EventErrorForm<boolean>>({
+    title: false,
+    organizer: false,
+    eventLink: false,
+    replayLink: false,
+    tags: false,
+  });
+
+  const validateForm = () =>
+    setFormErrors({
+      title: !title,
+      organizer: !organizer,
+      eventLink: !eventLink,
+      replayLink: !replayLink,
+      tags: !tags.length,
+    });
+
+  return { formErrors, validateForm };
+};
+
 const ErrorContext = ({
-  message = '필수 입력값 입니다',
+  errorMessage = '필수 입력값 입니다',
 }: {
-  message?: string;
+  errorMessage?: string;
 }) => {
   return (
     <p className="form__content--error">
@@ -19,7 +49,7 @@ const ErrorContext = ({
           d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
-      {message}
+      {errorMessage}
     </p>
   );
 };
