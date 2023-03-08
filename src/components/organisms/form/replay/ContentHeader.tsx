@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import type { Dispatch, MouseEvent, SetStateAction } from 'react';
 import MonthYearLayer from '../../../molecules/layer/MonthYear';
 
-interface List {
+interface ContentHeader {
   year: number;
   setYear: Dispatch<SetStateAction<number>>;
   month?: number;
@@ -11,14 +11,14 @@ interface List {
   setKeyword: Dispatch<SetStateAction<string>>;
 }
 
-const List = ({
+const ContentHeader = ({
   year,
   setYear,
   month,
   setMonth,
   keyword,
   setKeyword,
-}: List) => {
+}: ContentHeader) => {
   const pickerRef = useRef<HTMLDivElement>(null);
   const [showPicker, setShowPicker] = useState(false);
 
@@ -74,4 +74,4 @@ const List = ({
   );
 };
 
-export default List;
+export default ContentHeader;
