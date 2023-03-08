@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import type { MutableRefObject } from 'react';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
+import { createTagApi, modifyTagApi } from '../../../api/events/tag';
 import { STATUS_200, STATUS_201 } from '../../../config/constants';
 import type { TagState } from '../../../model/Tag';
-import { createTagApi, modifyTagApi } from '../../../pages/api/events/tag';
 import Close from '../../atoms/icon/Close';
 import Input from '../../atoms/input/Input';
 

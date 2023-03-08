@@ -50,7 +50,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const [coverImageUrl] = useState(event?.cover_image_link);
   const [blob, setBlob] = useState<FormData | null>(null);
 
-  const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
+  const eventTagsName = eventTags?.map(({ tag_name }) => tag_name);
 
   const { formErrors, validateForm } = useErrorContext({
     title,
