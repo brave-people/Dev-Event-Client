@@ -1,7 +1,6 @@
 import Cropper from 'cropperjs';
 import { useEffect, useRef, useState } from 'react';
-import type { BaseSyntheticEvent } from 'react';
-import type { Dispatch, SetStateAction } from 'react';
+import type { BaseSyntheticEvent, Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 
 const ImageUpload = ({
@@ -134,9 +133,7 @@ const ImageUpload = ({
             <p className="drag__box__text--large">
               드래그 혹은 클릭으로 파일을 업로드 할 수 있습니다.
             </p>
-            <p className="drag__box__text--small">
-              (jpg, png, gif less than 3MB)
-            </p>
+            <p className="drag__box__text--small">(3MB까지 가능해요!)</p>
           </label>
         </>
       )}
