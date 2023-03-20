@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createEventsApi } from '../../../api/events/create';
 import { fetchUploadImage } from '../../../api/image';
 import { STATUS_201 } from '../../../config/constants';
-import type { EventModel, EventTimeType } from '../../../model/Event';
+import type { EventType, EventTimeType } from '../../../model/Event';
 import type { Tag } from '../../../model/Tag';
 import FormContent from '../form/event/Content';
 
@@ -99,7 +99,7 @@ export const Create = () => {
 
     const coverImageUrl = await uploadImage();
 
-    const body: EventModel = {
+    const body: EventType = {
       title,
       description,
       organizer,
