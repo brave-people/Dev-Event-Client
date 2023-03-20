@@ -8,7 +8,7 @@ import type {
 import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
 import { deleteReplayApi } from '../../api/replay/delete';
-import type { ReplayResponseModel } from '../../model/Replay';
+import type { EventResponse } from '../../model/Event';
 import { layerAtom } from '../../store/layer';
 import ContentHeader from '../organisms/form/replay/ContentHeader';
 import Alert from './Alert';
@@ -20,18 +20,22 @@ type ListProps<T> = {
   ) => Promise<QueryObserverResult<T[], unknown>>;
   year: number;
   setYear: Dispatch<SetStateAction<number>>;
+  month?: number;
+  setMonth?: Dispatch<SetStateAction<number>>;
   emptyText: string;
-  modifyLink: string;
+  parentLink: string;
   createButtonText: string;
 };
 
-const List = <T extends ReplayResponseModel>({
+const List = <T extends EventResponse>({
   data,
   refetch,
   year,
   setYear,
+  month,
+  setMonth,
   emptyText,
-  modifyLink,
+  parentLink,
   createButtonText,
 }: ListProps<T>) => {
   const router = useRouter();
@@ -81,6 +85,8 @@ const List = <T extends ReplayResponseModel>({
       <ContentHeader
         year={year}
         setYear={setYear}
+        month={month}
+        setMonth={setMonth}
         keyword={keyword}
         setKeyword={setKeyword}
       />
@@ -135,7 +141,9 @@ const List = <T extends ReplayResponseModel>({
                             <button
                               className="text-blue-500 font-bold"
                               onClick={() =>
-                                router.push(`${modifyLink}?id=${value.id}`)
+                                router.push(
+                                  `${parentLink}/modify?id=${value.id}`
+                                )
                               }
                             >
                               수정
@@ -159,7 +167,7 @@ const List = <T extends ReplayResponseModel>({
           <button
             type="button"
             className="list__button--pop"
-            onClick={() => router.push('/admin/replay/create')}
+            onClick={() => router.push(`${parentLink}/create`)}
             style={{ top: maxHeight }}
           >
             {createButtonText}

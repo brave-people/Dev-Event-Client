@@ -1,9 +1,10 @@
 import type { Dispatch, SetStateAction, MouseEvent } from 'react';
+import type { ReplayLink } from './Replay';
 import type { Tag } from './Tag';
 
 export type EventTimeType = 'DATE' | 'RECRUIT';
 
-interface Event {
+export type EventType = {
   title: string;
   description: string;
   organizer: string;
@@ -12,18 +13,15 @@ interface Event {
   start_date_time: string | null;
   end_date_time: string | null;
   cover_image_link: string;
-  event_time_type: EventTimeType;
+  tags: Tag[];
   use_start_date_time_yn?: 'Y' | 'N';
   use_end_date_time_yn?: 'Y' | 'N';
-}
+  event_time_type?: EventTimeType;
+  links?: ReplayLink[];
+};
 
-export interface EventModel extends Event {
-  tags: Tag[];
-}
-
-export interface EventResponseModel extends Event {
+export interface EventResponse extends EventType {
   id: number;
-  tags: Tag[];
 }
 
 export interface EventErrorForm<T> {

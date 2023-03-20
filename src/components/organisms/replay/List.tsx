@@ -19,8 +19,8 @@ const ReplayList = () => {
       refetch={refetch}
       year={year}
       setYear={setYear}
+      parentLink="/admin/replay"
       emptyText="올해의 다시보기가 없어요! 다시보기를 만들어주세요"
-      modifyLink="/admin/replay/modify"
       createButtonText="이벤트 다시보기 생성"
     />
   );
