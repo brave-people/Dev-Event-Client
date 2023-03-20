@@ -6,15 +6,15 @@ import { modifyEventsApi } from '../../../api/events/modify';
 import { fetchUploadImage } from '../../../api/image';
 import { STATUS_200 } from '../../../config/constants';
 import type {
-  EventModel,
-  EventResponseModel,
+  EventType,
+  EventResponse,
   EventTimeType,
 } from '../../../model/Event';
 import type { Tag } from '../../../model/Tag';
 import { useErrorContext } from '../../layouts/ErrorContext';
 import FormContent from '../form/event/Content';
 
-const Modify = ({ event }: { event: EventResponseModel }) => {
+const Modify = ({ event }: { event: EventResponse }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get('id') || '';
@@ -25,7 +25,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const [eventLink, setEventLink] = useState(event?.event_link);
   const [eventTags, setEventTags] = useState<Tag[]>(event?.tags);
   const [eventTimeType, setEventTimeType] = useState<EventTimeType>(
-    event?.event_time_type
+    event?.event_time_type || 'DATE'
   );
 
   // datepicker
@@ -109,7 +109,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
 
     const newCoverImageUrl = await uploadImage();
 
-    const body: EventModel = {
+    const body: EventType = {
       title,
       description,
       organizer,

@@ -8,7 +8,7 @@ import { getEventApi } from '../../../../api/events';
 import { getTagsApi } from '../../../../api/events/tag';
 import EventModifyForm from '../../../../components/organisms/event/Modify';
 import EventComponent from '../../../../components/templates/Event';
-import { EventResponseModel } from '../../../../model/Event';
+import { EventResponse } from '../../../../model/Event';
 import { ResponseTokenModel } from '../../../../model/User';
 import { eventTagsAtom } from '../../../../store/tags';
 import useRedirectRouter from '../../../../util/hooks/use-redirect-router';
@@ -21,7 +21,7 @@ const Client = ({ token }: { token: ResponseTokenModel }) => {
   const searchParams = useSearchParams();
   const id = searchParams.get('id') || '';
   const setTags = useSetAtom(eventTagsAtom);
-  const [event, setEvent] = useState<EventResponseModel>();
+  const [event, setEvent] = useState<EventResponse>();
 
   const data = async () => await getEventApi({ id: id.toString() });
 
