@@ -12,7 +12,7 @@ import type {
 } from '../../../model/Event';
 import type { Tag } from '../../../model/Tag';
 import { useErrorContext } from '../../layouts/ErrorContext';
-import FormContent from '../form/event/Content';
+import Form from './Form';
 
 const Modify = ({ event }: { event: EventResponse }) => {
   const router = useRouter();
@@ -134,35 +134,33 @@ const Modify = ({ event }: { event: EventResponse }) => {
   };
 
   return (
-    <div className="list">
-      <FormContent
-        title={title}
-        description={description}
-        organizer={organizer}
-        eventLink={eventLink}
-        tags={eventTagsName}
-        setTags={setEventTags}
-        changeTitle={changeTitle}
-        changeDescription={changeDescription}
-        changeOrganizer={changeOrganizer}
-        changeEventLink={changeEventLink}
-        eventTimeType={eventTimeType}
-        changeEventTimeType={changeEventTimeType}
-        startDate={startDate}
-        changeStartDate={changeStartDate}
-        startTime={startTime}
-        setStartTime={setStartTime}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        endTime={endTime}
-        setEndTime={setEndTime}
-        error={formErrors}
-        coverImageUrl={coverImageUrl}
-        setBlob={setBlob}
-        saveForm={saveEvent}
-        isModify={true}
-      />
-    </div>
+    <Form
+      title={title}
+      description={description}
+      organizer={organizer}
+      eventLink={eventLink}
+      tags={eventTagsName}
+      setTags={setEventTags}
+      changeTitle={changeTitle}
+      changeDescription={changeDescription}
+      changeOrganizer={changeOrganizer}
+      changeEventLink={changeEventLink}
+      eventTimeType={eventTimeType}
+      changeEventTimeType={changeEventTimeType}
+      startDate={startDate}
+      changeStartDate={changeStartDate}
+      startTime={startTime}
+      setStartTime={setStartTime}
+      endDate={endDate}
+      setEndDate={setEndDate}
+      endTime={endTime}
+      setEndTime={setEndTime}
+      error={formErrors}
+      coverImageUrl={coverImageUrl}
+      setBlob={setBlob}
+      saveForm={saveEvent}
+      isModify={true}
+    />
   );
 };
 

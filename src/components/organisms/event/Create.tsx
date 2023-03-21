@@ -1,17 +1,14 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
-import { useRouter } from 'next/navigation';
 import { createEventsApi } from '../../../api/events/create';
 import { fetchUploadImage } from '../../../api/image';
 import { STATUS_201 } from '../../../config/constants';
 import type { EventType, EventTimeType } from '../../../model/Event';
 import type { Tag } from '../../../model/Tag';
-import FormContent from '../form/event/Content';
+import Form from './Form';
 
 export const Create = () => {
-  const router = useRouter();
-
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [organizer, setOrganizer] = useState('');
@@ -53,8 +50,7 @@ export const Create = () => {
   };
   const changeEventTimeType = (e: MouseEvent, type: EventTimeType) => {
     e.preventDefault();
-    console.log(type);
-    // e.stopPropagation();
+    e.stopPropagation();
     setEventTimeType(type);
   };
   const changeStartDate = (startDate: Date | null) => {
@@ -119,39 +115,36 @@ export const Create = () => {
     };
 
     const data = await createEventsApi({ data: body });
-    console.log(data, data.status_code);
-    if (data.status_code === STATUS_201) return router.refresh();
+    if (data.status_code === STATUS_201) return window.location.reload();
     return alert(data.message);
   };
 
   return (
-    <div className="list">
-      <FormContent
-        title={title}
-        changeTitle={changeTitle}
-        error={error}
-        description={description}
-        changeDescription={changeDescription}
-        organizer={organizer}
-        changeOrganizer={changeOrganizer}
-        eventLink={eventLink}
-        changeEventLink={changeEventLink}
-        tags={eventTagsName}
-        setTags={setEventTags}
-        eventTimeType={eventTimeType}
-        changeEventTimeType={changeEventTimeType}
-        startDate={startDate}
-        changeStartDate={changeStartDate}
-        startTime={startTime}
-        setStartTime={setStartTime}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        endTime={endTime}
-        setEndTime={setEndTime}
-        setBlob={setBlob}
-        saveForm={createEvent}
-      />
-    </div>
+    <Form
+      title={title}
+      changeTitle={changeTitle}
+      error={error}
+      description={description}
+      changeDescription={changeDescription}
+      organizer={organizer}
+      changeOrganizer={changeOrganizer}
+      eventLink={eventLink}
+      changeEventLink={changeEventLink}
+      tags={eventTagsName}
+      setTags={setEventTags}
+      eventTimeType={eventTimeType}
+      changeEventTimeType={changeEventTimeType}
+      startDate={startDate}
+      changeStartDate={changeStartDate}
+      startTime={startTime}
+      setStartTime={setStartTime}
+      endDate={endDate}
+      setEndDate={setEndDate}
+      endTime={endTime}
+      setEndTime={setEndTime}
+      setBlob={setBlob}
+      saveForm={createEvent}
+    />
   );
 };
 

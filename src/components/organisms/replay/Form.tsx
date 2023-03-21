@@ -1,0 +1,100 @@
+import { useAtomValue } from 'jotai';
+import type { EventForm } from '../../../model/Event';
+import { replayTagsAtom } from '../../../store/tags';
+import ErrorContext from '../../layouts/ErrorContext';
+import FormLink from '../../molecules/DynamicDropboxInput';
+import ImageUpload from '../../molecules/ImageUpload';
+import Tag from '../../molecules/Tag';
+import ContentDate from '../../molecules/form/ContentDate';
+import ContentDescription from '../../molecules/form/ContentDescription';
+
+const Form = ({
+  title,
+  changeTitle,
+  error,
+  description,
+  changeDescription,
+  organizer,
+  changeOrganizer,
+  eventLink,
+  changeEventLink,
+  tags,
+  setTags,
+  startDate,
+  changeStartDate,
+  startTime,
+  setStartTime,
+  endDate,
+  setEndDate,
+  endTime,
+  setEndTime,
+  coverImageUrl = '',
+  setBlob,
+  saveForm,
+  isModify = false,
+}: EventForm) => {
+  const replayTags = useAtomValue(replayTagsAtom);
+
+  return (
+    <div className="list">
+      <form className="form--large">
+        <div className="form__content">
+          <ContentDescription
+            title={title}
+            changeTitle={changeTitle}
+            error={error}
+            description={description}
+            changeDescription={changeDescription}
+            organizer={organizer}
+            changeOrganizer={changeOrganizer}
+            eventLink={eventLink}
+            changeEventLink={changeEventLink}
+          />
+          <div className="relative mb-8">
+            <label
+              htmlFor="event_link"
+              className="form__content__title inline-block text-base text-gray-600 absolute top-1"
+            >
+              다시보기링크
+              <span className="text-red-500">*</span>
+            </label>
+            <FormLink />
+          </div>
+          <Tag tags={tags} setTags={setTags} storedTags={replayTags}>
+            {error.tags && <ErrorContext />}
+          </Tag>
+          <ContentDate
+            tags={tags}
+            startDate={startDate}
+            changeStartDate={changeStartDate}
+            startTime={startTime}
+            setStartTime={setStartTime}
+            endDate={endDate}
+            setEndDate={setEndDate}
+            endTime={endTime}
+            setEndTime={setEndTime}
+            isModify={isModify}
+          />
+          <ImageUpload setBlob={setBlob} coverImageUrl={coverImageUrl} />
+        </div>
+      </form>
+      <div className="relative pt-8 pb-6">
+        <button
+          type="submit"
+          onClick={saveForm}
+          className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+        >
+          확인
+        </button>
+        <a
+          href={'/admin/replay'}
+          className="form__button form__button--right w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-gray-400 text-white bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+        >
+          취소
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default Form;

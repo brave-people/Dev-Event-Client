@@ -1,22 +1,22 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAtomValue } from 'jotai';
 import { fetchUploadImage } from '../../../api/image';
 import { modifyReplayApi } from '../../../api/replay/modify';
 import { STATUS_200 } from '../../../config/constants';
-import type { ReplayModel, ReplayResponseModel } from '../../../model/Replay';
+import type { EventResponse } from '../../../model/Event';
+import type { ReplayModel } from '../../../model/Replay';
 import type { Tag } from '../../../model/Tag';
 import { linksAtom } from '../../../store/replay';
 import { useErrorContext } from '../../layouts/ErrorContext';
-import FormContent from '../form/replay/Content';
+import Form from './Form';
 
-const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
+const Modify = ({ replay }: { replay: EventResponse }) => {
   const router = useRouter();
-  const {
-    query: { id = '' },
-  } = router;
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id') || '';
 
   const replayLinks = useAtomValue(linksAtom);
 
@@ -122,13 +122,13 @@ const Modify = ({ replay }: { replay: ReplayResponseModel }) => {
     };
 
     const data = await modifyReplayApi({ data: body, id: id.toString() });
-    if (data.status_code === STATUS_200) return router.reload();
+    if (data.status_code === STATUS_200) return router.refresh();
     return alert(data.message);
   };
 
   return (
     <div className="list">
-      <FormContent
+      <Form
         title={title}
         description={description}
         organizer={organizer}

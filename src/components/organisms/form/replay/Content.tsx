@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import type { ReplayFormModel } from '../../../../model/Replay';
+import DatePicker from '../../../atoms/datepicker/Date';
+import TimePicker from '../../../atoms/datepicker/Time';
 import Input from '../../../atoms/input/Input';
 import ErrorContext from '../../../layouts/ErrorContext';
 import FormLink from '../../../molecules/DynamicDropboxInput';
-import DatePicker from '../../../molecules/datepicker/Date';
-import TimePicker from '../../../molecules/datepicker/Time';
-import ImageUploadComponent from '../../ImageUpload';
+import ImageUploadComponent from '../../../molecules/ImageUpload';
 import Tag from './Tag';
 
 const FormContent = ({

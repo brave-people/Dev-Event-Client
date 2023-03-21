@@ -32,7 +32,7 @@ export interface EventErrorForm<T> {
   tags: T extends string ? string[] : boolean;
 }
 
-export interface EventFormModel {
+export type EventForm = {
   title: string;
   changeTitle: (e: { target: { value: string } }) => void;
   error: EventErrorForm<boolean>;
@@ -44,8 +44,6 @@ export interface EventFormModel {
   changeEventLink: (e: { target: { value: string } }) => void;
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
-  eventTimeType: EventTimeType;
-  changeEventTimeType: (e: MouseEvent, type: EventTimeType) => void;
   startDate: Date | null;
   changeStartDate: (date: Date | null) => void;
   startTime: Date | null;
@@ -57,8 +55,16 @@ export interface EventFormModel {
   coverImageUrl?: string;
   setBlob: Dispatch<SetStateAction<FormData | null>>;
   saveForm: (e: MouseEvent<HTMLButtonElement>) => Promise<void>;
+  // 수정 컴포넌트
   isModify?: boolean;
-}
+  // 다시보기 링크
+  showReplayLink?: boolean;
+};
+
+export type EventTime = {
+  eventTimeType: EventTimeType;
+  changeEventTimeType: (e: MouseEvent, type: EventTimeType) => void;
+};
 
 export type EventRouter =
   | '/admin/event'
