@@ -1,29 +1,13 @@
-import { RefObject, useEffect, useRef, useState } from 'react';
-import type {
+import { useEffect, useRef, useState } from 'react';
+import {
   MouseEvent,
   Dispatch,
   KeyboardEvent,
   SetStateAction,
   ReactNode,
 } from 'react';
-import type { Tag } from '../../model/Tag';
-
-const TagLabel = ({
-  tagLabelRef,
-}: {
-  tagLabelRef: RefObject<HTMLLabelElement>;
-}) => {
-  return (
-    <label
-      ref={tagLabelRef}
-      htmlFor="tag"
-      className="form__content__title inline-block text-base font-medium text-gray-600"
-    >
-      태그
-      <span className="text-red-500">*</span>
-    </label>
-  );
-};
+import { Tag } from '../../model/Tag';
+import BaseLabel from '../atoms/label/base';
 
 const TagButton = ({
   deleteTag,
@@ -68,8 +52,7 @@ const Tags = ({
   storedTags: Tag[];
   children: ReactNode;
 }) => {
-  const tagRef = useRef<HTMLInputElement>(null);
-  const tagLabelRef = useRef<HTMLLabelElement>(null);
+  const tagRef = useRef<HTMLInputElement | null>(null);
   const [tag, setTag] = useState('');
   const [showPrevTags, setShowPrevTags] = useState<boolean>(false);
   const [filterAllTags, setFilterAllTags] = useState(storedTags || []);
@@ -140,7 +123,7 @@ const Tags = ({
   return (
     <>
       <div className="form__content__input form__content__input--tag">
-        <TagLabel tagLabelRef={tagLabelRef} />
+        <BaseLabel title="태그" htmlFor="tag" required={true} />
         {tags.length > 0 ? (
           <div className="form__content--all-tags">
             {tags.map((tag, index) => (

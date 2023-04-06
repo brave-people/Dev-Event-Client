@@ -1,6 +1,7 @@
 import { useAtomValue } from 'jotai';
 import type { EventForm } from '../../../model/Event';
 import { replayTagsAtom } from '../../../store/tags';
+import BaseLabel from '../../atoms/label/base';
 import ErrorContext from '../../layouts/ErrorContext';
 import FormLink from '../../molecules/DynamicDropboxInput';
 import ImageUpload from '../../molecules/ImageUpload';
@@ -51,13 +52,11 @@ const Form = ({
             changeEventLink={changeEventLink}
           />
           <div className="relative mb-8">
-            <label
+            <BaseLabel
+              title="다시보기링크"
               htmlFor="event_link"
-              className="form__content__title inline-block text-base text-gray-600 absolute top-1"
-            >
-              다시보기링크
-              <span className="text-red-500">*</span>
-            </label>
+              required={true}
+            />
             <FormLink />
           </div>
           <Tag tags={tags} setTags={setTags} storedTags={replayTags}>
