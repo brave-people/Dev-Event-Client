@@ -5,9 +5,9 @@ import BaseLabel from '../../atoms/label/base';
 import ErrorContext from '../../layouts/ErrorContext';
 import FormLink from '../../molecules/DynamicDropboxInput';
 import ImageUpload from '../../molecules/ImageUpload';
-import Tag from '../../molecules/Tag';
 import ContentDate from '../../molecules/form/ContentDate';
 import ContentDescription from '../../molecules/form/ContentDescription';
+import Tag from '../../molecules/form/Tag';
 
 const Form = ({
   title,

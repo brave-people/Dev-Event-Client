@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { useQuery } from 'react-query';
 import {
   createTagApi,
@@ -6,10 +7,9 @@ import {
   deleteTagApi,
   getTagsApi,
 } from '../../../api/replay/tag';
-import TagLayer from '../../molecules/layer/Tag';
 import { STATUS_200, STATUS_201 } from '../../../config/constants';
-import type { ChangeEvent } from 'react';
 import type { Tag, TagLayerType } from '../../../model/Tag';
+import TagLayer from '../../molecules/layer/Tag';
 
 const TagList = ({ tags }: { tags: Tag[] }) => {
   const layerRef = useRef<HTMLDivElement>(null);

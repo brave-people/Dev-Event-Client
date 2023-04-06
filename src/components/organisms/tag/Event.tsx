@@ -1,9 +1,4 @@
 import {
-  deleteTagApi,
-  getTagsApi,
-} from '../../../api/events/tag';
-import TagLayer from '../../molecules/layer/Tag';
-import {
   Dispatch,
   Fragment,
   SetStateAction,
@@ -13,8 +8,10 @@ import {
 } from 'react';
 import type { ChangeEvent } from 'react';
 import { useQuery } from 'react-query';
+import { deleteTagApi, getTagsApi } from '../../../api/events/tag';
 import type { Tag, TagLayerType } from '../../../model/Tag';
 import { TagState } from '../../../model/Tag';
+import TagLayer from '../../molecules/layer/Tag';
 
 const ActionTagButtons = ({
   updateActiveLayer,
@@ -83,7 +80,7 @@ const TagSearch = ({
 
 // Is there any way to simplify the code of react below?
 const TagList = ({ tags }: { tags: Tag[] }) => {
-  const layerRef = useRef<HTMLDivElement>(null);
+  const layerRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement[]>([]);
   const [state, setState] = useState<TagState>({
     tagList: tags,

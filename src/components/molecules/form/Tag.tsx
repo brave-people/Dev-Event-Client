@@ -6,8 +6,8 @@ import {
   SetStateAction,
   ReactNode,
 } from 'react';
-import { Tag } from '../../model/Tag';
-import BaseLabel from '../atoms/label/base';
+import { Tag } from '../../../model/Tag';
+import BaseLabel from '../../atoms/label/base';
 
 const TagButton = ({
   deleteTag,
