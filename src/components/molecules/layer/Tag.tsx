@@ -2,19 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 import type { MutableRefObject } from 'react';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
-import { createTagApi, modifyTagApi } from '../../../api/events/tag';
 import { STATUS_200, STATUS_201 } from '../../../config/constants';
-import type { TagState } from '../../../model/Tag';
+import type { TagState, TagApi, TagRefetch } from '../../../model/Tag';
 import Close from '../../atoms/icon/Close';
 import Input from '../../atoms/input/Input';
 
-type TagLayerProps = {
-  state: TagState;
-  layerRef: MutableRefObject<HTMLDivElement | null>;
-  closeLayer: () => void;
-  resetCheckbox: () => void;
-  refetch: () => void;
-};
+type TagLayerProps = Omit<TagApi, 'deleteTag'> &
+  TagRefetch & {
+    state: TagState;
+    layerRef: MutableRefObject<HTMLDivElement | null>;
+    closeLayer: () => void;
+    resetCheckbox: () => void;
+  };
 
 const colors = [
   '#6DC670',
@@ -35,6 +34,8 @@ const TagLayer = ({
   closeLayer,
   resetCheckbox,
   refetch,
+  createTag,
+  modifyTag,
 }: TagLayerProps) => {
   const { showLayer, activeType, tagList, selectTags } = state;
 
@@ -55,7 +56,7 @@ const TagLayer = ({
       const findTag = tagList.find(({ tag_name }) => tag_name === name);
       if (findTag) return alert(`이미 있는 태그에요! 태그 id: ${findTag.id}`);
 
-      const data = await createTagApi({ tag_name: name, tag_color: color });
+      const data = await createTag({ tag_name: name, tag_color: color });
       if (data.status_code === STATUS_201) {
         closeLayer();
         await refetch();
@@ -63,7 +64,7 @@ const TagLayer = ({
     }
 
     if (activeType === 'modify') {
-      const data = await modifyTagApi(
+      const data = await modifyTag(
         { tag_name: name, tag_color: color },
         selectTags[0].id
       );

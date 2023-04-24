@@ -3,7 +3,9 @@ import { Headers } from '../../config/headers';
 import type { RequestHeaders } from '../../model/Api';
 import type { Tag, TagName } from '../../model/Tag';
 
-const createTagApi = async (data: TagName) => {
+const createTagApi = async (
+  data: TagName
+): Promise<{ status_code: number }> => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/events/tags`, {
     method: 'POST',
     headers: {
@@ -15,7 +17,10 @@ const createTagApi = async (data: TagName) => {
   }).then((res) => res.json());
 };
 
-const modifyTagApi = async (data: TagName, id: number) => {
+const modifyTagApi = async (
+  data: TagName,
+  id: number
+): Promise<{ status_code: number }> => {
   return await fetch(
     `${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/events/tags/${id}`,
     {

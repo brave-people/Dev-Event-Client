@@ -712,10 +712,6 @@ select {
   top: 0px;
 }
 
-.top-1 {
-  top: 0.25rem;
-}
-
 .z-10 {
   z-index: 10;
 }
