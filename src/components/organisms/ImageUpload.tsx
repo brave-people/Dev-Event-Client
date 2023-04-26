@@ -86,7 +86,6 @@ const ImageUpload = ({
 
   useEffect(() => {
     if (!imageRef.current) return;
-    console.log(imageRef?.current);
     setCropper(new Cropper(imageRef.current, { aspectRatio: 16 / 9 }));
   }, [imageUrl]);
 

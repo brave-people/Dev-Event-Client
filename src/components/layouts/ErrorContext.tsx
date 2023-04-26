@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import type { EventErrorForm } from '../../model/Event';
 
 export const useErrorContext = ({
@@ -7,6 +7,10 @@ export const useErrorContext = ({
   eventLink,
   replayLink = '',
   tags,
+  priority,
+  startDate,
+  endDate,
+  blob,
 }: EventErrorForm<string>) => {
   const [error, setError] = useState<EventErrorForm<boolean>>({
     title: false,
@@ -14,6 +18,10 @@ export const useErrorContext = ({
     eventLink: false,
     replayLink: false,
     tags: false,
+    priority: false,
+    startDate: false,
+    endDate: false,
+    blob: false,
   });
 
   const validateForm = () => {
@@ -21,15 +29,25 @@ export const useErrorContext = ({
     setError((prevState) => ({ ...prevState, organizer: !organizer }));
     setError((prevState) => ({ ...prevState, eventLink: !eventLink }));
     setError((prevState) => ({ ...prevState, replayLink: !replayLink }));
-    setError((prevState) => ({ ...prevState, tags: !tags.length }));
+    setError((prevState) => ({ ...prevState, tags: !tags?.length }));
+    setError((prevState) => ({ ...prevState, priority: !priority }));
+    setError((prevState) => ({ ...prevState, startDate: !startDate }));
+    setError((prevState) => ({ ...prevState, endDate: !endDate }));
+    setError((prevState) => ({ ...prevState, blob: !blob }));
   };
 
   return { error, validateForm };
 };
 
-const ErrorContext = ({ title = '필수 입력값 입니다' }: { title?: string }) => {
+const ErrorContext = ({
+  title = '필수 입력값 입니다',
+  style,
+}: {
+  title?: string;
+  style?: CSSProperties;
+}) => {
   return (
-    <p className="form__content--error">
+    <p className="form__content--error" style={style}>
       <svg
         className="w-4 h-4"
         fill="none"

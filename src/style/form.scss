@@ -133,6 +133,7 @@
   .react-datepicker__close-icon {
     &::after {
       background-color: $color_gray-300;
+      padding: 3px 3px 2px 3px;
     }
   }
 }

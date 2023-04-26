@@ -1,10 +1,10 @@
 export type Banner = {
   title?: string;
   priority: number;
-  visibleYn: 'Y' | 'N';
-  startDateTime: string;
-  endDateTime: string;
-  bannerImage: string;
+  visible_yn: 'Y' | 'N';
+  start_date_time: string;
+  end_date_time: string;
+  banner_image: string;
 };
 
 export type BannerResponse = Banner & {
