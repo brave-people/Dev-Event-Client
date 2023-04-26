@@ -12,7 +12,7 @@ export const useErrorContext = ({
   endDate,
   blob,
 }: EventErrorForm<string>) => {
-  const [error, setFormErrors] = useState<EventErrorForm<boolean>>({
+  const [formErrors, setFormErrors] = useState<EventErrorForm<boolean>>({
     title: false,
     organizer: false,
     eventLink: false,
@@ -37,10 +37,16 @@ export const useErrorContext = ({
       blob: !blob,
     });
 
-  return { error, validateForm };
+  return { formErrors, validateForm };
 };
 
-const ErrorContext = ({ title = '필수 입력값 입니다', style }: { title?: string; style?: CSSProperties; }) => {
+const ErrorContext = ({
+  title = '필수 입력값 입니다',
+  style,
+}: {
+  title?: string;
+  style?: CSSProperties;
+}) => {
   return (
     <p className="form__content--error" style={style}>
       <svg

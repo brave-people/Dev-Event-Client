@@ -7,7 +7,7 @@ import { createBannersApi } from '../../../pages/api/banner/create';
 import { STATUS_201 } from '../../../config/constants';
 import ErrorContext, { useErrorContext } from '../../layouts/ErrorContext';
 import Input from '../../atoms/input/Input';
-import TimeComponent from '../../molecules/date/DatePicker';
+import Time from '../../molecules/datepicker/Time';
 import type { Banner, BannerResponse } from '../../../model/Banner';
 import ImageUploadComponent from '../ImageUpload';
 
@@ -37,7 +37,7 @@ export const Create = ({ banner }: { banner: BannerResponse }) => {
   const [coverImageUrl] = useState(banner.banner_image);
   const [blob, setBlob] = useState<FormData | null>(null);
 
-  const { error, validateForm } = useErrorContext({
+  const { formErrors, validateForm } = useErrorContext({
     title,
     priority,
     startDate,
@@ -115,9 +115,9 @@ export const Create = ({ banner }: { banner: BannerResponse }) => {
             value={title}
             onChange={changeTitle}
             isRequired={true}
-            customClass={{ 'border-red-400': error.title && !title }}
+            customClass={{ 'border-red-400': formErrors.title && !title }}
           >
-            {error.title && !title && <ErrorContext />}
+            {formErrors.title && !title && <ErrorContext />}
           </Input>
           <div className="form__content__input">
             <label
@@ -168,9 +168,9 @@ export const Create = ({ banner }: { banner: BannerResponse }) => {
               <span className="w-20 inline-block text-base text-gray-600 ml-8">
                 시작 시간
               </span>
-              <TimeComponent
-                time={startTime}
-                setTime={setStartTime}
+              <Time
+                selected={startTime}
+                onChange={setStartTime}
                 className="w-40"
               />
             </div>
@@ -190,7 +190,7 @@ export const Create = ({ banner }: { banner: BannerResponse }) => {
                 disabled={noEndDateTime}
                 className="appearance-none w-40 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               />
-              {error.endDate && !endDate && !noEndDateTime && (
+              {formErrors.endDate && !endDate && !noEndDateTime && (
                 <ErrorContext style={{ left: 0 }} />
               )}
             </div>
@@ -198,9 +198,9 @@ export const Create = ({ banner }: { banner: BannerResponse }) => {
               <span className="w-20 inline-block text-base text-gray-600">
                 종료 시간
               </span>
-              <TimeComponent
-                time={endTime}
-                setTime={setEndTime}
+              <Time
+                selected={endTime}
+                onChange={setEndTime}
                 disabled={noEndDateTime}
                 className="w-40"
               />
@@ -230,7 +230,7 @@ export const Create = ({ banner }: { banner: BannerResponse }) => {
               coverImageUrl={coverImageUrl}
               setBlob={setBlob}
             />
-            {error.blob && !blob && <ErrorContext style={{ left: 0 }} />}
+            {formErrors.blob && !blob && <ErrorContext style={{ left: 0 }} />}
           </div>
         </div>
         <div className="relative pt-8 pb-6">
