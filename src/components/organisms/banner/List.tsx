@@ -7,6 +7,7 @@ import { deleteBannersApi } from '../../../pages/api/banner/delete';
 import CenterAlert from '../../molecules/alert/CenterAlert';
 import { getBannersApi } from '../../../pages/api/banner';
 import type { BannerResponse } from '../../../model/Banner';
+import dayjs from 'dayjs';
 
 const List = () => {
   const router = useRouter();
@@ -21,6 +22,20 @@ const List = () => {
     async () => await getBannersApi(),
     { refetchOnWindowFocus: false }
   );
+
+  const convertBannerStatus = (
+    isVisible: 'Y' | 'N',
+    startDateTime: string,
+    endDateTime: string
+  ) => {
+    if (isVisible === 'N') return '미노출';
+
+    const today = dayjs();
+    if (today < dayjs(startDateTime)) return '노출 대기';
+    if (today > dayjs(startDateTime) && today < dayjs(endDateTime))
+      return '노출';
+    if (today > dayjs(endDateTime)) return '노출 종료';
+  };
 
   const clickDeleteButton = (id: number) => {
     setCurrentId(id);
@@ -67,54 +82,68 @@ const List = () => {
             </thead>
             <tbody>
               {data.length > 0 &&
-                data.map((value: BannerResponse, index: number) => (
-                  <Fragment key={value.id}>
-                    <tr>
-                      <td className="list__table--sub-title">{index + 1}</td>
-                      <td>{value.title}</td>
-                      <td>상태</td>
-                      <td>우선순위</td>
-                      <td>{value.startDateTime}</td>
-                      <td>{value.endDateTime}</td>
-                      <td>
-                        <div className="list--group">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-5 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={1.5}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                            />
-                          </svg>
-                          <div className="list--group__button">
-                            <button
-                              className="text-blue-500 font-bold"
-                              onClick={() =>
-                                router.push(
-                                  `/admin/event/modify?id=${value.id}`
-                                )
-                              }
+                data.map((value: BannerResponse) => {
+                  const convertEndDateText = value.end_date_time.includes(
+                    '9999-'
+                  )
+                    ? '상시 노출'
+                    : value.end_date_time;
+
+                  return (
+                    <Fragment key={value.id}>
+                      <tr>
+                        <td className="list__table--sub-title">{value.id}</td>
+                        <td>{value.title}</td>
+                        <td>
+                          {convertBannerStatus(
+                            value.visible_yn,
+                            value.start_date_time,
+                            value.end_date_time
+                          )}
+                        </td>
+                        <td>{value.priority}</td>
+                        <td>{value.start_date_time}</td>
+                        <td>{convertEndDateText}</td>
+                        <td>
+                          <div className="list--group">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="w-5 h-6"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={1.5}
                             >
-                              수정
-                            </button>
-                            <button
-                              className="text-red-500 font-bold"
-                              onClick={() => clickDeleteButton(value.id)}
-                            >
-                              삭제
-                            </button>
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                              />
+                            </svg>
+                            <div className="list--group__button">
+                              <button
+                                className="text-blue-500 font-bold"
+                                onClick={() =>
+                                  router.push(
+                                    `/admin/event/modify?id=${value.id}`
+                                  )
+                                }
+                              >
+                                수정
+                              </button>
+                              <button
+                                className="text-red-500 font-bold"
+                                onClick={() => clickDeleteButton(value.id)}
+                              >
+                                삭제
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </Fragment>
-                ))}
+                        </td>
+                      </tr>
+                    </Fragment>
+                  );
+                })}
             </tbody>
           </table>
         )}
