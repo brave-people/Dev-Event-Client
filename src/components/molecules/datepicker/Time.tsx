@@ -1,22 +1,22 @@
 import DatePicker from 'react-datepicker';
-import type { Dispatch, SetStateAction } from 'react';
 import classNames from 'classnames';
+import type { Dispatch, SetStateAction } from 'react';
 
-const TimeComponent = ({
-  time,
-  setTime,
+const Time = ({
+  selected,
+  onChange,
   disabled = false,
   className,
 }: {
-  time: Date | null;
-  setTime: Dispatch<SetStateAction<Date | null>>;
+  selected: Date | null;
+  onChange: Dispatch<SetStateAction<Date | null>>;
   disabled?: boolean;
   className?: string;
 }) => {
   return (
     <DatePicker
-      selected={time}
-      onChange={(date) => setTime(date)}
+      selected={selected}
+      onChange={(date) => onChange(date)}
       showTimeSelect
       showTimeSelectOnly
       timeIntervals={30}
@@ -33,4 +33,4 @@ const TimeComponent = ({
   );
 };
 
-export default TimeComponent;
+export default Time;

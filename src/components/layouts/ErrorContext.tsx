@@ -12,7 +12,7 @@ export const useErrorContext = ({
   endDate,
   blob,
 }: EventErrorForm<string>) => {
-  const [error, setError] = useState<EventErrorForm<boolean>>({
+  const [error, setFormErrors] = useState<EventErrorForm<boolean>>({
     title: false,
     organizer: false,
     eventLink: false,
@@ -24,28 +24,23 @@ export const useErrorContext = ({
     blob: false,
   });
 
-  const validateForm = () => {
-    setError((prevState) => ({ ...prevState, title: !title }));
-    setError((prevState) => ({ ...prevState, organizer: !organizer }));
-    setError((prevState) => ({ ...prevState, eventLink: !eventLink }));
-    setError((prevState) => ({ ...prevState, replayLink: !replayLink }));
-    setError((prevState) => ({ ...prevState, tags: !tags?.length }));
-    setError((prevState) => ({ ...prevState, priority: !priority }));
-    setError((prevState) => ({ ...prevState, startDate: !startDate }));
-    setError((prevState) => ({ ...prevState, endDate: !endDate }));
-    setError((prevState) => ({ ...prevState, blob: !blob }));
-  };
+  const validateForm = () =>
+    setFormErrors({
+      title: !title,
+      organizer: !organizer,
+      eventLink: !eventLink,
+      replayLink: !replayLink,
+      tags: !tags?.length,
+      priority: !priority,
+      startDate: !startDate,
+      endDate: !endDate,
+      blob: !blob,
+    });
 
   return { error, validateForm };
 };
 
-const ErrorContext = ({
-  title = '필수 입력값 입니다',
-  style,
-}: {
-  title?: string;
-  style?: CSSProperties;
-}) => {
+const ErrorContext = ({ title = '필수 입력값 입니다', style }: { title?: string; style?: CSSProperties; }) => {
   return (
     <p className="form__content--error" style={style}>
       <svg

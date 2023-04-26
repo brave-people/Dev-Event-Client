@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import Cookie from 'cookie';
 import Cookies from 'js-cookie';
-import { loginApi } from '../api/auth/login';
-import Input from '../../components/atoms/input/Input';
-import Checkbox from '../../components/atoms/input/Checkbox';
+import { useState } from 'react';
 import type { FormEvent } from 'react';
+import { useRouter } from 'next/router';
 import type { NextPageContext } from 'next/types';
+import Checkbox from '../../components/atoms/input/Checkbox';
+import Input from '../../components/atoms/input/Input';
 import type { ResponseTokenModel } from '../../model/User';
+import { loginApi } from '../api/auth/login';
 
 const SignIn = ({ data }: { data: string | null }) => {
   const router = useRouter();
@@ -29,7 +29,7 @@ const SignIn = ({ data }: { data: string | null }) => {
     setSaveId(!saveId);
 
     if (saveId) return Cookies.remove('save_id');
-    Cookies.set('save_id', JSON.stringify({ save_id: id }), {
+    Cookies.set('save_id', id, {
       expires: 365 * 10,
     });
   };
@@ -110,7 +110,7 @@ const SignIn = ({ data }: { data: string | null }) => {
           )}
           <div className="checkbox--blue mb-4">
             <Checkbox
-              value={saveId}
+              checked={saveId}
               onChange={changeSaveId}
               label="아이디 저장"
             />
@@ -134,7 +134,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
   if (parsedCookies && parsedCookies['save_id']) {
     return {
       props: {
-        data: JSON.parse(parsedCookies['save_id']).save_id,
+        data: parsedCookies['save_id'],
       },
     };
   }

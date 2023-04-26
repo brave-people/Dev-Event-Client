@@ -1,28 +1,34 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import type { MouseEvent } from 'react';
 import { useRouter } from 'next/router';
+import { STATUS_201 } from '../../../config/constants';
+import type { EventModel, EventTimeType } from '../../../model/Event';
+import type { Tag } from '../../../model/Tag';
 import { createEventsApi } from '../../../pages/api/events/create';
 import { fetchUploadImage } from '../../../pages/api/image';
-import { STATUS_201 } from '../../../config/constants';
 import FormContent from '../form/event/Content';
-import { useErrorContext } from '../../layouts/ErrorContext';
-import type { MouseEvent } from 'react';
-import type { Tag } from '../../../model/Tag';
-import type { EventModel, EventTimeType } from '../../../model/Event';
 
 export const Create = () => {
   const router = useRouter();
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [organizer, setOrganizer] = useState('');
-  const [eventLink, setEventLink] = useState('');
+  const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [organizer, setOrganizer] = useState<string>('');
+  const [eventLink, setEventLink] = useState<string>('');
   const [eventTags, setEventTags] = useState<Tag[]>([]);
   const [eventTimeType, setEventTimeType] = useState<EventTimeType>(
     'DATE' as const
   );
 
-  // date
+  const [error, setError] = useState({
+    title: false,
+    organizer: false,
+    eventLink: false,
+    tags: false,
+  });
+
+  // datepicker
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(new Date());
@@ -31,14 +37,7 @@ export const Create = () => {
   // image
   const [blob, setBlob] = useState<FormData | null>(null);
 
-  const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
-
-  const { error, validateForm } = useErrorContext({
-    title,
-    organizer,
-    eventLink,
-    tags: eventTagsName,
-  });
+  const eventTagsName = eventTags?.map(({ tag_name }) => tag_name) || [];
 
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
@@ -76,12 +75,21 @@ export const Create = () => {
     return '';
   };
 
+  const validateForm = () => {
+    if (!title) setError((prev) => ({ ...prev, title: true }));
+    if (!organizer) setError((prev) => ({ ...prev, organizer: true }));
+    if (!eventLink) setError((prev) => ({ ...prev, eventLink: true }));
+    if (!eventTags) setError((prev) => ({ ...prev, tags: true }));
+    return window.scrollTo({ top: 0 });
+  };
+
   const createEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (!title || !organizer || !eventLink || !eventTagsName)
+    if (!title || !organizer || !eventLink || !eventTags?.length) {
       return validateForm();
+    }
 
     const convertTime = (time: Date | null) =>
       time ? 'T' + dayjs(time).format('HH:mm') : 'T00:00';

@@ -88,7 +88,7 @@ export interface UserContent extends Omit<UserRegisterModel, 'password'> {
   changeName: (e: { target: { value: string } }) => void;
   changeEmail: (e: { target: { value: string } }) => void;
   changePassword?: (e: { target: { value: string } }) => void;
-  errorEmailMessage?: string;
+  error: Record<string, { show: boolean; message?: string }>;
   roles?: UserRole[];
   buttonLabel: string;
   submit: MouseEventHandler<HTMLButtonElement>;

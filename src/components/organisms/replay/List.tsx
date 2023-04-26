@@ -2,12 +2,12 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
-import { layerAtom } from '../../../store/layer';
+import type { ReplayResponseModel } from '../../../model/Replay';
 import { getReplayEventsApi } from '../../../pages/api/replay';
 import { deleteReplayApi } from '../../../pages/api/replay/delete';
-import CenterAlert from '../../molecules/alert/CenterAlert';
+import { layerAtom } from '../../../store/layer';
+import Alert from '../../molecules/Alert';
 import FormList from '../form/replay/List';
-import type { ReplayResponseModel } from '../../../model/Replay';
 
 const List = () => {
   const router = useRouter();
@@ -159,11 +159,11 @@ const List = () => {
           )}
         </div>
         {layer && (
-          <CenterAlert
-            title="정말 삭제할까요?"
-            description="돌이킬 수 없어요 🥲"
-            showAlert={setLayer}
-            save={deleteReplay}
+          <Alert
+            alertTitle="정말 삭제할까요?"
+            alertDescription="돌이킬 수 없어요 🥲"
+            toggleAlert={setLayer}
+            onSave={deleteReplay}
           />
         )}
       </div>

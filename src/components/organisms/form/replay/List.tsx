@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import PickerLayer from '../../../molecules/layer/Date';
 import type { Dispatch, MouseEvent, SetStateAction } from 'react';
+import MonthYearLayer from '../../../molecules/layer/MonthYear';
 
 interface List {
   year: number;
@@ -37,12 +37,12 @@ const List = ({
           {month && <span>{month + 1}월</span>}
         </button>
         <div ref={pickerRef}>
-          <PickerLayer
-            showPicker={showPicker}
+          <MonthYearLayer
+            isPickerVisible={showPicker}
             closePicker={closePicker}
-            pickerRef={pickerRef}
-            year={year}
-            month={month}
+            pickerContainerRef={pickerRef}
+            currentYear={year}
+            currentMonth={month}
             setYear={setYear}
             setMonth={setMonth}
           />

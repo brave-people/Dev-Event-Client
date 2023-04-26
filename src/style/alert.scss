@@ -4,7 +4,7 @@
 .alert--center {
   position: fixed;
   top: 50%;
-  left: calc(50% + #{$sub__nav / 2});
+  left: 50%;
   transform: translate(-50%, -50%);
   background: $color_white;
   padding: 24px 48px 24px 24px;

@@ -1,10 +1,10 @@
 import type { Dispatch, MouseEvent, SetStateAction } from 'react';
-import type { Tag } from './Tag';
 import type { EventErrorForm } from './Event';
+import type { Tag } from './Tag';
 
 export type LinkType = 'HOMEPAGE' | 'YOUTUBE';
 
-interface Replay {
+type Replay = {
   title: string;
   organizer: string;
   description: string;
@@ -16,22 +16,28 @@ interface Replay {
   tags: Tag[];
   use_start_date_time_yn?: 'Y' | 'N';
   use_end_date_time_yn?: 'Y' | 'N';
-}
+};
 
-export interface ReplayLink {
+export type ReplayLink = {
   link: string;
   link_type: LinkType;
-}
+};
 
-export interface ReplayModel extends Replay {
+export type ReplayModel = {
   links: ReplayLink[];
-}
+} & Replay;
 
-export interface ReplayResponseModel extends ReplayModel {
+export type Selected = {
   id: number;
-}
+  label: string;
+  value: LinkType;
+};
 
-export interface ReplayFormModel {
+export type ReplayResponseModel = {
+  id: number;
+} & ReplayModel;
+
+export type ReplayFormModel = {
   title: string;
   changeTitle: (e: { target: { value: string } }) => void;
   error: EventErrorForm<boolean>;
@@ -55,4 +61,4 @@ export interface ReplayFormModel {
   setBlob: Dispatch<SetStateAction<FormData | null>>;
   saveForm: (e: MouseEvent<HTMLButtonElement>) => Promise<void>;
   isModify?: boolean;
-}
+};

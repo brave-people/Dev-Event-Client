@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import 'react-datepicker/dist/react-datepicker.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useSetAtom } from 'jotai';
-import { replayTagsAtom } from '../../../store/tags';
-import { linksAtom } from '../../../store/replay';
-import getToken from '../../../server/api/auth/getToken';
-import { getTagsApi } from '../../api/replay/tag';
-import { getReplayEventApi } from '../../api/replay';
-import EventComponent from '../../../components/templates/Event';
-import ReplayModifyForm from '../../../components/organisms/replay/Modify';
+import { useRouter } from 'next/router';
 import type { NextPageContext } from 'next/types';
+import { useSetAtom } from 'jotai';
+import ReplayModifyForm from '../../../components/organisms/replay/Modify';
+import EventComponent from '../../../components/templates/Event';
 import type { ReplayResponseModel } from '../../../model/Replay';
+import getToken from '../../../server/api/auth/getToken';
+import { linksAtom } from '../../../store/replay';
+import { replayTagsAtom } from '../../../store/tags';
+import { getReplayEventApi } from '../../api/replay';
+import { getTagsApi } from '../../api/replay/tag';
 
 const queryClient = new QueryClient();
 
