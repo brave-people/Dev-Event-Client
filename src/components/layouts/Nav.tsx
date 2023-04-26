@@ -100,6 +100,18 @@ const Nav = () => {
             개발자 모임 관리
           </a>
         </li>
+        <li>
+          <a
+            href="/admin/banner"
+            className={classNames('flex items-center rounded p-2', {
+              'text-blue-800 font-bold bg-blue-50':
+                currentRouter('/admin/banner'),
+            })}
+          >
+            <CogSvgIcon />
+            모바일 배너 관리
+          </a>
+        </li>
       </ul>
     </nav>
   );

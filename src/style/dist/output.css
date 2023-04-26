@@ -766,6 +766,14 @@ select {
   margin-top: 2rem;
 }
 
+.ml-4 {
+  margin-left: 1rem;
+}
+
+.ml-8 {
+  margin-left: 2rem;
+}
+
 .block {
   display: block;
 }
@@ -868,6 +876,14 @@ select {
 
 .w-3 {
   width: 0.75rem;
+}
+
+.w-10 {
+  width: 2.5rem;
+}
+
+.w-40 {
+  width: 10rem;
 }
 
 .origin-top-right {
