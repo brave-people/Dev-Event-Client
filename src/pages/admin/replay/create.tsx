@@ -1,4 +1,3 @@
-import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useSetAtom } from 'jotai';

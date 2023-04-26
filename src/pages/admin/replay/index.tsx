@@ -1,4 +1,3 @@
-import 'react-datepicker/dist/react-datepicker.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import getToken from '../../../server/api/auth/getToken';
 import EventComponent from '../../../components/templates/Event';

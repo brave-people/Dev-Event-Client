@@ -1,4 +1,3 @@
-import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
