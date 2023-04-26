@@ -8,22 +8,33 @@ import { STATUS_201 } from '../../../config/constants';
 import ErrorContext, { useErrorContext } from '../../layouts/ErrorContext';
 import Input from '../../atoms/input/Input';
 import TimeComponent from '../../molecules/date/DatePicker';
-import type { Banner } from '../../../model/Banner';
+import type { Banner, BannerResponse } from '../../../model/Banner';
 import ImageUploadComponent from '../ImageUpload';
 
-export const Create = () => {
+export const Create = ({ banner }: { banner: BannerResponse }) => {
   const router = useRouter();
 
-  const [title, setTitle] = useState('');
-  const [priority, setPriority] = useState(1);
-  const [visibleYn, setVisibleYn] = useState(false);
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const [startTime, setStartTime] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
-  const [endTime, setEndTime] = useState<Date | null>(null);
-  const [noEndDateTime, setNoEndDateTime] = useState(false);
+  const [title, setTitle] = useState(banner.title);
+  const [priority, setPriority] = useState(banner.priority);
+  const [visibleYn, setVisibleYn] = useState(banner.visible_yn === 'Y');
+  const [startDate, setStartDate] = useState<Date | null>(
+    new Date(banner.start_date_time)
+  );
+  const [startTime, setStartTime] = useState<Date | null>(
+    new Date(banner.start_date_time)
+  );
+  const [endDate, setEndDate] = useState<Date | null>(
+    new Date(banner?.end_date_time)
+  );
+  const [endTime, setEndTime] = useState<Date | null>(
+    new Date(banner?.end_date_time)
+  );
+  const [noEndDateTime, setNoEndDateTime] = useState(
+    banner?.end_date_time.includes('9999-')
+  );
 
   // image
+  const [coverImageUrl] = useState(banner.banner_image);
   const [blob, setBlob] = useState<FormData | null>(null);
 
   const { error, validateForm } = useErrorContext({
@@ -135,6 +146,7 @@ export const Create = () => {
             <input
               id="visibleYn"
               type="checkbox"
+              checked={visibleYn}
               onChange={changeVisibleYn}
               className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
@@ -203,6 +215,7 @@ export const Create = () => {
               <input
                 id="noExpiration"
                 type="checkbox"
+                checked={noEndDateTime}
                 onChange={() => setNoEndDateTime(!noEndDateTime)}
                 className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
@@ -213,7 +226,10 @@ export const Create = () => {
               배너 이미지
               <span className="text-red-500">*</span>
             </span>
-            <ImageUploadComponent setBlob={setBlob} />
+            <ImageUploadComponent
+              coverImageUrl={coverImageUrl}
+              setBlob={setBlob}
+            />
             {error.blob && !blob && <ErrorContext style={{ left: 0 }} />}
           </div>
         </div>

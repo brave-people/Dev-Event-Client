@@ -1,5 +1,5 @@
 export type Banner = {
-  title?: string;
+  title: string;
   priority: number;
   visible_yn: 'Y' | 'N';
   start_date_time: string;
