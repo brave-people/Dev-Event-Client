@@ -81,7 +81,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (!title || !startDate || (!endDate && !noEndDateTime) || !blob)
+    if (!title || !startDate || (!endDate && !noEndDateTime))
       return validateForm();
 
     const convertTime = (time: Date | null) =>
@@ -89,7 +89,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
     const convertStartTime = convertTime(startTime);
     const convertEndTime = convertTime(endTime);
 
-    const coverImageUrl = await uploadImage();
+    const newCoverImageUrl = await uploadImage();
 
     const body: Banner = {
       title,
@@ -101,7 +101,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
       end_date_time: noEndDateTime
         ? '9999-12-31T00:00'
         : `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`,
-      banner_image: coverImageUrl,
+      banner_image: newCoverImageUrl || coverImageUrl,
     };
 
     const data = await modifyBannersApi({ data: body, id: id.toString() });
@@ -235,7 +235,6 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
               coverImageUrl={coverImageUrl}
               setBlob={setBlob}
             />
-            {formErrors.blob && !blob && <ErrorContext style={{ left: 0 }} />}
           </div>
         </div>
         <div className="relative pt-8 pb-6">
