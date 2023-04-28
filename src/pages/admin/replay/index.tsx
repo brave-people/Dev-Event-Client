@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-import getToken from '../../../server/api/auth/getToken';
-import EventComponent from '../../../components/templates/Event';
-import ReplayList from '../../../components/organisms/replay/List';
 import type { NextPageContext } from 'next/types';
+import ReplayList from '../../../components/organisms/replay/List';
+import EventComponent from '../../../components/templates/Event';
+import getToken from '../../../server/api/auth/getToken';
 
 const queryClient = new QueryClient();
 

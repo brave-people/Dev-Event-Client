@@ -1,7 +1,7 @@
 import Cookie from 'cookie';
 import { Headers } from '../../../config/headers';
-import type { CalendarProps } from '../../../model/Calendar';
 import type { RequestHeaders } from '../../../model/Api';
+import type { CalendarProps } from '../../../model/Calendar';
 import type { EventResponseModel } from '../../../model/Event';
 
 export const getEventsApi = async ({

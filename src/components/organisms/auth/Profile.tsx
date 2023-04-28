@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useAtom } from 'jotai';
-import { userAtom } from '../../../store/User';
 import { getUsersProfileApi } from '../../../pages/api/auth/users/profile';
+import { userAtom } from '../../../store/User';
 
 export const useUserProfile = () => {
   const [userState, setUserState] = useAtom(userAtom);

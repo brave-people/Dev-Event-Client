@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-import getToken from '../../server/api/auth/getToken';
-import UserComponent from '../../components/templates/User';
-import PasswordForm from '../../components/organisms/form/auth/Password';
 import type { NextPageContext } from 'next/types';
+import PasswordForm from '../../components/organisms/form/auth/Password';
+import UserComponent from '../../components/templates/User';
+import getToken from '../../server/api/auth/getToken';
 
 const queryClient = new QueryClient();
 

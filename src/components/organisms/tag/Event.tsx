@@ -9,9 +9,9 @@ import {
   getTagsApi,
   modifyTagApi,
 } from '../../../pages/api/events/tag';
-import TagLayer from '../../molecules/layer/Tag';
 import ActionTagButtons from '../../molecules/ActionTagButtons';
 import TagSearch from '../../molecules/TagSearch';
+import TagLayer from '../../molecules/layer/Tag';
 
 const TagList = ({ tags }: { tags: Tag[] }) => {
   const layerRef = useRef<HTMLDivElement>(null);

@@ -1,7 +1,7 @@
-import type { Banner } from '../../../model/Banner';
 import Cookie from 'cookie';
 import { Headers } from '../../../config/headers';
 import type { RequestHeaders } from '../../../model/Api';
+import type { Banner } from '../../../model/Banner';
 
 export const modifyBannersApi = async (data: Banner, id: number) => {
   return await fetch(

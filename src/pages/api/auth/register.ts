@@ -1,7 +1,7 @@
 import Cookie from 'cookie';
 import { Headers } from '../../../config/headers';
-import type { UserRegisterModel } from '../../../model/User';
 import type { RequestHeaders } from '../../../model/Api';
+import type { UserRegisterModel } from '../../../model/User';
 
 export const registerUserApi = async (req: UserRegisterModel) => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/register/user`, {

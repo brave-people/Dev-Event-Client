@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import getToken from '../../../server/api/auth/getToken';
-import EventComponent from '../../../components/templates/Event';
-import ReplayTagList from '../../../components/organisms/tag/Replay';
-import { getTagsApi } from '../../api/replay/tag';
 import type { NextPageContext } from 'next/types';
+import ReplayTagList from '../../../components/organisms/tag/Replay';
+import EventComponent from '../../../components/templates/Event';
 import type { Tag } from '../../../model/Tag';
+import getToken from '../../../server/api/auth/getToken';
+import { getTagsApi } from '../../api/replay/tag';
 
 const queryClient = new QueryClient();
 

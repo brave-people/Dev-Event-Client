@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useRouter } from 'next/router';
+import type { NextPageContext } from 'next/types';
+import BannerModifyForm from '../../../components/organisms/banner/Modify';
+import EventComponent from '../../../components/templates/Event';
+import type { BannerResponse } from '../../../model/Banner';
 import getToken from '../../../server/api/auth/getToken';
 import { getBannerApi } from '../../api/banner';
-import EventComponent from '../../../components/templates/Event';
-import BannerModifyForm from '../../../components/organisms/banner/Modify';
-import type { NextPageContext } from 'next/types';
-import type { BannerResponse } from '../../../model/Banner';
 
 const queryClient = new QueryClient();
 

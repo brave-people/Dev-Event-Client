@@ -1,5 +1,5 @@
-import type { Tag } from './Tag';
 import type { Dispatch, SetStateAction, MouseEvent } from 'react';
+import type { Tag } from './Tag';
 
 export type EventTimeType = 'DATE' | 'RECRUIT';
 
