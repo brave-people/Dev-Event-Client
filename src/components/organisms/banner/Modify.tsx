@@ -159,14 +159,19 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
               시작 일자
               <span className="text-red-500">*</span>
             </span>
-            <DatePicker
-              dateFormat="yyyy/MM/dd"
-              selected={startDate}
-              onChange={(date) => changeStartDate(date)}
-              isClearable={true}
-              placeholderText=""
-              className="appearance-none w-40 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            />
+            <div className="relative">
+              <DatePicker
+                dateFormat="yyyy/MM/dd"
+                selected={startDate}
+                onChange={(date) => changeStartDate(date)}
+                isClearable={true}
+                placeholderText=""
+                className="appearance-none w-40 h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              />
+              {formErrors.startDate && !startDate && (
+                <ErrorContext style={{ left: 0 }} />
+              )}
+            </div>
             <div className="w-full inline-flex items-center">
               <span className="w-20 inline-block text-base text-gray-600 ml-8">
                 시작 시간
