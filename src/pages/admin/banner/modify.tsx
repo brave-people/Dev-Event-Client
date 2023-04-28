@@ -1,41 +1,34 @@
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useSetAtom } from 'jotai';
-import { eventTagsAtom } from '../../../store/tags';
 import getToken from '../../../server/api/auth/getToken';
-import { getEventApi } from '../../api/events';
-import { getTagsApi } from '../../api/events/tag';
+import { getBannerApi } from '../../api/banner';
 import EventComponent from '../../../components/templates/Event';
-import EventModifyForm from '../../../components/organisms/event/Modify';
+import BannerModifyForm from '../../../components/organisms/banner/Modify';
 import type { NextPageContext } from 'next/types';
-import type { EventResponseModel } from '../../../model/Event';
+import type { BannerResponse } from '../../../model/Banner';
 
 const queryClient = new QueryClient();
 
-const EventModify = () => {
+const Banner = () => {
   const { query } = useRouter();
-  const setTags = useSetAtom(eventTagsAtom);
-  const [event, setEvent] = useState<EventResponseModel>();
+  const [banners, setBanners] = useState<BannerResponse>();
 
   const data = async () =>
-    await getEventApi({ id: query.id?.toString() || '' });
-
-  const tagsData = async () => await getTagsApi();
+    await getBannerApi({ id: query.id?.toString() || '' });
 
   useEffect(() => {
     // https://github.com/vercel/next.js/discussions/20641?sort=new
     // vercel 배포 후 500 에러 이슈로 인해 useEffect 내부에서 호출하도록 수정
-    data().then((res) => setEvent(res));
-    tagsData().then((res) => setTags(res));
+    data().then((res) => setBanners(res));
   }, []);
 
-  if (!event) return null;
+  if (!banners) return null;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <EventComponent title="개발자 행사 수정">
-        <EventModifyForm event={event} />
+      <EventComponent title="모바일 메인 최상단 배너 수정">
+        <BannerModifyForm banner={banners} />
       </EventComponent>
     </QueryClientProvider>
   );
@@ -44,7 +37,6 @@ const EventModify = () => {
 export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
   const token = await getToken(cookies);
-  const { id = '' } = context.query;
 
   // token이 없거나 에러나면 로그인 페이지로 이동
   if (!token?.data || token?.error) {
@@ -55,9 +47,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     };
   }
 
-  // id가 없다면 이벤트 조회 페이지로 이동
-  if (!id) return { redirect: { destination: '/admin/event' } };
   return { props: {} };
 };
 
-export default EventModify;
+export default Banner;

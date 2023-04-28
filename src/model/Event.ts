@@ -1,5 +1,5 @@
-import type { Dispatch, SetStateAction, MouseEvent } from 'react';
 import type { Tag } from './Tag';
+import type { Dispatch, SetStateAction, MouseEvent } from 'react';
 
 export type EventTimeType = 'DATE' | 'RECRUIT';
 
@@ -28,10 +28,14 @@ export interface EventResponseModel extends Event {
 
 export interface EventErrorForm<T> {
   title: T;
-  organizer: T;
-  eventLink: T;
+  organizer?: T;
+  eventLink?: T;
   replayLink?: T;
-  tags: T extends string ? string[] : boolean;
+  tags?: T extends string ? string[] : boolean;
+  priority?: T extends string ? number : boolean;
+  startDate?: T extends string ? Date | null : boolean;
+  endDate?: T extends string ? Date | null : boolean;
+  blob?: T extends string ? FormData | null : boolean;
 }
 
 export interface EventFormModel {
@@ -67,4 +71,5 @@ export type EventRouter =
   | '/admin/replay'
   | '/admin/groups'
   | '/admin/event/tag'
-  | '/admin/replay/tag';
+  | '/admin/replay/tag'
+  | '/admin/banner';

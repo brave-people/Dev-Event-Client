@@ -21,8 +21,8 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
 
   return (
     <header className="header">
-      <Link href="/admin/event" className="text-4xl font-bold">
-        용감한 관리자
+      <Link href="/admin/event">
+        <h1 className="text-4xl font-bold">용감한 관리자</h1>
       </Link>
       <Menu as="div" className="ml-3 relative">
         <div>

@@ -1,84 +1,18 @@
-import {
-  Dispatch,
-  Fragment,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { useQuery } from 'react-query';
 import type { Tag, TagLayerType } from '../../../model/Tag';
 import { TagState } from '../../../model/Tag';
-import { deleteTagApi, getTagsApi } from '../../../pages/api/events/tag';
+import {
+  createTagApi,
+  deleteTagApi,
+  getTagsApi,
+  modifyTagApi,
+} from '../../../pages/api/events/tag';
 import TagLayer from '../../molecules/layer/Tag';
+import ActionTagButtons from '../../molecules/ActionTagButtons';
+import TagSearch from '../../molecules/TagSearch';
 
-const ActionTagButtons = ({
-  updateActiveLayer,
-}: {
-  updateActiveLayer: (type: TagLayerType) => void;
-}) => {
-  return (
-    <div className="relative">
-      <button
-        onClick={() => updateActiveLayer('create')}
-        className="mr-2 py-2 px-6 text-white rounded bg-blue-500 text-sm"
-      >
-        + 생성
-      </button>
-      <button
-        onClick={() => updateActiveLayer('modify')}
-        className="mr-2 py-2 px-6 text-gray-500 rounded border border-solid border-gray-200 text-sm"
-      >
-        수정
-      </button>
-      <button
-        onClick={() => updateActiveLayer('delete')}
-        className="py-2 px-6 text-gray-500 rounded border border-solid border-gray-200 text-sm"
-      >
-        삭제
-      </button>
-    </div>
-  );
-};
-
-const TagSearch = ({
-  keyword,
-  setState,
-}: {
-  keyword: string;
-  setState: Dispatch<SetStateAction<TagState>>;
-}) => {
-  const onChange = (value: string) =>
-    setState((prevState) => ({ ...prevState, keyword: value }));
-
-  return (
-    <div className="list__search">
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        stroke="#6E6E6E"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-        />
-      </svg>
-      <input
-        type="text"
-        placeholder="태그명으로 검색"
-        value={keyword}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </div>
-  );
-};
-
-// Is there any way to simplify the code of react below?
 const TagList = ({ tags }: { tags: Tag[] }) => {
   const layerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement[]>([]);
@@ -217,6 +151,8 @@ const TagList = ({ tags }: { tags: Tag[] }) => {
           closeLayer={closeLayer}
           resetCheckbox={resetCheckbox}
           refetch={refetch}
+          createTag={createTagApi}
+          modifyTag={modifyTagApi}
         />
       </div>
     </div>

@@ -1,20 +1,18 @@
-import { QueryClient, QueryClientProvider } from 'react-query';
-import getToken from '../../../server/api/auth/getToken';
-import EventComponent from '../../../components/templates/Event';
-import ReplayList from '../../../components/organisms/replay/List';
 import type { NextPageContext } from 'next/types';
+import getToken from '../../../server/api/auth/getToken';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import EventComponent from '../../../components/templates/Event';
+import BannerCreateForm from '../../../components/organisms/banner/Create';
 
 const queryClient = new QueryClient();
 
-const Replay = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <EventComponent title="개발자 행사 다시보기">
-        <ReplayList />
-      </EventComponent>
-    </QueryClientProvider>
-  );
-};
+const Banner = () => (
+  <QueryClientProvider client={queryClient}>
+    <EventComponent title="모바일 메인 최상단 배너 등록">
+      <BannerCreateForm />
+    </EventComponent>
+  </QueryClientProvider>
+);
 
 export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
@@ -32,4 +30,4 @@ export const getServerSideProps = async (context: NextPageContext) => {
   return { props: {} };
 };
 
-export default Replay;
+export default Banner;
