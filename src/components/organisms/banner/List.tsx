@@ -1,13 +1,13 @@
+import dayjs from 'dayjs';
 import { Fragment, useEffect, useState, useRef } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
-import { layerAtom } from '../../../store/layer';
-import { deleteBannersApi } from '../../../pages/api/banner/delete';
-import CenterAlert from '../../molecules/alert/CenterAlert';
-import { getBannersApi } from '../../../pages/api/banner';
 import type { BannerResponse } from '../../../model/Banner';
-import dayjs from 'dayjs';
+import { getBannersApi } from '../../../pages/api/banner';
+import { deleteBannersApi } from '../../../pages/api/banner/delete';
+import { layerAtom } from '../../../store/layer';
+import Alert from '../../molecules/Alert';
 
 const List = () => {
   const router = useRouter();
@@ -159,11 +159,11 @@ const List = () => {
         )}
       </div>
       {layer && (
-        <CenterAlert
-          title="정말 삭제할까요?"
-          description="돌이킬 수 없어요 🥲"
-          showAlert={setLayer}
-          save={deleteBanner}
+        <Alert
+          alertTitle="정말 삭제할까요?"
+          alertDescription="돌이킬 수 없어요 🥲"
+          toggleAlert={setLayer}
+          onSave={deleteBanner}
         />
       )}
     </div>
