@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import { useRouter } from 'next/router';
 import { STATUS_201 } from '../../../config/constants';
 import type { Banner, BannerResponse } from '../../../model/Banner';
-import { createBannersApi } from '../../../pages/api/banner/create';
+import { modifyBannersApi } from '../../../pages/api/banner/modify';
 import { fetchUploadImage } from '../../../pages/api/image';
 import Input from '../../atoms/input/Input';
 import ErrorContext, { useErrorContext } from '../../layouts/ErrorContext';
@@ -13,6 +13,9 @@ import ImageUploadComponent from '../ImageUpload';
 
 export const Modify = ({ banner }: { banner: BannerResponse }) => {
   const router = useRouter();
+  const {
+    query: { id = '' },
+  } = router;
 
   const [title, setTitle] = useState(banner.title);
   const [priority, setPriority] = useState(banner.priority);
@@ -74,7 +77,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
     return '';
   };
 
-  const createBanner = async (e: MouseEvent<HTMLButtonElement>) => {
+  const modifyBanner = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -101,7 +104,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
       banner_image: coverImageUrl,
     };
 
-    const data = await createBannersApi({ data: body });
+    const data = await modifyBannersApi({ data: body, id: id.toString() });
     if (data.status_code === STATUS_201) return router.reload();
     return alert(data.message);
   };
@@ -238,7 +241,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
         <div className="relative pt-8 pb-6">
           <button
             type="submit"
-            onClick={createBanner}
+            onClick={modifyBanner}
             className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
           >
             확인
