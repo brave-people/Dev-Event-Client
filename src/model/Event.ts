@@ -41,7 +41,7 @@ export interface EventErrorForm<T> {
 export interface EventFormModel {
   title: string;
   changeTitle: (e: { target: { value: string } }) => void;
-  error: Record<string, boolean>;
+  error: EventErrorForm<boolean>;
   description: string;
   changeDescription: (e: { target: { value: string } }) => void;
   organizer: string;
