@@ -246,7 +246,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
             확인
           </button>
           <a
-            href={'/admin/event'}
+            href={'/admin/banner'}
             className="form__button form__button--right w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-gray-400 text-white bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
           >
             취소
