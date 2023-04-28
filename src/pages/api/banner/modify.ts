@@ -3,7 +3,13 @@ import { Headers } from '../../../config/headers';
 import type { RequestHeaders } from '../../../model/Api';
 import type { Banner } from '../../../model/Banner';
 
-export const modifyBannersApi = async (data: Banner, id: number) => {
+export const modifyBannersApi = async ({
+  data,
+  id,
+}: {
+  data: Banner;
+  id: string;
+}) => {
   return await fetch(
     `${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/banner/mobile/top/${id}`,
     {
