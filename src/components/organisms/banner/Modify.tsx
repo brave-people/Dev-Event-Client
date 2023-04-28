@@ -11,7 +11,7 @@ import ErrorContext, { useErrorContext } from '../../layouts/ErrorContext';
 import Time from '../../molecules/datepicker/Time';
 import ImageUploadComponent from '../ImageUpload';
 
-export const Create = ({ banner }: { banner: BannerResponse }) => {
+export const Modify = ({ banner }: { banner: BannerResponse }) => {
   const router = useRouter();
 
   const [title, setTitle] = useState(banner.title);
@@ -227,6 +227,8 @@ export const Create = ({ banner }: { banner: BannerResponse }) => {
               <span className="text-red-500">*</span>
             </span>
             <ImageUploadComponent
+              width={360}
+              height={200}
               coverImageUrl={coverImageUrl}
               setBlob={setBlob}
             />
@@ -253,4 +255,4 @@ export const Create = ({ banner }: { banner: BannerResponse }) => {
   );
 };
 
-export default Create;
+export default Modify;
