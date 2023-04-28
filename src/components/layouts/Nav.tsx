@@ -33,6 +33,10 @@ const navItems: (ItemType & { subItems?: ItemType[] })[] = [
     path: '/admin/groups',
     title: '개발자 모임 관리',
   },
+  {
+    path: '/admin/banner',
+    title: '모바일 배너 관리',
+  },
 ];
 
 const SubNav = ({

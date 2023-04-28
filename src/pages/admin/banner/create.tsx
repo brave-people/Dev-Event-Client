@@ -1,20 +1,18 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import type { NextPageContext } from 'next/types';
-import UserModifyForm from '../../components/organisms/form/auth/Modify';
-import UserComponent from '../../components/templates/User';
-import getToken from '../../server/api/auth/getToken';
+import BannerCreateForm from '../../../components/organisms/banner/Create';
+import EventComponent from '../../../components/templates/Event';
+import getToken from '../../../server/api/auth/getToken';
 
 const queryClient = new QueryClient();
 
-const Modify = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <UserComponent title="회원정보수정">
-        <UserModifyForm />
-      </UserComponent>
-    </QueryClientProvider>
-  );
-};
+const Banner = () => (
+  <QueryClientProvider client={queryClient}>
+    <EventComponent title="모바일 메인 최상단 배너 등록">
+      <BannerCreateForm />
+    </EventComponent>
+  </QueryClientProvider>
+);
 
 export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = context.req?.headers.cookie;
@@ -32,4 +30,4 @@ export const getServerSideProps = async (context: NextPageContext) => {
   return { props: {} };
 };
 
-export default Modify;
+export default Banner;

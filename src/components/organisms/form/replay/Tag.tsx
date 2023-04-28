@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useAtomValue } from 'jotai';
-import { replayTagsAtom } from '../../../../store/tags';
 import type {
   MouseEvent,
   Dispatch,
@@ -8,7 +6,9 @@ import type {
   SetStateAction,
   ReactElement,
 } from 'react';
+import { useAtomValue } from 'jotai';
 import type { Tag } from '../../../../model/Tag';
+import { replayTagsAtom } from '../../../../store/tags';
 
 const Tags = ({
   tags,

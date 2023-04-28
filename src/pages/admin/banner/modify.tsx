@@ -1,28 +1,34 @@
 import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useRouter } from 'next/router';
 import type { NextPageContext } from 'next/types';
-import ReplayTagList from '../../../components/organisms/tag/Replay';
+import BannerModifyForm from '../../../components/organisms/banner/Modify';
 import EventComponent from '../../../components/templates/Event';
-import type { Tag } from '../../../model/Tag';
+import type { BannerResponse } from '../../../model/Banner';
 import getToken from '../../../server/api/auth/getToken';
-import { getTagsApi } from '../../api/replay/tag';
+import { getBannerApi } from '../../api/banner';
 
 const queryClient = new QueryClient();
 
-const ReplayTag = () => {
-  const [tags, setTags] = useState<Tag[]>([]);
-  const data = async () => await getTagsApi();
+const Banner = () => {
+  const { query } = useRouter();
+  const [banners, setBanners] = useState<BannerResponse>();
+
+  const data = async () =>
+    await getBannerApi({ id: query.id?.toString() || '' });
 
   useEffect(() => {
     // https://github.com/vercel/next.js/discussions/20641?sort=new
     // vercel 배포 후 500 에러 이슈로 인해 useEffect 내부에서 호출하도록 수정
-    data().then((res) => setTags(res));
+    data().then((res) => setBanners(res));
   }, []);
+
+  if (!banners) return null;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <EventComponent title="태그 관리">
-        <ReplayTagList tags={tags} />
+      <EventComponent title="모바일 메인 최상단 배너 수정">
+        <BannerModifyForm banner={banners} />
       </EventComponent>
     </QueryClientProvider>
   );
@@ -44,4 +50,4 @@ export const getServerSideProps = async (context: NextPageContext) => {
   return { props: {} };
 };
 
-export default ReplayTag;
+export default Banner;

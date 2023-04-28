@@ -1,13 +1,12 @@
-import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useSetAtom } from 'jotai';
-import { replayTagsAtom } from '../../../store/tags';
-import getToken from '../../../server/api/auth/getToken';
-import { getTagsApi } from '../../api/replay/tag';
-import EventComponent from '../../../components/templates/Event';
-import ReplayCreateForm from '../../../components/organisms/replay/Create';
 import type { NextPageContext } from 'next/types';
+import { useSetAtom } from 'jotai';
+import ReplayCreateForm from '../../../components/organisms/replay/Create';
+import EventComponent from '../../../components/templates/Event';
+import getToken from '../../../server/api/auth/getToken';
+import { replayTagsAtom } from '../../../store/tags';
+import { getTagsApi } from '../../api/replay/tag';
 
 const queryClient = new QueryClient();
 

@@ -3,8 +3,7 @@ import type { MutableRefObject } from 'react';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
 import { STATUS_200, STATUS_201 } from '../../../config/constants';
-import type { TagState } from '../../../model/Tag';
-import { createTagApi, modifyTagApi } from '../../../pages/api/events/tag';
+import type { TagState, TagName } from '../../../model/Tag';
 import CloseIcon from '../../atoms/icon/CloseIcon';
 import Input from '../../atoms/input/Input';
 
@@ -14,6 +13,13 @@ type TagLayerProps = {
   closeLayer: () => void;
   resetCheckbox: () => void;
   refetch: () => void;
+  createTag: (
+    data: TagName
+  ) => Promise<{ status_code: number; status: string }>;
+  modifyTag: (
+    data: TagName,
+    id: number
+  ) => Promise<{ status_code: number; status: string }>;
 };
 
 const colors = [
@@ -35,6 +41,8 @@ const TagLayer = ({
   closeLayer,
   resetCheckbox,
   refetch,
+  createTag,
+  modifyTag,
 }: TagLayerProps) => {
   const { showLayer, activeType, tagList, selectTags } = state;
 
@@ -55,7 +63,7 @@ const TagLayer = ({
       const findTag = tagList.find(({ tag_name }) => tag_name === name);
       if (findTag) return alert(`이미 있는 태그에요! 태그 id: ${findTag.id}`);
 
-      const data = await createTagApi({ tag_name: name, tag_color: color });
+      const data = await createTag({ tag_name: name, tag_color: color });
       if (data.status_code === STATUS_201) {
         closeLayer();
         await refetch();
@@ -63,7 +71,7 @@ const TagLayer = ({
     }
 
     if (activeType === 'modify') {
-      const data = await modifyTagApi(
+      const data = await modifyTag(
         { tag_name: name, tag_color: color },
         selectTags[0].id
       );

@@ -59,7 +59,7 @@ const FormContent = ({
             value={organizer}
             onChange={changeOrganizer}
             isRequired={true}
-            customClass={{ 'border-red-400': error.organizer }}
+            customClass={{ 'border-red-400': !!error.organizer }}
           >
             {error.organizer && <ErrorContext />}
           </Input>
@@ -71,7 +71,7 @@ const FormContent = ({
             onChange={changeEventLink}
             isRequired={true}
             autoComplete="off"
-            customClass={{ 'border-red-400': error.eventLink }}
+            customClass={{ 'border-red-400': !!error.eventLink }}
           >
             {error.eventLink && <ErrorContext />}
           </Input>

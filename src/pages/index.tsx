@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import getToken from '../server/api/auth/getToken';
 import type { NextPageContext } from 'next/types';
+import getToken from '../server/api/auth/getToken';
 
 const Home = () => {
   return (

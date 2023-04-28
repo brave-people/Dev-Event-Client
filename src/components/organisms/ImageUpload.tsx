@@ -1,15 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import Cropper from 'cropperjs';
+import { useEffect, useRef, useState } from 'react';
 import type { BaseSyntheticEvent } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
+import Image from 'next/image';
 
 const ImageUpload = ({
   coverImageUrl,
   setBlob,
+  width,
+  height,
 }: {
   coverImageUrl?: string;
   setBlob: Dispatch<SetStateAction<FormData | null>>;
+  width?: number;
+  height?: number;
 }) => {
   const htmlFor = 'image-upload';
   const imageRef = useRef(null);
@@ -39,10 +43,13 @@ const ImageUpload = ({
   const clickCropImageUpload = (e: BaseSyntheticEvent) => {
     e.preventDefault();
     setCropImageUrl({
-      url: cropper?.getCroppedCanvas({ maxWidth: 1024 })?.toDataURL() || '',
+      url:
+        cropper
+          ?.getCroppedCanvas({ maxWidth: 1024, width, height })
+          ?.toDataURL() || '',
       name: imageUrl.name,
     });
-    cropper?.getCroppedCanvas({ maxWidth: 1024 })?.toBlob(
+    cropper?.getCroppedCanvas({ maxWidth: 1024, width, height })?.toBlob(
       async (blob) => {
         const formData = new FormData();
         if (blob) {
@@ -87,7 +94,17 @@ const ImageUpload = ({
 
   useEffect(() => {
     if (!imageRef.current) return;
-    setCropper(new Cropper(imageRef.current, { aspectRatio: 16 / 9 }));
+    setCropper(
+      new Cropper(imageRef.current, {
+        aspectRatio: 16 / 9,
+        ...(width &&
+          height && {
+            minCropBoxWidth: width,
+            minCropBoxHeight: height,
+            cropBoxResizable: false,
+          }),
+      })
+    );
   }, [imageUrl]);
 
   useEffect(() => {

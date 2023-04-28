@@ -1,4 +1,4 @@
-import React from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
 import type { AppProps } from 'next/app';
 import { Provider } from 'jotai';
 import '../style/dist/output.css';
