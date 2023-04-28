@@ -1,6 +1,6 @@
+import type { Dispatch, SetStateAction } from 'react';
 import DatePicker from 'react-datepicker';
 import classNames from 'classnames';
-import type { Dispatch, SetStateAction } from 'react';
 
 const Time = ({
   selected,
