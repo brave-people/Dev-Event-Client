@@ -41,10 +41,10 @@ export const useErrorContext = ({
 };
 
 const ErrorContext = ({
-  title = '필수 입력값 입니다',
+  message = '필수 입력값 입니다',
   style,
 }: {
-  title?: string;
+  message?: string;
   style?: CSSProperties;
 }) => {
   return (
@@ -63,7 +63,7 @@ const ErrorContext = ({
           d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
-      {title}
+      {message}
     </p>
   );
 };
