@@ -166,6 +166,7 @@ export const Create = () => {
           <div className="mb-6 flex items-center">
             <span className="form__content__title inline-block text-base text-gray-600">
               종료 일자
+              <span className="text-red-500">*</span>
             </span>
             <div className="relative">
               <DatePicker
