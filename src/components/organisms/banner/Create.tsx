@@ -50,6 +50,17 @@ export const Create = () => {
     if (endDate < startDate) setEndDate(startDate);
   };
 
+  const changeAlwaysButton = () => {
+    setNoEndDateTime(!noEndDateTime);
+
+    if (!noEndDateTime) return;
+
+    if (!endDate && !endTime) {
+      setEndDate(!startDate ? null : startDate);
+      setEndTime(!startTime ? null : startTime);
+    }
+  };
+
   const uploadImage = async () => {
     if (blob === null) return '';
 
@@ -209,7 +220,8 @@ export const Create = () => {
               <input
                 id="noExpiration"
                 type="checkbox"
-                onChange={() => setNoEndDateTime(!noEndDateTime)}
+                checked={noEndDateTime}
+                onChange={changeAlwaysButton}
                 className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
             </div>
