@@ -6,7 +6,7 @@ import type {
   SetStateAction,
   ReactNode,
 } from 'react';
-import { useAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import type { Tag } from '../../../../model/Tag';
 import { eventTagsAtom } from '../../../../store/tags';
 
@@ -19,7 +19,7 @@ const Tags = ({
   setTags: Dispatch<SetStateAction<Tag[]>>;
   children: ReactNode;
 }) => {
-  const [allTags] = useAtom(eventTagsAtom);
+  const allTags = useAtomValue(eventTagsAtom);
 
   const tagRef = useRef<HTMLInputElement>(null);
   const tagLabelRef = useRef<HTMLLabelElement>(null);
