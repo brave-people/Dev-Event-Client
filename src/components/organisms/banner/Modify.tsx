@@ -64,6 +64,17 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
     if (endDate < startDate) setEndDate(startDate);
   };
 
+  const changeAlwaysButton = () => {
+    setNoEndDateTime(!noEndDateTime);
+
+    if (!noEndDateTime) return;
+
+    if (!endDate && !endTime) {
+      setEndDate(!startDate ? null : startDate);
+      setEndTime(!startTime ? null : startTime);
+    }
+  };
+
   const uploadImage = async () => {
     if (blob === null) return '';
 
@@ -225,7 +236,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
                 id="noExpiration"
                 type="checkbox"
                 checked={noEndDateTime}
-                onChange={() => setNoEndDateTime(!noEndDateTime)}
+                onChange={changeAlwaysButton}
                 className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
             </div>
