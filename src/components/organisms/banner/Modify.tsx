@@ -1,21 +1,20 @@
 import dayjs from 'dayjs';
 import { useState, type ChangeEvent, type MouseEvent } from 'react';
 import DatePicker from 'react-datepicker';
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { modifyBannersApi } from '../../../api/banner/modify';
+import { fetchUploadImage } from '../../../api/image';
 import { STATUS_201 } from '../../../config/constants';
 import type { Banner, BannerResponse } from '../../../model/Banner';
-import { modifyBannersApi } from '../../../pages/api/banner/modify';
-import { fetchUploadImage } from '../../../pages/api/image';
+import Time from '../../atoms/datepicker/Time';
 import Input from '../../atoms/input/Input';
 import ErrorContext, { useErrorContext } from '../../layouts/ErrorContext';
-import Time from '../../molecules/datepicker/Time';
-import ImageUploadComponent from '../ImageUpload';
+import ImageUploadComponent from '../../molecules/ImageUpload';
 
 export const Modify = ({ banner }: { banner: BannerResponse }) => {
   const router = useRouter();
-  const {
-    query: { id = '' },
-  } = router;
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id') || '';
 
   const [title, setTitle] = useState(banner.title);
   const [priority, setPriority] = useState(banner.priority);
@@ -116,7 +115,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
     };
 
     const data = await modifyBannersApi({ data: body, id: id.toString() });
-    if (data.status_code === STATUS_201) return router.reload();
+    if (data.status_code === STATUS_201) return router.refresh();
     return alert(data.message);
   };
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { passwordApi } from '../../../../api/auth/users/password';
 import { STATUS_200 } from '../../../../config/constants';
-import { passwordApi } from '../../../../pages/api/auth/users/password';
 import Input from '../../../atoms/input/Input';
 import useErrorMessage from '../../../molecules/toast/Error';
 

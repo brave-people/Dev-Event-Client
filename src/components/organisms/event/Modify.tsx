@@ -1,24 +1,23 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { modifyEventsApi } from '../../../api/events/modify';
+import { fetchUploadImage } from '../../../api/image';
 import { STATUS_200 } from '../../../config/constants';
 import type {
-  EventModel,
-  EventResponseModel,
+  EventType,
+  EventResponse,
   EventTimeType,
 } from '../../../model/Event';
 import type { Tag } from '../../../model/Tag';
-import { modifyEventsApi } from '../../../pages/api/events/modify';
-import { fetchUploadImage } from '../../../pages/api/image';
 import { useErrorContext } from '../../layouts/ErrorContext';
-import FormContent from '../form/event/Content';
+import Form from './Form';
 
-const Modify = ({ event }: { event: EventResponseModel }) => {
+const Modify = ({ event }: { event: EventResponse }) => {
   const router = useRouter();
-  const {
-    query: { id = '' },
-  } = router;
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id') || '';
 
   const [title, setTitle] = useState(event?.title);
   const [description, setDescription] = useState(event?.description);
@@ -26,7 +25,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const [eventLink, setEventLink] = useState(event?.event_link);
   const [eventTags, setEventTags] = useState<Tag[]>(event?.tags);
   const [eventTimeType, setEventTimeType] = useState<EventTimeType>(
-    event?.event_time_type
+    event?.event_time_type || 'DATE'
   );
 
   // datepicker
@@ -51,7 +50,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
   const [coverImageUrl] = useState(event?.cover_image_link);
   const [blob, setBlob] = useState<FormData | null>(null);
 
-  const eventTagsName = eventTags.map(({ tag_name }) => tag_name);
+  const eventTagsName = eventTags?.map(({ tag_name }) => tag_name);
 
   const { formErrors, validateForm } = useErrorContext({
     title,
@@ -110,7 +109,7 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
 
     const newCoverImageUrl = await uploadImage();
 
-    const body: EventModel = {
+    const body: EventType = {
       title,
       description,
       organizer,
@@ -130,40 +129,38 @@ const Modify = ({ event }: { event: EventResponseModel }) => {
     };
 
     const data = await modifyEventsApi({ data: body, id: id.toString() });
-    if (data.status_code === STATUS_200) return router.reload();
+    if (data.status_code === STATUS_200) return router.refresh();
     return alert(data.message);
   };
 
   return (
-    <div className="list">
-      <FormContent
-        title={title}
-        description={description}
-        organizer={organizer}
-        eventLink={eventLink}
-        tags={eventTagsName}
-        setTags={setEventTags}
-        changeTitle={changeTitle}
-        changeDescription={changeDescription}
-        changeOrganizer={changeOrganizer}
-        changeEventLink={changeEventLink}
-        eventTimeType={eventTimeType}
-        changeEventTimeType={changeEventTimeType}
-        startDate={startDate}
-        changeStartDate={changeStartDate}
-        startTime={startTime}
-        setStartTime={setStartTime}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        endTime={endTime}
-        setEndTime={setEndTime}
-        error={formErrors}
-        coverImageUrl={coverImageUrl}
-        setBlob={setBlob}
-        saveForm={saveEvent}
-        isModify={true}
-      />
-    </div>
+    <Form
+      title={title}
+      description={description}
+      organizer={organizer}
+      eventLink={eventLink}
+      tags={eventTagsName}
+      setTags={setEventTags}
+      changeTitle={changeTitle}
+      changeDescription={changeDescription}
+      changeOrganizer={changeOrganizer}
+      changeEventLink={changeEventLink}
+      eventTimeType={eventTimeType}
+      changeEventTimeType={changeEventTimeType}
+      startDate={startDate}
+      changeStartDate={changeStartDate}
+      startTime={startTime}
+      setStartTime={setStartTime}
+      endDate={endDate}
+      setEndDate={setEndDate}
+      endTime={endTime}
+      setEndTime={setEndTime}
+      error={formErrors}
+      coverImageUrl={coverImageUrl}
+      setBlob={setBlob}
+      saveForm={saveEvent}
+      isModify={true}
+    />
   );
 };
 

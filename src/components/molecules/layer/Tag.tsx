@@ -3,24 +3,17 @@ import type { MutableRefObject } from 'react';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
 import { STATUS_200, STATUS_201 } from '../../../config/constants';
-import type { TagState, TagName } from '../../../model/Tag';
-import CloseIcon from '../../atoms/icon/CloseIcon';
+import type { TagState, TagApi, TagRefetch } from '../../../model/Tag';
+import Close from '../../atoms/icon/Close';
 import Input from '../../atoms/input/Input';
 
-type TagLayerProps = {
-  state: TagState;
-  layerRef: MutableRefObject<HTMLDivElement | null>;
-  closeLayer: () => void;
-  resetCheckbox: () => void;
-  refetch: () => void;
-  createTag: (
-    data: TagName
-  ) => Promise<{ status_code: number; status: string }>;
-  modifyTag: (
-    data: TagName,
-    id: number
-  ) => Promise<{ status_code: number; status: string }>;
-};
+type TagLayerProps = Omit<TagApi, 'deleteTag'> &
+  TagRefetch & {
+    state: TagState;
+    layerRef: MutableRefObject<HTMLDivElement | null>;
+    closeLayer: () => void;
+    resetCheckbox: () => void;
+  };
 
 const colors = [
   '#6DC670',
@@ -115,7 +108,7 @@ const TagLayer = ({
       <div className="flex justify-between p-4">
         <h3 className="uppercase text-xl font-medium">{activeType} tags</h3>
         <button onClick={closeLayer}>
-          <CloseIcon />
+          <Close />
         </button>
       </div>
       <div className="m-4">

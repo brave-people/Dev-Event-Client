@@ -1,19 +1,17 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
-import { useRouter } from 'next/router';
 import { useAtomValue } from 'jotai';
+import { fetchUploadImage } from '../../../api/image';
+import { createReplayApi } from '../../../api/replay/create';
 import { STATUS_201 } from '../../../config/constants';
 import type { ReplayModel } from '../../../model/Replay';
 import type { Tag } from '../../../model/Tag';
-import { fetchUploadImage } from '../../../pages/api/image';
-import { createReplayApi } from '../../../pages/api/replay/create';
 import { linksAtom } from '../../../store/replay';
 import { useErrorContext } from '../../layouts/ErrorContext';
-import FormContent from '../form/replay/Content';
+import Form from './Form';
 
 export const Create = () => {
-  const router = useRouter();
   const replayLinks = useAtomValue(linksAtom);
 
   const [title, setTitle] = useState('');
@@ -104,36 +102,34 @@ export const Create = () => {
 
     const data = await createReplayApi({ data: body });
 
-    if (data.status_code === STATUS_201) return router.reload();
+    if (data.status_code === STATUS_201) return window.location.reload();
     return alert(data.message);
   };
 
   return (
-    <div className="list">
-      <FormContent
-        title={title}
-        changeTitle={changeTitle}
-        error={formErrors}
-        description={description}
-        changeDescription={changeDescription}
-        organizer={organizer}
-        changeOrganizer={changeOrganizer}
-        eventLink={eventLink}
-        changeEventLink={changeEventLink}
-        tags={eventTagsName}
-        setTags={setEventTags}
-        startDate={startDate}
-        changeStartDate={changeStartDate}
-        startTime={startTime}
-        setStartTime={setStartTime}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        endTime={endTime}
-        setEndTime={setEndTime}
-        setBlob={setBlob}
-        saveForm={createEvent}
-      />
-    </div>
+    <Form
+      title={title}
+      changeTitle={changeTitle}
+      error={formErrors}
+      description={description}
+      changeDescription={changeDescription}
+      organizer={organizer}
+      changeOrganizer={changeOrganizer}
+      eventLink={eventLink}
+      changeEventLink={changeEventLink}
+      tags={eventTagsName}
+      setTags={setEventTags}
+      startDate={startDate}
+      changeStartDate={changeStartDate}
+      startTime={startTime}
+      setStartTime={setStartTime}
+      endDate={endDate}
+      setEndDate={setEndDate}
+      endTime={endTime}
+      setEndTime={setEndTime}
+      setBlob={setBlob}
+      saveForm={createEvent}
+    />
   );
 };
 

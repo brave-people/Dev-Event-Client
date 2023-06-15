@@ -1,9 +1,10 @@
 import type { Dispatch, SetStateAction, MouseEvent } from 'react';
+import type { ReplayLink } from './Replay';
 import type { Tag } from './Tag';
 
 export type EventTimeType = 'DATE' | 'RECRUIT';
 
-interface Event {
+export type EventType = {
   title: string;
   description: string;
   organizer: string;
@@ -12,18 +13,15 @@ interface Event {
   start_date_time: string | null;
   end_date_time: string | null;
   cover_image_link: string;
-  event_time_type: EventTimeType;
+  tags: Tag[];
   use_start_date_time_yn?: 'Y' | 'N';
   use_end_date_time_yn?: 'Y' | 'N';
-}
+  event_time_type?: EventTimeType;
+  links?: ReplayLink[];
+};
 
-export interface EventModel extends Event {
-  tags: Tag[];
-}
-
-export interface EventResponseModel extends Event {
+export interface EventResponse extends EventType {
   id: number;
-  tags: Tag[];
 }
 
 export interface EventErrorForm<T> {
@@ -38,7 +36,7 @@ export interface EventErrorForm<T> {
   blob?: T extends string ? FormData | null : boolean;
 }
 
-export interface EventFormModel {
+export type EventForm = {
   title: string;
   changeTitle: (e: { target: { value: string } }) => void;
   error: EventErrorForm<boolean>;
@@ -50,8 +48,6 @@ export interface EventFormModel {
   changeEventLink: (e: { target: { value: string } }) => void;
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
-  eventTimeType: EventTimeType;
-  changeEventTimeType: (e: MouseEvent, type: EventTimeType) => void;
   startDate: Date | null;
   changeStartDate: (date: Date | null) => void;
   startTime: Date | null;
@@ -63,8 +59,16 @@ export interface EventFormModel {
   coverImageUrl?: string;
   setBlob: Dispatch<SetStateAction<FormData | null>>;
   saveForm: (e: MouseEvent<HTMLButtonElement>) => Promise<void>;
+  // 수정 컴포넌트
   isModify?: boolean;
-}
+  // 다시보기 링크
+  showReplayLink?: boolean;
+};
+
+export type EventTime = {
+  eventTimeType: EventTimeType;
+  changeEventTimeType: (e: MouseEvent, type: EventTimeType) => void;
+};
 
 export type EventRouter =
   | '/admin/event'

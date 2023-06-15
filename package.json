@@ -12,7 +12,8 @@
     "start": "next start",
     "lint": "next lint",
     "tailwind": "npx tailwindcss -i src/style/base.css -o ./src/style/dist/output.css --watch",
-    "deploy": "vercel build && vercel deploy"
+    "deploy": "vercel build && vercel deploy",
+    "deduplicate": "yarn-deduplicate yarn.lock"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
@@ -24,17 +25,18 @@
     "@mui/styled-engine-sc": "^5.4.1",
     "@tailwindcss/forms": "^0.5.2",
     "classnames": "^2.3.1",
-    "cropperjs": "^1.5.12",
+    "cropperjs": "^1.5.13",
     "dayjs": "^1.11.1",
-    "jotai": "^1.8.4",
+    "jotai": "^2.0.3",
     "jsonwebtoken": "^9.0.0",
-    "next": "^13.1.5",
+    "next": "^13.4.5",
     "react": "^18.2.0",
     "react-datepicker": "^4.10.0",
     "react-dom": "^18.2.0",
     "react-query": "4.0.0-beta.3",
     "sass": "^1.45.2",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "tailwindcss": "^3.2.4"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^4.7.0",
@@ -50,6 +52,7 @@
     "autoprefixer": "^10.4.13",
     "cookie": "0.4.1",
     "eslint": "8.5.0",
+    "eslint-config-next": "^13.1.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "gh-pages": "3.2.3",
@@ -57,8 +60,7 @@
     "next-babel-conditional-ssg-ssr": "^1.0.0",
     "postcss": "^8.4.21",
     "prettier": "2.5.1",
-    "tailwindcss": "^3.2.4",
-    "typescript": "^4.9.3"
+    "typescript": "^5.0.2"
   },
   "proxy": "http://localhost:3000"
 }

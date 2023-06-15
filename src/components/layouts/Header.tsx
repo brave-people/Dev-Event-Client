@@ -2,7 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useSetAtom } from 'jotai';
 import type { UsersModel, UserProfileModel } from '../../model/User';
 import { selectedUserAtom } from '../../store/User';

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import type { EventRouter } from '../../model/Event';
-import SettingIcon from '../atoms/icon/SettingIcon';
+import Setting from '../atoms/icon/Setting';
 
 type ItemType = {
   path: EventRouter;
@@ -28,10 +28,6 @@ const navItems: (ItemType & { subItems?: ItemType[] })[] = [
         title: '태그 관리',
       },
     ],
-  },
-  {
-    path: '/admin/groups',
-    title: '개발자 모임 관리',
   },
   {
     path: '/admin/banner',
@@ -66,7 +62,7 @@ const SubNav = ({
 );
 
 const Nav = () => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const isActive = (path: EventRouter) => path === pathname;
 
   return (
@@ -81,7 +77,7 @@ const Nav = () => {
                   'text-blue-800 font-bold bg-blue-50': isActive(path),
                 })}
               >
-                <SettingIcon />
+                <Setting />
                 {title}
               </a>
               {subItems && <SubNav subItems={subItems} isActive={isActive} />}

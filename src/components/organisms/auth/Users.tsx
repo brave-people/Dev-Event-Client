@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import { useQuery } from 'react-query';
-import { useRouter } from 'next/router';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useRouter } from 'next/navigation';
+import { useAtom } from 'jotai';
+import { deleteUsersApi, getUsersApi } from '../../../api/auth/users';
 import type { UsersModel } from '../../../model/User';
-import { deleteUsersApi, getUsersApi } from '../../../pages/api/auth/users';
 import { userAtom, selectedUserAtom } from '../../../store/User';
 import { getConvertAuthType } from '../../../util/get-convert-auth-type';
 import { getUserRole } from '../../../util/get-user-role';
@@ -18,8 +18,8 @@ const Users = () => {
       refetchOnWindowFocus: false,
     }
   );
-  const user = useAtomValue(userAtom);
-  const setSelectedUser = useSetAtom(selectedUserAtom);
+  const [user] = useAtom(userAtom);
+  const [, setSelectedUser] = useAtom(selectedUserAtom);
   const isAdmin = getUserRoleIsAdmin(user?.roles);
 
   if (!data || !data.length) return null;

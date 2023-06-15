@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 import type { Dispatch, MutableRefObject, SetStateAction } from 'react';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
-import LeftArrowIcon from '../../atoms/icon/LeftArrowIcon';
-import RightArrowIcon from '../../atoms/icon/RightArrowIcon';
+import LeftArrow from '../../atoms/icon/LeftArrow';
+import RightArrow from '../../atoms/icon/RightArrow';
 
 interface MonthPickerProps {
   currentYear: number;
@@ -40,11 +40,11 @@ const MonthPicker = ({
           onClick={() => setYear(currentYear - 1)}
           disabled={currentYear < 2020}
         >
-          <RightArrowIcon />
+          <RightArrow />
         </button>
         <span className="month--picker__title">{currentYear}</span>
         <button onClick={() => setYear(currentYear + 1)}>
-          <LeftArrowIcon />
+          <LeftArrow />
         </button>
       </div>
       {setMonth && (

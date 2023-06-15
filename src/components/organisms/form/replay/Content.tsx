@@ -1,11 +1,12 @@
 import classNames from 'classnames';
 import type { ReplayFormModel } from '../../../../model/Replay';
+import DatePicker from '../../../atoms/datepicker/Date';
+import TimePicker from '../../../atoms/datepicker/Time';
 import Input from '../../../atoms/input/Input';
+import BaseLabel from '../../../atoms/label/base';
 import ErrorContext from '../../../layouts/ErrorContext';
 import FormLink from '../../../molecules/DynamicDropboxInput';
-import DatePicker from '../../../molecules/datepicker/Date';
-import TimePicker from '../../../molecules/datepicker/Time';
-import ImageUploadComponent from '../../ImageUpload';
+import ImageUploadComponent from '../../../molecules/ImageUpload';
 import Tag from './Tag';
 
 const FormContent = ({
@@ -104,13 +105,11 @@ const FormContent = ({
           {error.eventLink && !eventLink && <ErrorContext />}
         </div>
         <div className="relative mb-8">
-          <label
+          <BaseLabel
+            title="다시보기링크"
             htmlFor="event_link"
-            className="form__content__title inline-block text-base text-gray-600 absolute top-1"
-          >
-            다시보기링크
-            <span className="text-red-500">*</span>
-          </label>
+            required={true}
+          />
           <FormLink />
         </div>
         <Tag tags={tags} setTags={setTags}>

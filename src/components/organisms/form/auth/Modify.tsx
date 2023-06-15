@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import type { ChangeEvent } from 'react';
-import { useRouter } from 'next/router';
-import { useAtomValue } from 'jotai';
-import type { UserRoleType } from '../../../../model/User';
-import { modifyUsersApi } from '../../../../pages/api/auth/users';
+import { useRouter } from 'next/navigation';
+import { useAtom } from 'jotai';
+import { modifyUsersApi } from '../../../../api/auth/users';
 import {
   addRoleUsersApi,
   deleteRoleUsersApi,
-} from '../../../../pages/api/auth/users/role';
+} from '../../../../api/auth/users/role';
+import type { UserRoleType } from '../../../../model/User';
 import { selectedUserAtom } from '../../../../store/User';
 import Checkbox from '../../../atoms/input/Checkbox';
 import FormContent from './Content';
@@ -15,14 +15,14 @@ import FormContent from './Content';
 const Modify = () => {
   const router = useRouter();
 
-  const selectUser = useAtomValue(selectedUserAtom);
-  const convertPrevRoles = selectUser.roles.map((role) => role.code);
+  const [data] = useAtom(selectedUserAtom);
+  const convertPrevRoles = data.roles.map((role) => role.code);
 
   const [roles, setRoles] = useState<Set<UserRoleType>>(
     new Set(convertPrevRoles)
   );
-  const [newName, setNewName] = useState(selectUser.name);
-  const [newEmail, setNewEmail] = useState(selectUser.email);
+  const [newName, setNewName] = useState(data.name);
+  const [newEmail, setNewEmail] = useState(data.email);
 
   const [error, setError] = useState({
     name: { show: false },
@@ -30,11 +30,11 @@ const Modify = () => {
   });
 
   useEffect(() => {
-    if (selectUser.name) return;
+    if (data.name) return;
 
     alert('변경할 사용자를 먼저 선택해주세요!');
     router.push('/auth/users');
-  }, [selectUser]);
+  }, [data]);
 
   const changeName = (e: { target: { value: string } }) => {
     setNewName(e.target.value);
@@ -51,8 +51,8 @@ const Modify = () => {
         email: { show: !newEmail, message: '' },
       });
 
-    const changedName = newName !== selectUser.name;
-    const changedEmail = newEmail !== selectUser.email;
+    const changedName = newName !== data.name;
+    const changedEmail = newEmail !== data.email;
 
     const removeRoles = convertPrevRoles.filter(
       (prevRole) => !roles.has(prevRole)
@@ -68,14 +68,14 @@ const Modify = () => {
     const removeRolesData = removeRoles.map(
       async (role) =>
         await deleteRoleUsersApi({
-          data: { role_code: role, user_id: selectUser.user_id || '' },
+          data: { role_code: role, user_id: data.user_id || '' },
         })
     );
 
     const addRolesData = addRoles.map(
       async (role) =>
         await addRoleUsersApi({
-          data: { role_code: role, user_id: selectUser.user_id || '' },
+          data: { role_code: role, user_id: data.user_id || '' },
         })
     );
 
@@ -95,7 +95,7 @@ const Modify = () => {
   return (
     <div className="list">
       <FormContent
-        user_id={selectUser.user_id || ''}
+        user_id={data.user_id || ''}
         name={newName}
         email={newEmail}
         changeName={changeName}

@@ -98,6 +98,8 @@ $create_button_height: 48px;
   }
 
   &__tag {
+    width: 62px;
+    display: block;
     padding: 4px 10px;
     border: 1px solid $color_blue-700;
     border-radius: 2px;
