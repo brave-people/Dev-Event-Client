@@ -1,13 +1,13 @@
 import Cookie from 'cookie';
 import { Headers } from '../../config/headers';
-import type { CalendarProps } from '../../model/Calendar';
 import type { RequestHeaders } from '../../model/Api';
-import type { EventResponseModel } from '../../model/Event';
+import type { CalendarProps } from '../../model/Calendar';
+import type { EventResponse } from '../../model/Event';
 
 export const getEventsApi = async ({
   year,
   month,
-}: CalendarProps): Promise<EventResponseModel[]> => {
+}: CalendarProps): Promise<EventResponse[]> => {
   return await fetch(
     `${process.env.NEXT_PUBLIC_ADMIN_V2_URL}/events/${year}/${month}`,
     {
@@ -25,7 +25,7 @@ export const getEventApi = async ({
   id,
 }: {
   id: string;
-}): Promise<EventResponseModel> => {
+}): Promise<EventResponse> => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V2_URL}/events/${id}`, {
     method: 'GET',
     headers: {
