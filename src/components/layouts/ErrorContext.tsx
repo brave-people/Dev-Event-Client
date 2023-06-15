@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import type { EventErrorForm } from '../../model/Event';
 
 export const useErrorContext = ({
@@ -7,6 +7,10 @@ export const useErrorContext = ({
   eventLink,
   replayLink = '',
   tags,
+  priority,
+  startDate,
+  endDate,
+  blob,
 }: EventErrorForm<string>) => {
   const [formErrors, setFormErrors] = useState<EventErrorForm<boolean>>({
     title: false,
@@ -14,6 +18,10 @@ export const useErrorContext = ({
     eventLink: false,
     replayLink: false,
     tags: false,
+    priority: false,
+    startDate: false,
+    endDate: false,
+    blob: false,
   });
 
   const validateForm = () =>
@@ -22,19 +30,25 @@ export const useErrorContext = ({
       organizer: !organizer,
       eventLink: !eventLink,
       replayLink: !replayLink,
-      tags: !tags.length,
+      tags: !tags?.length,
+      priority: !priority,
+      startDate: !startDate,
+      endDate: !endDate,
+      blob: !blob,
     });
 
   return { formErrors, validateForm };
 };
 
 const ErrorContext = ({
-  errorMessage = '필수 입력값 입니다',
+  message = '필수 입력값 입니다',
+  style,
 }: {
-  errorMessage?: string;
+  message?: string;
+  style?: CSSProperties;
 }) => {
   return (
-    <p className="form__content--error">
+    <p className="form__content--error" style={style}>
       <svg
         className="w-4 h-4"
         fill="none"
@@ -49,7 +63,7 @@ const ErrorContext = ({
           d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
-      {errorMessage}
+      {message}
     </p>
   );
 };

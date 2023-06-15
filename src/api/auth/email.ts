@@ -1,7 +1,7 @@
 import Cookie from 'cookie';
-import { Headers } from '../../config/headers';
-import type { UserEmailModel } from '../../model/User';
-import type { RequestHeaders } from '../../model/Api';
+import { Headers } from '../../../config/headers';
+import type { UserEmailModel } from '../../../model/User';
+import type { RequestHeaders } from '../../../model/Api';
 
 // 중복 이메일 체크
 export const registerEmailApi = async (req: UserEmailModel) => {

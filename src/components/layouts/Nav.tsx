@@ -29,12 +29,16 @@ const navItems: (ItemType & { subItems?: ItemType[] })[] = [
       },
     ],
   },
+  {
+    path: '/admin/banner',
+    title: '모바일 배너 관리',
+  },
 ];
 
 const SubNav = ({
-  subItems,
-  isActive,
-}: {
+                  subItems,
+                  isActive,
+                }: {
   subItems: ItemType[];
   isActive: (path: EventRouter) => boolean;
 }) => (

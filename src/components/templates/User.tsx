@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
-import { useUserProfile } from '../organisms/auth/Profile';
+import type { ReactElement } from 'react';
 import Header from '../layouts/Header';
 import Nav from '../layouts/Nav';
-import type { ReactElement } from 'react';
+import { useUserProfile } from '../organisms/auth/Profile';
 
 const User = ({
   title,

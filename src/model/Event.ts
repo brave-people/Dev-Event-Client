@@ -26,10 +26,14 @@ export interface EventResponse extends EventType {
 
 export interface EventErrorForm<T> {
   title: T;
-  organizer: T;
-  eventLink: T;
+  organizer?: T;
+  eventLink?: T;
   replayLink?: T;
-  tags: T extends string ? string[] : boolean;
+  tags?: T extends string ? string[] : boolean;
+  priority?: T extends string ? number : boolean;
+  startDate?: T extends string ? Date | null : boolean;
+  endDate?: T extends string ? Date | null : boolean;
+  blob?: T extends string ? FormData | null : boolean;
 }
 
 export type EventForm = {
@@ -71,4 +75,5 @@ export type EventRouter =
   | '/admin/replay'
   | '/admin/groups'
   | '/admin/event/tag'
-  | '/admin/replay/tag';
+  | '/admin/replay/tag'
+  | '/admin/banner';
