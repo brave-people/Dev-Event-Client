@@ -1,7 +1,7 @@
 import Cookie from 'cookie';
 import { Headers } from '../../config/headers';
-import type { UserIdModel } from '../../model/User';
 import type { RequestHeaders } from '../../model/Api';
+import type { UserIdModel } from '../../model/User';
 
 // 중복 아이디 체크
 export const registerIdApi = async (req: UserIdModel) => {
