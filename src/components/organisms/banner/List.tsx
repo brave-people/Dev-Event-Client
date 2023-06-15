@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
 import { Fragment, useEffect, useState, useRef } from 'react';
 import { useQuery } from 'react-query';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
+import { getBannersApi } from '../../../api/banner';
+import { deleteBannersApi } from '../../../api/banner/delete';
 import type { BannerResponse } from '../../../model/Banner';
-import { getBannersApi } from '../../../pages/api/banner';
-import { deleteBannersApi } from '../../../pages/api/banner/delete';
 import { layerAtom } from '../../../store/layer';
 import Alert from '../../molecules/Alert';
 

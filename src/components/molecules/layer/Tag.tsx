@@ -9,11 +9,11 @@ import Input from '../../atoms/input/Input';
 
 type TagLayerProps = Omit<TagApi, 'deleteTag'> &
   TagRefetch & {
-  state: TagState;
-  layerRef: MutableRefObject<HTMLDivElement | null>;
-  closeLayer: () => void;
-  resetCheckbox: () => void;
-};
+    state: TagState;
+    layerRef: MutableRefObject<HTMLDivElement | null>;
+    closeLayer: () => void;
+    resetCheckbox: () => void;
+  };
 
 const colors = [
   '#6DC670',
@@ -29,14 +29,14 @@ const colors = [
 ];
 
 const TagLayer = ({
-                    state,
-                    layerRef,
-                    closeLayer,
-                    resetCheckbox,
-                    refetch,
-                    createTag,
-                    modifyTag,
-                  }: TagLayerProps) => {
+  state,
+  layerRef,
+  closeLayer,
+  resetCheckbox,
+  refetch,
+  createTag,
+  modifyTag,
+}: TagLayerProps) => {
   const { showLayer, activeType, tagList, selectTags } = state;
 
   const [name, setName] = useState('');

@@ -36,9 +36,9 @@ const navItems: (ItemType & { subItems?: ItemType[] })[] = [
 ];
 
 const SubNav = ({
-                  subItems,
-                  isActive,
-                }: {
+  subItems,
+  isActive,
+}: {
   subItems: ItemType[];
   isActive: (path: EventRouter) => boolean;
 }) => (
