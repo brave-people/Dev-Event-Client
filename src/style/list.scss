@@ -138,13 +138,16 @@ $create_button_height: 48px;
   height: $create_button_height;
   position: fixed;
   left: calc(#{$sub__nav / 2} + 50%);
-  background-color: $color_blue-500;
   color: $color_white;
   font-size: 14px;
   font-weight: 700;
   border-radius: $border__radius;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.125);
   transform: translateX(-50%);
+
+  &[type=button] {
+    background-color: $color_blue-500;
+  }
 }
 
 .list__button--pop--right {
