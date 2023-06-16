@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useAtom } from 'jotai';
 import { ReplayLink, Selected } from '../../model/Replay';
 import { linksAtom } from '../../store/replay';
-import MinusIcon from '../atoms/icon/MinusIcon';
-import PlusIcon from '../atoms/icon/PlusIcon';
+import Minus from '../atoms/icon/Minus';
+import Plus from '../atoms/icon/Plus';
 import Dropbox from '../atoms/input/Dropbox';
 
 type DropboxInputProps = {
@@ -64,7 +64,7 @@ const DropboxInput = ({ id, item }: DropboxInputProps) => {
         className="w-full border-none focus:outline-none focus:ring-transparent text-sm py-0"
       />
       <button className="rounded-full" onClick={() => deleteInput(id)}>
-        <MinusIcon />
+        <Minus />
       </button>
     </div>
   );
@@ -94,7 +94,7 @@ const DynamicDropboxInput = () => {
         className="link__button--plus w-100 flex justify-center rounded-full"
         onClick={addLink}
       >
-        <PlusIcon />
+        <Plus />
       </button>
     </>
   );

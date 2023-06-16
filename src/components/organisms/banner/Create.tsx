@@ -1,15 +1,15 @@
 import dayjs from 'dayjs';
 import { useState, type ChangeEvent, type MouseEvent } from 'react';
 import DatePicker from 'react-datepicker';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { createBannersApi } from '../../../api/banner/create';
+import { fetchUploadImage } from '../../../api/image';
 import { STATUS_201 } from '../../../config/constants';
 import type { Banner } from '../../../model/Banner';
-import { createBannersApi } from '../../../pages/api/banner/create';
-import { fetchUploadImage } from '../../../pages/api/image';
+import Time from '../../atoms/datepicker/Time';
 import Input from '../../atoms/input/Input';
 import ErrorContext, { useErrorContext } from '../../layouts/ErrorContext';
-import Time from '../../molecules/datepicker/Time';
-import ImageUploadComponent from '../ImageUpload';
+import ImageUploadComponent from '../../molecules/ImageUpload';
 
 export const Create = () => {
   const router = useRouter();
@@ -102,7 +102,7 @@ export const Create = () => {
     };
 
     const data = await createBannersApi({ data: body });
-    if (data.status_code === STATUS_201) return router.reload();
+    if (data.status_code === STATUS_201) router.push('/admin/banner');
     return alert(data.message);
   };
 

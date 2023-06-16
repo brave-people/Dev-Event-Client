@@ -1,11 +1,7 @@
 import { useId } from 'react';
 import type { ReactNode, InputHTMLAttributes } from 'react';
 import classNames from 'classnames';
-
-type TextProps = {
-  text?: string;
-  isRequired?: boolean;
-};
+import BaseLabel from '../label/base';
 
 type InputProps = {
   value: string;
@@ -16,20 +12,9 @@ type InputProps = {
   placeholder?: string;
   autoComplete?: 'on' | 'off';
   customClass?: Record<string, boolean>;
+  text?: string;
+  isRequired?: boolean;
   children?: ReactNode;
-} & TextProps;
-
-const Text = ({ id, text, isRequired }: TextProps & { id: string }) => {
-  if (!text) return null;
-  return (
-    <label
-      htmlFor={id}
-      className="form__content__title inline-block text-base font-medium text-gray-600"
-    >
-      {text}
-      {isRequired && <span className="text-red-500">*</span>}
-    </label>
-  );
 };
 
 const Input = ({
@@ -49,7 +34,11 @@ const Input = ({
 
   return (
     <div className="form__content__input">
-      <Text id={id} text={text} isRequired={isRequired} />
+      <BaseLabel
+        htmlFor={id}
+        title={text ?? ''}
+        required={isRequired ?? false}
+      />
       <input
         id={id}
         type={type}

@@ -25,4 +25,7 @@ export default {
   images: {
     domains: ['brave-people-3.s3.ap-northeast-2.amazonaws.com'],
   },
+  experimental: {
+    appDir: true,
+  },
 };
