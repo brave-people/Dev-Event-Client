@@ -102,7 +102,7 @@ export const Create = () => {
     };
 
     const data = await createBannersApi({ data: body });
-    if (data.status_code === STATUS_201) return router.refresh();
+    if (data.status_code === STATUS_201) router.push('/admin/banner');
     return alert(data.message);
   };
 
