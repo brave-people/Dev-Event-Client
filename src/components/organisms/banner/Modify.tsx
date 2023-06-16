@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { modifyBannersApi } from '../../../api/banner/modify';
 import { fetchUploadImage } from '../../../api/image';
-import { STATUS_201 } from '../../../config/constants';
+import { STATUS_200 } from '../../../config/constants';
 import type { Banner, BannerResponse } from '../../../model/Banner';
 import Time from '../../atoms/datepicker/Time';
 import Input from '../../atoms/input/Input';
@@ -115,7 +115,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
     };
 
     const data = await modifyBannersApi({ data: body, id: id.toString() });
-    if (data.status_code === STATUS_201) return router.refresh();
+    if (data.status_code === STATUS_200) router.push('/admin/banner');
     return alert(data.message);
   };
 
