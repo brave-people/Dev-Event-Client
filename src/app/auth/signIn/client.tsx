@@ -9,42 +9,68 @@ import Alert from '../../../components/atoms/icon/Alert';
 import Checkbox from '../../../components/atoms/input/Checkbox';
 import Input from '../../../components/atoms/input/Input';
 
+type FormDataType = {
+  id: string;
+  password: string;
+  isIdSaved: boolean;
+  message: string;
+  loading: boolean;
+};
+
 const Page = ({ data }: { data: string }) => {
   const router = useRouter();
 
-  const [id, setId] = useState(data);
-  const [password, setPassword] = useState('');
-  const [saveId, setSaveId] = useState(!!data);
-  const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [{ id, password, isIdSaved, message, loading }, setFormData] =
+    useState<FormDataType>({
+      id: data,
+      password: '',
+      isIdSaved: !!data,
+      message: '',
+      loading: false,
+    });
+
+  const changeFormData = <K extends keyof FormDataType>(
+    key: K,
+    value: FormDataType[K]
+  ) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [key]: value,
+    }));
+  };
 
   const changeId = (e: { target: { value: string } }) => {
-    setId(e.target.value);
+    changeFormData('id', e.target.value);
   };
 
   const changePassword = (e: { target: { value: string } }) => {
-    setPassword(e.target.value);
+    changeFormData('password', e.target.value);
   };
 
-  const changeSaveId = () => {
-    setSaveId(!saveId);
-    if (saveId) return Cookies.remove('save_id');
-    Cookies.set('save_id', id, {
-      expires: 365 * 10,
-    });
+  const changeIsIdSaved = () => {
+    const updatedIsIdSaved = !isIdSaved;
+    changeFormData('isIdSaved', updatedIsIdSaved);
+
+    if (updatedIsIdSaved) {
+      Cookies.remove('save_id');
+    } else {
+      Cookies.set('save_id', id, {
+        expires: 365 * 10,
+      });
+    }
   };
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setMessage('');
+    changeFormData('message', '');
 
     if (!id || !password) return;
 
-    setLoading(true);
+    changeFormData('loading', true);
     await loginApi({ user_id: id, password }).then((res) => {
-      if (res.message) return setMessage(res.message);
+      if (res.message) return changeFormData('message', res.message);
 
-      setLoading(false);
+      changeFormData('loading', false);
       const {
         access_token,
         access_token_expired_at,
@@ -95,8 +121,8 @@ const Page = ({ data }: { data: string }) => {
           )}
           <div className="checkbox--blue mb-4">
             <Checkbox
-              checked={saveId}
-              onChange={changeSaveId}
+              checked={isIdSaved}
+              onChange={changeIsIdSaved}
               label="아이디 저장"
             />
           </div>
