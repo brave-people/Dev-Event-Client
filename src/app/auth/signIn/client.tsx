@@ -8,6 +8,7 @@ import { loginApi } from '../../../api/auth/login';
 import Alert from '../../../components/atoms/icon/Alert';
 import Checkbox from '../../../components/atoms/input/Checkbox';
 import Input from '../../../components/atoms/input/Input';
+import InputLine from '../../../components/atoms/input/InputLine';
 
 type FormDataType = {
   id: string;
@@ -17,7 +18,7 @@ type FormDataType = {
   loading: boolean;
 };
 
-const Page = ({ data }: { data: string }) => {
+const Client = ({ data }: { data: string }) => {
   const router = useRouter();
 
   const [{ id, password, isIdSaved, message, loading }, setFormData] =
@@ -89,28 +90,21 @@ const Page = ({ data }: { data: string }) => {
 
   return (
     <section className="wrap--vertical">
-      <article className="wrap__box--lg shadow-lg">
-        <h1 className="text-4xl font-bold text-center mb-8">
-          용감한 관리자 로그인
-        </h1>
-        <form onSubmit={submit} className="form">
-          <Input
-            type="text"
-            value={id}
-            onChange={changeId}
-            placeholder="아이디"
-            isRequired={true}
-          />
-          <Input
+      <article className="wrap__box--lg">
+        <h1 className="text-3xl font-bold text-center mb-10">로그인</h1>
+        <form onSubmit={submit}>
+          <InputLine text="아이디" value={id} onChange={changeId} />
+          <InputLine
             type="password"
+            text="비밀번호"
             value={password}
             onChange={changePassword}
-            placeholder="비밀번호"
             isRequired={true}
+            labelClassName="mt-6"
           />
           {!message && loading && (
-            <p className="mb-4 p-2 bg-yellow-50 font-bold text-yellow-600 text-sm">
-              😆 로그인 처리중입니다.
+            <p className="mt-2 mb-4 p-2 bg-yellow-50 font-bold text-yellow-600 text-sm">
+              로그인 처리중이에요 😆
             </p>
           )}
           {message && (
@@ -119,7 +113,7 @@ const Page = ({ data }: { data: string }) => {
               {message}
             </p>
           )}
-          <div className="checkbox--blue mb-4">
+          <div className="checkbox--blue mt-2 mb-10 text-right">
             <Checkbox
               checked={isIdSaved}
               onChange={changeIsIdSaved}
@@ -128,9 +122,9 @@ const Page = ({ data }: { data: string }) => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-blue-500 text-white text-md rounded"
+            className="w-full py-3 bg-blue-500 text-white font-medium rounded"
           >
-            로그인
+            들어가기 👋
           </button>
         </form>
       </article>
@@ -138,4 +132,4 @@ const Page = ({ data }: { data: string }) => {
   );
 };
 
-export default Page;
+export default Client;

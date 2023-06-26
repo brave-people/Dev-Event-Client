@@ -10,14 +10,10 @@
 }
 
 .wrap__box--lg {
-  max-width: 740px;
+  min-width: 220px;
+  max-width: 540px;
+  width: 80%;
   margin: 0 auto;
-  padding: 56px 54px;
-
-  @media only screen and (max-width: 740px) {
-    box-shadow: none;
-    padding: 56px 16px;
-  }
 }
 
 .wrap__box--bg {

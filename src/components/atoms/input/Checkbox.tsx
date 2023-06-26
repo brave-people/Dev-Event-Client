@@ -24,7 +24,7 @@ const Checkbox = ({
         {...(value && { value })}
         className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
       />
-      <label htmlFor={id} className="mx-2 text-gray-800 text-sm">
+      <label htmlFor={id} className="ml-2 text-gray-800 text-sm">
         {label}
       </label>
     </>
