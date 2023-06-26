@@ -2,6 +2,12 @@ import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../style/dist/output.css';
 import '../style/index.scss';
+import { Noto_Sans_KR } from 'next/font/google';
+
+const notosans = Noto_Sans_KR({
+  weight: ['100', '300', '400', '500', '700', '900'],
+  subsets: ['latin'],
+});
 
 export default async function RootLayout({
   children,
@@ -19,15 +25,7 @@ export default async function RootLayout({
         <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-        />
-        <link
-          rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
         <link
           rel="stylesheet"
@@ -38,7 +36,7 @@ export default async function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body className={notosans.className}>{children}</body>
     </html>
   );
 }
