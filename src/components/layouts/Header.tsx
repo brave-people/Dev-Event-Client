@@ -22,7 +22,9 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
   return (
     <header className="header">
       <Link href="/admin/event">
-        <h1 className="text-4xl font-bold">용감한 관리자</h1>
+        <h1 className="text-3xl font-bold tracking-xl-tighter">
+          용감한 관리자
+        </h1>
       </Link>
       <Menu as="div" className="ml-3 relative">
         <div>
@@ -40,7 +42,9 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
               />
             </svg>
             {user && (
-              <p className="ml-1 mr-3 font-bold text-gray-600">{user.name}</p>
+              <p className="ml-1 mr-3 font-bold text-gray-600 text-sm">
+                {user.name}
+              </p>
             )}
             <svg
               className="w-5 h-6"
