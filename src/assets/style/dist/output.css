@@ -734,11 +734,6 @@ select {
   margin-bottom: 1rem;
 }
 
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -793,36 +788,36 @@ select {
   margin-right: 0.25rem;
 }
 
-.mb-8 {
-  margin-bottom: 2rem;
-}
-
-.mt-1 {
-  margin-top: 0.25rem;
-}
-
-.mt-16 {
-  margin-top: 4rem;
-}
-
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
-.ml-8 {
-  margin-left: 2rem;
-}
-
-.mb-2 {
-  margin-bottom: 0.5rem;
+.mb-10 {
+  margin-bottom: 2.5rem;
 }
 
 .mt-6 {
   margin-top: 1.5rem;
 }
 
-.mb-10 {
-  margin-bottom: 2.5rem;
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.ml-8 {
+  margin-left: 2rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
 }
 
 .block {
@@ -1023,14 +1018,6 @@ select {
   border-width: 1px;
 }
 
-.border-0 {
-  border-width: 0px;
-}
-
-.border-b-0 {
-  border-bottom-width: 0px;
-}
-
 .border-solid {
   border-style: solid;
 }
@@ -1062,15 +1049,6 @@ select {
 .border-blue-600 {
   --tw-border-opacity: 1;
   border-color: rgb(37 99 235 / var(--tw-border-opacity));
-}
-
-.border-transparent {
-  border-color: transparent;
-}
-
-.border-b-blue-50 {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(239 246 255 / var(--tw-border-opacity));
 }
 
 .bg-gray-100 {
@@ -1139,10 +1117,6 @@ select {
   padding: 2rem;
 }
 
-.p-0 {
-  padding: 0px;
-}
-
 .p-3 {
   padding: 0.75rem;
 }
@@ -1187,24 +1161,19 @@ select {
   padding-bottom: 6rem;
 }
 
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
 
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
 .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
-}
-
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 .pr-10 {
@@ -1264,9 +1233,9 @@ select {
   line-height: 1.75rem;
 }
 
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .font-bold {
@@ -1429,35 +1398,14 @@ select {
   z-index: 10;
 }
 
-.focus\:border-0:focus {
-  border-width: 0px;
-}
-
-.focus\:border-none:focus {
-  border-style: none;
-}
-
 .focus\:border-indigo-500:focus {
   --tw-border-opacity: 1;
   border-color: rgb(99 102 241 / var(--tw-border-opacity));
 }
 
-.focus\:border-transparent:focus {
-  border-color: transparent;
-}
-
-.focus\:border-white:focus {
-  --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity));
-}
-
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-}
-
-.focus\:outline-0:focus {
-  outline-width: 0px;
 }
 
 .focus\:ring-2:focus {
