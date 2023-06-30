@@ -60,7 +60,7 @@
     "next-babel-conditional-ssg-ssr": "^1.0.0",
     "postcss": "^8.4.21",
     "prettier": "2.5.1",
-    "typescript": "^5.0.2"
+    "typescript": "^5.1.6"
   },
   "proxy": "http://localhost:3000"
 }
