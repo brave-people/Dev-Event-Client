@@ -7,7 +7,6 @@ import type {
 } from 'react-query';
 import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
-import { deleteReplayApi } from '../../api/replay/delete';
 import type { EventResponse } from '../../model/Event';
 import { layerAtom } from '../../store/layer';
 import ContentHeader from '../organisms/form/replay/ContentHeader';
@@ -20,6 +19,7 @@ type ListProps<T> = {
   ) => Promise<QueryObserverResult<T[], unknown>>;
   year: number;
   setYear: Dispatch<SetStateAction<number>>;
+  deleteApi: ({ id }: { id: number }) => void;
   month?: number;
   setMonth?: Dispatch<SetStateAction<number>>;
   emptyText: string;
@@ -37,6 +37,7 @@ const List = <T extends EventResponse>({
   emptyText,
   parentLink,
   createButtonText,
+  deleteApi,
 }: ListProps<T>) => {
   const router = useRouter();
   const [layer, setLayer] = useAtom(layerAtom);
@@ -53,9 +54,9 @@ const List = <T extends EventResponse>({
     setLayer(true);
   };
 
-  const deleteReplay = async () => {
+  const deleteEvent = async () => {
     if (!currentId) return;
-    await deleteReplayApi({ id: currentId });
+    await deleteApi({ id: currentId });
     setLayer(false);
     await refetch();
   };
@@ -179,7 +180,7 @@ const List = <T extends EventResponse>({
           alertTitle="정말 삭제할까요?"
           alertDescription="돌이킬 수 없어요 🥲"
           toggleAlert={setLayer}
-          onSave={deleteReplay}
+          onSave={deleteEvent}
         />
       )}
     </div>
