@@ -15,6 +15,7 @@ export const Create = () => {
   const router = useRouter();
 
   const [title, setTitle] = useState('');
+  const [eventLink, setEventLink] = useState('');
   const [priority, setPriority] = useState(1);
   const [visibleYn, setVisibleYn] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
@@ -29,6 +30,7 @@ export const Create = () => {
   const { formErrors, validateForm } = useErrorContext({
     title,
     priority,
+    eventLink,
     startDate,
     endDate,
     blob,
@@ -36,6 +38,9 @@ export const Create = () => {
 
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
+  };
+  const changeEventLink = (e: { target: { value: string } }) => {
+    setEventLink(e.target.value);
   };
   const changePriority = (e: ChangeEvent<HTMLInputElement>) => {
     const value = JSON.parse(e.target.value);
@@ -78,7 +83,13 @@ export const Create = () => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (!title || !startDate || (!endDate && !noEndDateTime) || !blob)
+    if (
+      !title ||
+      !eventLink ||
+      !startDate ||
+      (!endDate && !noEndDateTime) ||
+      !blob
+    )
       return validateForm();
 
     const convertTime = (time: Date | null) =>
@@ -90,6 +101,7 @@ export const Create = () => {
 
     const body: Banner = {
       title,
+      event_link: eventLink,
       priority,
       visible_yn: visibleYn ? 'Y' : 'N',
       start_date_time: `${dayjs(startDate).format(
@@ -150,6 +162,17 @@ export const Create = () => {
               className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
           </div>
+          <Input
+            text="행사 링크"
+            value={eventLink}
+            onChange={changeEventLink}
+            isRequired={true}
+            customClass={{
+              'border-red-400': !!(formErrors.eventLink && !eventLink),
+            }}
+          >
+            {formErrors.eventLink && !eventLink && <ErrorContext />}
+          </Input>
           <div className="mb-6 flex items-center">
             <span className="form__content__title inline-block text-base text-gray-600">
               시작 일자

@@ -17,6 +17,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
   const id = searchParams.get('id') || '';
 
   const [title, setTitle] = useState(banner.title);
+  const [eventLink, setEventLink] = useState(banner?.event_link || '');
   const [priority, setPriority] = useState(banner.priority);
   const [visibleYn, setVisibleYn] = useState(banner.visible_yn === 'Y');
   const [startDate, setStartDate] = useState<Date | null>(
@@ -42,6 +43,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
   const { formErrors, validateForm } = useErrorContext({
     title,
     priority,
+    eventLink,
     startDate,
     endDate,
     blob,
@@ -49,6 +51,9 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
 
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
+  };
+  const changeEventLink = (e: { target: { value: string } }) => {
+    setEventLink(e.target.value);
   };
   const changePriority = (e: ChangeEvent<HTMLInputElement>) => {
     const value = JSON.parse(e.target.value);
@@ -104,6 +109,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
     const body: Banner = {
       title,
       priority,
+      event_link: eventLink,
       visible_yn: visibleYn ? 'Y' : 'N',
       start_date_time: `${dayjs(startDate).format(
         'YYYY-MM-DD'
@@ -164,6 +170,17 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
               className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
           </div>
+          <Input
+            text="행사 링크"
+            value={eventLink}
+            onChange={changeEventLink}
+            isRequired={true}
+            customClass={{
+              'border-red-400': !!(formErrors.eventLink && !eventLink),
+            }}
+          >
+            {formErrors.eventLink && !eventLink && <ErrorContext />}
+          </Input>
           <div className="mb-6 flex items-center">
             <span className="form__content__title inline-block text-base text-gray-600">
               시작 일자
