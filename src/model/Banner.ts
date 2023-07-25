@@ -1,5 +1,6 @@
 export type Banner = {
   title: string;
+  event_link: string;
   priority: number;
   visible_yn: 'Y' | 'N';
   start_date_time: string;

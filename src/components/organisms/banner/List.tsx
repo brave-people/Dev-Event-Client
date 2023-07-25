@@ -83,7 +83,7 @@ const List = () => {
             <tbody>
               {data.length > 0 &&
                 data.map((value: BannerResponse) => {
-                  const convertEndDateText = value.end_date_time.includes(
+                  const convertEndDateText = value.end_date_time?.includes(
                     '9999-'
                   )
                     ? '상시 노출'
