@@ -2,7 +2,6 @@ import Cropper from 'cropperjs';
 import { useEffect, useRef, useState } from 'react';
 import type { BaseSyntheticEvent } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
-import Image from 'next/image';
 
 const ImageUpload = ({
   coverImageUrl,
@@ -124,7 +123,7 @@ const ImageUpload = ({
       {prevImageRef.current && (
         <section className="mb-4">
           <p>기존 이미지</p>
-          <Image
+          <img
             src={prevImageRef.current}
             alt="기존이미지"
             width={400}

@@ -33,7 +33,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
     new Date(banner?.end_date_time)
   );
   const [noEndDateTime, setNoEndDateTime] = useState(
-    banner?.end_date_time.includes('9999-')
+    banner?.end_date_time?.includes('9999-')
   );
 
   // image
