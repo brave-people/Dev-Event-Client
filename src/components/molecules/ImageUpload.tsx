@@ -1,7 +1,8 @@
 import Cropper from 'cropperjs';
-import { useEffect, useRef, useState } from 'react';
+import React, { type ChangeEvent, useEffect, useRef, useState } from 'react';
 import type { BaseSyntheticEvent } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
+import { ColorPicker, type IColor, useColor } from 'react-color-palette';
 
 const ImageUpload = ({
   coverImageUrl,
@@ -15,10 +16,16 @@ const ImageUpload = ({
   height?: number;
 }) => {
   const htmlFor = 'image-upload';
-  const imageRef = useRef(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const cropImageRef = useRef<HTMLImageElement | null>(null);
   const prevImageRef = useRef(coverImageUrl);
   const dragRef = useRef<HTMLLabelElement | null>(null);
+  const colorPickerRef = useRef<HTMLDivElement | null>(null);
+
   const [size, setSize] = useState(0);
+  const [color, setColor] = useState('#fff');
+  const [pickerColor, setPickerColor] = useColor(color);
+  const [showColorPicker, setShowColorPicker] = useState(false);
 
   const [imageUrl, setImageUrl] = useState<{
     url?: string;
@@ -91,6 +98,103 @@ const ImageUpload = ({
     return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
   };
 
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!cropImageRef.current) return;
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = cropImageRef.current.width;
+    canvas.height = cropImageRef.current.height;
+    ctx?.drawImage(cropImageRef.current, 0, 0, canvas.width, canvas.height);
+
+    const { clientX, clientY } = e;
+    const rect = cropImageRef.current.getBoundingClientRect();
+    const offsetX = clientX - rect.left;
+    const offsetY = clientY - rect.top;
+
+    const pixelData = ctx?.getImageData(offsetX, offsetY, 1, 1).data;
+
+    if (!pixelData) return;
+
+    const hex = rgbaToHex(pixelData[0], pixelData[1], pixelData[2]);
+    const rgb = { r: pixelData[0], g: pixelData[1], b: pixelData[2], a: 1 };
+    const hsv = {
+      ...rgbaToHsv(pixelData[0], pixelData[1], pixelData[2]),
+      a: 1,
+    };
+
+    setColor(hex);
+    setPickerColor({ hex, rgb, hsv });
+  };
+
+  const changeColor = (e: ChangeEvent<HTMLInputElement>) => {
+    setColor(e.target.value);
+  };
+
+  const changeColorPicker = (e: IColor) => {
+    setColor(e.hex);
+    setPickerColor(e);
+  };
+
+  const openColorPicker = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowColorPicker(true);
+  };
+
+  const handleClickOutside = (e: MouseEvent) => {
+    const target = e.target as Element;
+    const isClickOutside = !colorPickerRef.current?.contains(target);
+    if (isClickOutside) setShowColorPicker(false);
+  };
+
+  const rgbaToHex = (r: number, g: number, b: number) => {
+    const toHex = (value: number) => {
+      const hex = value.toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    };
+
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+  };
+
+  const rgbaToHsv = (r: number, g: number, b: number) => {
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    const v = max;
+    let h = max;
+    let s = max;
+
+    const d = max - min;
+    s = max === 0 ? 0 : d / max;
+
+    if (max === min) {
+      h = 0; // achromatic
+    } else {
+      switch (max) {
+        case r:
+          h = (g - b) / d + (g < b ? 6 : 0);
+          break;
+        case g:
+          h = (b - r) / d + 2;
+          break;
+        case b:
+          h = (r - g) / d + 4;
+          break;
+      }
+      h /= 6;
+    }
+
+    return {
+      h: h * 360,
+      s: s * 100,
+      v: v * 100,
+    };
+  };
+
   useEffect(() => {
     if (!imageRef.current) return;
     setCropper(
@@ -117,6 +221,15 @@ const ImageUpload = ({
       };
     }
   }, [dragRef]);
+
+  useEffect(() => {
+    if (!showColorPicker) return;
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showColorPicker]);
 
   return (
     <>
@@ -154,20 +267,45 @@ const ImageUpload = ({
           </label>
         </>
       )}
-      <section className="drag__section">
-        {imageUrl.url && (
-          <div className="drag__section--image">
-            <img ref={imageRef} src={imageUrl.url} alt={imageUrl.name} />
-          </div>
-        )}
-        {cropImageUrl.url && (
-          <div className="drag__section--image">
-            <img src={cropImageUrl.url} alt={cropImageUrl.name} />
-          </div>
-        )}
-      </section>
+      {imageUrl.url && (
+        <div className="drag__image">
+          <img ref={imageRef} src={imageUrl.url} alt={imageUrl.name} />
+        </div>
+      )}
+      {cropImageUrl.url && (
+        <div
+          className="drag__image drag__image--crop"
+          onMouseMove={onMouseMove}
+        >
+          <img
+            ref={cropImageRef}
+            src={cropImageUrl.url}
+            alt={cropImageUrl.name}
+          />
+        </div>
+      )}
       {size > 0 && (
         <p className="mt-4 text-sm text-right">{bytesToSize(size)}</p>
+      )}
+      {cropImageUrl.url && (
+        <div className="flex">
+          <button
+            className="w-20 h-10 rounded-md drop-shadow-md mr-4"
+            onClick={openColorPicker}
+            style={{ backgroundColor: color }}
+          />
+          <input
+            type="text"
+            value={color}
+            onChange={changeColor}
+            className="appearance-none h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+          />
+        </div>
+      )}
+      {showColorPicker && (
+        <div ref={colorPickerRef} className="drag--color-picker">
+          <ColorPicker color={pickerColor} onChange={changeColorPicker} />
+        </div>
       )}
       {imageUrl.url && (
         <div className="mt-4">

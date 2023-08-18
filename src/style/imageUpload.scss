@@ -20,15 +20,22 @@
   }
 }
 
-.drag__section {
-  display: flex;
+.drag__image {
   align-items: center;
-  background-color: $color_gray-100;
+  justify-content: center;
 
-  &--image {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &--crop {
+    margin: 8px 0;
+    padding: 16px 8px;
+    border: 1px solid $color_border;
+    border-radius: $border__radius;
   }
+}
+
+.drag--color-picker {
+  width: 20rem;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateX(-85%) translateY(85%);
 }

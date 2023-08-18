@@ -1,0 +1,16 @@
+// react-color-picker
+@import './color';
+@import './variables';
+
+.rcp {
+  margin: 16px 0;
+  background-color: $color_white;
+  box-shadow: rgba(15, 15, 25, 0.25) 0 15px 50px -10px, rgba(0, 0, 0, 0.3) 0px 10px 20px -10px;
+
+  &-field-input {
+    color: $color_gray-900;
+    border-width: 1px;
+    border-color: $color_border;
+  }
+}
+
