@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { rgbaToHex, rgbaToHsv } from '../../../util/color';
 import type { IColor } from 'react-color-palette';
+import classNames from 'classnames';
 
 const ImageZoom = ({
   parentRef,
@@ -132,13 +133,22 @@ const ImageZoom = ({
         <tbody>
           {pixelColors.map((rowColors, rowIndex) => (
             <tr key={rowIndex} className="image--zoom__row">
-              {rowColors.map((color, columnIndex) => (
-                <td
-                  key={columnIndex}
-                  className="image--zoom__cell"
-                  style={{ backgroundColor: color }}
-                />
-              ))}
+              {rowColors.map((color, columnIndex) => {
+                const isCenterIndex = rowIndex === 5 && columnIndex === 5;
+                return (
+                  <td
+                    key={columnIndex}
+                    className="image--zoom__cell"
+                    style={{
+                      backgroundColor: color,
+                      ...(isCenterIndex && {
+                        borderColor: '#ef4444',
+                        position: 'absolute',
+                      }),
+                    }}
+                  />
+                );
+              })}
             </tr>
           ))}
         </tbody>
