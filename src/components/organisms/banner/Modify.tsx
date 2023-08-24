@@ -9,7 +9,7 @@ import type { Banner, BannerResponse } from '../../../model/Banner';
 import Time from '../../atoms/datepicker/Time';
 import Input from '../../atoms/input/Input';
 import ErrorContext, { useErrorContext } from '../../layouts/ErrorContext';
-import ImageUploadComponent from '../../molecules/ImageUpload';
+import ImageUpload from '../../molecules/image-upload';
 
 export const Modify = ({ banner }: { banner: BannerResponse }) => {
   const router = useRouter();
@@ -262,7 +262,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
               배너 이미지
               <span className="text-red-500">*</span>
             </span>
-            <ImageUploadComponent
+            <ImageUpload
               width={360}
               height={200}
               coverImageUrl={coverImageUrl}

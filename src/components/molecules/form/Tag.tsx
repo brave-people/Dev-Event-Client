@@ -124,7 +124,7 @@ const Tags = ({
     <>
       <div className="form__content__input form__content__input--tag">
         <BaseLabel title="태그" htmlFor="tag" required={true} />
-        {tags.length > 0 ? (
+        {tags?.length > 0 ? (
           <div className="form__content--all-tags">
             {tags.map((tag, index) => (
               <TagButton key={index} tag={tag} deleteTag={deleteTag} />

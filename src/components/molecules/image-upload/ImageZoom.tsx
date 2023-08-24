@@ -1,16 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
-import { rgbaToHex } from '../../../util/color';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { rgbaToHex, rgbaToHsv } from '../../../util/color';
+import type { IColor } from 'react-color-palette';
 
 const ImageZoom = ({
   parentRef,
   color,
   setColor,
+  setPickerColor,
   imageUrl,
 }: {
   parentRef: React.MutableRefObject<HTMLImageElement | null>;
   color: string;
   setColor: React.Dispatch<React.SetStateAction<string>>;
-  imageUrl: string;
+  setPickerColor: React.Dispatch<React.SetStateAction<IColor>>;
+  imageUrl: string | undefined;
 }) => {
   const [pixelColors, setPixelColors] = useState<string[][]>([]);
   const imageContainerRef = useRef<HTMLDivElement | null>(null);
@@ -18,22 +21,29 @@ const ImageZoom = ({
 
   const GRID_SIZE = 11;
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (!pixelColors.length) return;
-    const rgb = pixelColors[5][5];
-    const match = rgb.match(/\d+/g);
+    const currentColor = pixelColors[5][5];
+    const match = currentColor.match(/\d+/g);
 
     if (!match) return;
 
-    const red = parseInt(match[0], 10);
-    const green = parseInt(match[1], 10);
-    const blue = parseInt(match[2], 10);
+    const r = parseInt(match[0], 10);
+    const g = parseInt(match[1], 10);
+    const b = parseInt(match[2], 10);
 
-    const hex = rgbaToHex(red, green, blue);
+    const hex = rgbaToHex(r, g, b);
+    const rgb = { r, g, b, a: 1 };
+    const hsv = {
+      ...rgbaToHsv(r, g, b),
+      a: 1,
+    };
+
     setColor(hex);
-  };
+    setPickerColor({ hex, rgb, hsv });
+  }, [pixelColors]);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: MouseEvent) => {
     if (!parentRef.current) return;
     const rect = parentRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -87,12 +97,12 @@ const ImageZoom = ({
   };
 
   useEffect(() => {
-    // background-url 추가
     if (imageContainerRef.current) {
       imageContainerRef.current.style.background = `url(${imageUrl})`;
     }
 
-    // 이미지 캐싱
+    if (!imageUrl) return;
+
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
 
@@ -114,7 +124,7 @@ const ImageZoom = ({
 
   useEffect(() => {
     parentRef.current?.addEventListener('click', handleClick);
-  }, [color]);
+  }, [color, pixelColors]);
 
   return (
     <div className="image--zoom__container" ref={imageContainerRef}>

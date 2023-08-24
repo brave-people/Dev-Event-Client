@@ -6,7 +6,7 @@ import Input from '../../../atoms/input/Input';
 import BaseLabel from '../../../atoms/label/base';
 import ErrorContext from '../../../layouts/ErrorContext';
 import FormLink from '../../../molecules/DynamicDropboxInput';
-import ImageUploadComponent from '../../../molecules/ImageUpload';
+import ImageUpload from '../../../molecules/image-upload';
 import Tag from './Tag';
 
 const FormContent = ({
@@ -152,10 +152,7 @@ const FormContent = ({
           <span className="form__content__title inline-block text-base text-gray-600">
             대표 이미지
           </span>
-          <ImageUploadComponent
-            coverImageUrl={coverImageUrl}
-            setBlob={setBlob}
-          />
+          <ImageUpload coverImageUrl={coverImageUrl} setBlob={setBlob} />
         </div>
       </div>
       <div className="relative pt-8 pb-6">
