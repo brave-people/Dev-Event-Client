@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { rgbaToHex, rgbaToHsv } from '../../../util/color';
 import type { IColor } from 'react-color-palette';
-import classNames from 'classnames';
 
 const ImageZoom = ({
   parentRef,
@@ -47,16 +46,16 @@ const ImageZoom = ({
   const handleMouseMove = (e: MouseEvent) => {
     if (!parentRef.current) return;
     const rect = parentRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
 
     const { clientX, clientY } = e;
-    const offsetX = clientX - rect.left;
-    const offsetY = clientY - rect.top;
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    // const offsetX = clientX - rect.left;
+    // const offsetY = clientY - rect.top;
 
     if (!imageContainerRef.current) return;
-    imageContainerRef.current.style.left = `${offsetX + 20}px`;
-    imageContainerRef.current.style.top = `${offsetY + 20}px`;
+    imageContainerRef.current.style.left = `${x}px`;
+    imageContainerRef.current.style.top = `${y}px`;
 
     if (canvasRef.current) {
       const context = canvasRef.current.getContext('2d');
@@ -82,8 +81,8 @@ const ImageZoom = ({
           j <= y + Math.floor(GRID_SIZE / 2);
           j++
         ) {
-          const pixelIndex = (j * imageData.width + i) * 4;
-          if (pixelIndex >= 0 && pixelIndex < imageData.data.length) {
+          if (i >= 0 && i < imageData.width && j >= 0 && j < imageData.height) {
+            const pixelIndex = (j * imageData.width + i) * 4;
             const color = `rgb(${imageData.data[pixelIndex]}, ${
               imageData.data[pixelIndex + 1]
             }, ${imageData.data[pixelIndex + 2]})`;
@@ -98,23 +97,29 @@ const ImageZoom = ({
   };
 
   useEffect(() => {
-    if (imageContainerRef.current) {
-      imageContainerRef.current.style.background = `url(${imageUrl})`;
-    }
-
     if (!imageUrl) return;
 
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
 
     const image = new Image();
-    image.src = imageUrl;
-    image.onload = () => {
-      canvas.width = image.width;
-      canvas.height = image.height;
-      context?.drawImage(image, 0, 0);
-      canvasRef.current = canvas;
-    };
+    if (parentRef.current) {
+      image.src = parentRef.current.src;
+      image.onload = () => {
+        if (!parentRef.current) return;
+        canvas.width = parentRef.current.width;
+        canvas.height = parentRef.current.height;
+
+        context?.drawImage(
+          image,
+          0,
+          0,
+          parentRef.current.width,
+          parentRef.current.height
+        );
+        canvasRef.current = canvas;
+      };
+    }
 
     parentRef.current?.addEventListener('mousemove', handleMouseMove);
 

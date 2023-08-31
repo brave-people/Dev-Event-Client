@@ -49,7 +49,7 @@ const CropImage = ({
   const [showImageZoom, setShowImageZoom] = useState(false);
 
   const onMouseOver = () => setShowImageZoom(true);
-  const onMouseOut = () => setShowImageZoom(false);
+  const onMouseOut = () => setShowImageZoom(true);
 
   return (
     <div
