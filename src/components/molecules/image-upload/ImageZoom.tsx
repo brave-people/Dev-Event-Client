@@ -50,8 +50,6 @@ const ImageZoom = ({
     const { clientX, clientY } = e;
     const x = clientX - rect.left;
     const y = clientY - rect.top;
-    // const offsetX = clientX - rect.left;
-    // const offsetY = clientY - rect.top;
 
     if (!imageContainerRef.current) return;
     imageContainerRef.current.style.left = `${x}px`;

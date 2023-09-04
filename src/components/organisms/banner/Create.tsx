@@ -255,7 +255,12 @@ export const Create = () => {
               배너 이미지
               <span className="text-red-500">*</span>
             </span>
-            <ImageUpload width={360} height={200} setBlob={setBlob} />
+            <ImageUpload
+              width={360}
+              height={200}
+              setBlob={setBlob}
+              useBackgroundColor
+            />
             {formErrors.blob && !blob && <ErrorContext style={{ left: 0 }} />}
           </div>
         </div>

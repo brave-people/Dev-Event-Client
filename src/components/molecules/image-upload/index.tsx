@@ -49,18 +49,16 @@ const CropImage = ({
   const [showImageZoom, setShowImageZoom] = useState(false);
 
   const onMouseOver = () => setShowImageZoom(true);
-  const onMouseOut = () => setShowImageZoom(true);
+  const onMouseOut = () => setShowImageZoom(false);
 
   return (
-    <div
-      className="drag__image drag__image--crop"
-      onMouseOver={onMouseOver}
-      onMouseOut={onMouseOut}
-    >
+    <div className="drag__image drag__image--crop">
       <img
         ref={cropImageRef}
         src={cropImageData.url?.toString()}
         alt={cropImageData.name}
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
       />
       {showImageZoom && (
         <ImageZoom
@@ -180,11 +178,13 @@ const ImageUpload = ({
   setBlob,
   width,
   height,
+  useBackgroundColor,
 }: {
   coverImageUrl?: string;
   setBlob: Dispatch<SetStateAction<FormData | null>>;
   width?: number;
   height?: number;
+  useBackgroundColor?: boolean;
 }) => {
   const originImageRef = useRef(coverImageUrl);
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -284,15 +284,17 @@ const ImageUpload = ({
             setColor={setColor}
             setPickerColor={setPickerColor}
           />
-          <ColorBox
-            color={color}
-            setColor={setColor}
-            setShowColorPicker={setShowColorPicker}
-          />
+          {useBackgroundColor && (
+            <ColorBox
+              color={color}
+              setColor={setColor}
+              setShowColorPicker={setShowColorPicker}
+            />
+          )}
         </>
       )}
       <ImageSize size={size} />
-      {showColorPicker && (
+      {useBackgroundColor && showColorPicker && (
         <ImageColorPicker
           colorPickerRef={colorPickerRef}
           pickerColor={pickerColor}
