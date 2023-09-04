@@ -11,7 +11,7 @@ export const modifyBannersApi = async ({
   id: string;
 }) => {
   return await fetch(
-    `${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/banner/mobile/top/${id}`,
+    `${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/banner/top/${id}`,
     {
       method: 'PUT',
       headers: {
