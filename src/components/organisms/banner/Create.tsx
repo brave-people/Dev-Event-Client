@@ -17,7 +17,7 @@ export const Create = () => {
   const [title, setTitle] = useState('');
   const [eventLink, setEventLink] = useState('');
   const [priority, setPriority] = useState(1);
-  const [visibleYn, setVisibleYn] = useState(false);
+  const [visibleYn, setVisibleYn] = useState(true);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -158,6 +158,7 @@ export const Create = () => {
             <input
               id="visibleYn"
               type="checkbox"
+              checked={visibleYn}
               onChange={changeVisibleYn}
               className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
