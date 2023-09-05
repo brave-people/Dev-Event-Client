@@ -40,6 +40,8 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
   const [coverImageUrl] = useState(banner.banner_image);
   const [blob, setBlob] = useState<FormData | null>(null);
 
+  const [color, setColor] = useState(banner?.background_color);
+
   const { formErrors, validateForm } = useErrorContext({
     title,
     priority,
@@ -118,6 +120,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
         ? '9999-12-31T00:00'
         : `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`,
       banner_image: newCoverImageUrl || coverImageUrl,
+      background_color: color,
     };
 
     const data = await modifyBannersApi({ data: body, id: id.toString() });
@@ -267,6 +270,8 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
               height={200}
               coverImageUrl={coverImageUrl}
               setBlob={setBlob}
+              color={color}
+              setColor={setColor}
             />
           </div>
         </div>

@@ -10,10 +10,10 @@ const ImageZoom = ({
   imageUrl,
 }: {
   parentRef: React.MutableRefObject<HTMLImageElement | null>;
-  color: string;
-  setColor: React.Dispatch<React.SetStateAction<string>>;
   setPickerColor: React.Dispatch<React.SetStateAction<IColor>>;
   imageUrl: string | undefined;
+  color?: string;
+  setColor?: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [pixelColors, setPixelColors] = useState<string[][]>([]);
   const imageContainerRef = useRef<HTMLDivElement | null>(null);
@@ -22,7 +22,7 @@ const ImageZoom = ({
   const GRID_SIZE = 11;
 
   const handleClick = useCallback(() => {
-    if (!pixelColors.length) return;
+    if (!pixelColors.length || !setColor) return;
     const currentColor = pixelColors[5][5];
     const match = currentColor.match(/\d+/g);
 

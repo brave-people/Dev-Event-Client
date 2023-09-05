@@ -40,9 +40,9 @@ const CropImage = ({
   setPickerColor,
 }: {
   cropImageData: CropImageDataType;
-  color: string;
-  setColor: Dispatch<SetStateAction<string>>;
   setPickerColor: Dispatch<SetStateAction<IColor>>;
+  color?: string;
+  setColor?: Dispatch<SetStateAction<string>>;
 }) => {
   const cropImageRef = useRef<HTMLImageElement | null>(null);
 
@@ -95,8 +95,8 @@ const ColorBox = ({
   setShowColorPicker,
   setColor,
 }: {
-  color: string;
   setShowColorPicker: Dispatch<SetStateAction<boolean>>;
+  color: string;
   setColor: Dispatch<SetStateAction<string>>;
 }) => {
   const openColorPicker = (e: React.MouseEvent) => {
@@ -178,13 +178,15 @@ const ImageUpload = ({
   setBlob,
   width,
   height,
-  useBackgroundColor,
+  color,
+  setColor,
 }: {
   coverImageUrl?: string;
   setBlob: Dispatch<SetStateAction<FormData | null>>;
   width?: number;
   height?: number;
-  useBackgroundColor?: boolean;
+  color?: string;
+  setColor?: Dispatch<SetStateAction<string>>;
 }) => {
   const originImageRef = useRef(coverImageUrl);
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -200,9 +202,8 @@ const ImageUpload = ({
     name: '',
   });
 
-  const [color, setColor] = useState('#fff');
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [pickerColor, setPickerColor] = useColor(color);
+  const [pickerColor, setPickerColor] = useColor(color || '#fff');
 
   const deleteImage = () => {
     setSize(0);
@@ -277,24 +278,24 @@ const ImageUpload = ({
         </div>
       )}
       {cropImageData.url && (
-        <>
-          <CropImage
-            cropImageData={cropImageData}
+        <CropImage
+          cropImageData={cropImageData}
+          color={color}
+          setColor={setColor}
+          setPickerColor={setPickerColor}
+        />
+      )}
+      {color && setColor && (
+        <div className="mt-4">
+          <ColorBox
             color={color}
             setColor={setColor}
-            setPickerColor={setPickerColor}
+            setShowColorPicker={setShowColorPicker}
           />
-          {useBackgroundColor && (
-            <ColorBox
-              color={color}
-              setColor={setColor}
-              setShowColorPicker={setShowColorPicker}
-            />
-          )}
-        </>
+        </div>
       )}
       <ImageSize size={size} />
-      {useBackgroundColor && showColorPicker && (
+      {setColor && showColorPicker && (
         <ImageColorPicker
           colorPickerRef={colorPickerRef}
           pickerColor={pickerColor}

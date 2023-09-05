@@ -27,6 +27,8 @@ export const Create = () => {
   // image
   const [blob, setBlob] = useState<FormData | null>(null);
 
+  const [color, setColor] = useState('#fff');
+
   const { formErrors, validateForm } = useErrorContext({
     title,
     priority,
@@ -111,6 +113,7 @@ export const Create = () => {
         ? '9999-12-31T00:00'
         : `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`,
       banner_image: coverImageUrl,
+      background_color: color,
     };
 
     const data = await createBannersApi({ data: body });
@@ -259,7 +262,8 @@ export const Create = () => {
               width={360}
               height={200}
               setBlob={setBlob}
-              useBackgroundColor
+              color={color}
+              setColor={setColor}
             />
             {formErrors.blob && !blob && <ErrorContext style={{ left: 0 }} />}
           </div>
