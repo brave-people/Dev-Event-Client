@@ -20,15 +20,54 @@
   }
 }
 
-.drag__section {
-  display: flex;
+.drag__image {
   align-items: center;
-  background-color: $color_gray-100;
+  justify-content: center;
 
-  &--image {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &--crop {
+    margin: 8px 0;
+    padding: 16px 8px;
+    border: 1px solid $color_border;
+    border-radius: $border__radius;
+    position: relative;
+  }
+}
+
+.drag--color-picker {
+  width: 20rem;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateX(-110%) translateY(0);
+}
+
+.image--zoom {
+  &__container {
+    width: 110px;
+    height: 110px;
+    position: absolute;
+    border-radius: 100%;
+    border: 1px solid;
+    overflow: hidden;
+    box-sizing: unset;
+    background-size: 6px;
+    z-index: 9;
+  }
+
+  &__table {
+    border-collapse: collapse;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__row {
+    height: 10px;
+  }
+
+  &__cell {
+    width: 10px;
+    height: 10px;
+    border: 1px solid $color_white;
+    padding: 0;
   }
 }
