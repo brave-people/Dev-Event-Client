@@ -6,6 +6,7 @@ export type Banner = {
   start_date_time: string;
   end_date_time: string;
   banner_image: string;
+  background_color: string;
 };
 
 export type BannerResponse = Banner & {

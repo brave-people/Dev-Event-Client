@@ -4,7 +4,7 @@ import type { RequestHeaders } from '../../model/Api';
 
 export const deleteBannersApi = async ({ id }: { id: number }) => {
   return await fetch(
-    `${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/banner/mobile/top/${id}`,
+    `${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/banner/top/${id}`,
     {
       method: 'DELETE',
       headers: {

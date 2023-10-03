@@ -5,7 +5,7 @@ import type { EventForm, EventTime } from '../../../model/Event';
 import { eventTagsAtom } from '../../../store/tags';
 import ErrorContext from '../../layouts/ErrorContext';
 import EventType from '../../molecules/EventType';
-import ImageUpload from '../../molecules/ImageUpload';
+import ImageUpload from '../../molecules/image-upload';
 import ContentDate from '../../molecules/form/ContentDate';
 import ContentDescription from '../../molecules/form/ContentDescription';
 import Tag from '../../molecules/form/Tag';

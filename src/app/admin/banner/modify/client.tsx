@@ -31,7 +31,7 @@ const Client = ({ token }: { token: ResponseTokenModel }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <EventComponent title="모바일 메인 최상단 배너 수정">
+      <EventComponent title="최상단 메인 최상단 배너 수정">
         <BannerModifyForm banner={banners} />
       </EventComponent>
     </QueryClientProvider>

@@ -46,6 +46,9 @@ dependencies:
   react:
     specifier: ^18.2.0
     version: 18.2.0
+  react-color-palette:
+    specifier: ^7.0.4
+    version: 7.0.4(react@18.2.0)
   react-datepicker:
     specifier: ^4.10.0
     version: 4.10.0(react-dom@18.2.0)(react@18.2.0)
@@ -4170,6 +4173,15 @@ packages:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
     dev: true
+
+  /react-color-palette@7.0.4(react@18.2.0):
+    resolution: {integrity: sha512-HX622jLDdlvgCYBJH65NY2Z8+QUQoD/DuCAkQmpefzqgJ0dXx8OvB9oTuT8eXhcEWrdGTgg3lqye8E9/sBXsYQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /react-datepicker@4.10.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-6IfBCZyWj54ZZGLmEZJ9c4Yph0s9MVfEGDC2evOvf9AmVz+RRcfP2Czqad88Ff9wREbcbqa4dk7IFYeXF1d3Ag==}

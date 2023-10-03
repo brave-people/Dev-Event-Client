@@ -9,7 +9,7 @@ import type { Banner } from '../../../model/Banner';
 import Time from '../../atoms/datepicker/Time';
 import Input from '../../atoms/input/Input';
 import ErrorContext, { useErrorContext } from '../../layouts/ErrorContext';
-import ImageUploadComponent from '../../molecules/ImageUpload';
+import ImageUpload from '../../molecules/image-upload';
 
 export const Create = () => {
   const router = useRouter();
@@ -17,7 +17,7 @@ export const Create = () => {
   const [title, setTitle] = useState('');
   const [eventLink, setEventLink] = useState('');
   const [priority, setPriority] = useState(1);
-  const [visibleYn, setVisibleYn] = useState(false);
+  const [visibleYn, setVisibleYn] = useState(true);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -26,6 +26,8 @@ export const Create = () => {
 
   // image
   const [blob, setBlob] = useState<FormData | null>(null);
+
+  const [color, setColor] = useState('#fff');
 
   const { formErrors, validateForm } = useErrorContext({
     title,
@@ -111,6 +113,7 @@ export const Create = () => {
         ? '9999-12-31T00:00'
         : `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`,
       banner_image: coverImageUrl,
+      background_color: color,
     };
 
     const data = await createBannersApi({ data: body });
@@ -158,6 +161,7 @@ export const Create = () => {
             <input
               id="visibleYn"
               type="checkbox"
+              checked={visibleYn}
               onChange={changeVisibleYn}
               className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
@@ -254,7 +258,13 @@ export const Create = () => {
               배너 이미지
               <span className="text-red-500">*</span>
             </span>
-            <ImageUploadComponent width={360} height={200} setBlob={setBlob} />
+            <ImageUpload
+              width={360}
+              height={200}
+              setBlob={setBlob}
+              color={color}
+              setColor={setColor}
+            />
             {formErrors.blob && !blob && <ErrorContext style={{ left: 0 }} />}
           </div>
         </div>

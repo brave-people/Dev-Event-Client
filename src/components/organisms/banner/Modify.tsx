@@ -9,7 +9,7 @@ import type { Banner, BannerResponse } from '../../../model/Banner';
 import Time from '../../atoms/datepicker/Time';
 import Input from '../../atoms/input/Input';
 import ErrorContext, { useErrorContext } from '../../layouts/ErrorContext';
-import ImageUploadComponent from '../../molecules/ImageUpload';
+import ImageUpload from '../../molecules/image-upload';
 
 export const Modify = ({ banner }: { banner: BannerResponse }) => {
   const router = useRouter();
@@ -39,6 +39,8 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
   // image
   const [coverImageUrl] = useState(banner.banner_image);
   const [blob, setBlob] = useState<FormData | null>(null);
+
+  const [color, setColor] = useState(banner?.background_color);
 
   const { formErrors, validateForm } = useErrorContext({
     title,
@@ -118,6 +120,7 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
         ? '9999-12-31T00:00'
         : `${dayjs(endDate).format('YYYY-MM-DD')}${convertEndTime}`,
       banner_image: newCoverImageUrl || coverImageUrl,
+      background_color: color,
     };
 
     const data = await modifyBannersApi({ data: body, id: id.toString() });
@@ -262,11 +265,13 @@ export const Modify = ({ banner }: { banner: BannerResponse }) => {
               배너 이미지
               <span className="text-red-500">*</span>
             </span>
-            <ImageUploadComponent
+            <ImageUpload
               width={360}
               height={200}
               coverImageUrl={coverImageUrl}
               setBlob={setBlob}
+              color={color}
+              setColor={setColor}
             />
           </div>
         </div>

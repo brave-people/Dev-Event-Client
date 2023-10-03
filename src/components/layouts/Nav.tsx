@@ -31,7 +31,7 @@ const navItems: (ItemType & { subItems?: ItemType[] })[] = [
   },
   {
     path: '/admin/banner',
-    title: '모바일 배너 관리',
+    title: '최상단 배너 관리',
   },
 ];
 

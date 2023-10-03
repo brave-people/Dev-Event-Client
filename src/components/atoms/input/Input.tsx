@@ -1,11 +1,11 @@
-import { useId } from 'react';
+import { type ChangeEvent, useId } from 'react';
 import type { ReactNode, InputHTMLAttributes } from 'react';
 import classNames from 'classnames';
 import BaseLabel from '../label/base';
 
 type InputProps = {
   value: string;
-  onChange?: (e: { target: { value: string } }) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   type?: InputHTMLAttributes<HTMLInputElement>['type'];
   readonly?: boolean;
   disable?: boolean;
