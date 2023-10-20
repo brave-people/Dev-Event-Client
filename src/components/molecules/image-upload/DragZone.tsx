@@ -6,7 +6,11 @@ const DragZone = ({
 }: {
   deleteImage: () => void;
   setImageUrl: React.Dispatch<
-    React.SetStateAction<{ url?: string; name: string }>
+    React.SetStateAction<{
+      url?: string;
+      name: string;
+      type: string;
+    }>
   >;
 }) => {
   const htmlFor = 'image-upload';
@@ -28,7 +32,11 @@ const DragZone = ({
 
     const reader = new FileReader();
     reader.onload = async () => {
-      setImageUrl({ url: reader.result?.toString(), name: file.name });
+      setImageUrl({
+        url: reader.result?.toString(),
+        name: file.name,
+        type: file.type,
+      });
     };
     reader.readAsDataURL(file);
   };
