@@ -197,7 +197,8 @@ const ImageUpload = ({
   const [imageUrl, setImageUrl] = useState<{
     url?: string;
     name: string;
-  }>({ url: '', name: '' });
+    type: string;
+  }>({ url: '', name: '', type: '' });
   const [cropImageData, setCropImageData] = useState<CropImageDataType>({
     name: '',
   });
@@ -207,7 +208,7 @@ const ImageUpload = ({
 
   const deleteImage = () => {
     setSize(0);
-    setImageUrl({ url: '', name: '' });
+    setImageUrl({ url: '', name: '', type: '' });
     setCropImageData({ url: '', name: '' });
   };
 
@@ -232,8 +233,8 @@ const ImageUpload = ({
           setBlob(formData);
         }
       },
-      'image/jpg',
-      1
+      imageUrl.type,
+      0.8
     );
   };
 
