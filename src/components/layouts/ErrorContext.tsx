@@ -3,6 +3,7 @@ import type { EventErrorForm } from '../../model/Event';
 
 export const useErrorContext = ({
   title,
+  hostName,
   organizer,
   eventLink,
   replayLink = '',
@@ -14,6 +15,7 @@ export const useErrorContext = ({
 }: EventErrorForm<string>) => {
   const [formErrors, setFormErrors] = useState<EventErrorForm<boolean>>({
     title: false,
+    hostName: false,
     organizer: false,
     eventLink: false,
     replayLink: false,
@@ -27,6 +29,7 @@ export const useErrorContext = ({
   const validateForm = () =>
     setFormErrors({
       title: !title,
+      hostName: !hostName,
       organizer: !organizer,
       eventLink: !eventLink,
       replayLink: !replayLink,

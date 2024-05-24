@@ -25,7 +25,8 @@ export interface EventResponse extends EventType {
 }
 
 export interface EventErrorForm<T> {
-  title: T;
+  title?: T;
+  hostName?: T;
   organizer?: T;
   eventLink?: T;
   replayLink?: T;
@@ -73,6 +74,7 @@ export type EventTime = {
 export type EventRouter =
   | '/admin/event'
   | '/admin/replay'
+  | '/admin/host'
   | '/admin/groups'
   | '/admin/event/tag'
   | '/admin/replay/tag'
