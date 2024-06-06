@@ -3,6 +3,8 @@
 import type { EventForm } from '../../../model/Event';
 import Input from '../../atoms/input/Input';
 import ErrorContext from '../../layouts/ErrorContext';
+import React from 'react';
+import 'react-quill/dist/quill.snow.css';
 
 type ContentDescriptionProps = Pick<
   EventForm,
@@ -21,8 +23,6 @@ const ContentDescription = ({
   title,
   changeTitle,
   error,
-  description,
-  changeDescription,
   organizer,
   changeOrganizer,
   eventLink,
@@ -39,13 +39,6 @@ const ContentDescription = ({
       >
         {error.title && <ErrorContext />}
       </Input>
-      <div className="form__content">
-        <Input
-          text="행사 설명"
-          value={description}
-          onChange={changeDescription}
-        />
-      </div>
       <div className="form__content">
         <Input
           text="주최"

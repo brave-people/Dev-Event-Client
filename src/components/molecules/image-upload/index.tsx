@@ -270,6 +270,9 @@ const ImageUpload = ({
 
   return (
     <>
+      <span className="form__content__title inline-block text-base text-gray-600">
+        배너 이미지
+      </span>
       <OriginImage originImageRef={originImageRef} />
       {!imageUrl.url ? (
         <DragZone deleteImage={deleteImage} setImageUrl={setImageUrl} />

@@ -9,6 +9,7 @@ import ImageUpload from '../../molecules/image-upload';
 import ContentDate from '../../molecules/form/ContentDate';
 import ContentDescription from '../../molecules/form/ContentDescription';
 import Tag from '../../molecules/form/Tag';
+import Editor from '../../molecules/editor';
 
 const Form = ({
   title,
@@ -74,6 +75,10 @@ const Form = ({
             isModify={isModify}
           />
           <ImageUpload setBlob={setBlob} coverImageUrl={coverImageUrl} />
+          <Editor
+            description={description}
+            changeDescription={changeDescription}
+          />
         </div>
         <div className="relative pt-8 pb-6">
           <button
