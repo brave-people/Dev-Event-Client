@@ -35,7 +35,7 @@ const ContentDescription = ({
         value={title}
         onChange={changeTitle}
         isRequired={true}
-        customClass={{ 'border-red-400': error.title }}
+        customClass={{ 'border-red-400': !!error.title }}
       >
         {error.title && <ErrorContext />}
       </Input>

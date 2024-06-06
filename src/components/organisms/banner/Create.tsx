@@ -130,7 +130,7 @@ export const Create = () => {
             value={title}
             onChange={changeTitle}
             isRequired={true}
-            customClass={{ 'border-red-400': formErrors.title && !title }}
+            customClass={{ 'border-red-400': !!(formErrors.title && !title) }}
           >
             {formErrors.title && !title && <ErrorContext />}
           </Input>

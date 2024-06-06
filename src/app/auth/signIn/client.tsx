@@ -65,7 +65,7 @@ const Page = ({ data }: { data: string }) => {
     <section className="wrap--vertical">
       <article className="wrap__box--lg shadow-lg">
         <h1 className="text-4xl font-bold text-center mb-8">
-          용감한 관리자 로그인
+          데브 이벤트 어드민
         </h1>
         <form onSubmit={submit} className="form">
           <Input

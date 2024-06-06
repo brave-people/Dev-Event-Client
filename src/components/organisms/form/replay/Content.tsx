@@ -42,7 +42,7 @@ const FormContent = ({
           value={title}
           onChange={changeTitle}
           isRequired={true}
-          customClass={{ 'border-red-400': error.title && !title }}
+          customClass={{ 'border-red-400': !!(error.title && !title) }}
         >
           {error.title && !title && <ErrorContext />}
         </Input>
