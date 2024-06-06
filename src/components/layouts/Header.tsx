@@ -22,7 +22,7 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
   return (
     <header className="header">
       <Link href="/admin/event">
-        <h1 className="text-4xl font-bold">용감한 관리자</h1>
+        <h1 className="text-4xl font-bold">데브 이벤트 어드민</h1>
       </Link>
       <Menu as="div" className="ml-3 relative">
         <div>

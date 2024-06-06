@@ -30,6 +30,10 @@ const navItems: (ItemType & { subItems?: ItemType[] })[] = [
     ],
   },
   {
+    path: '/admin/host',
+    title: '행사 주최 관리',
+  },
+  {
     path: '/admin/banner',
     title: '최상단 배너 관리',
   },
