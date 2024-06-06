@@ -60,7 +60,7 @@ export const Create = () => {
     if (blob === null) return '';
 
     const data = await fetchUploadImage({
-      fileType: 'DEV_EVENT',
+      fileType: 'VOD',
       body: blob,
     });
 
