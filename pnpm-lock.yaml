@@ -50,6 +50,18 @@ dependencies:
   next:
     specifier: ^13.4.5
     version: 13.4.5(@babel/core@7.17.8)(react-dom@18.2.0)(react@18.2.0)(sass@1.45.2)
+  quill-image-compress:
+    specifier: ^1.2.32
+    version: 1.2.32
+  quill-image-resize:
+    specifier: ^3.0.9
+    version: 3.0.9
+  quill-image-resize-module-react:
+    specifier: ^3.0.0
+    version: 3.0.0
+  quill-image-resize-module-ts:
+    specifier: ^3.0.3
+    version: 3.0.3
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -2141,7 +2153,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       define-data-property: 1.1.4
-      has-property-descriptors: 1.0.0
+      has-property-descriptors: 1.0.2
       object-keys: 1.1.1
     dev: false
 
@@ -3123,6 +3135,7 @@ packages:
     resolution: {integrity: sha512-62DVLZGoiEBDHQyqG4w9xCuZ7eJEwNmJRWw2VY84Oedb7WFcA27fiEVe8oUQx9hAUJ4ekurquucTGwsyO1XGdQ==}
     dependencies:
       get-intrinsic: 1.2.1
+    dev: true
 
   /has-property-descriptors@1.0.2:
     resolution: {integrity: sha512-55JNKuIW+vq4Ke1BjOTjM2YctQIvCT7GFzHwmfZPGo5wnrgkid0YQtnAleFSqumZm4az3n2BS+erby5ipJdgrg==}
@@ -3274,7 +3287,7 @@ packages:
     resolution: {integrity: sha512-8Q7EARjzEnKpt/PCD7e1cgUS0a6X8u5tdSiMqXhojOdoV9TsMsiO+9VLC5vAmO8N7/GmXn7yjR8qnA6bVAEzfA==}
     engines: {node: '>= 0.4'}
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.7
       has-tostringtag: 1.0.0
     dev: false
 
@@ -4329,6 +4342,35 @@ packages:
       fast-diff: 1.1.2
     dev: false
 
+  /quill-image-compress@1.2.32:
+    resolution: {integrity: sha512-du7OfVjgVaOLmmtpFptCwGdnmcK9Y4G3j5q5NCi1/otA2aPNS/1Pvh2UJt+n9jvyvT8fQYXjklhPDf9rL9Jh4g==}
+    dependencies:
+      quill: 1.3.7
+    dev: false
+
+  /quill-image-resize-module-react@3.0.0:
+    resolution: {integrity: sha512-3jVChLoXh+fwEELx3OswOEEuF+1KU3r/B9RAqZ//s+d+UMduVZzUepU1g/XoxjKoBJvWD2lJwBIFBRUNb8ebCw==}
+    dependencies:
+      lodash: 4.17.21
+      quill: 1.3.7
+      raw-loader: 0.5.1
+    dev: false
+
+  /quill-image-resize-module-ts@3.0.3:
+    resolution: {integrity: sha512-NMWw67zCfGxE0AyPTVLWMTAs71eKerd+jJJqu9ZuPBGZl7vc+Jtb+tmfx33pC3h0deVYqgOMXYzbFBIRmu/WuQ==}
+    dependencies:
+      lodash: 4.17.21
+      quill: 1.3.7
+    dev: false
+
+  /quill-image-resize@3.0.9:
+    resolution: {integrity: sha512-5Dk0nixhbFsCwSWtPU9qqqtfM2gURfaP+pbBhQvAoMJoF4p99xbAibfAI3gsZJkbWUodoK2iAPf1V5oTSpv9ww==}
+    dependencies:
+      lodash: 4.17.21
+      quill: 1.3.7
+      raw-loader: 0.5.1
+    dev: false
+
   /quill@1.3.7:
     resolution: {integrity: sha512-hG/DVzh/TiknWtE6QmWAF/pxoZKYxfe3J/d/+ShUWkDvvkZQVTPeVmUJVu1uE6DDooC4fWTiCLh84ul89oNz5g==}
     dependencies:
@@ -4338,6 +4380,10 @@ packages:
       extend: 3.0.2
       parchment: 1.1.4
       quill-delta: 3.6.3
+    dev: false
+
+  /raw-loader@0.5.1:
+    resolution: {integrity: sha512-sf7oGoLuaYAScB4VGr0tzetsYlS8EJH6qnTCfQ/WVEa89hALQ4RQfCKt5xCyPQKPDUbVUAIP1QsxAwfAjlDp7Q==}
     dev: false
 
   /rc@1.2.8:

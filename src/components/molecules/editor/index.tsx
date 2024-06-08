@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useMemo, useRef } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
 import { fetchUploadImage } from '../../../api/image';
@@ -6,27 +6,49 @@ import { fetchUploadImage } from '../../../api/image';
 const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import('react-quill');
-    return function comp({ forwardedRef, style, ...props }) {
-      return <RQ ref={forwardedRef} style={style} {...props} />;
+    const { default: ImageResize } = await import('quill-image-resize');
+    const { default: ImageCompress } = await import('quill-image-compress');
+
+    RQ.Quill.register('modules/imageCompress', ImageCompress);
+    RQ.Quill.register('modules/imageResize', ImageResize);
+
+    return function forwardRef({ forwardedRef, ...props }: React.Ref<RQ>) {
+      const newProps = {
+        ...props,
+        modules: {
+          ...props.modules,
+          imageResize: {
+            parchment: RQ.Quill.import('parchment'),
+            modules: ['Resize', 'DisplaySize', 'Toolbar'],
+          },
+          imageCompress: {
+            quality: 0.9,
+            debug: true,
+            suppressErrorLogging: false,
+            insertIntoEditor: undefined,
+          },
+        },
+      };
+      return <RQ ref={forwardedRef} {...newProps} />;
     };
   },
-  { ssr: false }
+  { ssr: false, loading: () => <div>*에디터를 불러오는 중입니다...</div> }
 );
 
 const Editor = ({
   description,
-  changeDescription,
+  setDescription,
 }: {
   description: string;
-  changeDescription: (value: string) => string;
+  setDescription: Dispatch<SetStateAction<FormData | null>>;
 }) => {
   const quillRef = useRef<HTMLDivElement>(null);
 
-  const uploadImage = async (blob) => {
+  const uploadImage = async (blob: FormData) => {
     if (blob === null) return '';
 
     const data = await fetchUploadImage({
-      fileType: 'HOST',
+      fileType: 'DEV_EVENT_DETAIL',
       body: blob,
     });
 
@@ -85,7 +107,7 @@ const Editor = ({
         theme="snow"
         forwardedRef={quillRef}
         value={description}
-        onChange={changeDescription}
+        onChange={setDescription}
         modules={modules}
       />
     </div>
