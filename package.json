@@ -33,6 +33,7 @@
     "next": "^13.4.5",
     "quill-image-compress": "^1.2.32",
     "quill-image-resize": "^3.0.9",
+    "quill-image-resize-module": "^3.0.0",
     "quill-image-resize-module-react": "^3.0.0",
     "quill-image-resize-module-ts": "^3.0.3",
     "react": "^18.2.0",
