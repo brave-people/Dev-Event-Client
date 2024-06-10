@@ -1,4 +1,10 @@
-import React, { Dispatch, SetStateAction, useMemo, useRef } from 'react';
+import React, {
+  Dispatch,
+  forwardRef,
+  SetStateAction,
+  useMemo,
+  useRef,
+} from 'react';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
 import { fetchUploadImage } from '../../../api/image';
@@ -6,13 +12,18 @@ import { fetchUploadImage } from '../../../api/image';
 const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import('react-quill');
-    const { default: ImageResize } = await import('quill-image-resize');
-    const { default: ImageCompress } = await import('quill-image-compress');
+    const ImageCompress = await import('quill-image-compress');
+    const ImageResize = await import('quill-image-resize-module-ts');
+    const ImageDrop = await import('quill-image-drop-module');
 
-    RQ.Quill.register('modules/imageCompress', ImageCompress);
-    RQ.Quill.register('modules/imageResize', ImageResize);
+    RQ.Quill.register('modules/imageCompress', ImageCompress.default);
+    RQ.Quill.register('modules/imageResize', ImageResize.ImageResize);
+    RQ.Quill.register('modules/imageDrop', ImageDrop.ImageDrop);
 
-    return function forwardRef({ forwardedRef, ...props }: React.Ref<RQ>) {
+    const editorContainer = forwardRef<typeof RQ, any>(function getEditor(
+      props,
+      ref
+    ) {
       const newProps = {
         ...props,
         modules: {
@@ -21,16 +32,20 @@ const ReactQuill = dynamic(
             parchment: RQ.Quill.import('parchment'),
             modules: ['Resize', 'DisplaySize', 'Toolbar'],
           },
-          imageCompress: {
-            quality: 0.9,
-            debug: true,
-            suppressErrorLogging: false,
-            insertIntoEditor: undefined,
-          },
+          imageDrop: true,
+          // imageCompress: {
+          //   quality: 0.9, // default
+          //   imageType: 'image/*', // default
+          //   debug: true, // default
+          //   suppressErrorLogging: false, // default
+          //   insertIntoEditor: true, // default
+          // },
         },
       };
-      return <RQ ref={forwardedRef} {...newProps} />;
-    };
+      return <RQ ref={ref} {...newProps} />;
+    });
+
+    return editorContainer;
   },
   { ssr: false, loading: () => <div>*에디터를 불러오는 중입니다...</div> }
 );
@@ -40,9 +55,11 @@ const Editor = ({
   setDescription,
 }: {
   description: string;
-  setDescription: Dispatch<SetStateAction<FormData | null>>;
+  setDescription: Dispatch<SetStateAction<string>>;
 }) => {
-  const quillRef = useRef<HTMLDivElement>(null);
+  const quillRef = useRef(null);
+  // const quillRef = useRef<typeof ReactQuill | null>(null);
+  // const quillRef = useRef<HTMLDivElement>(null);
 
   const uploadImage = async (blob: FormData) => {
     if (blob === null) return '';
@@ -63,22 +80,30 @@ const Editor = ({
     input.setAttribute('accept', 'image/*');
     input.click();
 
-    input.addEventListener('change', async () => {
+    input.onchange = async () => {
       try {
         const file = input.files?.[0];
+
         const formData = new FormData();
-        formData.append('images', file, file.name);
-        const imageURL = await uploadImage(formData);
-        const range = quillRef.current.getEditorSelection();
-        quillRef.current
-          .getEditor()
-          .insertEmbed(range.index, 'image', imageURL);
-        quillRef.current.getEditor().setSelection(range.index + 1);
-        document.body.querySelector(':scope > input').remove();
+
+        if (file) {
+          formData.append('images', file);
+          const imageURL = await uploadImage(formData);
+          const range = quillRef.current?.getEditor();
+          quillRef.current
+            ?.getEditor()
+            .insertEmbed(range.index, 'image', imageURL);
+
+          quillRef.current.getEditorV2().setSelection(range.index + 1);
+          document.body.querySelector(':scope > input').remove();
+        } else {
+          console.log('file undefined');
+          throw new Error('file undefined');
+        }
       } catch (error) {
         console.log(error);
       }
-    });
+    };
   };
 
   const modules = useMemo(() => {
@@ -92,6 +117,10 @@ const Editor = ({
           [{ color: [] }, { background: [] }],
           [{ align: [] }, 'link', 'image'],
         ],
+        imageDrop: true,
+        clipboard: {
+          matchVisual: false, // toggle to add extra line breaks when pasting HTML:
+        },
         handlers: {
           image: imageHandler,
         },

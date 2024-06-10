@@ -53,9 +53,15 @@ dependencies:
   quill-image-compress:
     specifier: ^1.2.32
     version: 1.2.32
+  quill-image-drop-module:
+    specifier: ^1.0.3
+    version: 1.0.3
   quill-image-resize:
     specifier: ^3.0.9
     version: 3.0.9
+  quill-image-resize-module:
+    specifier: ^3.0.0
+    version: 3.0.0
   quill-image-resize-module-react:
     specifier: ^3.0.0
     version: 3.0.0
@@ -4348,6 +4354,12 @@ packages:
       quill: 1.3.7
     dev: false
 
+  /quill-image-drop-module@1.0.3:
+    resolution: {integrity: sha512-HP0Y2kb3nQk1QbRKZzEe1j3mArRQerN5B/U/MlXrOnxmhy3m/xYmVv0YoE13vWnGnBOIcoXGJ/9fi7l6AwsP8Q==}
+    dependencies:
+      quill: 1.3.7
+    dev: false
+
   /quill-image-resize-module-react@3.0.0:
     resolution: {integrity: sha512-3jVChLoXh+fwEELx3OswOEEuF+1KU3r/B9RAqZ//s+d+UMduVZzUepU1g/XoxjKoBJvWD2lJwBIFBRUNb8ebCw==}
     dependencies:
@@ -4361,6 +4373,14 @@ packages:
     dependencies:
       lodash: 4.17.21
       quill: 1.3.7
+    dev: false
+
+  /quill-image-resize-module@3.0.0:
+    resolution: {integrity: sha512-1TZBnUxU/WIx5dPyVjQ9yN7C6mLZSp04HyWBEMqT320DIq4MW4JgzlOPDZX5ZpBM3bU6sacU4kTLUc8VgYQZYw==}
+    dependencies:
+      lodash: 4.17.21
+      quill: 1.3.7
+      raw-loader: 0.5.1
     dev: false
 
   /quill-image-resize@3.0.9:
