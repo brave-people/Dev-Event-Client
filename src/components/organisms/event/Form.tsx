@@ -10,6 +10,7 @@ import ContentDate from '../../molecules/form/ContentDate';
 import ContentDescription from '../../molecules/form/ContentDescription';
 import Tag from '../../molecules/form/Tag';
 import Editor from '../../molecules/editor';
+import dynamic from 'next/dynamic';
 
 const Form = ({
   title,
@@ -39,6 +40,8 @@ const Form = ({
   isModify = false,
 }: EventForm & EventTime) => {
   const eventTags = useAtomValue(eventTagsAtom);
+
+  const DynamicEditor = dynamic(() => import('./../../molecules/editor/index'), { ssr: false })
 
   return (
     <div className="list">
@@ -75,7 +78,7 @@ const Form = ({
             isModify={isModify}
           />
           <ImageUpload setBlob={setBlob} coverImageUrl={coverImageUrl} />
-          <Editor
+          <DynamicEditor
             description={description}
             changeDescription={changeDescription}
           />
