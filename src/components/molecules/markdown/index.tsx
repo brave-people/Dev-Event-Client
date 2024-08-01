@@ -1,6 +1,6 @@
-import '@uiw/react-markdown-preview/markdown.css';
+// import '@uiw/react-markdown-preview/markdown.css';
 import { MDEditorProps } from '@uiw/react-md-editor';
-import '@uiw/react-md-editor/markdown-editor.css';
+// import '@uiw/react-md-editor/markdown-editor.css';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { FileDrop } from 'react-file-drop';
 import dynamic from 'next/dynamic';
@@ -33,22 +33,42 @@ export const MarkdownEditor = ({
   setDescription,
   ...rest
 }: EditorProps) => {
-  const dropRef = useRef(null);
+  const dragRef = useRef<HTMLLabelElement | null>(null);
 
-  const handleDropFileUpload = async (files, event) => {
-    const file = files?.[0];
-    if (!file) return;
+  const dragAndDropHandler = (e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    alert('hello');
+    const file = e?.dataTransfer?.files[0];
+    file && handleDropFileUpload({ file });
+  };
+  const dragAndOverHandler = (e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
+  useEffect(() => {
+    if (dragRef.current) {
+      dragRef.current.addEventListener('drop', dragAndDropHandler);
+      // dragRef.current.addEventListener('dragover', dragAndOverHandler);
+
+      return () => {
+        dragRef.current?.removeEventListener('drop', dragAndDropHandler);
+        // dragRef.current?.removeEventListener('dragover', dragAndOverHandler);
+      };
+    }
+  }, [dragRef]);
+
+  const handleDropFileUpload = async ({ file }: { file: File }) => {
     const formData = new FormData();
     formData.append('images', file);
 
     try {
       const imageURL = await uploadImage(formData);
-      if (imageURL) {
-        const newDescription =
-          description + '\n\n ![attach file](' + imageURL + ')';
-        setDescription(newDescription);
-      }
+      const newDescription =
+        description + '\n\n ![attach file](' + imageURL + ')';
+      alert(newDescription);
+      setDescription(newDescription);
     } catch (error) {
       console.error('Image upload failed', error);
     }
@@ -75,10 +95,14 @@ export const MarkdownEditor = ({
     //     }
     //   }}
     // >
-    <div ref={dropRef}>
-      <FileDrop frame={dropRef.current} onDrop={handleDropFileUpload}>
-        <MDEditor value={description} onChange={setDescription} {...rest} />
-      </FileDrop>
-    </div>
+    <label ref={dragRef}>
+      <MDEditor
+        preview="live"
+        height={500}
+        value={description}
+        onChange={setDescription}
+        {...rest}
+      />
+    </label>
   );
 };
