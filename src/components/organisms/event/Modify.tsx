@@ -62,9 +62,6 @@ const Modify = ({ event }: { event: EventResponse }) => {
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
   };
-  const changeDescription = (e: { target: { value: string } }) => {
-    setDescription(e.target.value);
-  };
   const changeOrganizer = (e: { target: { value: string } }) => {
     setOrganizer(e.target.value);
   };
@@ -137,12 +134,12 @@ const Modify = ({ event }: { event: EventResponse }) => {
     <Form
       title={title}
       description={description}
+      setDescription={setDescription}
       organizer={organizer}
       eventLink={eventLink}
       tags={eventTagsName}
       setTags={setEventTags}
       changeTitle={changeTitle}
-      changeDescription={changeDescription}
       changeOrganizer={changeOrganizer}
       changeEventLink={changeEventLink}
       eventTimeType={eventTimeType}

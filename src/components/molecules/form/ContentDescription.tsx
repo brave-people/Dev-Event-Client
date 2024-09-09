@@ -12,7 +12,6 @@ type ContentDescriptionProps = Pick<
   | 'changeTitle'
   | 'error'
   | 'description'
-  | 'changeDescription'
   | 'organizer'
   | 'changeOrganizer'
   | 'eventLink'

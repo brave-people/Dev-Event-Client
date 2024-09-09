@@ -41,7 +41,7 @@ export type EventForm = {
   changeTitle: (e: { target: { value: string } }) => void;
   error: EventErrorForm<boolean>;
   description: string;
-  changeDescription: (e: { target: { value: string } }) => void;
+  setDescription: Dispatch<SetStateAction<string>>;
   organizer: string;
   changeOrganizer: (e: { target: { value: string } }) => void;
   eventLink: string;

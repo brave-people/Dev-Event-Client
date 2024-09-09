@@ -39,10 +39,6 @@ export const Create = () => {
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
   };
-  const changeDescription = (value: string) => {
-    setDescription(value);
-    return description;
-  };
   const changeOrganizer = (e: { target: { value: string } }) => {
     setOrganizer(e.target.value);
   };
@@ -126,7 +122,7 @@ export const Create = () => {
       changeTitle={changeTitle}
       error={error}
       description={description}
-      changeDescription={changeDescription}
+      setDescription={setDescription}
       organizer={organizer}
       changeOrganizer={changeOrganizer}
       eventLink={eventLink}

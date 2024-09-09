@@ -1,8 +1,7 @@
-// import '@uiw/react-markdown-preview/markdown.css';
+import '@uiw/react-markdown-preview/markdown.css';
 import { MDEditorProps } from '@uiw/react-md-editor';
-// import '@uiw/react-md-editor/markdown-editor.css';
+import '@uiw/react-md-editor/markdown-editor.css';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { FileDrop } from 'react-file-drop';
 import dynamic from 'next/dynamic';
 import { fetchUploadImage } from '../../../api/image';
 

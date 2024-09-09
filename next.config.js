@@ -1,10 +1,15 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
+import removeImports from 'next-remove-imports';
 
 const prod = process.env.NODE_ENV === 'production';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const removeImportsFun = removeImports({
+  // test: /node_modules([\s\S]*?)\.(tsx|ts|js|mjs|jsx)$/,
+  // matchImports: "\\.(less|css|scss|sass|styl)$"
+});
 
-export default {
+export default removeImportsFun({
   webpack: (config) => {
     return {
       ...config,
@@ -28,4 +33,4 @@ export default {
   experimental: {
     appDir: true,
   },
-};
+});

@@ -15,6 +15,8 @@ const ReactQuill = dynamic(
     const ImageCompress = await import('quill-image-compress');
     const ImageResize = await import('quill-image-resize-module-ts');
     const ImageDrop = await import('quill-image-drop-module');
+    // const Markdown = await import('quilljs-markdown');
+    // alert(Markdown.QuillMarkdown);
 
     RQ.Quill.register('modules/imageCompress', ImageCompress.default);
     RQ.Quill.register('modules/imageResize', ImageResize.ImageResize);
@@ -89,13 +91,15 @@ const Editor = ({
         if (file) {
           formData.append('images', file);
           const imageURL = await uploadImage(formData);
-          const range = quillRef.current?.getEditor();
-          quillRef.current
-            ?.getEditor()
-            .insertEmbed(range.index, 'image', imageURL);
+          if (quillRef.current) {
+            const range = quillRef.current?.getEditor();
+            quillRef.current
+              ?.getEditor()
+              .insertEmbed(range.index, 'image', imageURL);
 
-          quillRef.current.getEditorV2().setSelection(range.index + 1);
-          document.body.querySelector(':scope > input').remove();
+            quillRef.current.getEditorV2().setSelection(range.index + 1);
+            // document.body.querySelector(':scope > input').remove();
+          }
         } else {
           console.log('file undefined');
           throw new Error('file undefined');
@@ -118,9 +122,9 @@ const Editor = ({
           [{ align: [] }, 'link', 'image'],
         ],
         imageDrop: true,
-        clipboard: {
-          matchVisual: false, // toggle to add extra line breaks when pasting HTML:
-        },
+        matchVisual: false, // toggle to add extra line breaks when pasting HTML:
+      },
+      clipboard: {
         handlers: {
           image: imageHandler,
         },

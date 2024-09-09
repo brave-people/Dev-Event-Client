@@ -5,18 +5,19 @@ import type { EventForm, EventTime } from '../../../model/Event';
 import { eventTagsAtom } from '../../../store/tags';
 import ErrorContext from '../../layouts/ErrorContext';
 import EventType from '../../molecules/EventType';
-import ImageUpload from '../../molecules/image-upload';
+import Editor from '../../molecules/editor';
 import ContentDate from '../../molecules/form/ContentDate';
 import ContentDescription from '../../molecules/form/ContentDescription';
 import Tag from '../../molecules/form/Tag';
-import Editor from '../../molecules/editor';
+import ImageUpload from '../../molecules/image-upload';
+import { MarkdownEditor } from '../../molecules/markdown';
 
 const Form = ({
   title,
   changeTitle,
   error,
   description,
-  changeDescription,
+  setDescription,
   organizer,
   changeOrganizer,
   eventLink,
@@ -49,7 +50,6 @@ const Form = ({
             changeTitle={changeTitle}
             error={error}
             description={description}
-            changeDescription={changeDescription}
             organizer={organizer}
             changeOrganizer={changeOrganizer}
             eventLink={eventLink}
@@ -75,9 +75,9 @@ const Form = ({
             isModify={isModify}
           />
           <ImageUpload setBlob={setBlob} coverImageUrl={coverImageUrl} />
-          <Editor
+          <MarkdownEditor
             description={description}
-            changeDescription={changeDescription}
+            setDescription={setDescription}
           />
         </div>
         <div className="relative pt-8 pb-6">
