@@ -4,7 +4,6 @@ import type { EventForm } from '../../../model/Event';
 import Input from '../../atoms/input/Input';
 import ErrorContext from '../../layouts/ErrorContext';
 import React from 'react';
-import 'react-quill/dist/quill.snow.css';
 
 type ContentDescriptionProps = Pick<
   EventForm,

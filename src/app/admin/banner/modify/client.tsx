@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { getBannerApi } from '../../../../api/banner';
 import BannerModifyForm from '../../../../components/organisms/banner/Modify';

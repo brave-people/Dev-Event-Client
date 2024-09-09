@@ -1,6 +1,6 @@
 'use client';
 
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PasswordForm from '../../../components/organisms/form/auth/Password';
 import UserComponent from '../../../components/templates/User';
 import type { ResponseTokenModel } from '../../../model/User';

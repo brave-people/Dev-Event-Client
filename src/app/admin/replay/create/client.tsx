@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useSetAtom } from 'jotai';
 import { getTagsApi } from '../../../../api/replay/tag';
 import ReplayCreateForm from '../../../../components/organisms/replay/Create';

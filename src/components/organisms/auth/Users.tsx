@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
 import { deleteUsersApi, getUsersApi } from '../../../api/auth/users';
@@ -11,13 +11,11 @@ import { getUserRoleIsAdmin } from '../../../util/get-user-role';
 
 const Users = () => {
   const router = useRouter();
-  const { data, refetch } = useQuery(
-    ['fetchUsers'],
-    async () => await getUsersApi(),
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
+  const { data, refetch } = useQuery({
+    queryKey: ['fetchUsers'],
+    queryFn: async () => await getUsersApi(),
+    refetchOnWindowFocus: false,
+  });
   const [user] = useAtom(userAtom);
   const [, setSelectedUser] = useAtom(selectedUserAtom);
   const isAdmin = getUserRoleIsAdmin(user?.roles);

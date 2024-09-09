@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getReplayEventsApi } from '../../../api/replay';
 import { deleteReplayApi } from '../../../api/replay/delete';
 import List from '../../molecules/List';
@@ -8,11 +8,11 @@ const ReplayList = () => {
   const currentDate = new Date();
   const [year, setYear] = useState(currentDate.getFullYear());
 
-  const { data, refetch } = useQuery(
-    ['fetchReplay', { year }],
-    async () => await getReplayEventsApi({ year }),
-    { refetchOnWindowFocus: false }
-  );
+  const { data, refetch } = useQuery({
+    queryKey: ['fetchReplay', { year }],
+    queryFn: async () => await getReplayEventsApi({ year }),
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <List

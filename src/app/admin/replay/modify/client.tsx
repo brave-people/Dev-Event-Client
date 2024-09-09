@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { router } from 'next/client';
 import { useSearchParams } from 'next/navigation';
 import { useSetAtom } from 'jotai';

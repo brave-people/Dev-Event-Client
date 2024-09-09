@@ -2,7 +2,7 @@ import type {
   QueryObserverResult,
   RefetchOptions,
   RefetchQueryFilters,
-} from 'react-query';
+} from '@tanstack/react-query';
 
 export interface TagName {
   tag_name: string;

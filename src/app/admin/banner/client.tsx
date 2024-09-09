@@ -1,6 +1,6 @@
 'use client';
 
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import BannerList from '../../../components/organisms/banner/List';
 import EventComponent from '../../../components/templates/Event';
 import type { ResponseTokenModel } from '../../../model/User';
