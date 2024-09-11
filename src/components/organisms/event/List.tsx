@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getEventsApi } from '../../../api/events';
 import { deleteEventApi } from '../../../api/events/delete';
 import List from '../../molecules/List';
@@ -9,11 +9,11 @@ const EventList = () => {
   const [year, setYear] = useState(currentDate.getFullYear());
   const [month, setMonth] = useState(currentDate.getMonth());
 
-  const { data, refetch } = useQuery(
-    ['fetchEvents', { year, month }],
-    async () => await getEventsApi({ year, month: month + 1 }),
-    { refetchOnWindowFocus: false }
-  );
+  const { data, refetch } = useQuery({
+    queryKey: ['fetchEvents', { year, month }],
+    queryFn: async () => await getEventsApi({ year, month: month + 1 }),
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <List

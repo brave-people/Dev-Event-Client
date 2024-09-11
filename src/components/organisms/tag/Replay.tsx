@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import {
   createTagApi,
   modifyTagApi,
@@ -9,11 +9,11 @@ import type { Tag } from '../../../model/Tag';
 import TagComponent from '../../molecules/Tag';
 
 const TagList = ({ tags }: { tags: Tag[] }) => {
-  const { data, refetch } = useQuery(
-    ['fetchReplayTags'],
-    async () => await getTagsApi(),
-    { refetchOnWindowFocus: false }
-  );
+  const { data, refetch } = useQuery({
+    queryKey: ['fetchReplayTags'],
+    queryFn: async () => await getTagsApi(),
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <TagComponent

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { Fragment, useEffect, useState, useRef } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
 import { getBannersApi } from '../../../api/banner';
@@ -17,11 +17,11 @@ const List = () => {
   const [currentId, setCurrentId] = useState<number | null>(null);
   const [maxHeight, setMaxHeight] = useState<string | null>(null);
 
-  const { data, refetch } = useQuery(
-    ['fetchBanners'],
-    async () => await getBannersApi(),
-    { refetchOnWindowFocus: false }
-  );
+  const { data, refetch } = useQuery({
+    queryKey: ['fetchBanners'],
+    queryFn: async () => await getBannersApi(),
+    refetchOnWindowFocus: false,
+  });
 
   const convertBannerStatus = (
     isVisible: 'Y' | 'N',

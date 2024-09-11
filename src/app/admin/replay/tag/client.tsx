@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { getTagsApi } from '../../../../api/replay/tag';
 import ReplayTagList from '../../../../components/organisms/tag/Replay';
 import EventComponent from '../../../../components/templates/Event';
