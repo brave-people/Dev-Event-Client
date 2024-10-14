@@ -1,149 +1,108 @@
-import React, {
-  Dispatch,
-  forwardRef,
-  SetStateAction,
-  useMemo,
-  useRef,
-} from 'react';
-import 'react-quill/dist/quill.snow.css';
+import './../../../style/lexical.css';
+import './index.css';
+import React, { ComponentProps, useEffect, useState } from 'react';
+import styles from './editor.module.scss';
+import classNames from 'classnames/bind';
+import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { useLexicalHistory } from './state/lexicalHistory/LexicalHistoryProvider';
+import LexicalRichTextPlugin from './plugins/richTextPlugin';
+import ShareStateSenderPlugin from './plugins/shareStateSenderPlugin';
+import ShareStateReceiverPlugin from './plugins/shareStateReceiverPlugin';
+import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
+import { LexicalNodes } from './nodes';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin';
+import { HorizontalRulePlugin } from '@lexical/react/LexicalHorizontalRulePlugin';
+import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
+import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
+import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
+import { validateUrl } from './utils';
+import { TRANSFORMERS } from '@lexical/markdown';
+import DEFAULT_THEME from './theme/PlaygroundEditorTheme';
+import { ListPlugin } from '@lexical/react/LexicalListPlugin';
+import ImagesPlugin from './plugins/imagePlugin';
+import DragDropPaste from './plugins/dragDropPastePlugin';
+import InlineImagePlugin from './plugins/InlineImagePlugin';
+import { useLexicalSetting } from './state/lexicalSetting/LexicalSettingProvider';
 import dynamic from 'next/dynamic';
-import { fetchUploadImage } from '../../../api/image';
+import DraggableBlockPlugin from './plugins/draggableBlockPlugin';
+import LexicalHTMLPlugin from './plugins/htmlPlugin';
+import { useLexicalStateShare } from './state/lexicalStateShare/LexicalStateShareContext';
 
-const ReactQuill = dynamic(
-  async () => {
-    const { default: RQ } = await import('react-quill');
-    const ImageCompress = await import('quill-image-compress');
-    const ImageResize = await import('quill-image-resize-module-ts');
-    const ImageDrop = await import('quill-image-drop-module');
-    // const Markdown = await import('quilljs-markdown');
-    // alert(Markdown.QuillMarkdown);
+const cx = classNames.bind(styles);
 
-    RQ.Quill.register('modules/imageCompress', ImageCompress.default);
-    RQ.Quill.register('modules/imageResize', ImageResize.ImageResize);
-    RQ.Quill.register('modules/imageDrop', ImageDrop.ImageDrop);
+const DynamicToolBar = dynamic(() => import('./plugins/toolbarPlugin'), {
+  ssr: false,
+});
 
-    const editorContainer = forwardRef<typeof RQ, any>(function getEditor(
-      props,
-      ref
-    ) {
-      const newProps = {
-        ...props,
-        modules: {
-          ...props.modules,
-          imageResize: {
-            parchment: RQ.Quill.import('parchment'),
-            modules: ['Resize', 'DisplaySize', 'Toolbar'],
-          },
-          imageDrop: true,
-          // imageCompress: {
-          //   quality: 0.9, // default
-          //   imageType: 'image/*', // default
-          //   debug: true, // default
-          //   suppressErrorLogging: false, // default
-          //   insertIntoEditor: true, // default
-          // },
-        },
-      };
-      return <RQ ref={ref} {...newProps} />;
-    });
-
-    return editorContainer;
-  },
-  { ssr: false, loading: () => <div>*에디터를 불러오는 중입니다...</div> }
-);
-
-const Editor = ({
-  description,
-  setDescription,
-}: {
-  description: string;
-  setDescription: Dispatch<SetStateAction<string>>;
-}) => {
-  const quillRef = useRef(null);
-  // const quillRef = useRef<typeof ReactQuill | null>(null);
-  // const quillRef = useRef<HTMLDivElement>(null);
-
-  const uploadImage = async (blob: FormData) => {
-    if (blob === null) return '';
-
-    const data = await fetchUploadImage({
-      fileType: 'DEV_EVENT_DETAIL',
-      body: blob,
-    });
-
-    if (data.message) alert(data.message);
-    if (data.file_url) return data.file_url;
-    return '';
-  };
-
-  const imageHandler = () => {
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
-
-    input.onchange = async () => {
-      try {
-        const file = input.files?.[0];
-
-        const formData = new FormData();
-
-        if (file) {
-          formData.append('images', file);
-          const imageURL = await uploadImage(formData);
-          if (quillRef.current) {
-            const range = quillRef.current?.getEditor();
-            quillRef.current
-              ?.getEditor()
-              .insertEmbed(range.index, 'image', imageURL);
-
-            quillRef.current.getEditorV2().setSelection(range.index + 1);
-            // document.body.querySelector(':scope > input').remove();
-          }
-        } else {
-          console.log('file undefined');
-          throw new Error('file undefined');
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  };
-
-  const modules = useMemo(() => {
-    return {
-      toolbar: {
-        container: [
-          [{ header: [1, 2, 3, false] }],
-          ['bold', 'italic', 'underline', 'strike'],
-          ['blockquote'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          [{ color: [] }, { background: [] }],
-          [{ align: [] }, 'link', 'image'],
-        ],
-        imageDrop: true,
-        matchVisual: false, // toggle to add extra line breaks when pasting HTML:
+const Editor = () => {
+  const [isLinkEditMode, setIsLinkEditMode] = useState<boolean>(false);
+  const { stateHtml } = useLexicalStateShare();
+  const { settings } = useLexicalSetting();
+  const initialConfig: ComponentProps<typeof LexicalComposer>['initialConfig'] =
+    {
+      namespace: 'resister-lexical',
+      nodes: [...LexicalNodes],
+      onError: (error: Error) => {
+        console.error(error);
       },
-      clipboard: {
-        handlers: {
-          image: imageHandler,
-        },
-      },
+      theme: DEFAULT_THEME,
     };
-  }, []);
+  const { historyState } = useLexicalHistory();
+
+  useEffect(() => {
+    const domParser = new DOMParser();
+    const htmlString = '<p>Hello World!</p>';
+    const mimeType = 'text/xml';
+    domParser.parseFromString(htmlString, mimeType);
+  }, [stateHtml]);
 
   return (
-    <div className="form__content">
-      <ReactQuill
-        style={{ width: '100%', height: '500px', paddingTop: '10px' }}
-        placeholder="내용을 입력해주세요. *드래그하면 이미지가 추가됩니다..."
-        theme="snow"
-        forwardedRef={quillRef}
-        value={description}
-        onChange={setDescription}
-        modules={modules}
-      />
-    </div>
+    <section className={cx('lexical-shell')}>
+      <div className={cx('wrapper')}>
+        <LexicalComposer initialConfig={initialConfig}>
+          <div className={cx('content-editable')}>
+            {settings.isRichText && (
+              <DynamicToolBar setIsLinkEditMode={setIsLinkEditMode} />
+            )}
+
+            <LexicalRichTextPlugin />
+            <ShareStateSenderPlugin />
+            <AutoFocusPlugin />
+            <CheckListPlugin />
+            <HorizontalRulePlugin />
+            <HashtagPlugin />
+            <ListPlugin />
+            <LinkPlugin />
+            <AutoFocusPlugin />
+            <LinkPlugin validateUrl={validateUrl} />
+            <ImagesPlugin />
+            <DragDropPaste />
+            <DraggableBlockPlugin />
+            <HistoryPlugin externalHistoryState={historyState} />
+            <InlineImagePlugin />
+            <LexicalHTMLPlugin />
+            <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+          </div>
+        </LexicalComposer>
+      </div>
+      <div>
+        {stateHtml && <div dangerouslySetInnerHTML={{ __html: stateHtml }} />}
+      </div>
+      {/* <div className={cx('wrapper')}>
+        <LexicalComposer initialConfig={initialConfig}>
+          <div className={cx('content-editable')}>
+            <LexicalRichTextPlugin />
+            <ShareStateReceiverPlugin />
+            <AutoFocusPlugin />
+            <CheckListPlugin />
+            <HorizontalRulePlugin />
+            <HashtagPlugin />
+            <LinkPlugin validateUrl={validateUrl} />
+          </div>
+        </LexicalComposer>
+      </div> */}
+    </section>
   );
 };
 

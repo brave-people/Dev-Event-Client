@@ -1,0 +1,23 @@
+.lexical-shell {
+  margin-top: 2rem;
+  width: 100%;
+  min-height: 480px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+
+  .wrapper {
+    flex: 1;
+    height: 100%;
+    border: 1px solid #000;
+    position: relative;
+  }
+}
+
+.content-editable {
+  outline: none;
+  height: 100%;
+  width: 100%;
+  min-height: 480px;
+}
