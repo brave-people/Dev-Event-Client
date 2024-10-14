@@ -5,12 +5,16 @@ import type { EventForm, EventTime } from '../../../model/Event';
 import { eventTagsAtom } from '../../../store/tags';
 import ErrorContext from '../../layouts/ErrorContext';
 import EventType from '../../molecules/EventType';
-import Editor from '../../molecules/editor';
+// import Editor from '../../molecules/editor';
 import ContentDate from '../../molecules/form/ContentDate';
 import ContentDescription from '../../molecules/form/ContentDescription';
 import Tag from '../../molecules/form/Tag';
 import ImageUpload from '../../molecules/image-upload';
 import { MarkdownEditor } from '../../molecules/markdown';
+import Editor from '../../molecules/editor';
+import LexicalSettingProvider from '../../molecules/editor/state/lexicalSetting/LexicalSettingProvider';
+import LexicalHistoryProvider from '../../molecules/editor/state/lexicalHistory/LexicalHistoryProvider';
+import LexicalStateShareProvider from '../../molecules/editor/state/lexicalStateShare/LexicalStateShareProvider';
 
 const Form = ({
   title,
@@ -75,10 +79,17 @@ const Form = ({
             isModify={isModify}
           />
           <ImageUpload setBlob={setBlob} coverImageUrl={coverImageUrl} />
-          <MarkdownEditor
+          {/* <MarkdownEditor
             description={description}
             setDescription={setDescription}
-          />
+          /> */}
+          <LexicalSettingProvider>
+            <LexicalHistoryProvider>
+              <LexicalStateShareProvider>
+                <Editor />
+              </LexicalStateShareProvider>
+            </LexicalHistoryProvider>
+          </LexicalSettingProvider>
         </div>
         <div className="relative pt-8 pb-6">
           <button

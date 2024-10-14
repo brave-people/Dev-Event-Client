@@ -8,6 +8,10 @@ import ImageUpload from '../../molecules/image-upload';
 import ContentDate from '../../molecules/form/ContentDate';
 import ContentDescription from '../../molecules/form/ContentDescription';
 import Tag from '../../molecules/form/Tag';
+import Editor from '../../molecules/editor';
+import LexicalSettingProvider from '../../molecules/editor/state/lexicalSetting/LexicalSettingProvider';
+import LexicalHistoryProvider from '../../molecules/editor/state/lexicalHistory/LexicalHistoryProvider';
+import LexicalStateShareProvider from '../../molecules/editor/state/lexicalStateShare/LexicalStateShareProvider';
 
 const Form = ({
   title,
@@ -75,6 +79,13 @@ const Form = ({
             isModify={isModify}
           />
           <ImageUpload setBlob={setBlob} coverImageUrl={coverImageUrl} />
+          <LexicalSettingProvider>
+            <LexicalHistoryProvider>
+              <LexicalStateShareProvider>
+                <Editor />
+              </LexicalStateShareProvider>
+            </LexicalHistoryProvider>
+          </LexicalSettingProvider>
         </div>
       </form>
       <div className="relative pt-8 pb-6">
