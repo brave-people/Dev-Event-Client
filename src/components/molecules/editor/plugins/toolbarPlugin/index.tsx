@@ -906,7 +906,6 @@ export default function ToolbarPlugin({
             rootType={rootType}
             editor={activeEditor}
           />
-          <Divider />
         </>
       )}
       {blockType === 'code' ? (

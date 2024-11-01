@@ -7,7 +7,7 @@ import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { useLexicalHistory } from './state/lexicalHistory/LexicalHistoryProvider';
 import LexicalRichTextPlugin from './plugins/richTextPlugin';
 import ShareStateSenderPlugin from './plugins/shareStateSenderPlugin';
-import ShareStateReceiverPlugin from './plugins/shareStateReceiverPlugin';
+// import ShareStateReceiverPlugin from './plugins/shareStateReceiverPlugin';
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import { LexicalNodes } from './nodes';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
@@ -15,19 +15,17 @@ import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin';
 import { HorizontalRulePlugin } from '@lexical/react/LexicalHorizontalRulePlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
-import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { validateUrl } from './utils';
-import { TRANSFORMERS } from '@lexical/markdown';
 import DEFAULT_THEME from './theme/PlaygroundEditorTheme';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import ImagesPlugin from './plugins/imagePlugin';
 import DragDropPaste from './plugins/dragDropPastePlugin';
 import InlineImagePlugin from './plugins/InlineImagePlugin';
-import { useLexicalSetting } from './state/lexicalSetting/LexicalSettingProvider';
 import dynamic from 'next/dynamic';
 import DraggableBlockPlugin from './plugins/draggableBlockPlugin';
 import LexicalHTMLPlugin from './plugins/htmlPlugin';
 import { useLexicalStateShare } from './state/lexicalStateShare/LexicalStateShareContext';
+import MarkdownPlugin from './plugins/markdownPlugin';
 
 const cx = classNames.bind(styles);
 
@@ -36,9 +34,9 @@ const DynamicToolBar = dynamic(() => import('./plugins/toolbarPlugin'), {
 });
 
 const Editor = () => {
+  const [isView, setIsView] = useState<boolean>(false);
   const [isLinkEditMode, setIsLinkEditMode] = useState<boolean>(false);
   const { stateHtml } = useLexicalStateShare();
-  const { settings } = useLexicalSetting();
   const initialConfig: ComponentProps<typeof LexicalComposer>['initialConfig'] =
     {
       namespace: 'resister-lexical',
@@ -62,11 +60,32 @@ const Editor = () => {
       <div className={cx('wrapper')}>
         <LexicalComposer initialConfig={initialConfig}>
           <div className={cx('content-editable')}>
-            {settings.isRichText && (
+            <div className={cx('toolbar-wrapper')}>
+              <div className={cx('state-container')}>
+                <button
+                  className={cx('state-btn', { active: !isView })}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    setIsView(false);
+                  }}
+                >
+                  Write
+                </button>
+                <button
+                  className={cx('state-btn', { active: isView })}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    setIsView(true);
+                  }}
+                >
+                  Preview
+                </button>
+              </div>
               <DynamicToolBar setIsLinkEditMode={setIsLinkEditMode} />
-            )}
-
-            <LexicalRichTextPlugin />
+            </div>
+            {!isView && <LexicalRichTextPlugin />}
             <ShareStateSenderPlugin />
             <AutoFocusPlugin />
             <CheckListPlugin />
@@ -82,12 +101,16 @@ const Editor = () => {
             <HistoryPlugin externalHistoryState={historyState} />
             <InlineImagePlugin />
             <LexicalHTMLPlugin />
-            <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+            <MarkdownPlugin />
           </div>
+          {isView && (
+            <div className={cx('viewer')}>
+              {stateHtml && (
+                <div dangerouslySetInnerHTML={{ __html: stateHtml }} />
+              )}
+            </div>
+          )}
         </LexicalComposer>
-      </div>
-      <div>
-        {stateHtml && <div dangerouslySetInnerHTML={{ __html: stateHtml }} />}
       </div>
       {/* <div className={cx('wrapper')}>
         <LexicalComposer initialConfig={initialConfig}>

@@ -30,37 +30,30 @@
 .PlaygroundEditorTheme__h1 {
   font-size: 30px;
   color: rgb(5, 5, 5);
-  font-weight: 400;
+  font-weight: 600;
   margin: 0;
 }
 .PlaygroundEditorTheme__h2 {
-  font-size: 28px;
+  font-size: 26px;
   color: rgb(5, 5, 5);
   font-weight: 700;
   margin: 0;
-  text-transform: uppercase;
 }
 .PlaygroundEditorTheme__h3 {
   font-size: 24px;
   margin: 0;
   color: rgb(5, 5, 5);
-
-  text-transform: uppercase;
 }
 
 .PlaygroundEditorTheme__h4 {
   font-size: 20px;
   margin: 0;
   color: rgb(5, 5, 5);
-
-  text-transform: uppercase;
 }
 .PlaygroundEditorTheme__h5 {
   font-size: 18px;
   margin: 0;
   color: rgb(5, 5, 5);
-
-  text-transform: uppercase;
 }
 .PlaygroundEditorTheme__indent {
   --lexical-indent-base-value: 40px;
@@ -325,8 +318,47 @@
   list-style-position: outside;
 }
 .PlaygroundEditorTheme__listItem {
-  margin: 0 32px;
+  margin-left: 32px;
+  position: relative;
 }
+
+.PlaygroundEditorTheme__ol1 > .PlaygroundEditorTheme__listItem {
+  list-style-type: decimal;
+  padding-left: 16px;
+}
+.PlaygroundEditorTheme__ol2 > .PlaygroundEditorTheme__listItem {
+  list-style-type: decimal;
+  padding-left: 16px;
+}
+.PlaygroundEditorTheme__ol3 > .PlaygroundEditorTheme__listItem {
+  list-style-type: decimal;
+  padding-left: 16px;
+}
+.PlaygroundEditorTheme__ol4 > .PlaygroundEditorTheme__listItem {
+  list-style-type: decimal;
+  padding-left: 16px;
+}
+.PlaygroundEditorTheme__ol5 > .PlaygroundEditorTheme__listItem {
+  list-style-type: decimal;
+  padding-left: 16px;
+}
+
+.PlaygroundEditorTheme__ul > .PlaygroundEditorTheme__listItem {
+  list-style-type: none;
+  position: relative;
+  padding-left: 16px;
+}
+
+.PlaygroundEditorTheme__ul > .PlaygroundEditorTheme__listItem::before {
+  content: '•';
+  list-style-type: none;
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  font-size: 24px;
+  transform: translate(-50%, -50%);
+}
+
 .PlaygroundEditorTheme__listItemChecked,
 .PlaygroundEditorTheme__listItemUnchecked {
   position: relative;

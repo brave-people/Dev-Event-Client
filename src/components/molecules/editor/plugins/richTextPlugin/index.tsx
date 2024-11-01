@@ -23,11 +23,12 @@ const LexicalRichTextPlugin = ({ placeholder }: Props) => {
   return (
     <RichTextPlugin
       contentEditable={
-        <div className={cx('richtext-container')}>
+        <div className={cx('richtext-container')} style={{ width: '100%' }}>
           <ContentEditable
             contentEditable
             className={cx('richtext')}
             role="textbox"
+            width={'100%'}
           />
         </div>
       }
