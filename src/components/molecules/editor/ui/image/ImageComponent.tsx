@@ -90,6 +90,7 @@ function LazyImage({
   useSuspenseImage(src);
   return (
     <img
+      id="lexical-image"
       className={className || undefined}
       src={src}
       alt={altText}

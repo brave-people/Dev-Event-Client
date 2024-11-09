@@ -876,6 +876,25 @@ export default function ToolbarPlugin({
       <button
         disabled={!canUndo || !isEditable}
         onClick={() => {
+          const images = document.querySelectorAll('#lexical-image');
+          images.forEach((image) => {
+            console.log('image', image.getAttribute('src'));
+
+            const mygithub_profile =
+              'https://avatars.githubusercontent.com/u/104838360?v=4';
+            image.setAttribute('src', mygithub_profile);
+          });
+        }}
+        title={IS_APPLE ? 'Undo (⌘Z)' : 'Undo (Ctrl+Z)'}
+        type="button"
+        className="toolbar-item spaced"
+        aria-label="Undo"
+      >
+        <i className="format undo" />
+      </button>
+      <button
+        disabled={!canUndo || !isEditable}
+        onClick={() => {
           activeEditor.dispatchCommand(UNDO_COMMAND, undefined);
         }}
         title={IS_APPLE ? 'Undo (⌘Z)' : 'Undo (Ctrl+Z)'}

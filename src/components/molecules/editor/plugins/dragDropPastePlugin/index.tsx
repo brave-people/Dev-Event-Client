@@ -9,7 +9,7 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { DRAG_DROP_PASTE } from '@lexical/rich-text';
 import { isMimeType, mediaFileReader } from '@lexical/utils';
-import { COMMAND_PRIORITY_LOW } from 'lexical';
+import { COMMAND_PRIORITY_HIGH, COMMAND_PRIORITY_LOW } from 'lexical';
 import { useEffect } from 'react';
 
 import { INSERT_IMAGE_COMMAND } from './../imagePlugin';
@@ -33,6 +33,7 @@ export default function DragDropPaste(): null {
             files,
             [ACCEPTABLE_IMAGE_TYPES].flatMap((x) => x)
           );
+          console.log('filesResult:', filesResult);
           for (const { file, result } of filesResult) {
             if (isMimeType(file, ACCEPTABLE_IMAGE_TYPES)) {
               editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
@@ -44,7 +45,7 @@ export default function DragDropPaste(): null {
         })();
         return true;
       },
-      COMMAND_PRIORITY_LOW
+      COMMAND_PRIORITY_HIGH
     );
   }, [editor]);
   return null;

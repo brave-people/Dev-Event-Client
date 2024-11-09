@@ -82,6 +82,7 @@ function LazyImage({
       alt={altText}
       ref={imageRef}
       data-position={position}
+      id="lexical-image"
       style={{
         display: 'block',
         height,
