@@ -1378,7 +1378,7 @@ button.action-button:disabled {
   vertical-align: middle;
   overflow: auto;
   top: 0;
-  z-index: 999;
+  z-index: 9;
 }
 
 button.toolbar-item {

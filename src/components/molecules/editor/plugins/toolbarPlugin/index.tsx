@@ -86,6 +86,7 @@ import {
 } from './../imagePlugin';
 import { InsertInlineImageDialog } from '../InlineImagePlugin';
 import FontSize from './fontSize';
+import { fetchUploadImage } from '../../../../../api/image';
 
 const blockTypeToBlockName = {
   bullet: 'Bulleted List',
@@ -864,9 +865,6 @@ export default function ToolbarPlugin({
     },
     [activeEditor, selectedElementKey]
   );
-  const insertGifOnClick = (payload: InsertImagePayload) => {
-    activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
-  };
 
   const canViewerSeeInsertDropdown = !isImageCaption;
   const canViewerSeeInsertCodeButton = !isImageCaption;
@@ -877,12 +875,25 @@ export default function ToolbarPlugin({
         disabled={!canUndo || !isEditable}
         onClick={() => {
           const images = document.querySelectorAll('#lexical-image');
-          images.forEach((image) => {
-            console.log('image', image.getAttribute('src'));
+          images.forEach(async (image) => {
+            const formData = new FormData();
+            const src = image.getAttribute('src');
 
-            const mygithub_profile =
-              'https://avatars.githubusercontent.com/u/104838360?v=4';
-            image.setAttribute('src', mygithub_profile);
+            if (src) {
+              const blob = new Blob([src], { type: 'image/png' });
+              formData.append(
+                'images',
+                blob,
+                image.getAttribute('alt') || 'image'
+              );
+              await fetchUploadImage({
+                fileType: 'DEV_EVENT',
+                body: formData,
+              }).then((data) => {
+                console.log(data);
+                image.setAttribute('src', data.file_url);
+              });
+            }
           });
         }}
         title={IS_APPLE ? 'Undo (⌘Z)' : 'Undo (Ctrl+Z)'}

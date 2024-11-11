@@ -7,46 +7,48 @@ import {
   $getRoot,
   $getSelection,
   $setSelection,
-  COMMAND_PRIORITY_HIGH,
-  FORMAT_TEXT_COMMAND,
+  COMMAND_PRIORITY_LOW,
   PASTE_COMMAND,
 } from 'lexical';
 import React, { useEffect } from 'react';
 import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text';
 import { $createListItemNode, $createListNode } from '@lexical/list';
+import { $createImageNode } from '../../nodes/imageNode';
 
 const MarkdownPlugin = () => {
   const [editor] = useLexicalComposerContext();
 
-  // useEffect(() => {
-  //   const removeListener = editor.registerTextContentListener((textContent) => {
-  //     editor.update(() => {
-  //       console.log('textContent:', textContent);
-  //       console.log(textContent.length);
-  //       const root = $getRoot();
-  //       if (
-  //         textContent.length > 4 &&
-  //         textContent.slice(0, 2) === '``' &&
-  //         textContent.slice(-2) === '``'
-  //       ) {
-  //         const selection = $getSelection();
-  //         if (selection) {
-  //           $setSelection(null); // 선택을 null로 설정하여 선택을 지움
-  //         }
-  //         const paragraphNode = $createParagraphNode();
-  //         const textNode = $createTextNode(
-  //           `${textContent.slice(2, -2)}`
-  //         ).setFormat('code');
-  //         paragraphNode.append(textNode);
-  //         root?.append(paragraphNode);
-  //       }
-  //     });
-  //   });
+  useEffect(() => {
+    const removeListener = editor.registerTextContentListener((textContent) => {
+      editor.update(() => {
+        console.log('textContent:', textContent);
+        console.log(textContent.length);
+        const root = $getRoot();
 
-  //   return () => {
-  //     removeListener();
-  //   };
-  // }, [editor]);
+        if (
+          textContent.length > 4 &&
+          textContent.slice(0, 2) === '``' &&
+          textContent.slice(-2) === '``'
+        ) {
+          const selection = $getSelection();
+          if (selection) {
+            $setSelection(null); // 선택을 null로 설정하여 선택을 지움
+          }
+          const paragraphNode = $createParagraphNode();
+          const textNode = $createTextNode(
+            `${textContent.slice(2, -2)}`
+          ).setFormat('code');
+          $setSelection;
+          paragraphNode.append(textNode);
+          root?.append(paragraphNode);
+        }
+      });
+    });
+
+    return () => {
+      removeListener();
+    };
+  }, [editor]);
 
   useEffect(() => {
     const removePasteListener = editor.registerCommand(
@@ -55,10 +57,29 @@ const MarkdownPlugin = () => {
         (async () => {
           const clipboardEvent = event as ClipboardEvent;
 
-          clipboardEvent.preventDefault();
+          event.preventDefault();
+          event.stopPropagation();
 
-          console.log('clipboardEvent:', clipboardEvent);
+          const isFile = clipboardEvent.clipboardData?.files.length !== 0;
+          if (isFile) {
+            const file = clipboardEvent.clipboardData?.files.item(0);
 
+            if (file) {
+              const image = new Image();
+              image.src = URL.createObjectURL(file);
+              console.log('image:', image.width, image.height);
+              const root = $getRoot();
+              const imageNode = $createImageNode({
+                altText: file.name,
+                src: URL.createObjectURL(file),
+                width: image.width ?? 200,
+                height: image.height ?? 200,
+              });
+              root.append(imageNode);
+            }
+
+            return;
+          }
           const clipboardData = clipboardEvent.clipboardData
             ?.getData('text/plain')
             .split('\n');
@@ -152,7 +173,7 @@ const MarkdownPlugin = () => {
         })();
         return true;
       },
-      COMMAND_PRIORITY_HIGH
+      COMMAND_PRIORITY_LOW
     );
 
     return () => {
