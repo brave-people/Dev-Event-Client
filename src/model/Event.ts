@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction, MouseEvent } from 'react';
 import type { ReplayLink } from './Replay';
 import type { Tag } from './Tag';
+import { TagLayerType } from './Tag';
 
 export type EventTimeType = 'DATE' | 'RECRUIT';
 
@@ -39,17 +40,22 @@ export interface EventErrorForm<T> {
 
 export type EventForm = {
   title: string;
+  setTitle: Dispatch<SetStateAction<string | null>>;
   changeTitle: (e: { target: { value: string } }) => void;
   error: EventErrorForm<boolean>;
   description: string;
   changeDescription: (e: { target: { value: string } }) => void;
   organizer: string;
+  setOrganizer: Dispatch<SetStateAction<string | null>>;
   changeOrganizer: (e: { target: { value: string } }) => void;
   eventLink: string;
+  setEventLink: Dispatch<SetStateAction<string | null>>;
   changeEventLink: (e: { target: { value: string } }) => void;
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
+  setEventTimeType: Dispatch<SetStateAction<EventTimeType>>;
   startDate: Date | null;
+  setStartDate: Dispatch<SetStateAction<Date | null>>;
   changeStartDate: (date: Date | null) => void;
   startTime: Date | null;
   setStartTime: Dispatch<SetStateAction<Date | null>>;
@@ -69,6 +75,14 @@ export type EventForm = {
 export type EventTime = {
   eventTimeType: EventTimeType;
   changeEventTimeType: (e: MouseEvent, type: EventTimeType) => void;
+};
+
+export type MarkdownInputState = {
+  tagList: Tag[];
+  selectTags: Tag[];
+  activeType: TagLayerType | null;
+  keyword: string;
+  showLayer: boolean;
 };
 
 export type EventRouter =
