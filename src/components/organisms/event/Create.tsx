@@ -122,20 +122,25 @@ export const Create = () => {
   return (
     <Form
       title={title}
+      setTitle={setTitle}
       changeTitle={changeTitle}
       error={error}
       description={description}
       changeDescription={changeDescription}
       organizer={organizer}
+      setOrganizer={setOrganizer}
       changeOrganizer={changeOrganizer}
       eventLink={eventLink}
+      setEventLink={setEventLink}
       changeEventLink={changeEventLink}
       tags={eventTagsName}
       setTags={setEventTags}
       eventTimeType={eventTimeType}
       changeEventTimeType={changeEventTimeType}
       startDate={startDate}
+      setStartDate={setStartDate}
       changeStartDate={changeStartDate}
+      setEventTimeType={setEventTimeType}
       startTime={startTime}
       setStartTime={setStartTime}
       endDate={endDate}
