@@ -40,16 +40,16 @@ export interface EventErrorForm<T> {
 
 export type EventForm = {
   title: string;
-  setTitle: Dispatch<SetStateAction<string | null>>;
+  setTitle: Dispatch<SetStateAction<string>>;
   changeTitle: (e: { target: { value: string } }) => void;
   error: EventErrorForm<boolean>;
   description: string;
   changeDescription: (e: { target: { value: string } }) => void;
   organizer: string;
-  setOrganizer: Dispatch<SetStateAction<string | null>>;
+  setOrganizer: Dispatch<SetStateAction<string>>;
   changeOrganizer: (e: { target: { value: string } }) => void;
   eventLink: string;
-  setEventLink: Dispatch<SetStateAction<string | null>>;
+  setEventLink: Dispatch<SetStateAction<string>>;
   changeEventLink: (e: { target: { value: string } }) => void;
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
@@ -78,10 +78,6 @@ export type EventTime = {
 };
 
 export type MarkdownInputState = {
-  tagList: Tag[];
-  selectTags: Tag[];
-  activeType: TagLayerType | null;
-  keyword: string;
   showLayer: boolean;
 };
 

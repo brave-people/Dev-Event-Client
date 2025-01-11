@@ -8,51 +8,6 @@ import type { EventType, EventTimeType } from '../../../model/Event';
 import type { Tag } from '../../../model/Tag';
 import Form from './Form';
 
-interface MarkdownModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onApply: (text: string) => void;
-}
-
-const MarkdownModal = ({ isOpen, onClose, onApply }: MarkdownModalProps) => {
-  const [text, setText] = useState('');
-
-  if (!isOpen) return null;
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* 흐릿한 배경 */}
-      <div
-        className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
-        onClick={onClose}
-      ></div>
-
-      {/* 모달 컨텐츠 */}
-      <div className="relative bg-white rounded-lg p-6 w-full max-w-lg shadow-lg">
-        <textarea
-          className="w-full h-32 p-2 border border-gray-300 rounded-md mb-4 resize-none"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="마크다운 텍스트를 입력하세요"
-        />
-        <div className="flex justify-end gap-2">
-          <button
-            onClick={() => onApply(text)}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-          >
-            적용
-          </button>
-          <button
-            onClick={onClose}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
-          >
-            취소
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 export const Create = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -164,52 +119,37 @@ export const Create = () => {
     return alert(data.message);
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleApply = (text: string) => {
-    //   changeDescription(text);
-    //   setIsModalOpen(false);
-  };
-
   return (
-    <>
-      <Form
-        title={title}
-        setTitle={setTitle}
-        changeTitle={changeTitle}
-        error={error}
-        description={description}
-        changeDescription={changeDescription}
-        organizer={organizer}
-        setOrganizer={setOrganizer}
-        changeOrganizer={changeOrganizer}
-        eventLink={eventLink}
-        setEventLink={setEventLink}
-        changeEventLink={changeEventLink}
-        tags={eventTagsName}
-        setTags={setEventTags}
-        eventTimeType={eventTimeType}
-        changeEventTimeType={changeEventTimeType}
-        startDate={startDate}
-        setStartDate={setStartDate}
-        changeStartDate={changeStartDate}
-        setEventTimeType={setEventTimeType}
-        startTime={startTime}
-        setStartTime={setStartTime}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        endTime={endTime}
-        setEndTime={setEndTime}
-        setBlob={setBlob}
-        saveForm={createEvent}
-      />
-
-      <MarkdownModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onApply={handleApply}
-      />
-    </>
+    <Form
+      title={title}
+      setTitle={setTitle}
+      changeTitle={changeTitle}
+      error={error}
+      description={description}
+      changeDescription={changeDescription}
+      organizer={organizer}
+      setOrganizer={setOrganizer}
+      changeOrganizer={changeOrganizer}
+      eventLink={eventLink}
+      setEventLink={setEventLink}
+      changeEventLink={changeEventLink}
+      tags={eventTagsName}
+      setTags={setEventTags}
+      eventTimeType={eventTimeType}
+      changeEventTimeType={changeEventTimeType}
+      startDate={startDate}
+      setStartDate={setStartDate}
+      changeStartDate={changeStartDate}
+      setEventTimeType={setEventTimeType}
+      startTime={startTime}
+      setStartTime={setStartTime}
+      endDate={endDate}
+      setEndDate={setEndDate}
+      endTime={endTime}
+      setEndTime={setEndTime}
+      setBlob={setBlob}
+      saveForm={createEvent}
+    />
   );
 };
 

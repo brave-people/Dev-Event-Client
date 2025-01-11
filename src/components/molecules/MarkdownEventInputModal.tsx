@@ -44,10 +44,10 @@ const MarkdownEventInputModal = ({
   /*
   파싱 예시
 
-- __[Boot off Network on :ctrl+N](https://gukmodait.framer.ai/)__
-  - 분류: `오프라인(서울 강남)`, `무료`, `모임`, `기술일반`
+- __[AWSKRUG 보안 #security 소모임](https://www.meetup.com/awskrug/events/305515882/)__
+  - 분류: `오프라인(서울 강남)`, `유료`, `모임`
   - 주최: AWSKRUG
-  - 접수: 12. 11(수) 15:00 ~ 12. 13(금) 19:00
+  - 접수: 01. 10(금) ~ 01. 22(수)
   */
   const parsingMarkdown = (text: string) => {
     const lines = text.split('\n');
@@ -87,8 +87,6 @@ const MarkdownEventInputModal = ({
     if (dateLine) {
       // eventTimeType 설정
       eventTimeType = dateLine?.includes('접수:') ? 'RECRUIT' : 'DATE';
-      // setEventTimeType(eventTimeType);
-      // setEventTimeType(dateLine?.includes('접수:') ? 'RECRUIT' : 'DATE');
 
       // 현재 연도 가져오기
       const currentYear = new Date().getFullYear();
@@ -132,12 +130,13 @@ const MarkdownEventInputModal = ({
     console.log(
       `title: ${title}\n
       link: ${link} \n
-      organizer: ${organizer} \n 
+      organizer: ${organizer} \n
+      eventTimeType: ${eventTimeType} \n 
       startDate: ${startDate} \n 
       startTime: ${startTime} \n
       endDate: ${endDate} \n
       endTime: ${endTime} \n
-      eventTimeType: ${eventTimeType}`
+      `
     );
 
     setTitle(title);
