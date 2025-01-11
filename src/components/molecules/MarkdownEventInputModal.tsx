@@ -14,9 +14,9 @@ type MarkdownInputModalProps = {
   state: MarkdownInputState;
   closeLayer: () => void;
   layerRef: MutableRefObject<HTMLDivElement | null>;
-  setTitle: Dispatch<SetStateAction<string | null>>;
-  setOrganizer: Dispatch<SetStateAction<string | null>>;
-  setEventLink: Dispatch<SetStateAction<string | null>>;
+  setTitle: Dispatch<SetStateAction<string>>;
+  setOrganizer: Dispatch<SetStateAction<string>>;
+  setEventLink: Dispatch<SetStateAction<string>>;
   setStartDate: Dispatch<SetStateAction<Date | null>>;
   setStartTime: Dispatch<SetStateAction<Date | null>>;
   setEndDate: Dispatch<SetStateAction<Date | null>>;
@@ -182,6 +182,7 @@ const MarkdownEventInputModal = ({
       </div>
       <div className="m-4">
         <textarea
+          rows={5}
           className="w-full h-96 p-2 border border-gray-300 rounded-md resize-none"
           placeholder="이 곳에 Github 행사 마크다운 텍스트를 입력하면 자동으로 input을 채워줍니다.(단, 태그 자동 입력은 지원하지 않습니다.)"
           value={text}
