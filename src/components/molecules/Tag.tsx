@@ -194,7 +194,9 @@ const TagComponent = ({
                   <tr>
                     <td>
                       <input
-                        ref={(el) => el && (inputRef.current[index] = el)}
+                        ref={(el) => {
+                          if (el) inputRef.current[index] = el;
+                        }}
                         type="checkbox"
                         onChange={handleCheckbox}
                         value={JSON.stringify({ id, tag_name, tag_color })}
