@@ -2,11 +2,11 @@ import { Fragment, useEffect, useState, useRef } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
+import { getHostsApi } from '../../../api/host';
+import { deleteHostsApi } from '../../../api/host/delete';
+import { HostResponse } from '../../../model/Host';
 import { layerAtom } from '../../../store/layer';
 import Alert from '../../molecules/Alert';
-import { deleteHostsApi } from '../../../api/host/delete';
-import { getHostsApi } from '../../../api/host';
-import { HostResponse } from '../../../model/Host';
 
 const HostList = () => {
   const router = useRouter();

@@ -1,7 +1,6 @@
 import type { Dispatch, SetStateAction, MouseEvent } from 'react';
 import type { ReplayLink } from './Replay';
 import type { Tag } from './Tag';
-import { TagLayerType } from './Tag';
 
 export type EventTimeType = 'DATE' | 'RECRUIT';
 
@@ -40,22 +39,22 @@ export interface EventErrorForm<T> {
 
 export type EventForm = {
   title: string;
-  setTitle: Dispatch<SetStateAction<string>>;
+  setTitle?: Dispatch<SetStateAction<string>>;
   changeTitle: (e: { target: { value: string } }) => void;
   error: EventErrorForm<boolean>;
   description: string;
   changeDescription: (e: { target: { value: string } }) => void;
   organizer: string;
-  setOrganizer: Dispatch<SetStateAction<string>>;
+  setOrganizer?: Dispatch<SetStateAction<string>>;
   changeOrganizer: (e: { target: { value: string } }) => void;
   eventLink: string;
-  setEventLink: Dispatch<SetStateAction<string>>;
+  setEventLink?: Dispatch<SetStateAction<string>>;
   changeEventLink: (e: { target: { value: string } }) => void;
   tags: string[];
   setTags: Dispatch<SetStateAction<Tag[]>>;
-  setEventTimeType: Dispatch<SetStateAction<EventTimeType>>;
+  setEventTimeType?: Dispatch<SetStateAction<EventTimeType>>;
   startDate: Date | null;
-  setStartDate: Dispatch<SetStateAction<Date | null>>;
+  setStartDate?: Dispatch<SetStateAction<Date | null>>;
   changeStartDate: (date: Date | null) => void;
   startTime: Date | null;
   setStartTime: Dispatch<SetStateAction<Date | null>>;

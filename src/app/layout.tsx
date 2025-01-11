@@ -1,6 +1,6 @@
 import React from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
 import 'react-color-palette/css';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../style/dist/output.css';
 import '../style/index.scss';
 

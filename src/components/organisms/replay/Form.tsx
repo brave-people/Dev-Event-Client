@@ -4,10 +4,10 @@ import { replayTagsAtom } from '../../../store/tags';
 import BaseLabel from '../../atoms/label/base';
 import ErrorContext from '../../layouts/ErrorContext';
 import FormLink from '../../molecules/DynamicDropboxInput';
-import ImageUpload from '../../molecules/image-upload';
 import ContentDate from '../../molecules/form/ContentDate';
 import ContentDescription from '../../molecules/form/ContentDescription';
 import Tag from '../../molecules/form/Tag';
+import ImageUpload from '../../molecules/image-upload';
 
 const Form = ({
   title,

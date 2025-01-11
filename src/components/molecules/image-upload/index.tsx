@@ -1,4 +1,4 @@
-import { ColorPicker, type IColor, useColor } from 'react-color-palette';
+import Cropper from 'cropperjs';
 import React, {
   type BaseSyntheticEvent,
   type ChangeEvent,
@@ -8,9 +8,9 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import ImageZoom from './ImageZoom';
+import { ColorPicker, type IColor, useColor } from 'react-color-palette';
 import DragZone from './DragZone';
-import Cropper from 'cropperjs';
+import ImageZoom from './ImageZoom';
 
 const OriginImage = ({
   originImageRef,

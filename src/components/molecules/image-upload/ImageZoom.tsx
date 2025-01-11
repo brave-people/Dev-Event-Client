@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { rgbaToHex, rgbaToHsv } from '../../../util/color';
 import type { IColor } from 'react-color-palette';
+import { rgbaToHex, rgbaToHsv } from '../../../util/color';
 
 const ImageZoom = ({
   parentRef,
