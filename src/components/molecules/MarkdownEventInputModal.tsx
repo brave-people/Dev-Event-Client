@@ -95,7 +95,6 @@ const MarkdownEventInputModal = ({
       const startRegex =
         /(\d{2}\.\s*\d{2})\([\w가-힣]+\)(?:\s*(\d{2}:\d{2}))?\s*~/;
       const startMatch = dateLine.match(startRegex);
-      console.log('startMatch: ', startMatch);
       if (startMatch) {
         startDateStr = startMatch[1].replace(/\s+/g, ''); // "12.11"
         startTimeStr = startMatch[2] || '00:00';
