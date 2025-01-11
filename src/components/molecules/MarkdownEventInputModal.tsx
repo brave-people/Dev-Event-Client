@@ -14,14 +14,14 @@ type MarkdownInputModalProps = {
   state: MarkdownInputState;
   closeLayer: () => void;
   layerRef: MutableRefObject<HTMLDivElement | null>;
-  setTitle: Dispatch<SetStateAction<string>>;
-  setOrganizer: Dispatch<SetStateAction<string>>;
-  setEventLink: Dispatch<SetStateAction<string>>;
-  setStartDate: Dispatch<SetStateAction<Date | null>>;
+  setTitle?: Dispatch<SetStateAction<string>>;
+  setOrganizer?: Dispatch<SetStateAction<string>>;
+  setEventLink?: Dispatch<SetStateAction<string>>;
+  setStartDate?: Dispatch<SetStateAction<Date | null>>;
   setStartTime: Dispatch<SetStateAction<Date | null>>;
   setEndDate: Dispatch<SetStateAction<Date | null>>;
   setEndTime: Dispatch<SetStateAction<Date | null>>;
-  setEventTimeType: Dispatch<SetStateAction<EventTimeType>>;
+  setEventTimeType?: Dispatch<SetStateAction<EventTimeType>>;
 };
 
 const MarkdownEventInputModal = ({
@@ -138,14 +138,24 @@ const MarkdownEventInputModal = ({
       `
     );
 
-    setTitle(title);
-    setOrganizer(organizer);
-    setEventLink(link);
-    setStartDate(startDate);
+    if (setTitle) {
+      setTitle(title);
+    }
+    if (setOrganizer) {
+      setOrganizer(organizer);
+    }
+    if (setEventLink) {
+      setEventLink(link);
+    }
+    if (setStartDate) {
+      setStartDate(startDate);
+    }
     setStartTime(startTime);
     setEndDate(endDate);
     setEndTime(endTime);
-    setEventTimeType(eventTimeType as EventTimeType);
+    if (setEventTimeType) {
+      setEventTimeType(eventTimeType as EventTimeType);
+    }
   };
 
   const save = () => {
