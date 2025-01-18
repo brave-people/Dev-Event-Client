@@ -21,7 +21,7 @@
 }
 
 .wrap__box--bg {
-  width: calc(100% - #{$sub__nav});
+  width: 100%;
   min-height: calc(100vh - 90px);
   display: inline-block;
   background-color: $color_bg;
