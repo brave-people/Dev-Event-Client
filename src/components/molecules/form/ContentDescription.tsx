@@ -20,13 +20,9 @@ type ContentDescriptionProps = Pick<
   | 'changeEventLink'
 >;
 
-// todo 미리보기 버튼 클릭하면 텍스트 입력이 사라지게 변경
-// todo 행사 설명 라벨 추가
 // todo 위치 맨 아래로 내리기
-// todo 여백 추가
-// todo 사진 업로드 버튼 만들기
-// todo 실제 파일 업로드로 시도
-// todo 행사 등록시 파일 업로드하도록 변경
+// todo api 이미지 업로드 연동
+// todo 행사 등록시 파일 업로드하도록(lazy upload) 변경
 
 const ContentDescription = ({
   title,
@@ -72,16 +68,18 @@ const ContentDescription = ({
         {error.title && <ErrorContext />}
       </Input>
       <div className="form__content">
-        <div {...getRootProps({ className: 'dropzone' })}>
-          <input {...getInputProps()} />
-          <p>드래그 드랍 혹은 여기를 클릭하시면 사진을 추가할 수 있습니다.</p>
-        </div>
-        <textarea
-          className="w-full h-96 p-2 border border-gray-300 rounded-md resize-none"
-          value={markdown}
-          onChange={handleMarkdownChange}
-          placeholder="Enter your markdown here..."
-        />
+        {!preview && (
+          <button
+            {...getRootProps({
+              className:
+                'dropzone bg-blue-500 text-white rounded mr-2 py-2 px-5 text-sm font-medium mt-2',
+              onClick: (e) => e.preventDefault(),
+            })}
+          >
+            <input {...getInputProps()} />
+            사진 첨부
+          </button>
+        )}
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -89,10 +87,18 @@ const ContentDescription = ({
           }}
           className="bg-blue-500 text-white rounded py-2 px-5 text-sm font-medium mt-2"
         >
-          {preview ? 'Edit' : 'Preview'}
+          {preview ? '작성' : '미리보기'}
         </button>
+        {!preview && (
+          <textarea
+            className="w-full mt-4 mb-4 h-96 p-2 border border-gray-300 rounded-md resize-none"
+            value={markdown}
+            onChange={handleMarkdownChange}
+            placeholder="행사 설명을 입력해주세요. 마크다운 형식을 지원합니다. 드래그 드랍으로 사진을 추가할 수 있습니다."
+          />
+        )}
         {preview && (
-          <div className="markdown-preview mt-4 p-2 border border-gray-300 rounded-md">
+          <div className="markdown-preview mt-4 mb-4 p-2 border border-gray-300 rounded-md">
             <ReactMarkdown>{markdown}</ReactMarkdown>
           </div>
         )}

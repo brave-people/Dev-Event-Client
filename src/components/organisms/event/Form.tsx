@@ -120,6 +120,8 @@ const Form = ({
               isModify={isModify}
             />
             <ImageUpload setBlob={setBlob} coverImageUrl={coverImageUrl} />
+
+            {/* todo: 에디터는 여기로 이동 */}
           </div>
           <div className="relative pt-8 pb-6">
             <button
