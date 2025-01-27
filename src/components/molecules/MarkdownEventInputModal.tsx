@@ -48,6 +48,21 @@ const MarkdownEventInputModal = ({
   - 분류: `오프라인(서울 강남)`, `유료`, `모임`
   - 주최: AWSKRUG
   - 접수: 01. 10(금) ~ 01. 22(수)
+
+- __[AWSKRUG 보안 #security 소모임](https://www.meetup.com/awskrug/events/305515882/)__
+  - 분류: `오프라인(서울 강남)`, `유료`, `모임`
+  - 주최: AWSKRUG
+  - 접수: 01. 10(금) ~ 01. 22(수) 15:00
+
+- __[AWSKRUG 보안 #security 소모임](https://www.meetup.com/awskrug/events/305515882/)__
+  - 분류: `오프라인(서울 강남)`, `유료`, `모임`
+  - 주최: AWSKRUG
+  - 접수: 01. 10(금) 11:00 ~ 01. 22(수)
+
+- __[AWSKRUG 보안 #security 소모임](https://www.meetup.com/awskrug/events/305515882/)__
+  - 분류: `오프라인(서울 강남)`, `유료`, `모임`
+  - 주최: AWSKRUG
+  - 접수: 01. 10(금) 15:00 ~ 16:00
   */
   const parsingMarkdown = (text: string) => {
     const lines = text.split('\n');
@@ -122,6 +137,15 @@ const MarkdownEventInputModal = ({
         // 행사 종료 시간 설정
         if (endTimeStr) {
           endTime = new Date(`${currentYear}.${endDateStr} ${endTimeStr}`);
+        }
+      } else {
+        // 종료일자만 있는 경우(ex. 01. 10(금) 15:00 ~ 16:00)
+        const endTimeOnlyRegex = /~\s*(\d{2}:\d{2})/;
+        const endTimeOnlyMatch = dateLine.match(endTimeOnlyRegex);
+        if (endTimeOnlyMatch) {
+          endTimeStr = endTimeOnlyMatch[1];
+          endDate = new Date(`${currentYear}.${startDateStr} ${endTimeStr}`);
+          endTime = new Date(`${currentYear}.${startDateStr} ${endTimeStr}`);
         }
       }
     }
