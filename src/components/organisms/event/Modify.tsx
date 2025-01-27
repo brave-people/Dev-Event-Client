@@ -13,6 +13,7 @@ import type {
 import type { Tag } from '../../../model/Tag';
 import { useErrorContext } from '../../layouts/ErrorContext';
 import Form from './Form';
+import SuccessPopup from '../../molecules/toast/Success';
 
 const Modify = ({ event }: { event: EventResponse }) => {
   const router = useRouter();
@@ -51,6 +52,9 @@ const Modify = ({ event }: { event: EventResponse }) => {
   const [blob, setBlob] = useState<FormData | null>(null);
 
   const eventTagsName = eventTags?.map(({ tag_name }) => tag_name);
+
+  const [{ showSuccessPopup, successPopupMessage }, setShowSuccessPopup] =
+    useState({ showSuccessPopup: true, successPopupMessage: '' });
 
   const { formErrors, validateForm } = useErrorContext({
     title,
@@ -129,38 +133,51 @@ const Modify = ({ event }: { event: EventResponse }) => {
     };
 
     const data = await modifyEventsApi({ data: body, id: id.toString() });
-    if (data.status_code === STATUS_200) return router.refresh();
+    if (data.status_code === STATUS_200) {
+      setShowSuccessPopup({
+        showSuccessPopup: true,
+        successPopupMessage: '수정에 성공하였습니다.',
+      });
+      return router.refresh();
+    }
     return alert(data.message);
   };
 
   return (
-    <Form
-      title={title}
-      description={description}
-      organizer={organizer}
-      eventLink={eventLink}
-      tags={eventTagsName}
-      setTags={setEventTags}
-      changeTitle={changeTitle}
-      changeDescription={changeDescription}
-      changeOrganizer={changeOrganizer}
-      changeEventLink={changeEventLink}
-      eventTimeType={eventTimeType}
-      changeEventTimeType={changeEventTimeType}
-      startDate={startDate}
-      changeStartDate={changeStartDate}
-      startTime={startTime}
-      setStartTime={setStartTime}
-      endDate={endDate}
-      setEndDate={setEndDate}
-      endTime={endTime}
-      setEndTime={setEndTime}
-      error={formErrors}
-      coverImageUrl={coverImageUrl}
-      setBlob={setBlob}
-      saveForm={saveEvent}
-      isModify={true}
-    />
+    <>
+      <Form
+        title={title}
+        description={description}
+        organizer={organizer}
+        eventLink={eventLink}
+        tags={eventTagsName}
+        setTags={setEventTags}
+        changeTitle={changeTitle}
+        changeDescription={changeDescription}
+        changeOrganizer={changeOrganizer}
+        changeEventLink={changeEventLink}
+        eventTimeType={eventTimeType}
+        changeEventTimeType={changeEventTimeType}
+        startDate={startDate}
+        changeStartDate={changeStartDate}
+        startTime={startTime}
+        setStartTime={setStartTime}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        endTime={endTime}
+        setEndTime={setEndTime}
+        error={formErrors}
+        coverImageUrl={coverImageUrl}
+        setBlob={setBlob}
+        saveForm={saveEvent}
+        isModify={true}
+      />
+      <SuccessPopup
+        show={showSuccessPopup}
+        message={successPopupMessage}
+        setShow={setShowSuccessPopup}
+      />
+    </>
   );
 };
 

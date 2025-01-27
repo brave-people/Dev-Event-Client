@@ -7,6 +7,7 @@ import { STATUS_201 } from '../../../config/constants';
 import type { EventType, EventTimeType } from '../../../model/Event';
 import type { Tag } from '../../../model/Tag';
 import Form from './Form';
+import SuccessPopup from '../../molecules/toast/Success';
 
 export const Create = () => {
   const [title, setTitle] = useState('');
@@ -35,6 +36,9 @@ export const Create = () => {
   const [blob, setBlob] = useState<FormData | null>(null);
 
   const eventTagsName = eventTags?.map(({ tag_name }) => tag_name) || [];
+
+  const [{ showSuccessPopup, successPopupMessage }, setShowSuccessPopup] =
+    useState({ showSuccessPopup: true, successPopupMessage: '' });
 
   const changeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
@@ -115,41 +119,56 @@ export const Create = () => {
     };
 
     const data = await createEventsApi({ data: body });
-    if (data.status_code === STATUS_201) return window.location.reload();
+    if (data.status_code === STATUS_201) {
+      setShowSuccessPopup({
+        showSuccessPopup: true,
+        successPopupMessage: '저장에 성공하였습니다.',
+      });
+
+      setTimeout(() => window.location.reload(), 2000);
+      return;
+    }
     return alert(data.message);
   };
 
   return (
-    <Form
-      title={title}
-      setTitle={setTitle}
-      changeTitle={changeTitle}
-      error={error}
-      description={description}
-      changeDescription={changeDescription}
-      organizer={organizer}
-      setOrganizer={setOrganizer}
-      changeOrganizer={changeOrganizer}
-      eventLink={eventLink}
-      setEventLink={setEventLink}
-      changeEventLink={changeEventLink}
-      tags={eventTagsName}
-      setTags={setEventTags}
-      eventTimeType={eventTimeType}
-      changeEventTimeType={changeEventTimeType}
-      startDate={startDate}
-      setStartDate={setStartDate}
-      changeStartDate={changeStartDate}
-      setEventTimeType={setEventTimeType}
-      startTime={startTime}
-      setStartTime={setStartTime}
-      endDate={endDate}
-      setEndDate={setEndDate}
-      endTime={endTime}
-      setEndTime={setEndTime}
-      setBlob={setBlob}
-      saveForm={createEvent}
-    />
+    <>
+      <Form
+        title={title}
+        setTitle={setTitle}
+        changeTitle={changeTitle}
+        error={error}
+        description={description}
+        changeDescription={changeDescription}
+        organizer={organizer}
+        setOrganizer={setOrganizer}
+        changeOrganizer={changeOrganizer}
+        eventLink={eventLink}
+        setEventLink={setEventLink}
+        changeEventLink={changeEventLink}
+        tags={eventTagsName}
+        setTags={setEventTags}
+        eventTimeType={eventTimeType}
+        changeEventTimeType={changeEventTimeType}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        changeStartDate={changeStartDate}
+        setEventTimeType={setEventTimeType}
+        startTime={startTime}
+        setStartTime={setStartTime}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        endTime={endTime}
+        setEndTime={setEndTime}
+        setBlob={setBlob}
+        saveForm={createEvent}
+      />
+      <SuccessPopup
+        show={showSuccessPopup}
+        message={successPopupMessage}
+        setShow={setShowSuccessPopup}
+      />
+    </>
   );
 };
 
