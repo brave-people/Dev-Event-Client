@@ -139,6 +139,7 @@ export const Create = () => {
         changeTitle={changeTitle}
         error={error}
         description={description}
+        setDescription={setDescription}
         changeDescription={changeDescription}
         organizer={organizer}
         setOrganizer={setOrganizer}

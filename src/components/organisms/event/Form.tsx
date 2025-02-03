@@ -12,6 +12,7 @@ import ContentDate from '../../molecules/form/ContentDate';
 import ContentDescription from '../../molecules/form/ContentDescription';
 import Tag from '../../molecules/form/Tag';
 import ImageUpload from '../../molecules/image-upload';
+import MarkdownEditor from '../../molecules/form/MarkdownEditor';
 
 const Form = ({
   title,
@@ -19,6 +20,7 @@ const Form = ({
   changeTitle,
   error,
   description,
+  setDescription,
   changeDescription,
   organizer,
   setOrganizer,
@@ -120,8 +122,10 @@ const Form = ({
               isModify={isModify}
             />
             <ImageUpload setBlob={setBlob} coverImageUrl={coverImageUrl} />
-
-            {/* todo: 에디터는 여기로 이동 */}
+            <MarkdownEditor
+              markdown={description}
+              onMarkdownChange={(value) => setDescription(value)}
+            />
           </div>
           <div className="relative pt-8 pb-6">
             <button
