@@ -8,7 +8,6 @@ interface MarkdownEditorProps {
 }
 
 // todo 에디터에서 set 안됨
-// todo 미리보기의 경우 최소 높이를 적용
 // todo api 이미지 업로드 연동
 // todo 행사 등록시 파일 업로드하도록(lazy upload) 변경
 // todo 엔터 한번만 쳐도 줄바꿈
@@ -62,7 +61,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
         />
       )}
       {preview && (
-        <div className="markdown-preview mt-4 mb-4 p-2 border border-gray-300 rounded-md">
+        <div className="markdown-preview h-96 mt-4 mb-4 p-2 border border-gray-300 rounded-md">
           <ReactMarkdown>{markdown}</ReactMarkdown>
         </div>
       )}
