@@ -30,21 +30,6 @@ const ContentDescription = ({
   eventLink,
   changeEventLink,
 }: ContentDescriptionProps) => {
-  // const [markdown, setMarkdown] = useState(description);
-  // const [preview, setPreview] = useState(false);
-  const [markdownContent, setMarkdownContent] = useState('');
-
-  // const onDrop = (acceptedFiles: File[]) => {
-  //   acceptedFiles.forEach((file) => {
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       const text = reader.result as string;
-  //       setMarkdown((prev) => `${prev}\n![${file.name}](${text})`);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   });
-  // };
-
   return (
     <>
       <Input
@@ -56,10 +41,6 @@ const ContentDescription = ({
       >
         {error.title && <ErrorContext />}
       </Input>
-      <MarkdownEditor
-        markdown={markdownContent}
-        onMarkdownChange={(value) => setMarkdownContent(value)}
-      />
       <div className="form__content">
         <Input
           text="주최"

@@ -124,7 +124,9 @@ const Form = ({
             <ImageUpload setBlob={setBlob} coverImageUrl={coverImageUrl} />
             <MarkdownEditor
               markdown={description}
-              onMarkdownChange={(value) => setDescription(value)}
+              onMarkdownChange={(value) =>
+                changeDescription({ target: { value } })
+              }
             />
           </div>
           <div className="relative pt-8 pb-6">
