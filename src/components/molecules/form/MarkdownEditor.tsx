@@ -10,7 +10,6 @@ interface MarkdownEditorProps {
 
 // todo api 이미지 업로드 연동
 // todo 행사 등록시 파일 업로드하도록(lazy upload) 변경
-// todo 이미지 편집 버튼과 구분하기 위해서 hr 버튼 추가
 
 const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
   markdown,
