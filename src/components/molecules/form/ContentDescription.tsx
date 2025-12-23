@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import type { EventForm } from '../../../model/Event';
 import Input from '../../atoms/input/Input';
 import ErrorContext from '../../layouts/ErrorContext';
-import MarkdownEditor from './MarkdownEditor';
 
 type ContentDescriptionProps = Pick<
   EventForm,
@@ -23,8 +21,6 @@ const ContentDescription = ({
   title,
   changeTitle,
   error,
-  description,
-  changeDescription,
   organizer,
   changeOrganizer,
   eventLink,
