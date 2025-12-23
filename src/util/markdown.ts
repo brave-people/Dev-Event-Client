@@ -1,0 +1,48 @@
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
+
+/**
+ * 마크다운 문자열을 안전한 HTML로 변환합니다.
+ * XSS 공격을 방지하기 위해 DOMPurify로 sanitize 합니다.
+ */
+export const parseMarkdown = (markdown: string): string => {
+  const rawHtml = marked.parse(markdown);
+  return DOMPurify.sanitize(rawHtml as string);
+};
+
+/**
+ * 이미지 파일을 Blob URL로 변환합니다.
+ */
+export const createBlobUrl = (file: File): string => {
+  return URL.createObjectURL(file);
+};
+
+/**
+ * 마크다운 텍스트에서 Blob URL을 추출합니다.
+ * 예: ![image](blob:http://localhost:3000/abc-123) → blob:http://localhost:3000/abc-123
+ */
+export const extractBlobUrls = (markdown: string): string[] => {
+  const regex = /!\[.*?\]\((blob:[^)]+)\)/g;
+  const matches: string[] = [];
+  let match;
+
+  while ((match = regex.exec(markdown)) !== null) {
+    matches.push(match[1]);
+  }
+
+  return matches;
+};
+
+/**
+ * 마크다운에서 특정 Blob URL을 실제 업로드된 URL로 치환합니다.
+ */
+export const replaceBlobUrl = (
+  markdown: string,
+  blobUrl: string,
+  uploadedUrl: string
+): string => {
+  return markdown.replace(
+    new RegExp(blobUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),
+    uploadedUrl
+  );
+};

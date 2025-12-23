@@ -724,32 +724,12 @@ select {
   right: 0px;
 }
 
-.bottom-4 {
-  bottom: 1rem;
-}
-
-.right-4 {
-  right: 1rem;
-}
-
-.bottom-6 {
-  bottom: 1.5rem;
-}
-
-.right-6 {
-  right: 1.5rem;
-}
-
 .top-20 {
   top: 5rem;
 }
 
 .right-7 {
   right: 1.75rem;
-}
-
-.bottom-0 {
-  bottom: 0px;
 }
 
 .z-50 {
@@ -857,10 +837,6 @@ select {
   margin-top: 4rem;
 }
 
-.ml-4 {
-  margin-left: 1rem;
-}
-
 .ml-8 {
   margin-left: 2rem;
 }
@@ -931,10 +907,6 @@ select {
 
 .h-full {
   height: 100%;
-}
-
-.h-1 {
-  height: 0.25rem;
 }
 
 .max-h-56 {
@@ -1136,10 +1108,6 @@ select {
   overflow: auto;
 }
 
-.overflow-hidden {
-  overflow: hidden;
-}
-
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1269,19 +1237,9 @@ select {
   background-color: rgb(254 242 242 / var(--tw-bg-opacity));
 }
 
-.bg-red-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
-}
-
 .bg-gray-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}
-
-.bg-blue-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-r {
@@ -1536,14 +1494,14 @@ select {
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
-.text-blue-400 {
-  --tw-text-opacity: 1;
-  color: rgb(96 165 250 / var(--tw-text-opacity));
-}
-
 .text-red-400 {
   --tw-text-opacity: 1;
   color: rgb(248 113 113 / var(--tw-text-opacity));
+}
+
+.text-blue-400 {
+  --tw-text-opacity: 1;
+  color: rgb(96 165 250 / var(--tw-text-opacity));
 }
 
 .placeholder-gray-500::-moz-placeholder {
@@ -1666,10 +1624,6 @@ select {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
 
-.ease-linear {
-  transition-timing-function: linear;
-}
-
 .hover\:border-l-2:hover {
   border-left-width: 2px;
 }
@@ -1692,11 +1646,6 @@ select {
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-
-.hover\:text-gray-500:hover {
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
 .hover\:text-gray-300:hover {
