@@ -21,7 +21,7 @@ const navItems: (ItemType & { subItems?: ItemType[] })[] = [
   },
   {
     path: '/admin/replay',
-    title: '개발자 행사 다시보기 관리',
+    title: '다시보기 관리',
     subItems: [
       {
         path: '/admin/replay/tag',
@@ -46,17 +46,18 @@ const SubNav = ({
   subItems: ItemType[];
   isActive: (path: EventRouter) => boolean;
 }) => (
-  <ul className="ml-6 border-l border-gray-200">
+  <ul className="mt-1.5 space-y-1 ml-5">
     {subItems.map(({ path, title }) => (
       <li key={path}>
         <a
           href={path}
+          aria-current={isActive(path) ? 'page' : undefined}
           className={classNames(
-            'flex items-center text-[13px] py-2 pl-4 -ml-px',
+            'block text-[14px] py-2 px-3.5 rounded-lg font-semibold transition-all duration-300',
             {
-              'text-blue-600 border-l-2 border-blue-600 bg-blue-50 font-medium':
+              'text-white bg-gradient-to-r from-[#3182F6] to-[#4593FC] shadow-md shadow-blue-500/25 -translate-y-0.5':
                 isActive(path),
-              'text-gray-600 hover:text-gray-900 hover:border-l-2 hover:border-gray-300':
+              'text-gray-600 hover:text-[#3182F6] hover:bg-blue-50 hover:-translate-y-0.5':
                 !isActive(path),
             }
           )}
@@ -73,27 +74,35 @@ const Nav = () => {
   const isActive = (path: EventRouter) => path === pathname;
 
   return (
-    <nav className="w-80 min-h-screen bg-white border-r border-gray-200">
-      <ul className="py-3 px-5">
-        {navItems.map(({ path, title, subItems }, index) => (
-          <li key={path} className={classNames('mb-1', index === 1 && 'mb-4')}>
-            <a
-              href={path}
-              className={classNames(
-                'flex items-center text-[14px] px-3 py-2 rounded-md transition-colors duration-150',
-                {
-                  'text-blue-600 bg-blue-50 font-medium': isActive(path),
-                  'text-gray-700 hover:bg-gray-50': !isActive(path),
-                }
-              )}
-            >
-              <Setting />
-              {title}
-            </a>
-            {subItems && <SubNav subItems={subItems} isActive={isActive} />}
-          </li>
-        ))}
-      </ul>
+    <nav
+      className="w-[260px] min-h-screen bg-white border-r border-gray-100"
+      aria-label="주요 메뉴"
+    >
+      <div className="py-6 px-3">
+        <ul className="space-y-1.5">
+          {navItems.map(({ path, title, subItems }) => (
+            <li key={path}>
+              <a
+                href={path}
+                aria-current={isActive(path) ? 'page' : undefined}
+                className={classNames(
+                  'flex items-center gap-2.5 text-[15px] py-2.5 px-4 rounded-xl font-bold transition-all duration-300',
+                  {
+                    'text-white bg-gradient-to-r from-[#3182F6] to-[#4593FC] shadow-lg shadow-blue-500/30 -translate-y-0.5':
+                      isActive(path),
+                    'text-gray-800 hover:text-[#3182F6] hover:bg-blue-50 hover:-translate-y-0.5':
+                      !isActive(path),
+                  }
+                )}
+              >
+                <Setting />
+                <span className="leading-tight">{title}</span>
+              </a>
+              {subItems && <SubNav subItems={subItems} isActive={isActive} />}
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 };
