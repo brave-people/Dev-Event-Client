@@ -7,7 +7,7 @@ import { useUserProfile } from '../organisms/auth/Profile';
 
 const BackgroundBox = () => {
   return (
-    <div className="z-10 bg-gray-300 block fixed top-0 left-0 opacity-60 w-full h-full" />
+    <div className="z-20 bg-gray-300 block fixed top-0 left-0 opacity-60 w-full h-full" />
   );
 };
 

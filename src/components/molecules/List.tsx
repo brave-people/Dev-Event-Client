@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
 import type { EventResponse } from '../../model/Event';
 import { layerAtom } from '../../store/layer';
+import { formatDate } from '../../util/date-format';
 import ContentHeader from '../organisms/form/replay/ContentHeader';
 import Alert from './Alert';
 
@@ -91,90 +92,240 @@ const List = <T extends EventResponse>({
         keyword={keyword}
         setKeyword={setKeyword}
       />
-      <div className="list__table relative mt-8 border rounded">
+
+      <div className="list__container">
         {!filteredData.length ? (
-          <p className="py-24 text-center font-bold text-base">{emptyText}</p>
+          <div className="list__empty">
+            <svg
+              className="list__empty-icon"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1}
+                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+              />
+            </svg>
+            <p className="list__empty-text">{emptyText}</p>
+          </div>
         ) : (
-          <table className="w-full p-4">
-            <thead className="list__table--thead">
-              <tr>
-                <td className="list__table--title">No</td>
-                <td className="list__table--title">제목</td>
-                <td className="list__table--title">링크</td>
-                <td className="list__table--title">시작 일시</td>
-                <td className="list__table--title">종료 일시</td>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.length > 0 &&
-                filteredData.map((value, index) => (
-                  <Fragment key={value.id}>
-                    <tr>
-                      <td className="list__table--sub-title">{index + 1}</td>
-                      <td>{value.title}</td>
-                      <td>
-                        <a
-                          href={value.event_link}
-                          className="list__table__tag list__table--link"
-                        >
-                          홈페이지
-                        </a>
+          <>
+            {/* 데스크톱 테이블 뷰 */}
+            <div className="list__table-wrapper">
+              <table className="list__table">
+                <thead>
+                  <tr>
+                    <th className="list__table-header">No</th>
+                    <th className="list__table-header list__table-header--title">
+                      제목
+                    </th>
+                    {/*<th className="list__table-header">링크</th>*/}
+                    <th className="list__table-header">시작 일시</th>
+                    <th className="list__table-header">종료 일시</th>
+                    <th className="list__table-header list__table-header--actions">
+                      관리
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredData.map((value, index) => (
+                    <tr key={value.id} className="list__table-row">
+                      <td className="list__table-cell list__table-cell--number">
+                        {index + 1}
                       </td>
-                      <td>{value.start_date_time}</td>
-                      <td>{value.end_date_time}</td>
-                      <td>
-                        <div className="list--group">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-5 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={1.5}
+                      <td className="list__table-cell list__table-cell--title">
+                        <span className="list__table-title-text">
+                          {value.title}
+                        </span>
+                      </td>
+                      {/*<td className="list__table-cell">*/}
+                      {/*  <a*/}
+                      {/*    href={value.event_link}*/}
+                      {/*    target="_blank"*/}
+                      {/*    rel="noopener noreferrer"*/}
+                      {/*    className="list__table-link"*/}
+                      {/*  >*/}
+                      {/*    <svg*/}
+                      {/*      className="list__table-link-icon"*/}
+                      {/*      fill="none"*/}
+                      {/*      viewBox="0 0 24 24"*/}
+                      {/*      stroke="currentColor"*/}
+                      {/*    >*/}
+                      {/*      <path*/}
+                      {/*        strokeLinecap="round"*/}
+                      {/*        strokeLinejoin="round"*/}
+                      {/*        strokeWidth={2}*/}
+                      {/*        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"*/}
+                      {/*      />*/}
+                      {/*    </svg>*/}
+                      {/*    <span>바로가기</span>*/}
+                      {/*  </a>*/}
+                      {/*</td>*/}
+                      <td className="list__table-cell list__table-cell--date">
+                        {formatDate(value.start_date_time, 'datetime')}
+                      </td>
+                      <td className="list__table-cell list__table-cell--date">
+                        {formatDate(value.end_date_time, 'datetime')}
+                      </td>
+                      <td className="list__table-cell list__table-cell--actions">
+                        <div className="list__actions-menu">
+                          <button
+                            className="list__actions-menu-trigger"
+                            aria-label="메뉴"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                            />
-                          </svg>
-                          <div className="list--group__button">
-                            <button
-                              className="text-blue-500 font-bold"
-                              onClick={() =>
-                                router.push(
-                                  `${parentLink}/modify?id=${value.id}`
-                                )
-                              }
+                            <svg
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
                             >
-                              수정
-                            </button>
-                            <button
-                              className="text-red-500 font-bold"
-                              onClick={() => clickDeleteButton(value.id)}
-                            >
-                              삭제
-                            </button>
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                              />
+                            </svg>
+                          </button>
+                          <div className="list__actions-dropdown">
+                            <div className="list__actions-dropdown-wrapper">
+                              <button
+                                className="list__actions-dropdown-item list__actions-dropdown-item--edit"
+                                onClick={() =>
+                                  router.push(`${parentLink}/modify?id=${value.id}`)
+                                }
+                              >
+                                수정
+                              </button>
+                              <button
+                                className="list__actions-dropdown-item list__actions-dropdown-item--delete"
+                                onClick={() => clickDeleteButton(value.id)}
+                              >
+                                삭제
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </td>
                     </tr>
-                  </Fragment>
-                ))}
-            </tbody>
-          </table>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* 모바일 카드 뷰 */}
+            <div className="list__cards">
+              {filteredData.map((value, index) => (
+                <div key={value.id} className="list__card">
+                  <div className="list__card-header">
+                    <span className="list__card-number">{index + 1}</span>
+                    <div className="list__actions-menu">
+                      <button
+                        className="list__actions-menu-trigger"
+                        aria-label="메뉴"
+                      >
+                        <svg
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                          />
+                        </svg>
+                      </button>
+                      <div className="list__actions-dropdown">
+                        <div className="list__actions-dropdown-wrapper">
+                          <button
+                            className="list__actions-dropdown-item list__actions-dropdown-item--edit"
+                            onClick={() =>
+                              router.push(`${parentLink}/modify?id=${value.id}`)
+                            }
+                          >
+                            수정
+                          </button>
+                          <button
+                            className="list__actions-dropdown-item list__actions-dropdown-item--delete"
+                            onClick={() => clickDeleteButton(value.id)}
+                          >
+                            삭제
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 className="list__card-title">{value.title}</h3>
+                  <div className="list__card-meta">
+                    <div className="list__card-meta-row">
+                      <span className="list__card-meta-label">시작</span>
+                      <span className="list__card-meta-value">
+                        {formatDate(value.start_date_time, 'datetime')}
+                      </span>
+                    </div>
+                    <div className="list__card-meta-row">
+                      <span className="list__card-meta-label">종료</span>
+                      <span className="list__card-meta-value">
+                        {formatDate(value.end_date_time, 'datetime')}
+                      </span>
+                    </div>
+                  </div>
+                  <a
+                    href={value.event_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="list__card-link"
+                  >
+                    바로가기
+                    <svg
+                      className="list__card-link-icon"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </>
         )}
+
         {maxHeight && (
           <button
             type="button"
-            className="list__button--pop"
+            className="list__create-button"
             onClick={() => router.push(`${parentLink}/create`)}
             style={{ top: maxHeight }}
           >
-            {createButtonText}
+            <svg
+              className="list__create-button-icon"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+            <span>{createButtonText}</span>
           </button>
         )}
       </div>
+
       {layer && (
         <Alert
           alertTitle="정말 삭제할까요?"

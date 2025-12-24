@@ -29,7 +29,7 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">D</span>
             </div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+            <h1 className="text-xl font-bold text-blue-600">
               데브 이벤트 어드민
             </h1>
           </Link>
