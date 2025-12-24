@@ -68,7 +68,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
     }
 
     // 각 이미지에 대해 Blob URL 생성 및 마크다운에 삽입
-    imageFiles.forEach((file) => {
+    imageFiles.forEach((file, index) => {
       const blobUrl = createBlobUrl(file);
       pendingImagesRef.current.set(blobUrl, file);
 
@@ -82,15 +82,12 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
 
       onChange(newValue);
 
-      // 커서 위치 업데이트
-      setTimeout(() => {
-        if (textareaRef.current) {
-          const newPosition = cursorPosition + imageMarkdown.length;
-          textareaRef.current.selectionStart = newPosition;
-          textareaRef.current.selectionEnd = newPosition;
-          textareaRef.current.focus();
-        }
-      }, 0);
+      // 마지막 이미지 처리 후 미리보기 모드로 전환
+      if (index === imageFiles.length - 1) {
+        setTimeout(() => {
+          setShowPreview(true);
+        }, 100);
+      }
     });
   };
 
@@ -112,7 +109,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
 
         try {
           const response = await fetchUploadImage({
-            fileType: 'VOD',
+            fileType: 'DEV_EVENT_DETAIL',
             body: formData,
           });
 

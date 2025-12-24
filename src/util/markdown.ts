@@ -4,10 +4,16 @@ import DOMPurify from 'dompurify';
 /**
  * 마크다운 문자열을 안전한 HTML로 변환합니다.
  * XSS 공격을 방지하기 위해 DOMPurify로 sanitize 합니다.
+ * blob: URL은 로컬 이미지 미리보기를 위해 허용합니다.
  */
 export const parseMarkdown = (markdown: string): string => {
   const rawHtml = marked.parse(markdown);
-  return DOMPurify.sanitize(rawHtml as string);
+  return DOMPurify.sanitize(rawHtml as string, {
+    ADD_TAGS: ['img'],
+    ADD_ATTR: ['src', 'alt'],
+    ALLOWED_URI_REGEXP:
+      /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|blob):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+  });
 };
 
 /**
