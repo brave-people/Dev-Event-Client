@@ -67,7 +67,8 @@ const Page = ({ data }: { data: string }) => {
         <div
           className="absolute w-[800px] h-[800px] rounded-full opacity-40 blur-3xl animate-blob"
           style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(147, 197, 253, 0.3) 50%, transparent 70%)',
+            background:
+              'radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(147, 197, 253, 0.3) 50%, transparent 70%)',
             top: '-20%',
             left: '-10%',
             animationDelay: '0s',
@@ -76,7 +77,8 @@ const Page = ({ data }: { data: string }) => {
         <div
           className="absolute w-[700px] h-[700px] rounded-full opacity-40 blur-3xl animate-blob"
           style={{
-            background: 'radial-gradient(circle, rgba(96, 165, 250, 0.5) 0%, rgba(191, 219, 254, 0.3) 50%, transparent 70%)',
+            background:
+              'radial-gradient(circle, rgba(96, 165, 250, 0.5) 0%, rgba(191, 219, 254, 0.3) 50%, transparent 70%)',
             top: '30%',
             right: '-10%',
             animationDelay: '2s',
@@ -85,7 +87,8 @@ const Page = ({ data }: { data: string }) => {
         <div
           className="absolute w-[600px] h-[600px] rounded-full opacity-30 blur-3xl animate-blob"
           style={{
-            background: 'radial-gradient(circle, rgba(147, 197, 253, 0.6) 0%, rgba(219, 234, 254, 0.3) 50%, transparent 70%)',
+            background:
+              'radial-gradient(circle, rgba(147, 197, 253, 0.6) 0%, rgba(219, 234, 254, 0.3) 50%, transparent 70%)',
             bottom: '-10%',
             left: '30%',
             animationDelay: '4s',
