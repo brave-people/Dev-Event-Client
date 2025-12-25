@@ -3,6 +3,7 @@
 import type { EventForm } from '../../../model/Event';
 import Input from '../../atoms/input/Input';
 import ErrorContext from '../../layouts/ErrorContext';
+import MarkdownEditor from '../markdown-editor';
 
 type ContentDescriptionProps = Pick<
   EventForm,
@@ -39,11 +40,12 @@ const ContentDescription = ({
       >
         {error.title && <ErrorContext />}
       </Input>
-      <div className="form__content">
-        <Input
-          text="행사 설명"
+      <div className="my-8">
+        <MarkdownEditor
           value={description}
-          onChange={changeDescription}
+          onChange={(value) => changeDescription({ target: { value } })}
+          placeholder="행사에 대한 상세 설명을 마크다운 형식으로 작성하세요..."
+          minHeight="400px"
         />
       </div>
       <div className="form__content">

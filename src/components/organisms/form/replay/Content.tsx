@@ -7,6 +7,7 @@ import BaseLabel from '../../../atoms/label/base';
 import ErrorContext from '../../../layouts/ErrorContext';
 import FormLink from '../../../molecules/DynamicDropboxInput';
 import ImageUpload from '../../../molecules/image-upload';
+import MarkdownEditor from '../../../molecules/markdown-editor';
 import Tag from './Tag';
 
 const FormContent = ({
@@ -46,19 +47,12 @@ const FormContent = ({
         >
           {error.title && !title && <ErrorContext />}
         </Input>
-        <div className="form__content__input">
-          <label
-            htmlFor="description"
-            className="form__content__title inline-block text-base text-gray-600"
-          >
-            행사 설명
-          </label>
-          <input
-            id="description"
-            type="text"
+        <div className="my-8">
+          <MarkdownEditor
             value={description}
-            onChange={changeDescription}
-            className="appearance-none w-full h-10 border rounded border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            onChange={(value) => changeDescription({ target: { value } })}
+            placeholder="행사에 대한 상세 설명을 마크다운 형식으로 작성하세요..."
+            minHeight="400px"
           />
         </div>
         <div className="form__content__input">
