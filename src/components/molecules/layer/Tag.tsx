@@ -104,7 +104,7 @@ const TagLayer = ({
   if (!divRef.current || !showLayer) return null;
 
   return createPortal(
-    <div className="popup p-4">
+    <div className="popup p-4 z-10">
       <div className="flex justify-between p-4">
         <h3 className="uppercase text-xl font-medium">{activeType} tags</h3>
         <button onClick={closeLayer}>

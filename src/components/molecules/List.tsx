@@ -112,193 +112,84 @@ const List = <T extends EventResponse>({
             <p className="list__empty-text">{emptyText}</p>
           </div>
         ) : (
-          <>
-            {/* 데스크톱 테이블 뷰 */}
-            <div className="list__table-wrapper">
-              <table className="list__table">
-                <thead>
-                  <tr>
-                    <th className="list__table-header">No</th>
-                    <th className="list__table-header list__table-header--title">
-                      제목
-                    </th>
-                    {/*<th className="list__table-header">링크</th>*/}
-                    <th className="list__table-header">시작 일시</th>
-                    <th className="list__table-header">종료 일시</th>
-                    <th className="list__table-header list__table-header--actions">
-                      관리
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredData.map((value, index) => (
-                    <tr key={value.id} className="list__table-row">
-                      <td className="list__table-cell list__table-cell--number">
-                        {index + 1}
-                      </td>
-                      <td className="list__table-cell list__table-cell--title">
-                        <span className="list__table-title-text">
-                          {value.title}
-                        </span>
-                      </td>
-                      {/*<td className="list__table-cell">*/}
-                      {/*  <a*/}
-                      {/*    href={value.event_link}*/}
-                      {/*    target="_blank"*/}
-                      {/*    rel="noopener noreferrer"*/}
-                      {/*    className="list__table-link"*/}
-                      {/*  >*/}
-                      {/*    <svg*/}
-                      {/*      className="list__table-link-icon"*/}
-                      {/*      fill="none"*/}
-                      {/*      viewBox="0 0 24 24"*/}
-                      {/*      stroke="currentColor"*/}
-                      {/*    >*/}
-                      {/*      <path*/}
-                      {/*        strokeLinecap="round"*/}
-                      {/*        strokeLinejoin="round"*/}
-                      {/*        strokeWidth={2}*/}
-                      {/*        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"*/}
-                      {/*      />*/}
-                      {/*    </svg>*/}
-                      {/*    <span>바로가기</span>*/}
-                      {/*  </a>*/}
-                      {/*</td>*/}
-                      <td className="list__table-cell list__table-cell--date">
-                        {formatDate(value.start_date_time, 'datetime')}
-                      </td>
-                      <td className="list__table-cell list__table-cell--date">
-                        {formatDate(value.end_date_time, 'datetime')}
-                      </td>
-                      <td className="list__table-cell list__table-cell--actions">
-                        <div className="list__actions-menu">
-                          <button
-                            className="list__actions-menu-trigger"
-                            aria-label="메뉴"
+          <div className="list__table-wrapper">
+            <table className="list__table">
+              <thead>
+                <tr>
+                  <th className="list__table-header">No</th>
+                  <th className="list__table-header list__table-header--title">
+                    제목
+                  </th>
+                  <th className="list__table-header">시작 일시</th>
+                  <th className="list__table-header">종료 일시</th>
+                  <th className="list__table-header list__table-header--actions">
+                    관리
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredData.map((value, index) => (
+                  <tr key={value.id} className="list__table-row">
+                    <td className="list__table-cell list__table-cell--number">
+                      {index + 1}
+                    </td>
+                    <td className="list__table-cell list__table-cell--title">
+                      <span className="list__table-title-text">
+                        {value.title}
+                      </span>
+                    </td>
+                    <td className="list__table-cell list__table-cell--date">
+                      {formatDate(value.start_date_time, 'datetime')}
+                    </td>
+                    <td className="list__table-cell list__table-cell--date">
+                      {formatDate(value.end_date_time, 'datetime')}
+                    </td>
+                    <td className="list__table-cell list__table-cell--actions">
+                      <div className="list__actions-menu">
+                        <button
+                          className="list__actions-menu-trigger"
+                          aria-label="메뉴"
+                        >
+                          <svg
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
                           >
-                            <svg
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                            />
+                          </svg>
+                        </button>
+                        <div className="list__actions-dropdown">
+                          <div className="list__actions-dropdown-wrapper">
+                            <button
+                              className="list__actions-dropdown-item list__actions-dropdown-item--edit"
+                              onClick={() =>
+                                router.push(
+                                  `${parentLink}/modify?id=${value.id}`
+                                )
+                              }
                             >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                              />
-                            </svg>
-                          </button>
-                          <div className="list__actions-dropdown">
-                            <div className="list__actions-dropdown-wrapper">
-                              <button
-                                className="list__actions-dropdown-item list__actions-dropdown-item--edit"
-                                onClick={() =>
-                                  router.push(`${parentLink}/modify?id=${value.id}`)
-                                }
-                              >
-                                수정
-                              </button>
-                              <button
-                                className="list__actions-dropdown-item list__actions-dropdown-item--delete"
-                                onClick={() => clickDeleteButton(value.id)}
-                              >
-                                삭제
-                              </button>
-                            </div>
+                              수정
+                            </button>
+                            <button
+                              className="list__actions-dropdown-item list__actions-dropdown-item--delete"
+                              onClick={() => clickDeleteButton(value.id)}
+                            >
+                              삭제
+                            </button>
                           </div>
                         </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* 모바일 카드 뷰 */}
-            <div className="list__cards">
-              {filteredData.map((value, index) => (
-                <div key={value.id} className="list__card">
-                  <div className="list__card-header">
-                    <span className="list__card-number">{index + 1}</span>
-                    <div className="list__actions-menu">
-                      <button
-                        className="list__actions-menu-trigger"
-                        aria-label="메뉴"
-                      >
-                        <svg
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                          />
-                        </svg>
-                      </button>
-                      <div className="list__actions-dropdown">
-                        <div className="list__actions-dropdown-wrapper">
-                          <button
-                            className="list__actions-dropdown-item list__actions-dropdown-item--edit"
-                            onClick={() =>
-                              router.push(`${parentLink}/modify?id=${value.id}`)
-                            }
-                          >
-                            수정
-                          </button>
-                          <button
-                            className="list__actions-dropdown-item list__actions-dropdown-item--delete"
-                            onClick={() => clickDeleteButton(value.id)}
-                          >
-                            삭제
-                          </button>
-                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <h3 className="list__card-title">{value.title}</h3>
-                  <div className="list__card-meta">
-                    <div className="list__card-meta-row">
-                      <span className="list__card-meta-label">시작</span>
-                      <span className="list__card-meta-value">
-                        {formatDate(value.start_date_time, 'datetime')}
-                      </span>
-                    </div>
-                    <div className="list__card-meta-row">
-                      <span className="list__card-meta-label">종료</span>
-                      <span className="list__card-meta-value">
-                        {formatDate(value.end_date_time, 'datetime')}
-                      </span>
-                    </div>
-                  </div>
-                  <a
-                    href={value.event_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="list__card-link"
-                  >
-                    바로가기
-                    <svg
-                      className="list__card-link-icon"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
 
         {maxHeight && (

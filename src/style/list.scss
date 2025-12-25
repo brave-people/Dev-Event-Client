@@ -27,12 +27,13 @@ $color-destructive: #ff3b30;
 $color-destructive-hover: #ff453a;
 
 .list {
-  padding: $list-spacing-unit * 4 $list-spacing-unit * 6 $list-spacing-unit * 7;
+  padding: $list-spacing-unit * 3 $list-spacing-unit * 3 $list-spacing-unit * 7;
   background-color: $color_white;
   border-radius: $list-radius;
   box-shadow: $list-shadow;
   max-width: 1400px;
   margin: 0 auto;
+  overflow: visible;
 
   @media (max-width: 768px) {
     padding: $list-spacing-unit * 3;
@@ -167,6 +168,7 @@ $color-destructive-hover: #ff453a;
 // Container
 .list__container {
   position: relative;
+  overflow: visible;
 }
 
 // Empty state
@@ -196,24 +198,29 @@ $color-destructive-hover: #ff453a;
 // Table (Desktop)
 .list__table-wrapper {
   overflow-x: auto;
+  overflow-y: visible;
   border-radius: $list-radius;
   border: 1px solid $color-border-light;
 
-  @media (max-width: 1024px) {
-    display: none; // Hide on mobile/tablet
-  }
+  // 작은 화면에서도 테이블 표시 (가로 스크롤 가능)
+  -webkit-overflow-scrolling: touch;
 }
 
 .list__table {
   width: 100%;
   border-collapse: collapse;
   font-size: 15px;
+  position: relative;
 
   thead {
     background-color: $color-bg-hover;
     position: sticky;
     top: 0;
     z-index: 10;
+  }
+
+  tbody {
+    position: relative;
   }
 
   &-header {
@@ -237,6 +244,7 @@ $color-destructive-hover: #ff453a;
   }
 
   &-row {
+    position: relative;
     transition: background-color 0.15s ease;
 
     &:hover {
@@ -275,6 +283,7 @@ $color-destructive-hover: #ff453a;
 
     &--actions {
       text-align: right;
+      position: relative;
     }
   }
 
@@ -322,7 +331,6 @@ $color-destructive-hover: #ff453a;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
 
   &-trigger {
     display: flex;
@@ -335,6 +343,7 @@ $color-destructive-hover: #ff453a;
     background-color: transparent;
     border-radius: 50%;
     transition: all 0.15s ease;
+    cursor: pointer;
 
     svg {
       width: 20px;
@@ -357,20 +366,20 @@ $color-destructive-hover: #ff453a;
     }
   }
 
-  &:hover > .list__actions-dropdown {
-    display: block;
+  &:hover .list__actions-dropdown {
+    display: block !important;
   }
 }
 
 .list__actions-dropdown {
+  // position, top, left는 inline style로 설정됨
   display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  margin-top: -4px;
-  padding-top: 12px;
+  padding-top: 8px;
   min-width: 120px;
-  z-index: 1000;
+
+  &:hover {
+    display: block !important;
+  }
 
   // 전체 드롭다운 래퍼
   &-wrapper {
@@ -423,107 +432,7 @@ $color-destructive-hover: #ff453a;
   }
 }
 
-// Mobile Cards
-.list__cards {
-  display: none;
-
-  @media (max-width: 1024px) {
-    display: flex;
-    flex-direction: column;
-    gap: $list-spacing-unit * 2;
-  }
-}
-
-.list__card {
-  padding: $list-spacing-unit * 3;
-  background-color: $color_white;
-  border: 1px solid $color-border-light;
-  border-radius: $list-radius;
-  transition: all 0.2s ease;
-
-  &:hover {
-    box-shadow: $list-shadow-elevated;
-    border-color: $color-text-tertiary;
-  }
-
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: $list-spacing-unit * 2;
-  }
-
-  &-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    font-size: 13px;
-    font-weight: $font-weight-semibold;
-    color: $color-text-secondary;
-    background-color: $color-bg-hover;
-    border-radius: 50%;
-  }
-
-
-  &-title {
-    font-size: 17px;
-    font-weight: $font-weight-semibold;
-    color: $color-text-primary;
-    margin-bottom: $list-spacing-unit * 2;
-    line-height: 1.4;
-  }
-
-  &-meta {
-    display: flex;
-    flex-direction: column;
-    gap: $list-spacing-unit * 1.5;
-    margin-bottom: $list-spacing-unit * 2;
-    padding: $list-spacing-unit * 2;
-    background-color: $color-bg-hover;
-    border-radius: $list-radius / 2;
-
-    &-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    &-label {
-      font-size: 13px;
-      font-weight: $font-weight-medium;
-      color: $color-text-secondary;
-    }
-
-    &-value {
-      font-size: 14px;
-      font-weight: $font-weight-regular;
-      color: $color-text-primary;
-    }
-  }
-
-  &-link {
-    display: inline-flex;
-    align-items: center;
-    gap: $list-spacing-unit;
-    font-size: 15px;
-    font-weight: $font-weight-medium;
-    color: $color-accent;
-    text-decoration: none;
-    transition: color 0.15s ease;
-
-    &:hover {
-      color: $color-accent-hover;
-    }
-
-    &-icon {
-      width: 18px;
-      height: 18px;
-      stroke-width: 2;
-    }
-  }
-}
+// Mobile Cards - Removed (모바일 카드 뷰 제거됨)
 
 // Create Button (Floating)
 .list__create-button {

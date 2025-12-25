@@ -173,26 +173,45 @@ const TagComponent = ({
         <ActionTagButtons updateActiveLayer={updateActiveLayer} />
         <TagSearch keyword={state.keyword} setState={setState} />
       </div>
-      <div className="list__table relative mt-8 border rounded">
+      <div className="list__container">
         {!state.tagList?.length ? (
-          <p className="py-24 text-center font-bold text-base">
-            태그가 없어요! 태그를 만들어주세요
-          </p>
+          <div className="list__empty">
+            <svg
+              className="list__empty-icon"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1}
+                d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+              />
+            </svg>
+            <p className="list__empty-text">
+              태그가 없어요! 태그를 만들어주세요
+            </p>
+          </div>
         ) : (
-          <table className="w-full p-4">
-            <thead className="list__table--thead">
-              <tr>
-                <td className="list__table--title w-20" />
-                <td className="list__table--title">ID</td>
-                <td className="list__table--title">태그 이름</td>
-                <td className="list__table--title">색상</td>
-              </tr>
-            </thead>
-            <tbody>
-              {state.tagList?.map(({ id, tag_name, tag_color }, index) => (
-                <Fragment key={id}>
-                  <tr>
-                    <td>
+          <div className="list__table-wrapper">
+            <table className="list__table">
+              <thead>
+                <tr>
+                  <th className="list__table-header" style={{ width: '80px' }}>
+                    선택
+                  </th>
+                  <th className="list__table-header" style={{ width: '100px' }}>
+                    ID
+                  </th>
+                  <th className="list__table-header">태그 이름</th>
+                  <th className="list__table-header">색상</th>
+                </tr>
+              </thead>
+              <tbody>
+                {state.tagList?.map(({ id, tag_name, tag_color }, index) => (
+                  <tr key={id} className="list__table-row">
+                    <td className="list__table-cell">
                       <input
                         ref={(el) => {
                           if (el) inputRef.current[index] = el;
@@ -200,23 +219,31 @@ const TagComponent = ({
                         type="checkbox"
                         onChange={handleCheckbox}
                         value={JSON.stringify({ id, tag_name, tag_color })}
-                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
                       />
                     </td>
-                    <td className="list__table--sub-title">{id}</td>
-                    <td>{tag_name}</td>
-                    <td>
-                      <span
-                        className="w-3 h-3 mr-1 inline-block rounded-full"
-                        style={{ backgroundColor: tag_color || '#000' }}
-                      />
-                      {tag_color || '색상 없음'}
+                    <td className="list__table-cell list__table-cell--number">
+                      {id}
+                    </td>
+                    <td className="list__table-cell list__table-cell--title">
+                      <span className="list__table-title-text">{tag_name}</span>
+                    </td>
+                    <td className="list__table-cell">
+                      <div className="flex items-center">
+                        <span
+                          className="w-4 h-4 mr-2 inline-block rounded-full border border-gray-200"
+                          style={{ backgroundColor: tag_color || '#000' }}
+                        />
+                        <span className="text-sm text-gray-600">
+                          {tag_color || '색상 없음'}
+                        </span>
+                      </div>
                     </td>
                   </tr>
-                </Fragment>
-              ))}
-            </tbody>
-          </table>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
       <div ref={layerRef}>
