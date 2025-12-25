@@ -961,8 +961,8 @@ select {
   width: 2rem;
 }
 
-.w-\[260px\] {
-  width: 260px;
+.w-\[240px\] {
+  width: 240px;
 }
 
 .w-6 {
@@ -1095,6 +1095,10 @@ select {
   flex-direction: column;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .items-center {
   align-items: center;
 }
@@ -1121,6 +1125,14 @@ select {
 
 .gap-3 {
   gap: 0.75rem;
+}
+
+.gap-1\.5 {
+  gap: 0.375rem;
+}
+
+.gap-1 {
+  gap: 0.25rem;
 }
 
 .space-x-3 > :not([hidden]) ~ :not([hidden]) {
