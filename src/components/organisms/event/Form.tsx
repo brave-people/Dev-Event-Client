@@ -85,7 +85,7 @@ const Form = ({
                 e.preventDefault();
                 updateActiveLayer();
               }}
-              className="mr-2 mb-6 py-2 px-6 text-gray-500 rounded border border-solid border-gray-200 text-sm"
+              className="mr-2 mb-6 py-2 px-6 text-gray-500 rounded border border-solid border-gray-200 text-sm hover:bg-gray-100 transition-colors"
             >
               마크다운으로 입력
             </button>
