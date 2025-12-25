@@ -61,8 +61,40 @@ const Page = ({ data }: { data: string }) => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-[440px] w-full">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-blue-100 via-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8">
+      {/* 애니메이션 그라데이션 블롭 */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="absolute w-[800px] h-[800px] rounded-full opacity-40 blur-3xl animate-blob"
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(147, 197, 253, 0.3) 50%, transparent 70%)',
+            top: '-20%',
+            left: '-10%',
+            animationDelay: '0s',
+          }}
+        />
+        <div
+          className="absolute w-[700px] h-[700px] rounded-full opacity-40 blur-3xl animate-blob"
+          style={{
+            background: 'radial-gradient(circle, rgba(96, 165, 250, 0.5) 0%, rgba(191, 219, 254, 0.3) 50%, transparent 70%)',
+            top: '30%',
+            right: '-10%',
+            animationDelay: '2s',
+          }}
+        />
+        <div
+          className="absolute w-[600px] h-[600px] rounded-full opacity-30 blur-3xl animate-blob"
+          style={{
+            background: 'radial-gradient(circle, rgba(147, 197, 253, 0.6) 0%, rgba(219, 234, 254, 0.3) 50%, transparent 70%)',
+            bottom: '-10%',
+            left: '30%',
+            animationDelay: '4s',
+          }}
+        />
+      </div>
+
+      {/* 로그인 폼 (relative로 블롭 위에 표시) */}
+      <div className="max-w-[440px] w-full relative z-10">
         <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-10">
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center mb-6">

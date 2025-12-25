@@ -71,13 +71,13 @@ const SubNav = ({
 
 const Nav = () => {
   const pathname = usePathname();
-  
+
   const isSubItemActive = (path: EventRouter) => pathname.startsWith(path);
-  
+
   const isParentActive = (path: EventRouter, subItems?: ItemType[]) => {
     // 서브 아이템이 있는 경우, 서브 아이템 중 하나라도 활성화되면 부모는 비활성화
     if (subItems) {
-      const hasActiveSubItem = subItems.some(subItem => 
+      const hasActiveSubItem = subItems.some((subItem) =>
         pathname.startsWith(subItem.path)
       );
       if (hasActiveSubItem) return false;
@@ -96,7 +96,9 @@ const Nav = () => {
             <li key={path}>
               <a
                 href={path}
-                aria-current={isParentActive(path, subItems) ? 'page' : undefined}
+                aria-current={
+                  isParentActive(path, subItems) ? 'page' : undefined
+                }
                 className={classNames(
                   'flex items-center gap-2.5 text-[15px] py-2.5 px-4 rounded-xl font-bold transition-all duration-300',
                   {
@@ -110,7 +112,9 @@ const Nav = () => {
                 <Setting />
                 <span className="leading-tight">{title}</span>
               </a>
-              {subItems && <SubNav subItems={subItems} isActive={isSubItemActive} />}
+              {subItems && (
+                <SubNav subItems={subItems} isActive={isSubItemActive} />
+              )}
             </li>
           ))}
         </ul>

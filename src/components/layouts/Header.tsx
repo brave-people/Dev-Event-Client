@@ -20,7 +20,7 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
 
   return (
     <header className="sticky top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 z-50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-ultra mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link
             href="/admin/event"
@@ -88,10 +88,12 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
                             'group flex items-center w-full px-3 py-2.5 text-sm font-medium text-gray-700 rounded-xl transition-colors'
                           )}
                         >
-                          <div className={classNames(
-                            active ? 'bg-blue-100' : 'bg-gray-100',
-                            'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
-                          )}>
+                          <div
+                            className={classNames(
+                              active ? 'bg-blue-100' : 'bg-gray-100',
+                              'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
+                            )}
+                          >
                             <svg
                               className={classNames(
                                 active ? 'text-blue-600' : 'text-gray-600',
@@ -122,10 +124,12 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
                             'group flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-xl transition-colors'
                           )}
                         >
-                          <div className={classNames(
-                            active ? 'bg-blue-100' : 'bg-gray-100',
-                            'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
-                          )}>
+                          <div
+                            className={classNames(
+                              active ? 'bg-blue-100' : 'bg-gray-100',
+                              'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
+                            )}
+                          >
                             <svg
                               className={classNames(
                                 active ? 'text-blue-600' : 'text-gray-600',
@@ -167,10 +171,12 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
                               'group flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-xl transition-colors'
                             )}
                           >
-                            <div className={classNames(
-                              active ? 'bg-blue-100' : 'bg-gray-100',
-                              'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
-                            )}>
+                            <div
+                              className={classNames(
+                                active ? 'bg-blue-100' : 'bg-gray-100',
+                                'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
+                              )}
+                            >
                               <svg
                                 className={classNames(
                                   active ? 'text-blue-600' : 'text-gray-600',
@@ -201,10 +207,12 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
                               'group flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-xl transition-colors'
                             )}
                           >
-                            <div className={classNames(
-                              active ? 'bg-blue-100' : 'bg-gray-100',
-                              'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
-                            )}>
+                            <div
+                              className={classNames(
+                                active ? 'bg-blue-100' : 'bg-gray-100',
+                                'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
+                              )}
+                            >
                               <svg
                                 className={classNames(
                                   active ? 'text-blue-600' : 'text-gray-600',
@@ -240,10 +248,12 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
                           'group flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-xl transition-colors'
                         )}
                       >
-                        <div className={classNames(
-                          active ? 'bg-red-100' : 'bg-gray-100',
-                          'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
-                        )}>
+                        <div
+                          className={classNames(
+                            active ? 'bg-red-100' : 'bg-gray-100',
+                            'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
+                          )}
+                        >
                           <svg
                             className={classNames(
                               active ? 'text-red-600' : 'text-gray-600',

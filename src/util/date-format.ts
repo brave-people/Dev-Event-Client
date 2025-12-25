@@ -87,4 +87,3 @@ export const formatDateRange = (
 
   return `${start} ~ ${end}`;
 };
-

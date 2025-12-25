@@ -134,16 +134,28 @@ const Users = () => {
                   <th className="list__table-header" style={{ width: '80px' }}>
                     No
                   </th>
-                  <th className="list__table-header" style={{ minWidth: '130px' }}>
+                  <th
+                    className="list__table-header"
+                    style={{ minWidth: '130px' }}
+                  >
                     아이디
                   </th>
-                  <th className="list__table-header list__table-header--title" style={{ minWidth: '130px' }}>
+                  <th
+                    className="list__table-header list__table-header--title"
+                    style={{ minWidth: '130px' }}
+                  >
                     이메일
                   </th>
-                  <th className="list__table-header" style={{ minWidth: '140px' }}>
+                  <th
+                    className="list__table-header"
+                    style={{ minWidth: '140px' }}
+                  >
                     회원유형
                   </th>
-                  <th className="list__table-header" style={{ minWidth: '230px' }}>
+                  <th
+                    className="list__table-header"
+                    style={{ minWidth: '230px' }}
+                  >
                     권한
                   </th>
                   <th className="list__table-header" style={{ width: '180px' }}>
@@ -160,7 +172,10 @@ const Users = () => {
               <tbody>
                 {data.map((userItem, index) => {
                   return (
-                    <tr key={`${userItem.email}_${index}`} className="list__table-row">
+                    <tr
+                      key={`${userItem.email}_${index}`}
+                      className="list__table-row"
+                    >
                       <td className="list__table-cell list__table-cell--number">
                         {userItem.user_no}
                       </td>
@@ -175,14 +190,16 @@ const Users = () => {
                       </td>
                       <td className="list__table-cell">
                         <div className="flex flex-wrap gap-1.5">
-                          {getUserRole(userItem.roles).map((role, roleIndex) => (
-                            <span
-                              key={roleIndex}
-                              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
-                            >
-                              {role}
-                            </span>
-                          ))}
+                          {getUserRole(userItem.roles).map(
+                            (role, roleIndex) => (
+                              <span
+                                key={roleIndex}
+                                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                              >
+                                {role}
+                              </span>
+                            )
+                          )}
                         </div>
                       </td>
                       <td className="list__table-cell list__table-cell--date">

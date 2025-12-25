@@ -18,7 +18,7 @@ export const parseMarkdown = (markdown: string): string => {
     ADD_TAGS: ['img', 'br'],
     ADD_ATTR: ['src', 'alt'],
     ALLOWED_URI_REGEXP:
-      /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|blob):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+      /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|blob):|[^a-z]|[a-z+.-]+(?:[^a-z+.-:]|$))/i,
   });
 };
 

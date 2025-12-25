@@ -699,6 +699,13 @@ select {
   position: sticky;
 }
 
+.inset-0 {
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
 .inset-y-0 {
   top: 0px;
   bottom: 0px;
@@ -917,6 +924,18 @@ select {
   height: 100%;
 }
 
+.h-\[800px\] {
+  height: 800px;
+}
+
+.h-\[700px\] {
+  height: 700px;
+}
+
+.h-\[600px\] {
+  height: 600px;
+}
+
 .h-20 {
   height: 5rem;
 }
@@ -969,6 +988,18 @@ select {
   width: 1.5rem;
 }
 
+.w-\[800px\] {
+  width: 800px;
+}
+
+.w-\[700px\] {
+  width: 700px;
+}
+
+.w-\[600px\] {
+  width: 600px;
+}
+
 .w-20 {
   width: 5rem;
 }
@@ -998,7 +1029,7 @@ select {
 }
 
 .max-w-7xl {
-  max-width: 120rem;
+  max-width: 80rem;
 }
 
 .max-w-\[440px\] {
@@ -1051,6 +1082,28 @@ select {
 
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(20px, -50px) scale(1.1);
+  }
+
+  50% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  75% {
+    transform: translate(50px, 30px) scale(1.05);
+  }
+}
+
+.animate-blob {
+  animation: blob 20s ease-in-out infinite;
 }
 
 @keyframes spin {
@@ -1376,9 +1429,15 @@ select {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.via-white {
-  --tw-gradient-to: rgb(255 255 255 / 0);
-  --tw-gradient-stops: var(--tw-gradient-from), #fff, var(--tw-gradient-to);
+.from-blue-100 {
+  --tw-gradient-from: #dbeafe;
+  --tw-gradient-to: rgb(219 234 254 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.via-blue-50 {
+  --tw-gradient-to: rgb(239 246 255 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), #eff6ff, var(--tw-gradient-to);
 }
 
 .to-blue-600 {
@@ -1393,8 +1452,8 @@ select {
   --tw-gradient-to: #4593FC;
 }
 
-.to-blue-50 {
-  --tw-gradient-to: #eff6ff;
+.to-white {
+  --tw-gradient-to: #fff;
 }
 
 .object-contain {
@@ -1734,6 +1793,14 @@ select {
   opacity: 0.6;
 }
 
+.opacity-40 {
+  opacity: 0.4;
+}
+
+.opacity-30 {
+  opacity: 0.3;
+}
+
 .opacity-25 {
   opacity: 0.25;
 }
@@ -1798,6 +1865,11 @@ select {
 
 .ring-opacity-5 {
   --tw-ring-opacity: 0.05;
+}
+
+.blur-3xl {
+  --tw-blur: blur(64px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .drop-shadow-xl {
