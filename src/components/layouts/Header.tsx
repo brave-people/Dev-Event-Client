@@ -19,177 +19,249 @@ const Header = ({ user }: { user?: UsersModel | UserProfileModel }) => {
   };
 
   return (
-    <header className="header top-0 left-0 right-0 bg-white border-b border-gray-100 z-50">
-      <div className="max-w-11xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 z-50">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link
             href="/admin/event"
-            className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
+            className="flex items-center space-x-3 group"
           >
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">D</span>
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-200 group-hover:scale-105">
+              <span className="text-white font-bold text-xl">D</span>
             </div>
-            <h1 className="text-xl font-bold text-blue-600">
-              데브 이벤트 어드민
-            </h1>
+            <div className="flex flex-col">
+              <h1 className="text-lg font-bold text-gray-900 leading-tight">
+                데브 이벤트
+              </h1>
+              <p className="text-xs text-gray-500 font-medium">Admin</p>
+            </div>
           </Link>
 
           <Menu as="div" className="relative">
-            <Menu.Button className="flex items-center space-x-3 px-4 py-2 rounded-full hover:bg-gray-50 transition-colors duration-200">
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                <span className="text-blue-600 font-medium">
+            <Menu.Button className="flex items-center space-x-2.5 px-3 py-2 rounded-xl hover:bg-gray-50 transition-all duration-200 group">
+              <div className="w-9 h-9 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-200">
+                <span className="text-blue-600 font-semibold text-sm">
                   {user?.name?.[0] || 'U'}
                 </span>
               </div>
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-semibold text-gray-900 hidden sm:block">
                 {user?.name}
               </span>
               <svg
-                className="w-5 h-5 text-gray-400"
-                viewBox="0 0 20 20"
-                fill="currentColor"
+                className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
                 <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M19 9l-7 7-7-7"
                 />
               </svg>
             </Menu.Button>
 
             <Transition
               as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
+              enter="transition ease-out duration-200"
+              enterFrom="transform opacity-0 scale-95 translate-y-[-10px]"
+              enterTo="transform opacity-100 scale-100 translate-y-0"
+              leave="transition ease-in duration-150"
+              leaveFrom="transform opacity-100 scale-100 translate-y-0"
+              leaveTo="transform opacity-0 scale-95 translate-y-[-10px]"
             >
-              <Menu.Items className="absolute right-0 mt-2 w-56 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-50">
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        onClick={onClickModifyUser}
-                        className={classNames(
-                          active ? 'bg-gray-50 text-gray-900' : 'text-gray-700',
-                          'group flex items-center w-full px-4 py-2 text-sm'
-                        )}
-                      >
-                        <svg
-                          className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                          <path
-                            fillRule="evenodd"
-                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        회원 정보 수정
-                      </button>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        href="/auth/password"
-                        className={classNames(
-                          active ? 'bg-gray-50 text-gray-900' : 'text-gray-700',
-                          'group flex items-center px-4 py-2 text-sm'
-                        )}
-                      >
-                        <svg
-                          className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        비밀번호 변경
-                      </Link>
-                    )}
-                  </Menu.Item>
-                </div>
-
-                {isAdmin && (
-                  <div className="py-1">
+              <Menu.Items className="absolute right-0 mt-3 w-64 rounded-2xl bg-white shadow-xl ring-1 ring-black/5 focus:outline-none z-50 overflow-hidden">
+                <div className="p-2">
+                  <div className="px-3 py-2.5 border-b border-gray-100">
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                      내 정보
+                    </p>
+                  </div>
+                  <div className="py-1.5">
                     <Menu.Item>
                       {({ active }) => (
-                        <Link
-                          href="/auth/users"
+                        <button
+                          onClick={onClickModifyUser}
                           className={classNames(
-                            active
-                              ? 'bg-gray-50 text-gray-900'
-                              : 'text-gray-700',
-                            'group flex items-center px-4 py-2 text-sm'
+                            active ? 'bg-blue-50' : '',
+                            'group flex items-center w-full px-3 py-2.5 text-sm font-medium text-gray-700 rounded-xl transition-colors'
                           )}
                         >
-                          <svg
-                            className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                          </svg>
-                          회원 관리
-                        </Link>
+                          <div className={classNames(
+                            active ? 'bg-blue-100' : 'bg-gray-100',
+                            'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
+                          )}>
+                            <svg
+                              className={classNames(
+                                active ? 'text-blue-600' : 'text-gray-600',
+                                'w-4 h-4'
+                              )}
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                              />
+                            </svg>
+                          </div>
+                          <span>회원 정보 수정</span>
+                        </button>
                       )}
                     </Menu.Item>
                     <Menu.Item>
                       {({ active }) => (
                         <Link
-                          href="/auth/create"
+                          href="/auth/password"
                           className={classNames(
-                            active
-                              ? 'bg-gray-50 text-gray-900'
-                              : 'text-gray-700',
-                            'group flex items-center px-4 py-2 text-sm'
+                            active ? 'bg-blue-50' : '',
+                            'group flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-xl transition-colors'
                           )}
                         >
-                          <svg
-                            className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
-                          </svg>
-                          회원 생성
+                          <div className={classNames(
+                            active ? 'bg-blue-100' : 'bg-gray-100',
+                            'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
+                          )}>
+                            <svg
+                              className={classNames(
+                                active ? 'text-blue-600' : 'text-gray-600',
+                                'w-4 h-4'
+                              )}
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                              />
+                            </svg>
+                          </div>
+                          <span>비밀번호 변경</span>
                         </Link>
                       )}
                     </Menu.Item>
                   </div>
+                </div>
+
+                {isAdmin && (
+                  <div className="p-2">
+                    <div className="px-3 py-2.5 border-b border-gray-100">
+                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                        관리
+                      </p>
+                    </div>
+                    <div className="py-1.5">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            href="/auth/users"
+                            className={classNames(
+                              active ? 'bg-blue-50' : '',
+                              'group flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-xl transition-colors'
+                            )}
+                          >
+                            <div className={classNames(
+                              active ? 'bg-blue-100' : 'bg-gray-100',
+                              'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
+                            )}>
+                              <svg
+                                className={classNames(
+                                  active ? 'text-blue-600' : 'text-gray-600',
+                                  'w-4 h-4'
+                                )}
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                                />
+                              </svg>
+                            </div>
+                            <span>회원 관리</span>
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            href="/auth/create"
+                            className={classNames(
+                              active ? 'bg-blue-50' : '',
+                              'group flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-xl transition-colors'
+                            )}
+                          >
+                            <div className={classNames(
+                              active ? 'bg-blue-100' : 'bg-gray-100',
+                              'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
+                            )}>
+                              <svg
+                                className={classNames(
+                                  active ? 'text-blue-600' : 'text-gray-600',
+                                  'w-4 h-4'
+                                )}
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                                />
+                              </svg>
+                            </div>
+                            <span>회원 생성</span>
+                          </Link>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </div>
                 )}
 
-                <div className="py-1">
+                <div className="p-2 border-t border-gray-100">
                   <Menu.Item>
                     {({ active }) => (
                       <Link
                         href="/auth/signOut"
                         className={classNames(
-                          active ? 'bg-gray-50 text-gray-900' : 'text-gray-700',
-                          'group flex items-center px-4 py-2 text-sm'
+                          active ? 'bg-red-50' : '',
+                          'group flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-xl transition-colors'
                         )}
                       >
-                        <svg
-                          className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        로그아웃
+                        <div className={classNames(
+                          active ? 'bg-red-100' : 'bg-gray-100',
+                          'w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors'
+                        )}>
+                          <svg
+                            className={classNames(
+                              active ? 'text-red-600' : 'text-gray-600',
+                              'w-4 h-4'
+                            )}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                            />
+                          </svg>
+                        </div>
+                        <span>로그아웃</span>
                       </Link>
                     )}
                   </Menu.Item>

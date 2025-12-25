@@ -87,7 +87,7 @@ const Nav = () => {
 
   return (
     <nav
-      className="w-[260px] min-h-screen bg-white border-r border-gray-100"
+      className="w-[240px] min-w-[240px] flex-shrink-0 min-h-screen bg-white border-r border-gray-100"
       aria-label="주요 메뉴"
     >
       <div className="py-6 px-3">

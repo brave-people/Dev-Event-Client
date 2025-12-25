@@ -44,11 +44,47 @@ const List = <T extends EventResponse>({
   const [layer, setLayer] = useAtom(layerAtom);
 
   const divRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<{ [key: number]: HTMLButtonElement | null }>({});
 
   const [currentId, setCurrentId] = useState<number | null>(null);
   const [filteredData, setFilteredData] = useState<T[]>([]);
   const [keyword, setKeyword] = useState('');
   const [maxHeight, setMaxHeight] = useState<string | null>(null);
+  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+  const [menuPosition, setMenuPosition] = useState<{
+    top: number;
+    left: number;
+  } | null>(null);
+
+  const toggleMenu = (e: React.MouseEvent, id: number) => {
+    e.stopPropagation();
+
+    if (openMenuId === id) {
+      setOpenMenuId(null);
+      setMenuPosition(null);
+    } else {
+      const button = buttonRefs.current[id];
+      if (button) {
+        const rect = button.getBoundingClientRect();
+        const dropdownWidth = 120; // 드롭다운 최소 너비
+        const rightMargin = 16; // 우측 여백
+
+        // 버튼 오른쪽 끝 기준으로 드롭다운 배치
+        let left = rect.right - dropdownWidth;
+
+        // 화면 오른쪽을 넘어가는지 체크
+        if (left + dropdownWidth > window.innerWidth - rightMargin) {
+          left = window.innerWidth - rightMargin - dropdownWidth;
+        }
+
+        setMenuPosition({
+          top: rect.bottom + 4,
+          left: left,
+        });
+      }
+      setOpenMenuId(id);
+    }
+  };
 
   const clickDeleteButton = (id: number) => {
     setCurrentId(id);
@@ -81,6 +117,36 @@ const List = <T extends EventResponse>({
     const findKeywordList = data.filter((v) => v.title.includes(keyword));
     return setFilteredData(findKeywordList);
   }, [keyword, data]);
+
+  // 외부 클릭 시 메뉴 닫기
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        !target.closest('.list__actions-menu') &&
+        !target.closest('.list__actions-dropdown')
+      ) {
+        setOpenMenuId(null);
+        setMenuPosition(null);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
+  // 스크롤 시 메뉴 닫기
+  useEffect(() => {
+    const handleScroll = () => {
+      if (openMenuId !== null) {
+        setOpenMenuId(null);
+        setMenuPosition(null);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, true);
+    return () => window.removeEventListener('scroll', handleScroll, true);
+  }, [openMenuId]);
 
   return (
     <div ref={divRef} className="list">
@@ -147,8 +213,10 @@ const List = <T extends EventResponse>({
                     <td className="list__table-cell list__table-cell--actions">
                       <div className="list__actions-menu">
                         <button
+                          ref={(el) => (buttonRefs.current[value.id] = el)}
                           className="list__actions-menu-trigger"
                           aria-label="메뉴"
+                          onClick={(e) => toggleMenu(e, value.id)}
                         >
                           <svg
                             fill="none"
@@ -163,26 +231,42 @@ const List = <T extends EventResponse>({
                             />
                           </svg>
                         </button>
-                        <div className="list__actions-dropdown">
-                          <div className="list__actions-dropdown-wrapper">
-                            <button
-                              className="list__actions-dropdown-item list__actions-dropdown-item--edit"
-                              onClick={() =>
-                                router.push(
-                                  `${parentLink}/modify?id=${value.id}`
-                                )
-                              }
-                            >
-                              수정
-                            </button>
-                            <button
-                              className="list__actions-dropdown-item list__actions-dropdown-item--delete"
-                              onClick={() => clickDeleteButton(value.id)}
-                            >
-                              삭제
-                            </button>
+                        {openMenuId === value.id && menuPosition && (
+                          <div
+                            className="list__actions-dropdown"
+                            style={{
+                              display: 'block',
+                              position: 'fixed',
+                              top: `${menuPosition.top}px`,
+                              left: `${menuPosition.left}px`,
+                              zIndex: 10000,
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <div className="list__actions-dropdown-wrapper">
+                              <button
+                                className="list__actions-dropdown-item list__actions-dropdown-item--edit"
+                                onClick={() => {
+                                  setOpenMenuId(null);
+                                  router.push(
+                                    `${parentLink}/modify?id=${value.id}`
+                                  );
+                                }}
+                              >
+                                수정
+                              </button>
+                              <button
+                                className="list__actions-dropdown-item list__actions-dropdown-item--delete"
+                                onClick={() => {
+                                  setOpenMenuId(null);
+                                  clickDeleteButton(value.id);
+                                }}
+                              >
+                                삭제
+                              </button>
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     </td>
                   </tr>
