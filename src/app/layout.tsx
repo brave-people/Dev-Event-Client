@@ -12,7 +12,7 @@ export default async function RootLayout({
   return (
     <html>
       <head>
-        <title>[관리자] 데브 이벤트</title>
+        <title>[어드민] 데브 이벤트</title>
         <meta
           httpEquiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
