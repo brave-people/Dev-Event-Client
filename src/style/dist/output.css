@@ -1028,8 +1028,8 @@ select {
   min-width: 240px;
 }
 
-.max-w-7xl {
-  max-width: 80rem;
+.max-w-ultra {
+  max-width: 120rem;
 }
 
 .max-w-\[440px\] {
