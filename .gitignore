@@ -156,3 +156,12 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/intellij
 
 .vercel
+
+# Claude Code (local)
+.claude/settings.local.json
+.claude/worktrees/
+
+# oh-my-claudecode (local)
+.omc/project-memory.json
+.omc/sessions/
+.omc/state/

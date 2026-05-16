@@ -747,11 +747,6 @@ select {
   margin: 1rem;
 }
 
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -1026,10 +1021,6 @@ select {
 
 .min-w-\[240px\] {
   min-width: 240px;
-}
-
-.max-w-ultra {
-  max-width: 120rem;
 }
 
 .max-w-\[440px\] {
