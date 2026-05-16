@@ -435,7 +435,7 @@ $color-destructive-hover: #ff453a;
 // Mobile Cards - Removed (모바일 카드 뷰 제거됨)
 
 // Create Button (Floating)
-.list__create-button {
+button.list__create-button {
   position: fixed;
   left: calc(#{$sub__nav / 2} + 50%);
   transform: translateX(-50%);
@@ -447,7 +447,9 @@ $color-destructive-hover: #ff453a;
   font-size: 15px;
   font-weight: 600;
   color: $color_white;
-  background: linear-gradient(135deg, #3182F6 0%, #4593FC 100%);
+  white-space: nowrap;
+  background-color: #3182F6;
+  background-image: linear-gradient(135deg, #3182F6 0%, #4593FC 100%);
   border: none;
   border-radius: 12px;
   box-shadow: 0 16px 40px rgba(49, 130, 246, 0.35),

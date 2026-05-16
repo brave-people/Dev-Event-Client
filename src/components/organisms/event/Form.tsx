@@ -75,6 +75,7 @@ const Form = ({
           setEndDate={setEndDate}
           setEndTime={setEndTime}
           setEventTimeType={setEventTimeType}
+          setTags={setTags}
         />
       </div>
       <div className="list">

@@ -7,7 +7,11 @@ import {
   useState,
 } from 'react';
 import { createPortal } from 'react-dom';
+import { useAtomValue } from 'jotai';
 import { EventTimeType, MarkdownInputState } from '../../model/Event';
+import type { Tag } from '../../model/Tag';
+import { eventTagsAtom } from '../../store/tags';
+import { parseEventMarkdown } from '../../util/markdown-event-parser';
 import Close from '../atoms/icon/Close';
 
 type MarkdownInputModalProps = {
@@ -22,6 +26,7 @@ type MarkdownInputModalProps = {
   setEndDate: Dispatch<SetStateAction<Date | null>>;
   setEndTime: Dispatch<SetStateAction<Date | null>>;
   setEventTimeType?: Dispatch<SetStateAction<EventTimeType>>;
+  setTags?: Dispatch<SetStateAction<Tag[]>>;
 };
 
 const MarkdownEventInputModal = ({
@@ -36,154 +41,34 @@ const MarkdownEventInputModal = ({
   setEndDate,
   setEndTime,
   setEventTimeType,
+  setTags,
 }: MarkdownInputModalProps) => {
   const { showLayer } = state;
   const divRef = useRef<HTMLDivElement | null>(null);
   const [text, setText] = useState('');
-
-  /*
-  파싱 예시
-
-- __[AWSKRUG 보안 #security 소모임](https://www.meetup.com/awskrug/events/305515882/)__
-  - 분류: `오프라인(서울 강남)`, `유료`, `모임`
-  - 주최: AWSKRUG
-  - 접수: 01. 10(금) ~ 01. 22(수)
-
-- __[AWSKRUG 보안 #security 소모임](https://www.meetup.com/awskrug/events/305515882/)__
-  - 분류: `오프라인(서울 강남)`, `유료`, `모임`
-  - 주최: AWSKRUG
-  - 접수: 01. 10(금) ~ 01. 22(수) 15:00
-
-- __[AWSKRUG 보안 #security 소모임](https://www.meetup.com/awskrug/events/305515882/)__
-  - 분류: `오프라인(서울 강남)`, `유료`, `모임`
-  - 주최: AWSKRUG
-  - 접수: 01. 10(금) 11:00 ~ 01. 22(수)
-
-- __[AWSKRUG 보안 #security 소모임](https://www.meetup.com/awskrug/events/305515882/)__
-  - 분류: `오프라인(서울 강남)`, `유료`, `모임`
-  - 주최: AWSKRUG
-  - 접수: 01. 10(금) 15:00 ~ 16:00
-  */
-  const parsingMarkdown = (text: string) => {
-    const lines = text.split('\n');
-    const firstLine = lines[0];
-
-    // 행사 제목 파싱
-    const titleRegex = /- __\[(.*?)\]\(/;
-    const titleMatch = firstLine.match(titleRegex);
-    const title = titleMatch ? titleMatch[1] : '';
-
-    // 행사 링크 파싱
-    const linkRegex = /\]\((.*?)\)__/;
-    const linkMatch = firstLine.match(linkRegex);
-    const link = linkMatch ? linkMatch[1] : '';
-
-    // 주최 파싱
-    const organizerLine = lines.find((line) => line.includes('주최:'));
-    const organizer = organizerLine
-      ? organizerLine.split('주최:')[1].trim()
-      : '';
-
-    // 시작 & 종료일자 파싱
-    const dateLine = lines.find(
-      (line) => line.includes('접수:') || line.includes('일시:')
-    );
-
-    let startDateStr = '';
-    let startTimeStr = '';
-    let endDateStr = '';
-    let endTimeStr = '';
-    let startDate = null;
-    let startTime = null;
-    let endDate = null;
-    let endTime = null;
-    let eventTimeType = 'DATE';
-
-    if (dateLine) {
-      // eventTimeType 설정
-      eventTimeType = dateLine?.includes('접수:') ? 'RECRUIT' : 'DATE';
-
-      // 현재 연도 가져오기
-      const currentYear = new Date().getFullYear();
-
-      // 행사 시작일자 파싱
-      const startRegex =
-        /(\d{2}\.\s*\d{2})\([\w가-힣]+\)(?:\s*(\d{2}:\d{2}))?\s*~/;
-      const startMatch = dateLine.match(startRegex);
-      if (startMatch) {
-        startDateStr = startMatch[1].replace(/\s+/g, ''); // "12.11"
-        startTimeStr = startMatch[2] || '00:00';
-
-        // 행사 시작 월일 설정
-        startDate = new Date(`${currentYear}.${startDateStr} ${startTimeStr}`);
-        // 행사 시작 시간 설정
-        if (startTimeStr) {
-          startTime = new Date(
-            `${currentYear}.${startDateStr} ${startTimeStr}`
-          );
-        }
-      }
-
-      // 행사 종료일자 파싱
-      const endRegex =
-        /~\s*(\d{2}\.\s*\d{2})\([\w가-힣]+\)(?:\s*(\d{2}:\d{2}))?/;
-      const endMatch = dateLine.match(endRegex);
-      if (endMatch) {
-        endDateStr = endMatch[1].replace(/\s+/g, ''); // "12.13"
-        endTimeStr = endMatch[2] || '23:59';
-
-        // 행사 종료 월일 설정
-        endDate = new Date(`${currentYear}.${endDateStr} ${endTimeStr}`);
-        // 행사 종료 시간 설정
-        if (endTimeStr) {
-          endTime = new Date(`${currentYear}.${endDateStr} ${endTimeStr}`);
-        }
-      } else {
-        // 종료일자만 있는 경우(ex. 01. 10(금) 15:00 ~ 16:00)
-        const endTimeOnlyRegex = /~\s*(\d{2}:\d{2})/;
-        const endTimeOnlyMatch = dateLine.match(endTimeOnlyRegex);
-        if (endTimeOnlyMatch) {
-          endTimeStr = endTimeOnlyMatch[1];
-          endDate = new Date(`${currentYear}.${startDateStr} ${endTimeStr}`);
-          endTime = new Date(`${currentYear}.${startDateStr} ${endTimeStr}`);
-        }
-      }
-    }
-
-    console.log(
-      `title: ${title}\n
-      link: ${link} \n
-      organizer: ${organizer} \n
-      eventTimeType: ${eventTimeType} \n 
-      startDate: ${startDate} \n 
-      startTime: ${startTime} \n
-      endDate: ${endDate} \n
-      endTime: ${endTime} \n
-      `
-    );
-
-    if (setTitle) {
-      setTitle(title);
-    }
-    if (setOrganizer) {
-      setOrganizer(organizer);
-    }
-    if (setEventLink) {
-      setEventLink(link);
-    }
-    if (setStartDate) {
-      setStartDate(startDate);
-    }
-    setStartTime(startTime);
-    setEndDate(endDate);
-    setEndTime(endTime);
-    if (setEventTimeType) {
-      setEventTimeType(eventTimeType as EventTimeType);
-    }
-  };
+  const allTags = useAtomValue(eventTagsAtom);
 
   const save = () => {
-    parsingMarkdown(text);
+    const result = parseEventMarkdown(text, allTags);
+
+    if (setTitle) setTitle(result.title);
+    if (setOrganizer) setOrganizer(result.organizer);
+    if (setEventLink) setEventLink(result.link);
+    if (setStartDate) setStartDate(result.startDate);
+    setStartTime(result.startTime);
+    setEndDate(result.endDate);
+    setEndTime(result.endTime);
+    if (setEventTimeType) setEventTimeType(result.eventTimeType);
+    if (setTags) setTags(result.tags);
+
+    if (result.unmatchedTagNames.length > 0) {
+      alert(
+        `등록되지 않은 태그는 제외되었습니다:\n` +
+          result.unmatchedTagNames.map((n) => `• ${n}`).join('\n') +
+          `\n\n태그 관리 페이지에서 먼저 등록해주세요.`
+      );
+    }
+
     closeLayer();
   };
 
@@ -217,7 +102,7 @@ const MarkdownEventInputModal = ({
         <textarea
           rows={5}
           className="w-full h-96 p-2 border border-gray-300 rounded-md resize-none"
-          placeholder="이 곳에 Github 행사 마크다운 텍스트를 입력하면 자동으로 input을 채워줍니다.(단, 태그 자동 입력은 지원하지 않습니다.)"
+          placeholder="이 곳에 Github 행사 마크다운 텍스트를 입력하면 자동으로 input을 채워줍니다."
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
