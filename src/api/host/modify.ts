@@ -2,6 +2,7 @@ import Cookie from 'cookie';
 import { Headers } from '../../config/headers';
 import type { RequestHeaders } from '../../model/Api';
 import type { Host } from '../../model/Host';
+import { toHostRequestBody } from './_serialize';
 
 export const modifyHostApi = async ({
   data,
@@ -17,6 +18,6 @@ export const modifyHostApi = async ({
       Authorization: Cookie.parse(document.cookie)['access_token'],
       ...Headers(),
     } as RequestHeaders,
-    body: JSON.stringify(data),
+    body: JSON.stringify(toHostRequestBody(data)),
   }).then((res) => res.json());
 };
