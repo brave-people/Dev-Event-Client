@@ -6,33 +6,43 @@ import Nav from '../layouts/Nav';
 import { useUserProfile } from '../organisms/auth/Profile';
 
 const BackgroundBox = () => {
-  return (
-    <div className="z-20 bg-gray-300 block fixed top-0 left-0 opacity-60 w-full h-full" />
-  );
+  return <div className="admin-backdrop" aria-hidden="true" />;
 };
 
 const Event = ({
   title,
+  eyebrow = 'CONTENT MANAGEMENT',
+  description,
   children,
 }: {
   title: string;
+  eyebrow?: string;
+  description?: string;
   children: ReactElement;
 }) => {
   const layer = useAtomValue(layerAtom);
   const { data: user } = useUserProfile();
 
   return (
-    <>
+    <div className="admin-shell">
       <Header user={user} />
-      <main className="flex">
+      <div className="admin-layout">
         <Nav />
-        <section className="p-8 wrap__box--bg">
-          <h2 className="mb-4 text-3xl font-bold">{title}</h2>
-          {layer && <BackgroundBox />}
-          {children}
-        </section>
-      </main>
-    </>
+        <main className="admin-content">
+          <div className="admin-content__inner">
+            <div className="admin-page-heading">
+              <p className="admin-page-heading__eyebrow">{eyebrow}</p>
+              <h1 className="admin-page-heading__title">{title}</h1>
+              {description && (
+                <p className="admin-page-heading__description">{description}</p>
+              )}
+            </div>
+            {layer && <BackgroundBox />}
+            {children}
+          </div>
+        </main>
+      </div>
+    </div>
   );
 };
 

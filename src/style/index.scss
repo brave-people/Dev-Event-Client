@@ -4,6 +4,7 @@
 @import './calendar';
 @import './form';
 @import './imageUpload';
+@import './login';
 @import './list';
 @import './markdown-editor';
 @import './popup';
@@ -11,6 +12,31 @@
 @import './wrap';
 
 * {
-  font-family: 'Noto Sans KR', sans-serif;
+  box-sizing: border-box;
+  font-family: 'Toss Product Sans', 'Noto Sans KR', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', sans-serif;
   letter-spacing: -0.5px;
+}
+
+html,
+body {
+  margin: 0;
+  color: #191f28;
+  background: #ffffff;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

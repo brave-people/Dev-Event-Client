@@ -1,99 +1,63 @@
-@import './color';
 @import './variables';
 
-// Apple-inspired design tokens
-$list-spacing-unit: 8px;
-$list-radius: 12px;
-$list-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-$list-shadow-elevated: 0 4px 6px rgba(0, 0, 0, 0.05),
-  0 10px 15px rgba(0, 0, 0, 0.03);
-
-// Typography (Apple-like)
-$font-weight-regular: 400;
-$font-weight-medium: 500;
-$font-weight-semibold: 600;
-$font-weight-bold: 700;
-
-// Colors (Apple neutral palette)
-$color-text-primary: #1d1d1f;
-$color-text-secondary: #6e6e73;
-$color-text-tertiary: #86868b;
-$color-border-light: #d2d2d7;
-$color-bg-hover: #f5f5f7;
-$color-bg-pressed: #e8e8ed;
-$color-accent: #0071e3;
-$color-accent-hover: #0077ed;
-$color-destructive: #ff3b30;
-$color-destructive-hover: #ff453a;
-
 .list {
-  padding: $list-spacing-unit * 3 $list-spacing-unit * 3 $list-spacing-unit * 7;
-  background-color: $color_white;
-  border-radius: $list-radius;
-  box-shadow: $list-shadow;
-  max-width: 1400px;
-  margin: 0 auto;
-  overflow: visible;
-
-  @media (max-width: 768px) {
-    padding: $list-spacing-unit * 3;
-    border-radius: $list-radius / 2;
-  }
+  width: 100%;
+  padding: 24px;
+  background: $tds-canvas;
+  border: 1px solid $tds-border;
+  border-radius: 16px;
 }
 
 .list__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: $list-spacing-unit * 4;
-  gap: $list-spacing-unit * 3;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: $list-spacing-unit * 2;
-    align-items: stretch;
-  }
+  gap: 16px;
+  margin-bottom: 24px;
 
   &-left {
     display: flex;
     align-items: center;
-    gap: $list-spacing-unit * 2;
+    gap: 12px;
   }
 
   &__button {
+    min-height: 44px;
     display: inline-flex;
     align-items: center;
-    gap: $list-spacing-unit * 1.5;
-    padding: $list-spacing-unit * 1.5 $list-spacing-unit * 2.5;
-    font-size: 17px;
-    font-weight: $font-weight-semibold;
-    color: $color-text-primary;
-    border-radius: $list-radius;
-    background-color: transparent;
-    border: 1px solid $color-border-light;
+    gap: 10px;
+    padding: 0 14px;
+    color: $tds-foreground;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 21px;
+    background: $tds-canvas;
+    border: 1px solid $tds-border;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color 160ms ease, background-color 160ms ease,
+      border-color 160ms ease;
 
     &:hover {
-      background-color: $color-bg-hover;
-      border-color: $color-text-tertiary;
+      color: $tds-weak-foreground;
+      background: $tds-weak-background;
+      border-color: #c9e2ff;
     }
 
     &:active {
-      background-color: $color-bg-pressed;
-      transform: scale(0.98);
+      background: #dbeeff;
     }
 
     &:focus-visible {
-      outline: 2px solid $color-accent;
+      outline: 3px solid $tds-focus-ring;
       outline-offset: 2px;
     }
 
     &-icon {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
+      color: $tds-body;
       stroke-width: 2;
-      color: $color-text-secondary;
     }
 
     &-text {
@@ -101,20 +65,14 @@ $color-destructive-hover: #ff453a;
     }
 
     &-chevron {
-      width: 16px;
-      height: 16px;
-      stroke-width: 2.5;
-      color: $color-text-tertiary;
-      transition: transform 0.2s ease;
+      width: 14px;
+      height: 14px;
+      color: $tds-muted;
+      transition: transform 160ms ease;
     }
 
     &:hover &-chevron {
-      transform: translateY(2px);
-    }
-
-    @media (max-width: 768px) {
-      width: 100%;
-      justify-content: space-between;
+      transform: translateY(1px);
     }
   }
 }
@@ -125,376 +83,330 @@ $color-destructive-hover: #ff453a;
   height: 44px;
   display: flex;
   align-items: center;
-  padding: 0 $list-spacing-unit * 2;
-  gap: $list-spacing-unit;
-  border: 1px solid $color-border-light;
-  border-radius: $list-radius;
-  background-color: $color-bg-hover;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 8px;
+  padding: 0 14px;
+  background: $tds-surface;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  transition: background-color 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease;
 
   &:focus-within {
-    background-color: $color_white;
-    border-color: $color-accent;
-    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+    background: $tds-canvas;
+    border-color: $tds-primary;
+    box-shadow: 0 0 0 4px $tds-focus-ring;
   }
 
   svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    stroke: $color-text-tertiary;
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+    color: $tds-muted;
   }
 
   input {
     width: 100%;
     height: 100%;
-    font-size: 15px;
-    font-weight: $font-weight-regular;
-    color: $color-text-primary;
-    border: none;
-    background-color: transparent;
-    outline: none;
+    padding: 0;
+    color: $tds-foreground;
+    font-size: 14px;
+    font-weight: 400;
+    background: transparent;
+    border: 0;
+    outline: 0;
 
     &::placeholder {
-      color: $color-text-tertiary;
+      color: $tds-muted;
     }
   }
-
-  @media (max-width: 768px) {
-    max-width: 100%;
-  }
 }
 
-// Container
 .list__container {
+  display: flex;
+  flex-direction: column;
   position: relative;
-  overflow: visible;
 }
 
-// Empty state
 .list__empty {
+  min-height: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: $list-spacing-unit * 12 $list-spacing-unit * 4;
+  padding: 48px 24px;
   text-align: center;
+  background: $tds-surface;
+  border-radius: 14px;
 
   &-icon {
-    width: 64px;
-    height: 64px;
-    margin-bottom: $list-spacing-unit * 3;
-    stroke: $color-text-tertiary;
-    opacity: 0.4;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    color: $tds-muted;
   }
 
   &-text {
-    font-size: 17px;
-    font-weight: $font-weight-medium;
-    color: $color-text-secondary;
+    max-width: 360px;
+    margin: 0;
+    color: $tds-body;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
   }
 }
 
-// Table (Desktop)
 .list__table-wrapper {
   overflow-x: auto;
-  overflow-y: visible;
-  border-radius: $list-radius;
-  border: 1px solid $color-border-light;
-
-  // 작은 화면에서도 테이블 표시 (가로 스크롤 가능)
+  border: 1px solid $tds-border;
+  border-radius: 14px;
   -webkit-overflow-scrolling: touch;
 }
 
 .list__table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 15px;
+  min-width: 760px;
   position: relative;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
 
   thead {
-    background-color: $color-bg-hover;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-
-  tbody {
-    position: relative;
+    background: $tds-surface;
   }
 
   &-header {
-    padding: $list-spacing-unit * 2 $list-spacing-unit * 3;
-    text-align: left;
+    padding: 14px 20px;
+    color: $tds-body;
     font-size: 13px;
-    font-weight: $font-weight-semibold;
-    color: $color-text-secondary;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 1px solid $color-border-light;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid $tds-border;
 
     &--title {
-      width: 35%;
+      width: 38%;
     }
 
     &--actions {
-      width: 10px;
-      text-align: right;
+      width: 72px;
+      text-align: center;
     }
   }
 
   &-row {
-    position: relative;
-    transition: background-color 0.15s ease;
+    transition: background-color 140ms ease;
 
     &:hover {
-      background-color: $color-bg-hover;
+      background: #f8f9fa;
     }
 
     &:focus-within {
-      background-color: $color-bg-hover;
-      box-shadow: inset 0 0 0 2px $color-accent;
+      background: $tds-weak-background;
+    }
+
+    &:last-child .list__table-cell {
+      border-bottom: 0;
     }
   }
 
   &-cell {
-    padding: $list-spacing-unit * 0.5 $list-spacing-unit * 3;
-    border-bottom: 1px solid $color-border-light;
-    color: $color-text-primary;
-    font-weight: $font-weight-regular;
+    height: 64px;
+    padding: 12px 20px;
+    color: $tds-foreground;
+    font-weight: 400;
+    line-height: 21px;
     vertical-align: middle;
+    border-bottom: 1px solid $tds-border;
 
     &--number {
-      width: 60px;
-      font-size: 14px;
-      font-weight: $font-weight-medium;
-      color: $color-text-tertiary;
+      width: 64px;
+      color: $tds-muted;
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
     }
 
     &--title {
-      font-weight: $font-weight-regular;
+      font-weight: 500;
     }
 
     &--date {
-      font-size: 14px;
-      color: $color-text-secondary;
+      color: $tds-body;
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
 
     &--actions {
-      text-align: right;
       position: relative;
+      text-align: center;
     }
   }
 
   &-title-text {
+    max-width: 480px;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 450px;
-  }
-
-  &-link {
-    display: inline-flex;
-    align-items: center;
-    gap: $list-spacing-unit;
-    padding: $list-spacing-unit $list-spacing-unit * 1.5;
-    font-size: 14px;
-    font-weight: $font-weight-medium;
-    color: $color-accent;
-    background-color: transparent;
-    border-radius: $list-radius / 2;
-    transition: all 0.15s ease;
-    text-decoration: none;
-
-    &:hover {
-      background-color: rgba(0, 113, 227, 0.08);
-      color: $color-accent-hover;
-    }
-
-    &:active {
-      transform: scale(0.96);
-    }
-
-    &-icon {
-      width: 16px;
-      height: 16px;
-      stroke-width: 2;
-    }
   }
 }
 
-// Actions Menu (호버 드롭다운)
 .list__actions-menu {
-  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   &-trigger {
-    display: flex;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
     padding: 0;
-    border: none;
-    background-color: transparent;
-    border-radius: 50%;
-    transition: all 0.15s ease;
+    color: $tds-muted;
+    background: transparent;
+    border: 0;
+    border-radius: 10px;
     cursor: pointer;
+    transition: color 140ms ease, background-color 140ms ease;
 
     svg {
       width: 20px;
       height: 20px;
-      color: $color-text-tertiary;
-      stroke-width: 2;
     }
 
     &:hover {
-      background-color: $color-bg-hover;
-
-      svg {
-        color: $color-text-primary;
-      }
+      color: $tds-foreground;
+      background: $tds-surface;
     }
 
-    &:active {
-      background-color: $color-bg-pressed;
-      transform: scale(0.95);
+    &:focus-visible {
+      outline: 3px solid $tds-focus-ring;
+      outline-offset: 2px;
     }
-  }
-
-  &:hover .list__actions-dropdown {
-    display: block !important;
   }
 }
 
 .list__actions-dropdown {
-  // position, top, left는 inline style로 설정됨
-  display: none;
-  padding-top: 8px;
   min-width: 120px;
+  padding-top: 6px;
 
-  &:hover {
-    display: block !important;
-  }
-
-  // 전체 드롭다운 래퍼
   &-wrapper {
-    background-color: $color_white;
-    border: 1px solid $color-border-light;
-    border-radius: $list-radius;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
-    overflow: hidden;
+    padding: 6px;
+    background: $tds-canvas;
+    border: 1px solid $tds-border;
+    border-radius: 12px;
   }
 
   &-item {
-    display: block;
     width: 100%;
-    padding: $list-spacing-unit * 1.5 $list-spacing-unit * 2;
+    min-height: 38px;
+    display: block;
+    padding: 8px 10px;
+    color: $tds-body;
     font-size: 14px;
-    font-weight: $font-weight-medium;
+    font-weight: 600;
+    line-height: 20px;
     text-align: left;
-    border: none;
-    background-color: $color_white;
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.15s ease;
 
-    &:not(:last-child) {
-      border-bottom: 1px solid rgba($color-border-light, 0.5);
-    }
-
-    &:hover {
-      background-color: $color-bg-hover;
-    }
-
-    &:active {
-      background-color: $color-bg-pressed;
-    }
-
-    &--edit {
-      color: $color-accent;
-
-      &:hover {
-        background-color: rgba(0, 113, 227, 0.08);
-      }
+    &:hover,
+    &:focus-visible {
+      color: $tds-weak-foreground;
+      background: $tds-weak-background;
+      outline: none;
     }
 
     &--delete {
-      color: $color-destructive;
+      color: $tds-danger;
 
-      &:hover {
-        background-color: rgba(255, 59, 48, 0.08);
+      &:hover,
+      &:focus-visible {
+        color: $tds-danger;
+        background: #fff0f1;
       }
     }
   }
 }
 
-// Mobile Cards - Removed (모바일 카드 뷰 제거됨)
-
-// Create Button (Floating)
 button.list__create-button {
-  position: fixed;
-  left: calc(#{$sub__nav / 2} + 50%);
-  transform: translateX(-50%);
+  height: 48px;
+  position: static;
+  align-self: flex-end;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 24px;
+  margin-top: 24px;
+  padding: 0 20px;
+  color: $tds-canvas;
   font-size: 15px;
   font-weight: 600;
-  color: $color_white;
+  line-height: 1;
   white-space: nowrap;
-  background-color: #3182F6;
-  background-image: linear-gradient(135deg, #3182F6 0%, #4593FC 100%);
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 16px 40px rgba(49, 130, 246, 0.35),
-              0 8px 16px rgba(49, 130, 246, 0.2),
-              0 0 1px rgba(49, 130, 246, 0.1);
+  background: $tds-primary;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: none;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 100;
-  backdrop-filter: blur(8px);
+  transition: background-color 160ms ease, transform 160ms ease;
 
   &:hover {
-    background: linear-gradient(135deg, #2968D8 0%, #3182F6 100%);
-    box-shadow: 0 20px 48px rgba(49, 130, 246, 0.4),
-                0 12px 24px rgba(49, 130, 246, 0.25),
-                0 0 1px rgba(49, 130, 246, 0.1);
-    transform: translateX(-50%) translateY(-6px) scale(1.02);
+    background: $tds-primary-hover;
   }
 
   &:active {
-    transform: translateX(-50%) translateY(-3px) scale(0.98);
-    box-shadow: 0 12px 32px rgba(49, 130, 246, 0.3),
-                0 6px 12px rgba(49, 130, 246, 0.15);
+    transform: scale(0.98);
   }
 
   &:focus-visible {
-    outline: 3px solid rgba(49, 130, 246, 0.4);
-    outline-offset: 4px;
+    outline: 3px solid $tds-focus-ring;
+    outline-offset: 3px;
   }
 
   &-icon {
-    width: 20px;
-    height: 20px;
-    stroke-width: 2.5;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.2;
+  }
+}
+
+@media (max-width: 720px) {
+  .list {
+    padding: 16px;
+    border-radius: 14px;
   }
 
-  @media (max-width: 768px) {
-    left: 50%;
-    padding: 10px 20px;
-    font-size: 14px;
-    border-radius: 10px;
+  .list__header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
 
-    &-icon {
-      width: 18px;
-      height: 18px;
+    &-left,
+    &__button,
+    .list__search {
+      width: 100%;
+      max-width: none;
     }
+
+    &__button {
+      justify-content: space-between;
+    }
+  }
+
+  .list__table-wrapper {
+    margin-right: -16px;
+    border-right: 0;
+    border-radius: 12px 0 0 12px;
+  }
+
+  button.list__create-button {
+    width: 100%;
+    align-self: stretch;
   }
 }
