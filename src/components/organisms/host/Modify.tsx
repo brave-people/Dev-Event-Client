@@ -1,117 +1,77 @@
-import { useState, type MouseEvent } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { modifyHostApi } from '../../../api/host/modify';
-import { fetchUploadImage } from '../../../api/image';
+'use client';
+
+import { useState } from 'react';
+import { backfillHostEventsApi } from '../../../api/host/backfill';
+import { updateHostVerifiedApi } from '../../../api/host/verified';
 import { STATUS_200 } from '../../../config/constants';
-import { Host, HostResponse } from '../../../model/Host';
-import Input from '../../atoms/input/Input';
-import ErrorContext, { useErrorContext } from '../../layouts/ErrorContext';
-import ImageUpload from '../../molecules/image-upload';
+import type { HostResponse } from '../../../model/Host';
+import Toggle from '../../atoms/Toggle';
+import Form from './Form';
 
-export const Modify = ({ host }: { host: HostResponse }) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const id = searchParams.get('id') || '';
+type Props = { host: HostResponse };
 
-  const [hostName, setHostName] = useState(host.host_name);
-  const [description, setDescription] = useState(host?.description || '');
+export const Modify = ({ host }: Props) => {
+  const [verified, setVerified] = useState(host.verified);
+  const [busy, setBusy] = useState(false);
 
-  // image
-  const [hostImageUrl] = useState(host.image_link);
-  const [blob, setBlob] = useState<FormData | null>(null);
-
-  const { formErrors, validateForm } = useErrorContext({
-    hostName,
-  });
-
-  const changeHostName = (e: { target: { value: string } }) => {
-    setHostName(e.target.value);
-  };
-  const changeDescription = (e: { target: { value: string } }) => {
-    setDescription(e.target.value);
+  const toggleVerified = async (next: boolean) => {
+    const previous = verified;
+    setVerified(next);
+    const result = await updateHostVerifiedApi({ id: host.id, verified: next });
+    if (result.status_code !== STATUS_200) {
+      setVerified(previous);
+      alert(result.message ?? '인증 상태 변경에 실패했어요.');
+    }
   };
 
-  const uploadImage = async () => {
-    if (blob === null) return '';
-
-    const data = await fetchUploadImage({
-      fileType: 'HOST',
-      body: blob,
-    });
-
-    if (data.message) alert(data.message);
-    if (data.file_url) return data.file_url;
-    return '';
-  };
-
-  const modifyHost = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (!hostName) return validateForm();
-
-    const newCoverImageUrl = await uploadImage();
-
-    const body: Host = {
-      host_name: hostName,
-      description,
-      image_link: newCoverImageUrl || hostImageUrl,
-    };
-
-    const data = await modifyHostApi({ data: body, id: id.toString() });
-    if (data.status_code === STATUS_200) router.push('/admin/host');
-    return alert(data.message);
+  const runBackfill = async () => {
+    const ok = window.confirm(
+      `주최자 이름이 "${host.host_name}"으로 적혀 있는 기존 행사들을 모두 이 주최자에 연결할게요.\n되돌릴 수 없어요. 진행할까요?`
+    );
+    if (!ok) return;
+    setBusy(true);
+    const result = await backfillHostEventsApi({ id: host.id });
+    setBusy(false);
+    alert(result.message ?? '연결이 완료되었어요.');
   };
 
   return (
     <div className="list">
-      <form className="form--large">
-        <div className="form__content">
-          <Input
-            text="주최명"
-            value={hostName}
-            onChange={changeHostName}
-            isRequired={true}
-            customClass={{
-              'border-red-400': !!(formErrors.hostName && !hostName),
-            }}
-          >
-            {formErrors.hostName && !hostName && <ErrorContext />}
-          </Input>
-          <Input
-            text="주최 설명"
-            value={description}
-            onChange={changeDescription}
-          />
-          <div className="relative">
-            <span className="form__content__title inline-block text-base text-gray-600">
-              주최 이미지
-              <span className="text-red-500">*</span>
-            </span>
-            <ImageUpload
-              width={360}
-              height={200}
-              coverImageUrl={hostImageUrl}
-              setBlob={setBlob}
-            />
+      <Form mode="modify" initial={host} hostId={host.id} />
+
+      <div className="mt-8 border border-red-200 bg-red-50 rounded-md p-4">
+        <h3 className="text-sm font-semibold text-red-700">위험 구역</h3>
+        <p className="text-xs text-red-800 mt-1 mb-3">
+          아래 액션은 폼 저장과 무관하게 즉시 실행됩니다.
+        </p>
+
+        <div className="flex items-center gap-3 bg-white border border-red-200 rounded-md p-3 mb-2">
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-gray-900">인증 마크</p>
+            <p className="text-xs text-gray-500">
+              켜면 주최자 이름 옆에 ✓ 마크가 표시됩니다. 변경 즉시 반영돼요.
+            </p>
           </div>
+          <Toggle
+            checked={verified}
+            onChange={toggleVerified}
+            ariaLabel="인증 토글"
+          />
         </div>
-        <div className="relative pt-8 pb-6">
-          <button
-            type="submit"
-            onClick={modifyHost}
-            className="form__button form__button--center w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-white bg-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-          >
-            확인
-          </button>
-          <a
-            href={'/admin/host'}
-            className="form__button form__button--right w-20 inline-flex items-center justify-center my-4 p-2 rounded-md text-gray-400 text-white bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-          >
-            취소
-          </a>
-        </div>
-      </form>
+
+        <button
+          type="button"
+          onClick={runBackfill}
+          disabled={busy}
+          className="text-xs text-red-700 border border-red-300 rounded px-3 py-2 bg-white disabled:opacity-50"
+        >
+          {busy ? '연결 중…' : '⚙ 기존 행사 일괄 연결'}
+        </button>
+        <p className="text-xs text-red-800 mt-2">
+          예전에 등록된 행사 중 주최자 이름이 “{host.host_name}”으로 적혀 있는
+          행사들을 모두 이 주최자에 한 번에 연결합니다.
+        </p>
+      </div>
     </div>
   );
 };

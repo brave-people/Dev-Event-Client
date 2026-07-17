@@ -1,7 +1,8 @@
 import Cookie from 'cookie';
 import { Headers } from '../../config/headers';
 import type { RequestHeaders } from '../../model/Api';
-import { Host } from '../../model/Host';
+import type { Host } from '../../model/Host';
+import { toHostRequestBody } from './_serialize';
 
 export const createHostApi = async ({ data }: { data: Host }) => {
   return await fetch(`${process.env.NEXT_PUBLIC_ADMIN_V1_URL}/hosts`, {
@@ -11,6 +12,6 @@ export const createHostApi = async ({ data }: { data: Host }) => {
       Authorization: Cookie.parse(document.cookie)['access_token'],
       ...Headers(),
     } as RequestHeaders,
-    body: JSON.stringify(data),
+    body: JSON.stringify(toHostRequestBody(data)),
   }).then((res) => res.json());
 };

@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>/admin/host 목업</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, "Pretendard", "Segoe UI", sans-serif;
+        background: #f5f6f8;
+        color: #1f2937;
+      }
+      header.page {
+        position: sticky;
+        top: 0;
+        background: #fff;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 14px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        z-index: 10;
+      }
+      header.page h1 { font-size: 16px; margin: 0; color: #111827; }
+      header.page nav { margin-left: auto; font-size: 13px; color: #6b7280; }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 24px; }
+      section.mockup {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        margin-bottom: 32px;
+        overflow: hidden;
+      }
+      section.mockup > .label {
+        background: #111827;
+        color: #f9fafb;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        padding: 8px 16px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      section.mockup > .body { padding: 20px; }
+
+      /* ---------- List ---------- */
+      .list-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        font-size: 13px;
+        color: #4b5563;
+      }
+      .list-toolbar .count { font-weight: 600; color: #111827; }
+      .list-toolbar .spacer { flex: 1; }
+      .list-toolbar input[type=search] {
+        padding: 7px 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 13px;
+        width: 220px;
+      }
+      .list-toolbar select {
+        padding: 7px 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        background: #fff;
+        font-size: 13px;
+      }
+      table.list {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      table.list th, table.list td {
+        text-align: left;
+        padding: 12px 10px;
+        border-bottom: 1px solid #f3f4f6;
+        white-space: nowrap;
+      }
+      table.list th {
+        font-size: 12px;
+        color: #6b7280;
+        background: #f9fafb;
+        font-weight: 600;
+      }
+      table.list td .row-host {
+        display: flex; align-items: center; gap: 10px;
+      }
+      table.list td .row-host .logo {
+        width: 28px; height: 28px; border-radius: 6px;
+        background: linear-gradient(135deg, #93c5fd, #c7d2fe);
+        display: inline-flex; align-items: center; justify-content: center;
+        color: #1e3a8a; font-weight: 700; font-size: 12px;
+      }
+      table.list td .row-host .name { font-weight: 600; color: #111827; }
+      .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1.6;
+      }
+      .badge.company   { background: #eff6ff; color: #1d4ed8; }
+      .badge.community { background: #ecfdf5; color: #047857; }
+      .badge.academic  { background: #fdf4ff; color: #a21caf; }
+      .badge.gov       { background: #f5f3ff; color: #6d28d9; }
+      .badge.edu       { background: #fff7ed; color: #c2410c; }
+      .badge.media     { background: #fef2f2; color: #b91c1c; }
+      .badge.muted     { background: #f3f4f6; color: #4b5563; }
+
+      .toggle {
+        position: relative;
+        display: inline-block;
+        width: 34px; height: 20px;
+        background: #d1d5db;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .toggle::after {
+        content: "";
+        position: absolute; top: 2px; left: 2px;
+        width: 16px; height: 16px; border-radius: 50%;
+        background: #fff;
+        transition: transform 0.15s;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      }
+      .toggle.on { background: #2563eb; }
+      .toggle.on::after { transform: translateX(14px); }
+
+      .icon-btn {
+        background: transparent; border: none; cursor: pointer;
+        color: #6b7280; padding: 4px;
+      }
+      .icon-btn:hover { color: #111827; }
+
+      .fab {
+        margin-top: 16px;
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 10px 18px;
+        background: #2563eb; color: #fff;
+        border: none; border-radius: 8px;
+        font-weight: 600; font-size: 14px;
+        cursor: pointer;
+      }
+
+      /* ---------- Form ---------- */
+      .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+      .field { display: flex; flex-direction: column; gap: 6px; }
+      .field label {
+        font-size: 13px; color: #374151; font-weight: 600;
+      }
+      .field label .req { color: #ef4444; margin-left: 2px; }
+      .field input[type=text],
+      .field input[type=number],
+      .field input[type=url],
+      .field select,
+      .field textarea {
+        padding: 9px 11px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 13px;
+        font-family: inherit;
+        background: #fff;
+        color: #111827;
+      }
+      .field textarea { min-height: 90px; resize: vertical; }
+      .field .hint { font-size: 12px; color: #9ca3af; }
+
+      .section-head {
+        margin: 24px 0 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex; align-items: center; gap: 8px;
+        font-size: 14px; font-weight: 700; color: #111827;
+      }
+      .section-head .sub { font-size: 12px; color: #6b7280; font-weight: 500; }
+
+      .image-slot {
+        border: 1px dashed #d1d5db;
+        border-radius: 8px;
+        background: #fafafa;
+        display: flex; align-items: center; justify-content: center;
+        color: #9ca3af;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .image-slot.logo { width: 140px; height: 140px; }
+      .image-slot.banner { width: 100%; height: 140px; }
+
+      /* repeater */
+      .repeater { display: flex; flex-direction: column; gap: 8px; }
+      .repeater .row {
+        display: grid;
+        grid-template-columns: 130px 140px 1fr 60px 60px 36px;
+        gap: 8px;
+        align-items: center;
+      }
+      .repeater .row.topic {
+        grid-template-columns: 1fr 80px 36px;
+      }
+      .repeater .row input,
+      .repeater .row select {
+        padding: 7px 9px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 12px;
+        background: #fff;
+      }
+      .repeater .row .center { text-align: center; }
+      .repeater .row .del {
+        background: transparent; border: 1px solid #e5e7eb;
+        color: #b91c1c; border-radius: 6px;
+        cursor: pointer; font-size: 12px;
+        height: 30px;
+      }
+      .repeater .add {
+        align-self: flex-start;
+        padding: 6px 12px;
+        background: #f3f4f6;
+        border: 1px dashed #d1d5db;
+        border-radius: 6px;
+        color: #374151;
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .danger-zone {
+        margin-top: 28px;
+        border: 1px solid #fecaca;
+        background: #fef2f2;
+        border-radius: 8px;
+        padding: 14px 16px;
+      }
+      .danger-zone h3 {
+        margin: 0 0 6px;
+        color: #b91c1c;
+        font-size: 13px;
+      }
+      .danger-zone p {
+        margin: 0 0 10px;
+        font-size: 12px;
+        color: #7f1d1d;
+      }
+      .danger-zone .actions { display: flex; gap: 8px; }
+      .danger-zone button {
+        padding: 7px 12px;
+        background: #fff;
+        border: 1px solid #fca5a5;
+        color: #b91c1c;
+        border-radius: 6px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .form-footer {
+        margin-top: 28px;
+        padding-top: 18px;
+        border-top: 1px solid #e5e7eb;
+        display: flex; gap: 10px;
+      }
+      .form-footer .primary {
+        padding: 9px 22px;
+        background: #2563eb; color: #fff;
+        border: none; border-radius: 6px;
+        font-weight: 600; font-size: 13px; cursor: pointer;
+      }
+      .form-footer .ghost {
+        padding: 9px 22px;
+        background: #f3f4f6; color: #4b5563;
+        border: none; border-radius: 6px;
+        font-weight: 600; font-size: 13px; cursor: pointer;
+      }
+
+      .toggle-row {
+        display: flex; align-items: center; gap: 12px;
+        padding: 10px 12px;
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+      }
+      .toggle-row .label { font-size: 13px; font-weight: 600; color: #111827; }
+      .toggle-row .desc { font-size: 12px; color: #6b7280; flex: 1; }
+
+      .note {
+        margin: 0 0 16px;
+        padding: 10px 14px;
+        background: #fffbeb;
+        border-left: 3px solid #f59e0b;
+        font-size: 12px;
+        color: #92400e;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="page">
+      <h1>/admin/host — UI 목업</h1>
+      <nav>설계 검토용 · 실제 페이지 아님</nav>
+    </header>
+
+    <div class="wrap">
+
+      <p class="note">
+        <strong>전제</strong> ·
+        List + Create + Modify 전부 확장 / 목록은 테이블 + 컬럼 확장 /
+        links·topics는 폼 제출 시 PUT 일괄 교체 /
+        verified·backfill은 수정 페이지 안에서만 노출.
+      </p>
+
+      <!-- ============================== -->
+      <!-- 1. List                        -->
+      <!-- ============================== -->
+      <section class="mockup">
+        <div class="label">1) /admin/host — 목록</div>
+        <div class="body">
+          <div class="list-toolbar">
+            <span>전체 <span class="count">128</span>건 · 인증 <span class="count">42</span>건</span>
+            <span class="spacer"></span>
+            <input type="search" placeholder="주최명 검색…" />
+            <select>
+              <option>전체 분류</option>
+              <option>회사 (COMPANY)</option>
+              <option>커뮤니티 (COMMUNITY)</option>
+              <option>학회/학술 (ACADEMIC)</option>
+              <option>정부/공공 (GOVERNMENT)</option>
+              <option>교육기관 (EDUCATION)</option>
+              <option>미디어 (MEDIA)</option>
+            </select>
+          </div>
+
+          <table class="list">
+            <thead>
+              <tr>
+                <th style="width:60px;">No</th>
+                <th>주최명</th>
+                <th style="width:120px;">분류</th>
+                <th style="width:130px;">도메인</th>
+                <th style="width:140px;">활동 지역</th>
+                <th style="width:80px;" class="center">인증</th>
+                <th style="width:80px;" class="center">순서</th>
+                <th style="width:80px;" class="center">관리</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>
+                  <div class="row-host">
+                    <span class="logo">당</span>
+                    <span class="name">당근</span>
+                  </div>
+                </td>
+                <td><span class="badge company">회사</span></td>
+                <td>모바일·커뮤니티</td>
+                <td>서울 강남구</td>
+                <td class="center"><span class="toggle on" title="verified=true"></span></td>
+                <td class="center">10</td>
+                <td class="center">
+                  <button class="icon-btn" title="더보기">⋯</button>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>
+                  <div class="row-host">
+                    <span class="logo">A</span>
+                    <span class="name">AWSKRUG</span>
+                  </div>
+                </td>
+                <td><span class="badge community">커뮤니티</span></td>
+                <td>클라우드</td>
+                <td>전국</td>
+                <td class="center"><span class="toggle on"></span></td>
+                <td class="center">8</td>
+                <td class="center">
+                  <button class="icon-btn">⋯</button>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  <div class="row-host">
+                    <span class="logo">G</span>
+                    <span class="name">GDG Seoul</span>
+                  </div>
+                </td>
+                <td><span class="badge community">커뮤니티</span></td>
+                <td>웹·모바일</td>
+                <td>서울</td>
+                <td class="center"><span class="toggle"></span></td>
+                <td class="center">5</td>
+                <td class="center">
+                  <button class="icon-btn">⋯</button>
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>
+                  <div class="row-host">
+                    <span class="logo">F</span>
+                    <span class="name">F-Lab</span>
+                  </div>
+                </td>
+                <td><span class="badge edu">교육</span></td>
+                <td>개발 부트캠프</td>
+                <td>온라인</td>
+                <td class="center"><span class="toggle"></span></td>
+                <td class="center">0</td>
+                <td class="center">
+                  <button class="icon-btn">⋯</button>
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>
+                  <div class="row-host">
+                    <span class="logo" style="background:linear-gradient(135deg,#fca5a5,#fbbf24);color:#7c2d12">D</span>
+                    <span class="name">디스콰이엇</span>
+                  </div>
+                </td>
+                <td><span class="badge media">미디어</span></td>
+                <td>스타트업</td>
+                <td>—</td>
+                <td class="center"><span class="toggle"></span></td>
+                <td class="center">0</td>
+                <td class="center">
+                  <button class="icon-btn">⋯</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <button class="fab">+ &nbsp;주최 생성</button>
+
+          <p style="margin-top:18px;font-size:12px;color:#6b7280;">
+            <strong>주석</strong> · 목록의 인증 토글은 시각적 표시이며,
+            실제 토글 변경은 수정 페이지에서만 가능 (감사 추적 + 오조작 방지).
+            더보기(⋯) 메뉴 = 수정 / 삭제.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- 2. Modify                      -->
+      <!-- ============================== -->
+      <section class="mockup">
+        <div class="label">2) /admin/host/modify?id=1 — 수정 (Create도 동일 구조)</div>
+        <div class="body">
+
+          <!-- 기본 정보 -->
+          <div class="section-head">
+            기본 정보
+            <span class="sub">· 필수 항목은 빨간 *</span>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label>주최명 <span class="req">*</span></label>
+              <input type="text" value="당근" />
+            </div>
+            <div class="field">
+              <label>분류 <span class="req">*</span></label>
+              <select>
+                <option>회사 (COMPANY)</option>
+                <option>커뮤니티 (COMMUNITY)</option>
+                <option>학회/학술 (ACADEMIC)</option>
+                <option>정부/공공 (GOVERNMENT)</option>
+                <option>교육기관 (EDUCATION)</option>
+                <option>미디어 (MEDIA)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid-3" style="margin-top:14px;">
+            <div class="field">
+              <label>도메인 라벨</label>
+              <input type="text" value="모바일·커뮤니티" />
+              <span class="hint">예: 핀테크, 모바일·커뮤니티</span>
+            </div>
+            <div class="field">
+              <label>활동 지역</label>
+              <input type="text" value="서울 강남구" />
+              <span class="hint">예: 서울 강남구 / 온라인 / 전국</span>
+            </div>
+            <div class="field">
+              <label>정렬 우선순위</label>
+              <input type="number" value="10" />
+              <span class="hint">큰 값이 먼저 노출</span>
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:14px;">
+            <label>주최 설명</label>
+            <textarea>당근(Daangn)은 ...</textarea>
+          </div>
+
+          <!-- 이미지 -->
+          <div class="section-head">
+            이미지
+            <span class="sub">· 로고는 1:1, 배너는 4:1 권장</span>
+          </div>
+
+          <div style="display:flex; gap:20px; align-items:flex-start;">
+            <div class="field">
+              <label>로고 이미지 (image_link)</label>
+              <div class="image-slot logo">로고 업로드 / URL</div>
+            </div>
+            <div class="field" style="flex:1;">
+              <label>상단 배너 이미지 (banner_image_link)</label>
+              <div class="image-slot banner">배너 업로드 / URL · 비워두면 fallback</div>
+            </div>
+          </div>
+
+          <!-- 외부 링크 -->
+          <div class="section-head">
+            외부 링크
+            <span class="sub">· 폼 제출 시 전체 교체(PUT)</span>
+          </div>
+
+          <div class="repeater">
+            <div class="row" style="font-size:11px;color:#6b7280;">
+              <div>타입</div><div>표시 문구</div><div>URL</div>
+              <div class="center">대표</div><div class="center">순서</div><div></div>
+            </div>
+            <div class="row">
+              <select>
+                <option>HOMEPAGE</option><option>YOUTUBE</option>
+                <option>INSTAGRAM</option><option>FACEBOOK</option>
+                <option>LINKEDIN</option><option>GITHUB</option>
+                <option>BLOG</option><option>ETC</option>
+              </select>
+              <input type="text" value="공식 홈페이지" />
+              <input type="url" value="https://team.daangn.com" />
+              <div class="center"><input type="radio" name="primary" checked /></div>
+              <input type="number" value="0" />
+              <button class="del">삭제</button>
+            </div>
+            <div class="row">
+              <select><option selected>YOUTUBE</option></select>
+              <input type="text" value="YouTube" />
+              <input type="url" value="https://youtube.com/@daangn" />
+              <div class="center"><input type="radio" name="primary" /></div>
+              <input type="number" value="1" />
+              <button class="del">삭제</button>
+            </div>
+            <div class="row">
+              <select><option selected>BLOG</option></select>
+              <input type="text" value="기술 블로그" />
+              <input type="url" value="https://medium.com/daangn" />
+              <div class="center"><input type="radio" name="primary" /></div>
+              <input type="number" value="2" />
+              <button class="del">삭제</button>
+            </div>
+            <button class="add">+ 링크 추가</button>
+          </div>
+
+          <!-- 토픽 -->
+          <div class="section-head">
+            수동 토픽
+            <span class="sub">· 비워두면 행사 태그에서 자동 집계</span>
+          </div>
+
+          <div class="toggle-row" style="margin-bottom:10px;">
+            <span class="label">자동 집계 사용</span>
+            <span class="desc">행사 태그에서 상위 N개 자동 산출. 직접 입력하려면 끄세요.</span>
+            <span class="toggle"></span>
+          </div>
+
+          <div class="repeater">
+            <div class="row topic" style="font-size:11px;color:#6b7280;">
+              <div>토픽 이름</div><div class="center">순서</div><div></div>
+            </div>
+            <div class="row topic">
+              <input type="text" value="백엔드" />
+              <input type="number" value="0" />
+              <button class="del">삭제</button>
+            </div>
+            <div class="row topic">
+              <input type="text" value="SRE / 인프라" />
+              <input type="number" value="1" />
+              <button class="del">삭제</button>
+            </div>
+            <button class="add">+ 토픽 추가</button>
+          </div>
+
+          <!-- 위험 구역 -->
+          <div class="danger-zone">
+            <h3>위험 구역</h3>
+            <p>아래 액션은 별도 API로 즉시 실행됩니다. 폼 저장과 무관.</p>
+
+            <div class="toggle-row" style="background:#fff;border-color:#fecaca;margin-bottom:10px;">
+              <span class="label">인증 (verified)</span>
+              <span class="desc">PATCH /admin/v1/hosts/{id}/verified — 별도 호출 / 감사 추적</span>
+              <span class="toggle on"></span>
+            </div>
+
+            <div class="actions">
+              <button title="POST /admin/v1/hosts/{id}/backfill-events">
+                ⚙ &nbsp;organizer 텍스트 일괄 매핑 (backfill)
+              </button>
+            </div>
+            <p style="margin-top:8px;">
+              backfill: <code>DevEvent.organizer</code>가 이 주최명과 정확히 일치하는 행사들을
+              EventHostMeta로 매핑합니다. 되돌릴 수 없으므로 confirm dialog 필요.
+            </p>
+          </div>
+
+          <div class="form-footer">
+            <button class="primary">확인 (PUT)</button>
+            <button class="ghost">취소</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- 3. Component map               -->
+      <!-- ============================== -->
+      <section class="mockup">
+        <div class="label">3) 컴포넌트 → API 매핑</div>
+        <div class="body" style="font-size:13px;line-height:1.7;">
+          <ul style="padding-left:18px;margin:0;">
+            <li><strong>List 페이지</strong> — <code>GET /admin/v1/hosts</code> 한 번. 검색·필터는 클라이언트 측 (현재 API에 page/q 없음).</li>
+            <li><strong>List ⋯ 메뉴 → 삭제</strong> — <code>DELETE /admin/v1/hosts/{id}</code> (기존)</li>
+            <li><strong>Create 제출</strong> — <code>POST /admin/v1/hosts</code> body = EventHostModifyRequestDTO (links/topics 포함)</li>
+            <li><strong>Modify 제출 (확인 버튼)</strong> — <code>PUT /admin/v1/hosts/{id}</code> body = EventHostModifyRequestDTO 전체. links/topics 전체 교체</li>
+            <li><strong>verified 토글</strong> — <code>PATCH /admin/v1/hosts/{id}/verified</code> 단독. 즉시 반영 + 감사 로그</li>
+            <li><strong>backfill 버튼</strong> — <code>POST /admin/v1/hosts/{id}/backfill-events</code> 단독. confirm dialog 후 즉시 실행</li>
+          </ul>
+          <p style="margin-top:14px;color:#6b7280;">
+            ※ 개별 <code>POST/DELETE /links</code>, <code>/topics</code> 엔드포인트는 사용 안 함 — PUT 일괄 교체 방식 선택.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </body>
+</html>

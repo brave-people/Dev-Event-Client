@@ -31,7 +31,7 @@ const Client = ({ token }: { token: ResponseTokenModel }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <EventComponent title="최상단 메인 최상단 배너 수정">
+      <EventComponent title="주최 수정">
         <HostModifyForm host={hosts} />
       </EventComponent>
     </QueryClientProvider>
